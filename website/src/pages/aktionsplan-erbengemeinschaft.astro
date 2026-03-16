@@ -2,130 +2,175 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout
-  title="Dein persoenlicher Aktionsplan fuer blockierte Erbengemeinschaften | wirkaufendeineimmobilie.de"
-  description="Kein Standard-PDF. Wir erstellen deinen 7-Schritte Aktionsplan basierend auf deiner Situation — mit Blockade-Rechner, Verhandlungs-Skript und 30-Tage-Plan."
+  title="Aktionsplan Erbengemeinschaft — persoenlich erstellt"
+  description="Beantworte 5 Fragen zu deiner Erbengemeinschaft. Joachim Kleinke erstellt deinen persoenlichen 7-Schritte Aktionsplan. Kostenlos."
 >
 
-  <section class="section tool-hero">
-    <div class="container tool-hero__inner">
-      <div class="label">Kostenloser Aktionsplan — individuell erstellt</div>
-      <h1>Dein persoenlicher 7-Schritte Aktionsplan fuer<br /><span class="text-accent">blockierte Erbengemeinschaften</span></h1>
-      <p class="hero-sub">Beantworte 5 kurze Fragen — wir erstellen deinen Aktionsplan mit konkreten Zahlen fuer deine Situation. Innerhalb von 24 Stunden in deinem Postfach.</p>
-    </div>
-  </section>
+  <!-- ===== LANDING SECTION ===== -->
+  <section class="section ap-hero">
+    <div class="container ap-hero__inner">
+      <div class="label">Persoenlich erstellt von Joachim Kleinke</div>
+      <h1>Dein 7-Schritte Aktionsplan —<br /><span class="text-accent">auf deine Erbengemeinschaft zugeschnitten</span></h1>
+      <p class="ap-hero__sub">Wir erstellen deinen Aktionsplan basierend auf deinen Angaben —
+        mit konkreten Empfehlungen fuer deine Situation. Dafuer brauchen wir
+        ein paar Informationen von dir. Unsere Experten schauen sich das an
+        und schicken dir deinen persoenlichen Aktionsplan, auf deine
+        Erbengemeinschaft zugeschnitten. Kostenlos.</p>
 
-  <!-- Vergleichs-Box: Standard vs. Dein Aktionsplan -->
-  <section class="section">
-    <div class="container">
-      <div class="compare-box">
-        <div class="compare-col compare-standard">
-          <div class="compare-label">Standard-Ratgeber</div>
-          <ul>
-            <li><span class="icon-x">&times;</span> Gleich fuer alle — egal ob 2 oder 5 Erben</li>
-            <li><span class="icon-x">&times;</span> Allgemeine Tipps ohne konkrete Zahlen</li>
-            <li><span class="icon-x">&times;</span> Keine lokalen Informationen</li>
-            <li><span class="icon-x">&times;</span> Masse statt Klasse</li>
-          </ul>
+      <div class="ap-steps">
+        <div class="ap-step">
+          <div class="ap-step__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="ap-step__label">5 Fragen beantworten</div>
+          <div class="ap-step__detail">2 Minuten</div>
         </div>
-        <div class="compare-col compare-personal">
-          <div class="compare-label">Dein Aktionsplan</div>
-          <ul>
-            <li><span class="icon-check">&#10003;</span> Auf deine Erben-Situation zugeschnitten</li>
-            <li><span class="icon-check">&#10003;</span> Konkrete Kosten-Berechnung fuer dein Objekt</li>
-            <li><span class="icon-check">&#10003;</span> Nachlassgericht + Fachanwaelte in deiner Region</li>
-            <li><span class="icon-check">&#10003;</span> Von Immobilien-Experten mit 35+ Jahren Erfahrung</li>
-          </ul>
+        <div class="ap-step__divider"></div>
+        <div class="ap-step">
+          <div class="ap-step__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="ap-step__label">Joachim analysiert deine Situation</div>
+          <div class="ap-step__detail">Persoenlich, nicht automatisiert</div>
         </div>
+        <div class="ap-step__divider"></div>
+        <div class="ap-step">
+          <div class="ap-step__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div class="ap-step__label">Dein Aktionsplan in 24h</div>
+          <div class="ap-step__detail">Individuell, mit konkreten Zahlen</div>
+        </div>
+      </div>
+
+      <a href="#wizard" class="btn btn-primary ap-hero__cta">Jetzt Aktionsplan erstellen lassen &rarr;</a>
+
+      <div class="ap-includes">
+        <p class="text-mid">Dein Aktionsplan enthaelt:</p>
+        <ul class="ap-includes__list">
+          <li>7 konkrete Schritte — priorisiert fuer deine Situation</li>
+          <li>Blockade-Rechner: Was dich der Stillstand jeden Monat kostet</li>
+          <li>Verhandlungs-Skript fuer das Gespraech mit dem blockierenden Erben</li>
+          <li>Lokale Kontakte: Nachlassgericht und Fachanwaelte in deiner Region</li>
+          <li>Marktwert-Schaetzung fuer dein Objekt</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <section class="section bg-alt">
-    <div class="container tool-content">
-      <div class="tool-grid">
-        <div class="tool-pain">
-          <h2>Kommt dir das bekannt vor?</h2>
-          <ul class="pain-list">
-            <li>Einer der Erben blockiert den Verkauf</li>
-            <li>Die laufenden Kosten fressen die Substanz</li>
-            <li>Seit Monaten passiert einfach nichts</li>
-            <li>Niemand will die Verantwortung uebernehmen</li>
-            <li>Die Immobilie verfaellt, waehrend alle streiten</li>
-          </ul>
+  <!-- ===== WIZARD SECTION ===== -->
+  <section class="section" id="wizard">
+    <div class="container">
+      <div class="wizard">
+        <!-- Progress Bar -->
+        <div class="wizard-progress">
+          <div class="wizard-progress-fill" style="width: 16.66%"></div>
+        </div>
+        <div class="wizard-step-label">Schritt 1 von 6</div>
 
-          <h3>Was in deinem Aktionsplan steht:</h3>
-          <ul class="content-list">
-            <li><strong>Blockade-Rechner:</strong> Was dich die Blockade jeden Monat kostet — Grundsteuer, Hausgeld, Versicherung, Wertverlust. Berechnet fuer dein Objekt.</li>
-            <li><strong>Die 7 Wege aus der Blockade</strong> — priorisiert fuer deine Situation. Je laenger die Blockade, desto hoeher die Eskalationsstufe.</li>
-            <li><strong>Dein zustaendiges Nachlassgericht</strong> + empfohlene Fachanwaelte und Beratungsstellen in deiner Region</li>
-            <li><strong>Marktwert-Schaetzung:</strong> Was deine Wohnung im Angebotsverfahren bringen koennte — und dein Anteil pro Erbe</li>
-            <li><strong>Verhandlungs-Skript:</strong> Das Gespraech mit dem blockierenden Erben — Wort fuer Wort, angepasst an eure Konstellation</li>
-            <li><strong>30-Tage-Plan:</strong> Von der Blockade zum Verkauf — dein konkreter Fahrplan</li>
-          </ul>
-
-          <div class="personalization-note">
-            <strong>Warum das hier anders ist:</strong> Das ist kein Standard-PDF das alle bekommen. Wir erstellen deinen Aktionsplan basierend auf deinen Angaben — mit konkreten Zahlen fuer deine Situation. Deshalb brauchen wir ein paar Informationen von dir.
-          </div>
-
-          <div class="tool-trust">
-            Kostenlos. Individuell erstellt. Innerhalb von 24h in deinem Postfach.
+        <!-- Step 1: Wie viele Erben? -->
+        <div class="wizard-step" data-step="1">
+          <h3>Wie viele Erben seid ihr?</h3>
+          <p class="text-mid">Das beeinflusst die rechtlichen Optionen und die Aufteilung.</p>
+          <div class="wizard-options">
+            <button type="button" data-value="2" data-field="erben_anzahl">2 Erben</button>
+            <button type="button" data-value="3" data-field="erben_anzahl">3 Erben</button>
+            <button type="button" data-value="4+" data-field="erben_anzahl">4 oder mehr</button>
+            <button type="button" data-value="unsicher" data-field="erben_anzahl">Bin mir nicht sicher</button>
           </div>
         </div>
 
-        <div class="tool-form-wrap">
-          <h3>Deinen Aktionsplan erstellen lassen</h3>
-          <p class="form-intro">5 kurze Fragen — dein Aktionsplan wird innerhalb von 24 Stunden fuer dich erstellt.</p>
-          <form class="tool-form" id="erben-form">
+        <!-- Step 2: Wer blockiert? -->
+        <div class="wizard-step" data-step="2" hidden>
+          <button type="button" class="wizard-back" onclick="goToStep(1)">&larr; Zurueck</button>
+          <h3>Wer blockiert den Verkauf?</h3>
+          <p class="text-mid">Je nachdem wer blockiert, gibt es unterschiedliche rechtliche Hebel.</p>
+          <div class="wizard-options">
+            <button type="button" data-value="geschwister" data-field="wer_blockiert">Ein Geschwisterteil</button>
+            <button type="button" data-value="ehepartner" data-field="wer_blockiert">Ehepartner/in eines Erben</button>
+            <button type="button" data-value="enkel" data-field="wer_blockiert">Enkel oder entfernte Verwandte</button>
+            <button type="button" data-value="mehrere" data-field="wer_blockiert">Mehrere blockieren</button>
+            <button type="button" data-value="andere" data-field="wer_blockiert">Andere Situation</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Seit wann blockiert? -->
+        <div class="wizard-step" data-step="3" hidden>
+          <button type="button" class="wizard-back" onclick="goToStep(2)">&larr; Zurueck</button>
+          <h3>Seit wann geht nichts mehr voran?</h3>
+          <p class="text-mid">Die Dauer bestimmt die Eskalationsstufe — und was jetzt am meisten Sinn macht.</p>
+          <div class="wizard-options">
+            <button type="button" data-value="<6m" data-field="blockade_dauer">Weniger als 6 Monate</button>
+            <button type="button" data-value="6-24m" data-field="blockade_dauer">6 bis 24 Monate</button>
+            <button type="button" data-value=">2j" data-field="blockade_dauer">Ueber 2 Jahre</button>
+            <button type="button" data-value="unklar" data-field="blockade_dauer">Weiss ich nicht genau</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Freitext — Die Geschichte -->
+        <div class="wizard-step" data-step="4" hidden>
+          <button type="button" class="wizard-back" onclick="goToStep(3)">&larr; Zurueck</button>
+          <h3>Beschreib kurz eure Situation</h3>
+          <p class="text-mid">Was ist das Hauptproblem? Je mehr wir verstehen, desto konkreter wird dein Aktionsplan.</p>
+          <textarea name="situation" rows="5" placeholder="z.B.: Meine Schwester will das Haus unserer Mutter nicht verkaufen. Seit 2 Jahren Stillstand, die Nebenkosten laufen, niemand kuemmert sich..."></textarea>
+          <p class="wizard-hint">Keine Sorge — deine Angaben sind vertraulich und werden nur fuer deinen Aktionsplan verwendet.</p>
+          <button type="button" class="btn btn-primary wizard-next">Weiter &rarr;</button>
+        </div>
+
+        <!-- Step 5: PLZ + Objekt-Typ -->
+        <div class="wizard-step" data-step="5" hidden>
+          <button type="button" class="wizard-back" onclick="goToStep(4)">&larr; Zurueck</button>
+          <h3>Wo steht die Immobilie?</h3>
+          <p class="text-mid">Damit wir lokale Kontakte und Marktdaten fuer deinen Aktionsplan einbeziehen koennen.</p>
+          <div class="wizard-inputs">
             <div class="form-group">
-              <label for="erben-anzahl">Wie viele Erben?</label>
-              <select id="erben-anzahl" name="anzahl_erben" required>
-                <option value="" disabled selected>Bitte waehlen</option>
-                <option value="2">2 Erben</option>
-                <option value="3">3 Erben</option>
-                <option value="4+">4 oder mehr Erben</option>
-                <option value="unbekannt">Weiss ich nicht genau</option>
-              </select>
+              <label for="wizard-plz">PLZ</label>
+              <input type="text" id="wizard-plz" name="plz" pattern="[0-9]{5}" maxlength="5" inputmode="numeric" placeholder="04315" />
             </div>
             <div class="form-group">
-              <label for="erben-blockierer">Wer blockiert?</label>
-              <select id="erben-blockierer" name="wer_blockiert" required>
-                <option value="" disabled selected>Bitte waehlen</option>
-                <option value="geschwister">Geschwister</option>
-                <option value="ehepartner">Ehepartner/in eines Erben</option>
-                <option value="enkel">Enkel / naechste Generation</option>
-                <option value="andere">Andere</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="erben-dauer">Seit wann blockiert?</label>
-              <select id="erben-dauer" name="blockiert_seit" required>
-                <option value="" disabled selected>Bitte waehlen</option>
-                <option value="<6m">Weniger als 6 Monate</option>
-                <option value="6-24m">6 bis 24 Monate</option>
-                <option value=">2j">Mehr als 2 Jahre</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="erben-objekt">Objekt-Typ</label>
-              <select id="erben-objekt" name="objekt_typ" required>
-                <option value="" disabled selected>Bitte waehlen</option>
-                <option value="wohnung">Wohnung</option>
-                <option value="haus">Haus</option>
+              <label for="wizard-objekt">Was fuer eine Immobilie?</label>
+              <select id="wizard-objekt" name="objekt_typ">
+                <option value="wohnung">Eigentumswohnung</option>
+                <option value="haus">Einfamilienhaus</option>
+                <option value="mehrfamilienhaus">Mehrfamilienhaus</option>
                 <option value="grundstueck">Grundstueck</option>
+                <option value="sonstiges">Sonstiges</option>
               </select>
             </div>
-            <div class="form-group">
-              <label for="erben-plz">PLZ des Objekts</label>
-              <input type="text" id="erben-plz" name="plz" pattern="[0-9]{5}" maxlength="5" placeholder="z.B. 04315" required />
-            </div>
-            <div class="form-group">
-              <label for="erben-email">Deine E-Mail *</label>
-              <input type="email" id="erben-email" name="email" required placeholder="max@beispiel.de" />
-            </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;">Aktionsplan erstellen lassen &rarr;</button>
-            <p class="form-hint">Kein Standard-PDF. Dein persoenlicher Aktionsplan — kostenlos.</p>
-          </form>
+          </div>
+          <button type="button" class="btn btn-primary wizard-next">Weiter &rarr;</button>
         </div>
+
+        <!-- Step 6: Email — Abschluss mit Joachim-Positionierung -->
+        <div class="wizard-step wizard-final" data-step="6" hidden>
+          <button type="button" class="wizard-back" onclick="goToStep(5)">&larr; Zurueck</button>
+          <div class="joachim-box">
+            <div class="joachim-badge">Persoenlich erstellt von</div>
+            <h3>Joachim Kleinke</h3>
+            <p class="text-mid">35+ Jahre Immobilienerfahrung im Leipziger Markt.
+              Joachim analysiert deine Angaben und erstellt deinen 7-Schritte Aktionsplan
+              mit konkreten Empfehlungen fuer DEINE Erbengemeinschaft.</p>
+          </div>
+
+          <h3>Wohin sollen wir deinen Aktionsplan schicken?</h3>
+          <div class="wizard-inputs">
+            <div class="form-group">
+              <label for="wizard-name">Dein Name</label>
+              <input type="text" id="wizard-name" name="name" placeholder="Max Mustermann" />
+            </div>
+            <div class="form-group">
+              <label for="wizard-email">Deine E-Mail *</label>
+              <input type="email" id="wizard-email" name="email" required placeholder="max@beispiel.de" />
+            </div>
+            <div class="form-group">
+              <label for="wizard-telefon">Telefon (optional — fuer Rueckfragen)</label>
+              <input type="tel" id="wizard-telefon" name="telefon" placeholder="0341 123 456" />
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary wizard-submit">Aktionsplan erstellen lassen &rarr;</button>
+          <p class="wizard-disclaimer">Kostenlos und unverbindlich. Dein Aktionsplan wird innerhalb von 24 Stunden per E-Mail zugestellt. Keine versteckten Kosten.</p>
+        </div>
+
       </div>
     </div>
   </section>
@@ -133,235 +178,489 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .tool-hero {
+  /* ===== LANDING SECTION ===== */
+  .ap-hero {
     text-align: center;
     padding-top: var(--space-20);
-    padding-bottom: var(--space-12);
+    padding-bottom: var(--space-16);
   }
 
-  .tool-hero__inner {
+  .ap-hero__inner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-6);
+    max-width: 800px;
+    margin: 0 auto;
   }
 
-  .hero-sub {
+  .ap-hero__sub {
     color: var(--color-text-mid);
     font-size: var(--text-lg);
     max-width: 640px;
     line-height: var(--leading-relaxed);
   }
 
-  /* --- Vergleichs-Box --- */
-  .compare-box {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    border: 1px solid var(--color-border);
-  }
-
-  @media (max-width: 640px) {
-    .compare-box {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .compare-col {
-    padding: var(--space-8);
-  }
-
-  .compare-standard {
-    background: var(--color-bg-alt);
-  }
-
-  .compare-personal {
-    background: var(--color-bg-card);
-    border-left: 3px solid var(--color-accent);
-  }
-
-  @media (max-width: 640px) {
-    .compare-personal {
-      border-left: none;
-      border-top: 3px solid var(--color-accent);
-    }
-  }
-
-  .compare-label {
-    font-weight: var(--weight-bold);
-    font-size: var(--text-sm);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wider);
-    margin-bottom: var(--space-4);
-  }
-
-  .compare-standard .compare-label {
-    color: var(--color-text-muted);
-  }
-
-  .compare-personal .compare-label {
-    color: var(--color-accent);
-  }
-
-  .compare-col ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .compare-col li {
+  /* 3-Step Explanation */
+  .ap-steps {
     display: flex;
     align-items: flex-start;
+    gap: var(--space-4);
+    margin: var(--space-6) 0;
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .ap-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: var(--space-2);
-    color: var(--color-text-mid);
-    font-size: var(--text-sm);
-    line-height: var(--leading-normal);
   }
 
-  .icon-x {
-    color: var(--color-text-muted);
-    font-weight: var(--weight-bold);
-    font-size: var(--text-lg);
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .icon-check {
+  .ap-step__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-lg);
+    background: var(--color-accent-light);
     color: var(--color-accent);
-    font-weight: var(--weight-bold);
-    font-size: var(--text-lg);
-    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ap-step__label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+    line-height: var(--leading-snug);
+  }
+
+  .ap-step__detail {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .ap-step__divider {
+    width: 40px;
+    height: 2px;
+    background: var(--color-border);
+    margin-top: 28px;
     flex-shrink: 0;
   }
 
-  /* --- Content Grid --- */
-  .tool-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-10);
-    align-items: start;
-  }
-
-  @media (max-width: 768px) {
-    .tool-grid {
-      grid-template-columns: 1fr;
+  @media (max-width: 600px) {
+    .ap-steps {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .ap-step {
+      flex-direction: row;
+      text-align: left;
+      gap: var(--space-3);
+    }
+    .ap-step__divider {
+      display: none;
+    }
+    .ap-step__icon {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+    .ap-step__icon svg {
+      width: 22px;
+      height: 22px;
     }
   }
 
-  .pain-list,
-  .content-list {
+  .ap-hero__cta {
+    margin-top: var(--space-2);
+    font-size: var(--text-lg);
+    padding: var(--space-4) var(--space-8);
+  }
+
+  /* Includes List */
+  .ap-includes {
+    max-width: 560px;
+    text-align: left;
+    margin-top: var(--space-4);
+  }
+
+  .ap-includes > p {
+    font-weight: var(--weight-semibold);
+    margin-bottom: var(--space-3);
+  }
+
+  .ap-includes__list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-    margin-top: var(--space-4);
-    margin-bottom: var(--space-8);
+    gap: var(--space-2);
   }
 
-  .pain-list li::before {
-    content: '\2717  ';
-    color: var(--color-error);
-    font-weight: var(--weight-bold);
-  }
-
-  .content-list li::before {
-    content: '\2713  ';
-    color: var(--color-success);
-    font-weight: var(--weight-bold);
-  }
-
-  .pain-list li,
-  .content-list li {
-    color: var(--color-text-mid);
-    line-height: var(--leading-relaxed);
-  }
-
-  .personalization-note {
-    background: var(--color-accent-light);
-    border-left: 3px solid var(--color-accent);
-    border-radius: var(--radius-md);
-    padding: var(--space-5);
-    margin: var(--space-6) 0;
-    color: var(--color-text-mid);
-    line-height: var(--leading-relaxed);
+  .ap-includes__list li {
     font-size: var(--text-sm);
+    color: var(--color-text-mid);
+    padding-left: var(--space-5);
+    position: relative;
   }
 
-  .personalization-note strong {
-    color: var(--color-text);
-    display: block;
-    margin-bottom: var(--space-1);
-  }
-
-  .tool-trust {
-    font-weight: var(--weight-semibold);
+  .ap-includes__list li::before {
+    content: '\2713';
     color: var(--color-accent);
-    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    position: absolute;
+    left: 0;
   }
 
-  .tool-form-wrap {
+  /* ===== WIZARD ===== */
+  .wizard {
+    max-width: 640px;
+    margin: 0 auto;
     background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+    padding: var(--space-10);
     box-shadow: var(--shadow-lg);
-    position: sticky;
-    top: var(--space-8);
   }
 
-  .tool-form-wrap h3 {
+  @media (max-width: 480px) {
+    .wizard { padding: var(--space-6) var(--space-5); }
+  }
+
+  /* Progress Bar */
+  .wizard-progress {
+    height: 6px;
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-full);
+    overflow: hidden;
     margin-bottom: var(--space-2);
   }
 
-  .form-intro {
-    color: var(--color-text-muted);
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-6);
+  .wizard-progress-fill {
+    height: 100%;
+    background: var(--color-accent);
+    border-radius: var(--radius-full);
+    transition: width 400ms var(--ease-default);
   }
 
-  .tool-form {
+  .wizard-step-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-align: right;
+    margin-bottom: var(--space-8);
+  }
+
+  /* Step Content */
+  .wizard-step h3 {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-snug);
+    margin-bottom: var(--space-2);
+  }
+
+  .wizard-step .text-mid {
+    color: var(--color-text-mid);
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-2);
+  }
+
+  /* Option Buttons (Karten-Style) */
+  .wizard-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  @media (max-width: 480px) {
+    .wizard-options { grid-template-columns: 1fr; }
+  }
+
+  .wizard-options button {
+    background: var(--color-bg);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-default);
+    min-height: 56px;
+    text-align: left;
+    line-height: var(--leading-snug);
+  }
+
+  .wizard-options button:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  .wizard-options button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .wizard-options button.selected {
+    border-color: var(--color-accent);
+    background: var(--color-accent-light);
+    color: var(--color-accent-hover);
+  }
+
+  /* Step Animation */
+  .wizard-enter {
+    animation: wizardIn 300ms var(--ease-default);
+  }
+
+  .wizard-exit {
+    animation: wizardOut 200ms var(--ease-default);
+  }
+
+  @keyframes wizardIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes wizardOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-8px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wizard-enter, .wizard-exit { animation: none; }
+    .wizard-progress-fill { transition: none; }
+  }
+
+  /* Textarea */
+  .wizard textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    padding: var(--space-4);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: border-color var(--duration-normal) var(--ease-default);
+    margin-top: var(--space-4);
+  }
+
+  .wizard textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .wizard textarea::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  /* Form Inputs */
+  .wizard-inputs {
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
+    margin-top: var(--space-4);
   }
 
-  .form-group {
+  .wizard .form-group {
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
   }
 
-  .form-group label {
+  .wizard .form-group label {
     font-size: var(--text-sm);
     font-weight: var(--weight-medium);
     color: var(--color-text-mid);
   }
 
-  .form-group input,
-  .form-group select {
+  .wizard .form-group input,
+  .wizard .form-group select {
     width: 100%;
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    padding: var(--space-3) var(--space-4);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: border-color var(--duration-normal) var(--ease-default);
+    min-height: 48px;
   }
 
-  .form-hint {
+  .wizard .form-group input:focus,
+  .wizard .form-group select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .wizard .form-group input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  /* Wizard Buttons */
+  .wizard .wizard-next,
+  .wizard .wizard-submit {
+    width: 100%;
+    margin-top: var(--space-6);
+  }
+
+  /* Joachim Box */
+  .joachim-box {
     text-align: center;
+    padding: var(--space-6);
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-8);
+  }
+
+  .joachim-badge {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .joachim-box h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .joachim-box .text-mid {
+    font-size: var(--text-sm);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* Back Link */
+  .wizard-back {
+    font-size: var(--text-sm);
+    font-family: var(--font-family);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    margin-bottom: var(--space-4);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    background: none;
+    border: none;
+    padding: 0;
+    transition: color var(--duration-normal) var(--ease-default);
+  }
+
+  .wizard-back:hover { color: var(--color-text); }
+
+  /* Hint + Disclaimer */
+  .wizard-hint {
     font-size: var(--text-xs);
     color: var(--color-text-muted);
-    margin-top: var(--space-1);
+    margin-top: var(--space-2);
+  }
+
+  .wizard-disclaimer {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-3);
+    text-align: center;
   }
 </style>
 
 <script>
-  const form = document.getElementById('erben-form') as HTMLFormElement;
-  form?.addEventListener('submit', async (e) => {
+  // State
+  const answers: Record<string, string> = {};
+  let currentStep = 1;
+  const totalSteps = 6;
+
+  // Option-Button Click → save answer + auto-advance
+  document.querySelectorAll('.wizard-options button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const field = (btn as HTMLElement).dataset.field!;
+      const value = (btn as HTMLElement).dataset.value!;
+      answers[field] = value;
+
+      // Visual feedback
+      btn.parentElement!.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+
+      // Auto-advance after 300ms
+      setTimeout(() => goToStep(currentStep + 1), 300);
+    });
+  });
+
+  // "Weiter" Buttons
+  document.querySelectorAll('.wizard-next').forEach(btn => {
+    btn.addEventListener('click', () => goToStep(currentStep + 1));
+  });
+
+  // Progress Bar Update
+  function updateProgress() {
+    const bar = document.querySelector('.wizard-progress-fill') as HTMLElement;
+    bar.style.width = `${(currentStep / totalSteps) * 100}%`;
+    const label = document.querySelector('.wizard-step-label') as HTMLElement;
+    label.textContent = `Schritt ${currentStep} von ${totalSteps}`;
+  }
+
+  // Step-Transition with Animation
+  function goToStep(step: number) {
+    if (step < 1 || step > totalSteps) return;
+    const current = document.querySelector(`[data-step="${currentStep}"]`) as HTMLElement;
+    const next = document.querySelector(`[data-step="${step}"]`) as HTMLElement;
+
+    current.classList.add('wizard-exit');
+    setTimeout(() => {
+      current.classList.remove('wizard-exit');
+      current.hidden = true;
+      next.hidden = false;
+      next.classList.add('wizard-enter');
+      setTimeout(() => next.classList.remove('wizard-enter'), 300);
+    }, 200);
+
+    currentStep = step;
+    updateProgress();
+  }
+
+  // Make goToStep available globally for inline onclick handlers
+  (window as any).goToStep = goToStep;
+
+  // Submit
+  document.querySelector('.wizard-submit')?.addEventListener('click', async (e) => {
     e.preventDefault();
-    const formData = new FormData(form);
+    const finalStep = document.querySelector('.wizard-final') as HTMLElement;
+    const emailInput = finalStep.querySelector('[name="email"]') as HTMLInputElement;
+    if (!emailInput.value) { emailInput.focus(); return; }
+
+    // Merge all data
+    const formData = new FormData();
     formData.append('typ', 'aktionsplan-erben');
-    const btn = form.querySelector('button') as HTMLButtonElement;
+    Object.entries(answers).forEach(([k, v]) => formData.append(k, v));
+
+    const situationEl = document.querySelector('[name="situation"]') as HTMLTextAreaElement;
+    const plzEl = document.querySelector('[name="plz"]') as HTMLInputElement;
+    const objektEl = document.querySelector('[name="objekt_typ"]') as HTMLSelectElement;
+    const nameEl = finalStep.querySelector('[name="name"]') as HTMLInputElement;
+    const telEl = finalStep.querySelector('[name="telefon"]') as HTMLInputElement;
+
+    formData.append('situation', situationEl?.value || '');
+    formData.append('plz', plzEl?.value || '');
+    formData.append('objekt_typ', objektEl?.value || '');
+    formData.append('name', nameEl?.value || '');
+    formData.append('email', emailInput.value);
+    formData.append('telefon', telEl?.value || '');
+
+    const btn = document.querySelector('.wizard-submit') as HTMLButtonElement;
     btn.textContent = 'Wird erstellt...';
     btn.disabled = true;
+
     try {
       const res = await fetch('/api/lead-magnet', { method: 'POST', body: formData });
       if (res.ok) {
