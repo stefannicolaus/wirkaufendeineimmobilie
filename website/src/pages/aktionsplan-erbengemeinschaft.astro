@@ -2,14 +2,41 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout
-  title="Der 7-Schritte Aktionsplan fuer blockierte Erbengemeinschaften | wirkaufendeineimmobilie.de"
-  description="Einer will nicht verkaufen? Die Kosten laufen? 7-Schritte Aktionsplan mit Blockade-Rechner, Verhandlungs-Skript und 30-Tage-Plan."
+  title="Dein persoenlicher Aktionsplan fuer blockierte Erbengemeinschaften | wirkaufendeineimmobilie.de"
+  description="Kein Standard-PDF. Wir erstellen deinen 7-Schritte Aktionsplan basierend auf deiner Situation — mit Blockade-Rechner, Verhandlungs-Skript und 30-Tage-Plan."
 >
 
   <section class="section tool-hero">
     <div class="container tool-hero__inner">
-      <div class="label">Kostenloser Aktionsplan</div>
-      <h1>Der 7-Schritte Aktionsplan fuer<br /><span class="text-accent">blockierte Erbengemeinschaften</span></h1>
+      <div class="label">Kostenloser Aktionsplan — individuell erstellt</div>
+      <h1>Dein persoenlicher 7-Schritte Aktionsplan fuer<br /><span class="text-accent">blockierte Erbengemeinschaften</span></h1>
+      <p class="hero-sub">Beantworte 5 kurze Fragen — wir erstellen deinen Aktionsplan mit konkreten Zahlen fuer deine Situation. Innerhalb von 24 Stunden in deinem Postfach.</p>
+    </div>
+  </section>
+
+  <!-- Vergleichs-Box: Standard vs. Dein Aktionsplan -->
+  <section class="section">
+    <div class="container">
+      <div class="compare-box">
+        <div class="compare-col compare-standard">
+          <div class="compare-label">Standard-Ratgeber</div>
+          <ul>
+            <li><span class="icon-x">&times;</span> Gleich fuer alle — egal ob 2 oder 5 Erben</li>
+            <li><span class="icon-x">&times;</span> Allgemeine Tipps ohne konkrete Zahlen</li>
+            <li><span class="icon-x">&times;</span> Keine lokalen Informationen</li>
+            <li><span class="icon-x">&times;</span> Masse statt Klasse</li>
+          </ul>
+        </div>
+        <div class="compare-col compare-personal">
+          <div class="compare-label">Dein Aktionsplan</div>
+          <ul>
+            <li><span class="icon-check">&#10003;</span> Auf deine Erben-Situation zugeschnitten</li>
+            <li><span class="icon-check">&#10003;</span> Konkrete Kosten-Berechnung fuer dein Objekt</li>
+            <li><span class="icon-check">&#10003;</span> Nachlassgericht + Fachanwaelte in deiner Region</li>
+            <li><span class="icon-check">&#10003;</span> Von Immobilien-Experten mit 35+ Jahren Erfahrung</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -17,7 +44,7 @@ import Layout from '../layouts/Layout.astro';
     <div class="container tool-content">
       <div class="tool-grid">
         <div class="tool-pain">
-          <h2>Kommt Ihnen das bekannt vor?</h2>
+          <h2>Kommt dir das bekannt vor?</h2>
           <ul class="pain-list">
             <li>Einer der Erben blockiert den Verkauf</li>
             <li>Die laufenden Kosten fressen die Substanz</li>
@@ -26,49 +53,77 @@ import Layout from '../layouts/Layout.astro';
             <li>Die Immobilie verfaellt, waehrend alle streiten</li>
           </ul>
 
-          <h3>Was im Aktionsplan steht:</h3>
+          <h3>Was in deinem Aktionsplan steht:</h3>
           <ul class="content-list">
-            <li>7-Schritte Aktionsplan — von der Blockade zum Verkauf</li>
-            <li>Blockade-Rechner: Was kostet dich die Blockade jeden Monat?</li>
-            <li>Verhandlungs-Skript: Das Gespraech mit dem blockierenden Erben — Wort fuer Wort</li>
-            <li>30-Tage-Plan: In 30 Tagen von der Blockade zum Verkauf</li>
+            <li><strong>Blockade-Rechner:</strong> Was dich die Blockade jeden Monat kostet — Grundsteuer, Hausgeld, Versicherung, Wertverlust. Berechnet fuer dein Objekt.</li>
+            <li><strong>Die 7 Wege aus der Blockade</strong> — priorisiert fuer deine Situation. Je laenger die Blockade, desto hoeher die Eskalationsstufe.</li>
+            <li><strong>Dein zustaendiges Nachlassgericht</strong> + empfohlene Fachanwaelte und Beratungsstellen in deiner Region</li>
+            <li><strong>Marktwert-Schaetzung:</strong> Was deine Wohnung im Angebotsverfahren bringen koennte — und dein Anteil pro Erbe</li>
+            <li><strong>Verhandlungs-Skript:</strong> Das Gespraech mit dem blockierenden Erben — Wort fuer Wort, angepasst an eure Konstellation</li>
+            <li><strong>30-Tage-Plan:</strong> Von der Blockade zum Verkauf — dein konkreter Fahrplan</li>
           </ul>
 
+          <div class="personalization-note">
+            <strong>Warum das hier anders ist:</strong> Das ist kein Standard-PDF das alle bekommen. Wir erstellen deinen Aktionsplan basierend auf deinen Angaben — mit konkreten Zahlen fuer deine Situation. Deshalb brauchen wir ein paar Informationen von dir.
+          </div>
+
           <div class="tool-trust">
-            Kostenlos. 14 Seiten. Sofort per E-Mail.
+            Kostenlos. Individuell erstellt. Innerhalb von 24h in deinem Postfach.
           </div>
         </div>
 
         <div class="tool-form-wrap">
-          <h3>Aktionsplan sichern</h3>
+          <h3>Deinen Aktionsplan erstellen lassen</h3>
+          <p class="form-intro">5 kurze Fragen — dein Aktionsplan wird innerhalb von 24 Stunden fuer dich erstellt.</p>
           <form class="tool-form" id="erben-form">
             <div class="form-group">
-              <label for="erben-anzahl">Anzahl Erben</label>
-              <select id="erben-anzahl" name="anzahl_erben">
+              <label for="erben-anzahl">Wie viele Erben?</label>
+              <select id="erben-anzahl" name="anzahl_erben" required>
+                <option value="" disabled selected>Bitte waehlen</option>
                 <option value="2">2 Erben</option>
                 <option value="3">3 Erben</option>
-                <option value="4">4 Erben</option>
-                <option value="5+">5 oder mehr</option>
+                <option value="4+">4 oder mehr Erben</option>
+                <option value="unbekannt">Weiss ich nicht genau</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="erben-blockierer">Wer blockiert?</label>
+              <select id="erben-blockierer" name="wer_blockiert" required>
+                <option value="" disabled selected>Bitte waehlen</option>
+                <option value="geschwister">Geschwister</option>
+                <option value="ehepartner">Ehepartner/in eines Erben</option>
+                <option value="enkel">Enkel / naechste Generation</option>
+                <option value="andere">Andere</option>
               </select>
             </div>
             <div class="form-group">
               <label for="erben-dauer">Seit wann blockiert?</label>
-              <select id="erben-dauer" name="blockiert_seit">
-                <option value="<3m">Weniger als 3 Monate</option>
-                <option value="3-12m">3-12 Monate</option>
-                <option value="1-3j">1-3 Jahre</option>
-                <option value=">3j">Mehr als 3 Jahre</option>
+              <select id="erben-dauer" name="blockiert_seit" required>
+                <option value="" disabled selected>Bitte waehlen</option>
+                <option value="<6m">Weniger als 6 Monate</option>
+                <option value="6-24m">6 bis 24 Monate</option>
+                <option value=">2j">Mehr als 2 Jahre</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="erben-plz">PLZ der Immobilie</label>
-              <input type="text" id="erben-plz" name="plz" pattern="[0-9]{5}" maxlength="5" placeholder="04315" />
+              <label for="erben-objekt">Objekt-Typ</label>
+              <select id="erben-objekt" name="objekt_typ" required>
+                <option value="" disabled selected>Bitte waehlen</option>
+                <option value="wohnung">Wohnung</option>
+                <option value="haus">Haus</option>
+                <option value="grundstueck">Grundstueck</option>
+              </select>
             </div>
             <div class="form-group">
-              <label for="erben-email">E-Mail *</label>
+              <label for="erben-plz">PLZ des Objekts</label>
+              <input type="text" id="erben-plz" name="plz" pattern="[0-9]{5}" maxlength="5" placeholder="z.B. 04315" required />
+            </div>
+            <div class="form-group">
+              <label for="erben-email">Deine E-Mail *</label>
               <input type="email" id="erben-email" name="email" required placeholder="max@beispiel.de" />
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;">Aktionsplan kostenlos sichern &rarr;</button>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Aktionsplan erstellen lassen &rarr;</button>
+            <p class="form-hint">Kein Standard-PDF. Dein persoenlicher Aktionsplan — kostenlos.</p>
           </form>
         </div>
       </div>
@@ -91,6 +146,98 @@ import Layout from '../layouts/Layout.astro';
     gap: var(--space-4);
   }
 
+  .hero-sub {
+    color: var(--color-text-mid);
+    font-size: var(--text-lg);
+    max-width: 640px;
+    line-height: var(--leading-relaxed);
+  }
+
+  /* --- Vergleichs-Box --- */
+  .compare-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 640px) {
+    .compare-box {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .compare-col {
+    padding: var(--space-8);
+  }
+
+  .compare-standard {
+    background: var(--color-bg-alt);
+  }
+
+  .compare-personal {
+    background: var(--color-bg-card);
+    border-left: 3px solid var(--color-accent);
+  }
+
+  @media (max-width: 640px) {
+    .compare-personal {
+      border-left: none;
+      border-top: 3px solid var(--color-accent);
+    }
+  }
+
+  .compare-label {
+    font-weight: var(--weight-bold);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    margin-bottom: var(--space-4);
+  }
+
+  .compare-standard .compare-label {
+    color: var(--color-text-muted);
+  }
+
+  .compare-personal .compare-label {
+    color: var(--color-accent);
+  }
+
+  .compare-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .compare-col li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    color: var(--color-text-mid);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+
+  .icon-x {
+    color: var(--color-text-muted);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-lg);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .icon-check {
+    color: var(--color-accent);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-lg);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  /* --- Content Grid --- */
   .tool-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -129,6 +276,24 @@ import Layout from '../layouts/Layout.astro';
   .pain-list li,
   .content-list li {
     color: var(--color-text-mid);
+    line-height: var(--leading-relaxed);
+  }
+
+  .personalization-note {
+    background: var(--color-accent-light);
+    border-left: 3px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin: var(--space-6) 0;
+    color: var(--color-text-mid);
+    line-height: var(--leading-relaxed);
+    font-size: var(--text-sm);
+  }
+
+  .personalization-note strong {
+    color: var(--color-text);
+    display: block;
+    margin-bottom: var(--space-1);
   }
 
   .tool-trust {
@@ -143,9 +308,17 @@ import Layout from '../layouts/Layout.astro';
     border-radius: var(--radius-lg);
     padding: var(--space-8);
     box-shadow: var(--shadow-lg);
+    position: sticky;
+    top: var(--space-8);
   }
 
   .tool-form-wrap h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .form-intro {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
     margin-bottom: var(--space-6);
   }
 
@@ -171,6 +344,13 @@ import Layout from '../layouts/Layout.astro';
   .form-group select {
     width: 100%;
   }
+
+  .form-hint {
+    text-align: center;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
 </style>
 
 <script>
@@ -180,7 +360,7 @@ import Layout from '../layouts/Layout.astro';
     const formData = new FormData(form);
     formData.append('typ', 'aktionsplan-erben');
     const btn = form.querySelector('button') as HTMLButtonElement;
-    btn.textContent = 'Wird gesendet...';
+    btn.textContent = 'Wird erstellt...';
     btn.disabled = true;
     try {
       const res = await fetch('/api/lead-magnet', { method: 'POST', body: formData });

@@ -1,15 +1,53 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const leipzigStadtteile = [
+  'Altlindenau', 'Anger-Crottendorf', 'Boehlen', 'Connewitz', 'Doelitz-Doesen',
+  'Engelsdorf', 'Eutritzsch', 'Gohlis-Mitte', 'Gohlis-Nord', 'Gohlis-Sued',
+  'Grosszschocher', 'Gruenau', 'Kleinzschocher', 'Knautkleeberg', 'Leutzsch',
+  'Lindenau', 'Loeßnig', 'Marienbrunn', 'Mockau', 'Moeckern',
+  'Neulindenau', 'Neustadt-Neuschönefeld', 'Paunsdorf', 'Plagwitz',
+  'Probstheida', 'Reudnitz-Thonberg', 'Schleussig', 'Schoenefeld',
+  'Sellerhausen-Stuenz', 'Stoetteritz', 'Suedvorstadt', 'Volkmarsdorf',
+  'Wahren', 'Zentrum', 'Zentrum-Ost', 'Zentrum-Sued', 'Zentrum-West'
+];
 ---
 <Layout
-  title="Dein erster Flip in 90 Tagen — der Blueprint | wirkaufendeineimmobilie.de"
-  description="90-Tage-Schritt-fuer-Schritt-Plan, Deal-Rechner Leipzig, Kalkulations-Template mit Leipzig-Zahlen und Stadtteil-Analyse."
+  title="Dein persoenlicher 90-Tage-Blueprint — Fix & Flip Leipzig | wirkaufendeineimmobilie.de"
+  description="Kein Standard-PDF. Dein erster Flip in 90 Tagen — mit Deal-Rechner, Stadtteil-Analyse und Kalkulation basierend auf deinem Budget und Erfahrungslevel."
 >
 
   <section class="section tool-hero">
     <div class="container tool-hero__inner">
-      <div class="label">Kostenloser Blueprint</div>
-      <h1>Dein erster Flip in 90 Tagen —<br /><span class="text-accent">der Blueprint</span></h1>
+      <div class="label">Kostenloser Blueprint — individuell erstellt</div>
+      <h1>Dein erster Flip in 90 Tagen —<br /><span class="text-accent">dein persoenlicher Blueprint</span></h1>
+      <p class="hero-sub">Beantworte 5 kurze Fragen — wir erstellen deinen Blueprint mit konkreten Zahlen fuer dein Budget und deinen Ziel-Stadtteil. Innerhalb von 24 Stunden in deinem Postfach.</p>
+    </div>
+  </section>
+
+  <!-- Vergleichs-Box -->
+  <section class="section">
+    <div class="container">
+      <div class="compare-box">
+        <div class="compare-col compare-standard">
+          <div class="compare-label">Standard-Ratgeber</div>
+          <ul>
+            <li><span class="icon-x">&times;</span> Gleich fuer Anfaenger und Fortgeschrittene</li>
+            <li><span class="icon-x">&times;</span> Theoretische Modellrechnungen</li>
+            <li><span class="icon-x">&times;</span> Keine echten Stadtteil-Daten</li>
+            <li><span class="icon-x">&times;</span> Generische Tipps ohne Bezug zu deinem Budget</li>
+          </ul>
+        </div>
+        <div class="compare-col compare-personal">
+          <div class="compare-label">Dein Blueprint</div>
+          <ul>
+            <li><span class="icon-check">&#10003;</span> Auf dein Erfahrungslevel zugeschnitten</li>
+            <li><span class="icon-check">&#10003;</span> Echte qm-Preise fuer deinen Ziel-Stadtteil</li>
+            <li><span class="icon-check">&#10003;</span> Kalkulation mit deinem Budget</li>
+            <li><span class="icon-check">&#10003;</span> Deal-Quellen + Handwerker-Netzwerk Leipzig</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -20,55 +58,73 @@ import Layout from '../layouts/Layout.astro';
           <h2>Du willst starten, aber weisst nicht wo?</h2>
           <p class="text-mid" style="margin-top: var(--space-4); margin-bottom: var(--space-8);">
             Dieser Blueprint zeigt dir den Weg — von der ersten Kalkulation bis zum ersten Notartermin.
-            Mit echten Leipziger Zahlen, nicht theoretischen Modellen.
+            Mit echten Leipziger Zahlen fuer deinen Stadtteil, nicht mit theoretischen Modellen.
           </p>
 
-          <h3>Was im Blueprint steht:</h3>
+          <h3>Was in deinem Blueprint steht:</h3>
           <ul class="content-list">
-            <li>90-Tage-Schritt-fuer-Schritt-Plan — vom ersten Tag bis zum Notartermin</li>
-            <li>Deal-Rechner Leipzig: Flip-Rendite in 2 Minuten berechnen</li>
-            <li>Kalkulations-Template mit echten Leipzig-Zahlen</li>
-            <li>Stadtteil-Analyse + Deal-Quellen: Wo findest du Off-Market Objekte?</li>
+            <li><strong>90-Tage-Schritt-fuer-Schritt-Plan</strong> — angepasst an dein Erfahrungslevel. Anfaenger bekommen die Grundlagen, Fortgeschrittene den Fokus auf Skalierung.</li>
+            <li><strong>Deal-Rechner fuer deinen Stadtteil:</strong> "Mit deinem Budget kannst du in [Stadtteil] Objekte bis X EUR kaufen" — mit aktuellen qm-Preisen unsaniert vs. saniert</li>
+            <li><strong>Kalkulations-Template</strong> mit echten Leipzig-Zahlen — vorbefuellt fuer deinen Ziel-Stadtteil</li>
+            <li><strong>Handwerker-Kapitel:</strong> Wenn du eigene Handwerker hast, berechnen wir deinen ROI-Vorteil durch Eigenleistung. Wenn nicht, bekommst du Empfehlungen fuer Gewerke-Netzwerke.</li>
+            <li><strong>Off-Market Deal-Quellen</strong> speziell fuer Leipzig — wo du Objekte findest, bevor sie auf ImmoScout landen</li>
           </ul>
 
+          <div class="personalization-note">
+            <strong>Warum das hier anders ist:</strong> Jemand mit 30.000 EUR Eigenkapital braucht einen komplett anderen Plan als jemand mit 150.000 EUR. Und wer in Plagwitz flippt, kalkuliert anders als in Gruenau. Dein Blueprint beruecksichtigt beides.
+          </div>
+
           <div class="tool-trust">
-            Kostenlos. 22 Seiten. Sofort per E-Mail.
+            Kostenlos. Individuell erstellt. Innerhalb von 24h in deinem Postfach.
           </div>
         </div>
 
         <div class="tool-form-wrap">
-          <h3>Blueprint anfordern</h3>
+          <h3>Deinen Blueprint erstellen lassen</h3>
+          <p class="form-intro">5 kurze Fragen — dein Blueprint wird innerhalb von 24 Stunden fuer dich erstellt.</p>
           <form class="tool-form" id="flip-form">
             <div class="form-group">
-              <label for="flip-erfahrung">Erfahrungslevel</label>
-              <select id="flip-erfahrung" name="erfahrung">
-                <option value="0">Noch kein Deal</option>
+              <label for="flip-erfahrung">Dein Erfahrungslevel</label>
+              <select id="flip-erfahrung" name="erfahrung" required>
+                <option value="" disabled selected>Bitte waehlen</option>
+                <option value="0">Noch kein Deal abgeschlossen</option>
                 <option value="1-2">1-2 Deals</option>
-                <option value="3+">3+ Deals</option>
+                <option value="3+">3 oder mehr Deals</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="flip-budget">Budget-Range</label>
-              <select id="flip-budget" name="budget">
-                <option value="<50k">Unter 50.000 &euro;</option>
+              <label for="flip-budget">Dein Eigenkapital</label>
+              <select id="flip-budget" name="budget" required>
+                <option value="" disabled selected>Bitte waehlen</option>
+                <option value="<20k">Unter 20.000 &euro;</option>
+                <option value="20-50k">20.000 - 50.000 &euro;</option>
                 <option value="50-100k">50.000 - 100.000 &euro;</option>
-                <option value="100-200k">100.000 - 200.000 &euro;</option>
-                <option value=">200k">Ueber 200.000 &euro;</option>
+                <option value=">100k">Ueber 100.000 &euro;</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="flip-handwerker">Eigene Handwerker?</label>
-              <select id="flip-handwerker" name="handwerker">
-                <option value="nein">Nein</option>
-                <option value="ja">Ja</option>
-                <option value="teilweise">Teilweise</option>
+              <label for="flip-handwerker">Hast du eigene Handwerker?</label>
+              <select id="flip-handwerker" name="handwerker" required>
+                <option value="" disabled selected>Bitte waehlen</option>
+                <option value="ja">Ja, eigenes Netzwerk</option>
+                <option value="teilweise">Teilweise / fuer einzelne Gewerke</option>
+                <option value="nein">Nein, brauche Empfehlungen</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="flip-email">E-Mail *</label>
+              <label for="flip-stadtteil">Ziel-Stadtteil Leipzig</label>
+              <select id="flip-stadtteil" name="stadtteil" required>
+                <option value="" disabled selected>Stadtteil waehlen</option>
+                {leipzigStadtteile.map(s => <option value={s}>{s}</option>)}
+                <option value="unsicher">Noch unsicher</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="flip-email">Deine E-Mail *</label>
               <input type="email" id="flip-email" name="email" required placeholder="max@beispiel.de" />
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;">Blueprint kostenlos anfordern &rarr;</button>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Blueprint erstellen lassen &rarr;</button>
+            <p class="form-hint">Kein Standard-PDF. Dein persoenlicher Blueprint — kostenlos.</p>
           </form>
         </div>
       </div>
@@ -91,6 +147,98 @@ import Layout from '../layouts/Layout.astro';
     gap: var(--space-4);
   }
 
+  .hero-sub {
+    color: var(--color-text-mid);
+    font-size: var(--text-lg);
+    max-width: 640px;
+    line-height: var(--leading-relaxed);
+  }
+
+  /* --- Vergleichs-Box --- */
+  .compare-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 640px) {
+    .compare-box {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .compare-col {
+    padding: var(--space-8);
+  }
+
+  .compare-standard {
+    background: var(--color-bg-alt);
+  }
+
+  .compare-personal {
+    background: var(--color-bg-card);
+    border-left: 3px solid var(--color-accent);
+  }
+
+  @media (max-width: 640px) {
+    .compare-personal {
+      border-left: none;
+      border-top: 3px solid var(--color-accent);
+    }
+  }
+
+  .compare-label {
+    font-weight: var(--weight-bold);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    margin-bottom: var(--space-4);
+  }
+
+  .compare-standard .compare-label {
+    color: var(--color-text-muted);
+  }
+
+  .compare-personal .compare-label {
+    color: var(--color-accent);
+  }
+
+  .compare-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .compare-col li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    color: var(--color-text-mid);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+
+  .icon-x {
+    color: var(--color-text-muted);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-lg);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .icon-check {
+    color: var(--color-accent);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-lg);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  /* --- Content Grid --- */
   .tool-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -121,6 +269,24 @@ import Layout from '../layouts/Layout.astro';
 
   .content-list li {
     color: var(--color-text-mid);
+    line-height: var(--leading-relaxed);
+  }
+
+  .personalization-note {
+    background: var(--color-accent-light);
+    border-left: 3px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin: var(--space-6) 0;
+    color: var(--color-text-mid);
+    line-height: var(--leading-relaxed);
+    font-size: var(--text-sm);
+  }
+
+  .personalization-note strong {
+    color: var(--color-text);
+    display: block;
+    margin-bottom: var(--space-1);
   }
 
   .tool-trust {
@@ -135,9 +301,17 @@ import Layout from '../layouts/Layout.astro';
     border-radius: var(--radius-lg);
     padding: var(--space-8);
     box-shadow: var(--shadow-lg);
+    position: sticky;
+    top: var(--space-8);
   }
 
   .tool-form-wrap h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .form-intro {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
     margin-bottom: var(--space-6);
   }
 
@@ -163,6 +337,13 @@ import Layout from '../layouts/Layout.astro';
   .form-group select {
     width: 100%;
   }
+
+  .form-hint {
+    text-align: center;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
 </style>
 
 <script>
@@ -172,7 +353,7 @@ import Layout from '../layouts/Layout.astro';
     const formData = new FormData(form);
     formData.append('typ', 'blueprint');
     const btn = form.querySelector('button') as HTMLButtonElement;
-    btn.textContent = 'Wird gesendet...';
+    btn.textContent = 'Wird erstellt...';
     btn.disabled = true;
     try {
       const res = await fetch('/api/lead-magnet', { method: 'POST', body: formData });
