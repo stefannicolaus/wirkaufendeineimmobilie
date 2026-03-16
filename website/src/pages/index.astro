@@ -22,17 +22,23 @@ import Layout from '../layouts/Layout.astro';
         Keine Renovierung. Kein Makler-Ghosting. Nur geprüfte Käufer im geschlossenen Angebotsverfahren.
       </p>
 
-      <div class="inline-form" id="hero-form">
-        <input
-          type="text"
-          id="hero-plz"
-          placeholder="PLZ deines Objekts eingeben..."
-          pattern="[0-9]{5}"
-          maxlength="5"
-          inputmode="numeric"
-          aria-label="Postleitzahl"
-        />
-        <button type="button" class="btn btn-primary" id="hero-cta">Kostenlos bewerten &rarr;</button>
+      <!-- Hero Form Card (Stitch Pattern) -->
+      <div class="hero-form-card" id="hero-form">
+        <div class="hero-form-card__inner">
+          <div class="hero-form-card__input-wrap">
+            <svg class="hero-form-card__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <input
+              type="text"
+              id="hero-plz"
+              placeholder="PLZ deines Objekts eingeben..."
+              pattern="[0-9]{5}"
+              maxlength="5"
+              inputmode="numeric"
+              aria-label="Postleitzahl"
+            />
+          </div>
+          <button type="button" class="btn btn-primary hero-form-card__btn" id="hero-cta">Kostenlos bewerten &rarr;</button>
+        </div>
       </div>
 
       <div class="hero__trust">
@@ -45,7 +51,7 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- STATS BAR -->
-  <section class="stats-bar bg-alt">
+  <section class="stats-bar">
     <div class="container stats-bar__inner">
       <div class="stat">
         <span class="stat__number">48h</span>
@@ -70,51 +76,115 @@ import Layout from '../layouts/Layout.astro';
   <section class="section">
     <div class="container dual-cards">
       <h2 class="sr-only">Verkaufen oder Investieren</h2>
+
+      <!-- Verkäufer Card -->
       <div class="card card--seller">
+        <div class="card__icon-box card__icon-box--light">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        </div>
         <h3>Ich möchte verkaufen</h3>
         <p>Sanierungsbedürftig, Erbengemeinschaft, Messie-Objekt — wir vermitteln an Käufer, die im Ist-Zustand kaufen.</p>
-        <a href="/#bewertung" class="btn btn-primary">Immobilie bewerten lassen &rarr;</a>
+        <ul class="card__checks">
+          <li>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Faire Marktbewertung
+          </li>
+          <li>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Nur geprüfte Käufer
+          </li>
+          <li>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Komplett stressfrei
+          </li>
+        </ul>
+        <a href="/#bewertung" class="btn btn-primary card__btn">Immobilie bewerten lassen &rarr;</a>
       </div>
+
+      <!-- Käufer Card -->
       <div class="card card--buyer">
+        <div class="card__icon-box card__icon-box--dark">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+        </div>
         <h3>Ich suche Objekte</h3>
         <p>Off-Market Sanierungsobjekte in Leipzig. Kuratiert, vorgeprüft, mit Renditepotenzial.</p>
-        <a href="/investoren" class="btn btn-ghost">Investoren-Zugang anfragen &rarr;</a>
+        <ul class="card__checks card__checks--dark">
+          <li>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Geprüfte Objekte
+          </li>
+          <li>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Detaillierte Potenzialanalysen
+          </li>
+          <li>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Off-Market Deals
+          </li>
+        </ul>
+        <a href="/investoren" class="btn btn-ghost card__btn">Investoren-Zugang anfragen &rarr;</a>
       </div>
     </div>
   </section>
 
   <!-- STEPS -->
-  <section class="section bg-alt">
+  <section class="steps-section">
     <div class="container steps">
       <h2 class="steps__title">In 3 Schritten zum Verkauf</h2>
       <div class="steps__grid">
         <div class="step">
           <span class="step__num">01</span>
-          <h3>PLZ eingeben</h3>
+          <div class="step__header">
+            <svg class="step__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <h3>PLZ eingeben</h3>
+          </div>
           <p>2 Minuten. Keine Fotos, kein Aufräumen.</p>
         </div>
         <div class="step">
           <span class="step__num">02</span>
-          <h3>Erstbewertung in 48h</h3>
+          <div class="step__header">
+            <svg class="step__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <h3>Erstbewertung in 48h</h3>
+          </div>
           <p>Wir bewerten die Substanz — nicht die Unordnung. Geprüfte Käufer geben verdeckte Angebote ab.</p>
         </div>
         <div class="step">
           <span class="step__num">03</span>
-          <h3>Du entscheidest, fertig</h3>
+          <div class="step__header">
+            <svg class="step__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 17a4 4 0 0 1-4-4V5a4 4 0 0 1 4-4"/><path d="M13 17a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4"/><path d="M7 13h10"/><path d="M9 17v4h6v-4"/><path d="M5 21h14"/></svg>
+            <h3>Du entscheidest, fertig</h3>
+          </div>
           <p>Der Käufer übernimmt Entrümpelung und alle Kosten. Du musst dich um nichts kümmern.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TRUST -->
+  <!-- TRUST (Stitch horizontal card pattern) -->
   <section class="section" id="trust">
-    <div class="container trust">
-      <h2>35+ Jahre Immobilien-Erfahrung</h2>
-      <p class="text-mid">
-        Joachim Kleinke kennt den Leipziger Markt wie seine Westentasche.
-        [Platzhalter — wird nach Call 19.03. befüllt]
-      </p>
+    <div class="container trust-wrap">
+      <div class="trust-card">
+        <div class="trust-card__image">
+          <!-- Platzhalter-Gradient -->
+        </div>
+        <div class="trust-card__content">
+          <div class="trust-card__stars" aria-label="5 von 5 Sternen">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h2 class="trust-card__heading">Lokale Expertise, auf die du dich verlassen kannst.</h2>
+          <blockquote class="trust-card__quote">
+            &bdquo;Der Leipziger Immobilienmarkt für Sanierungsobjekte erfordert Fingerspitzengefühl und ein starkes Netzwerk. Wir bringen diskret die zusammen, die zusammenpassen.&ldquo;
+          </blockquote>
+          <div class="trust-card__author">
+            <span class="trust-card__name">Joachim Kleinke</span>
+            <span class="trust-card__role">35+ Jahre Immobilien-Erfahrung</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -125,11 +195,11 @@ import Layout from '../layouts/Layout.astro';
       <div class="faq__list">
         <details class="faq__item">
           <summary>Ist das eine Versteigerung?</summary>
-          <p>Nein. Im Gegensatz zur Versteigerung (&sect;156 BGB) besteht beim Angebotsverfahren kein Zwang, das Höchstangebot anzunehmen. Sie entscheiden frei, welches Angebot Sie akzeptieren — oder ob Sie überhaupt verkaufen.</p>
+          <p>Nein. Im Gegensatz zur Versteigerung (&sect;156 BGB) besteht beim Angebotsverfahren kein Zwang, das Höchstangebot anzunehmen. Du entscheidest frei, welches Angebot du akzeptierst — oder ob du überhaupt verkaufst.</p>
         </details>
         <details class="faq__item">
           <summary>Muss ich das Höchstgebot annehmen?</summary>
-          <p>Nein. Sie sehen alle Angebote und entscheiden frei. Es gibt keinen Zuschlagszwang.</p>
+          <p>Nein. Du siehst alle Angebote und entscheidest frei. Es gibt keinen Zuschlagszwang.</p>
         </details>
         <details class="faq__item">
           <summary>Was kostet mich das als Verkäufer?</summary>
@@ -137,7 +207,7 @@ import Layout from '../layouts/Layout.astro';
         </details>
         <details class="faq__item">
           <summary>Wie sicher ist das?</summary>
-          <p>Der Kaufvertrag kommt erst durch notarielle Beurkundung zustande. Bis dahin gehen Sie keinerlei Verpflichtung ein.</p>
+          <p>Der Kaufvertrag kommt erst durch notarielle Beurkundung zustande. Bis dahin gehst du keinerlei Verpflichtung ein.</p>
         </details>
         <details class="faq__item">
           <summary>Muss ich die Wohnung aufräumen?</summary>
@@ -163,31 +233,44 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- INLINE BEWERTUNG FORM (anchor target) -->
-  <section class="section" id="bewertung">
+  <section class="bewertung-section" id="bewertung">
     <div class="container bewertung">
       <h2>Jetzt Immobilie bewerten lassen</h2>
       <p class="text-mid">Kostenlos, unverbindlich — Erstbewertung innerhalb von 48 Stunden.</p>
-      <form class="bewertung__form" id="bewertung-form" data-endpoint="/api/bewertung">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="bew-plz">PLZ *</label>
-            <input type="text" id="bew-plz" name="plz" pattern="[0-9]{5}" maxlength="5" required placeholder="04315" />
+      <div class="bewertung-card">
+        <form class="bewertung__form" id="bewertung-form" data-endpoint="/api/bewertung">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="bew-plz">PLZ *</label>
+              <input type="text" id="bew-plz" name="plz" pattern="[0-9]{5}" maxlength="5" required placeholder="04315" />
+            </div>
+            <div class="form-group">
+              <label for="bew-typ">Art der Immobilie</label>
+              <select id="bew-typ" name="typ">
+                <option value="" disabled selected>Bitte wählen</option>
+                <option value="eigentumswohnung">Eigentumswohnung</option>
+                <option value="einfamilienhaus">Einfamilienhaus</option>
+                <option value="mehrfamilienhaus">Mehrfamilienhaus</option>
+                <option value="grundstueck">Grundstück</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bew-name">Name</label>
+              <input type="text" id="bew-name" name="name" placeholder="Max Mustermann" />
+            </div>
+            <div class="form-group">
+              <label for="bew-email">E-Mail *</label>
+              <input type="email" id="bew-email" name="email" required placeholder="max@beispiel.de" />
+            </div>
+            <div class="form-group">
+              <label for="bew-tel">Telefon</label>
+              <input type="tel" id="bew-tel" name="telefon" placeholder="0341 123 456" />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="bew-name">Name</label>
-            <input type="text" id="bew-name" name="name" placeholder="Max Mustermann" />
-          </div>
-          <div class="form-group">
-            <label for="bew-email">E-Mail *</label>
-            <input type="email" id="bew-email" name="email" required placeholder="max@beispiel.de" />
-          </div>
-          <div class="form-group">
-            <label for="bew-tel">Telefon</label>
-            <input type="tel" id="bew-tel" name="telefon" placeholder="0341 123 456" />
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Kostenlos bewerten &rarr;</button>
-      </form>
+          <button type="submit" class="btn btn-primary">Kostenlos bewerten &rarr;</button>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -226,19 +309,60 @@ import Layout from '../layouts/Layout.astro';
     font-size: var(--text-lg);
     color: var(--color-text-mid);
     text-align: center;
+    max-width: 640px;
   }
 
-  .inline-form {
-    display: flex;
-    gap: var(--space-2);
+  /* Hero Form Card */
+  .hero-form-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: var(--shadow-lg);
     width: 100%;
-    max-width: 560px;
+    max-width: 580px;
     margin-top: var(--space-4);
   }
 
-  .inline-form input {
+  .hero-form-card__inner {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .hero-form-card__input-wrap {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-form-card__icon {
+    position: absolute;
+    left: 12px;
+    color: var(--color-text-muted);
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+
+  .hero-form-card__input-wrap input {
     flex: 1;
     min-width: 0;
+    border: none;
+    background: transparent;
+    padding-left: 44px;
+    box-shadow: none;
+  }
+
+  .hero-form-card__input-wrap input:focus {
+    outline: none;
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  .hero-form-card__btn {
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .hero__trust {
@@ -252,8 +376,11 @@ import Layout from '../layouts/Layout.astro';
   }
 
   @media (max-width: 640px) {
-    .inline-form {
+    .hero-form-card__inner {
       flex-direction: column;
+    }
+    .hero-form-card__btn {
+      width: 100%;
     }
     .hero__trust {
       flex-direction: column;
@@ -262,8 +389,9 @@ import Layout from '../layouts/Layout.astro';
     }
   }
 
-  /* STATS BAR */
+  /* STATS BAR — full width background */
   .stats-bar {
+    background: var(--color-bg-alt);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
     padding-block: var(--space-8);
@@ -295,7 +423,7 @@ import Layout from '../layouts/Layout.astro';
     }
   }
 
-  /* DUAL CARDS */
+  /* DUAL CARDS — bigger, with icon elements */
   .dual-cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -303,7 +431,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .card {
-    padding: var(--space-10);
+    padding: 40px;
     border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
@@ -329,9 +457,64 @@ import Layout from '../layouts/Layout.astro';
     color: var(--color-text-muted);
   }
 
-  .card .btn {
-    align-self: flex-start;
+  /* Card Icon Box */
+  .card__icon-box {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .card__icon-box--light {
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+  }
+
+  .card__icon-box--dark {
+    background: #334155;
+    color: var(--color-text-on-dark);
+  }
+
+  /* Card Checkmark List */
+  .card__checks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .card__checks li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-mid);
+  }
+
+  .card__checks li svg {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: var(--color-success);
+  }
+
+  .card__checks--dark li {
+    color: var(--color-text-muted);
+  }
+
+  .card__checks--dark li svg {
+    color: var(--color-success);
+  }
+
+  .card__btn {
+    align-self: stretch;
     margin-top: var(--space-4);
+    text-align: center;
   }
 
   @media (max-width: 768px) {
@@ -340,7 +523,12 @@ import Layout from '../layouts/Layout.astro';
     }
   }
 
-  /* STEPS */
+  /* STEPS — full width bg, large numbers */
+  .steps-section {
+    background: var(--color-bg-alt);
+    padding-block: var(--section-gap);
+  }
+
   .steps__title {
     text-align: center;
     margin-bottom: var(--space-12);
@@ -354,15 +542,32 @@ import Layout from '../layouts/Layout.astro';
 
   .step {
     text-align: center;
+    position: relative;
   }
 
   .step__num {
-    display: inline-block;
-    font-size: var(--text-3xl);
+    display: block;
+    font-size: 120px;
     font-weight: var(--weight-extrabold);
     color: var(--color-accent);
-    margin-bottom: var(--space-4);
-    opacity: 0.3;
+    line-height: 1;
+    opacity: 0.1;
+    letter-spacing: var(--tracking-tight);
+    margin-bottom: calc(-1 * var(--space-6));
+    user-select: none;
+  }
+
+  .step__header {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    justify-content: center;
+    position: relative;
+  }
+
+  .step__icon {
+    flex-shrink: 0;
+    color: var(--color-accent);
   }
 
   .step h3 {
@@ -378,15 +583,101 @@ import Layout from '../layouts/Layout.astro';
       grid-template-columns: 1fr;
       gap: var(--space-10);
     }
+    .step__num {
+      font-size: 80px;
+    }
   }
 
-  /* TRUST */
-  .trust {
-    text-align: center;
+  /* TRUST — horizontal card (Stitch pattern) */
+  .trust-wrap {
+    display: flex;
+    justify-content: center;
   }
 
-  .trust p {
-    margin-top: var(--space-4);
+  .trust-card {
+    max-width: 900px;
+    width: 100%;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-10);
+  }
+
+  .trust-card__image {
+    width: 192px;
+    height: 192px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--color-accent-light), var(--color-accent));
+    opacity: 0.6;
+  }
+
+  .trust-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .trust-card__stars {
+    display: flex;
+    gap: 2px;
+    color: #F59E0B;
+  }
+
+  .trust-card__heading {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-snug);
+  }
+
+  .trust-card__quote {
+    font-size: var(--text-lg);
+    color: var(--color-text-mid);
+    line-height: var(--leading-relaxed);
+    font-style: italic;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .trust-card__author {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .trust-card__name {
+    font-weight: var(--weight-bold);
+    font-size: var(--text-base);
+    color: var(--color-text);
+  }
+
+  .trust-card__role {
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    font-weight: var(--weight-semibold);
+  }
+
+  @media (max-width: 768px) {
+    .trust-card {
+      flex-direction: column;
+      text-align: center;
+      padding: 32px;
+    }
+    .trust-card__image {
+      width: 128px;
+      height: 128px;
+    }
+    .trust-card__stars {
+      justify-content: center;
+    }
+    .trust-card__author {
+      align-items: center;
+    }
   }
 
   /* FAQ */
@@ -399,6 +690,8 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
+    max-width: var(--container-narrow);
+    margin-inline: auto;
   }
 
   .faq__item {
@@ -448,13 +741,31 @@ import Layout from '../layouts/Layout.astro';
     line-height: var(--leading-relaxed);
   }
 
-  /* BEWERTUNG */
+  /* BEWERTUNG — accent-light background + card */
+  .bewertung-section {
+    background: rgba(59, 130, 246, 0.05);
+    padding-block: var(--section-gap);
+  }
+
   .bewertung {
     text-align: center;
   }
 
   .bewertung p {
     margin-bottom: var(--space-8);
+  }
+
+  .bewertung-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow:
+      0 4px 8px rgba(15, 23, 42, 0.04),
+      0 8px 24px rgba(15, 23, 42, 0.1),
+      0 16px 48px rgba(15, 23, 42, 0.06);
+    max-width: var(--container-narrow);
+    margin-inline: auto;
   }
 
   .bewertung__form {
@@ -484,7 +795,8 @@ import Layout from '../layouts/Layout.astro';
     color: var(--color-text-mid);
   }
 
-  .form-group input {
+  .form-group input,
+  .form-group select {
     width: 100%;
   }
 
