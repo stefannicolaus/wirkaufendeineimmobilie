@@ -554,11 +554,13 @@ import Layout from '../layouts/Layout.astro';
     font-size: 120px;
     font-weight: var(--weight-extrabold);
     color: var(--color-accent);
-    line-height: 1;
+    line-height: 0.8;
     opacity: 0.1;
     letter-spacing: var(--tracking-tight);
-    margin-bottom: calc(-1 * var(--space-6));
+    margin-bottom: -0.35em;
     user-select: none;
+    position: relative;
+    z-index: 0;
   }
 
   .step__header {
