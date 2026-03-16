@@ -103,7 +103,8 @@
   /* Section Spacing */
   --section-gap: clamp(3rem, 2rem + 5vw, 6rem);
   --container-max: 1120px;
-  --container-padding: clamp(1rem, 0.5rem + 2.5vw, 3rem);
+  --container-narrow: 800px;
+  --container-padding: clamp(1.25rem, 0.75rem + 2vw, 2rem);
 
   /* Border Radius */
   --radius-sm:   6px;
@@ -220,6 +221,10 @@ img {
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: var(--container-padding);
+}
+
+.container--narrow {
+  max-width: var(--container-narrow);
 }
 
 .section {
