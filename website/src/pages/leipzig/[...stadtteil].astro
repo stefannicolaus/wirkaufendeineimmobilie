@@ -30,6 +30,12 @@ interface StadtteilData {
   einwohner: number;
   sanierungsquote: string;
   nachbar_stadtteile: string[];
+  definition: string;
+  fliesstext: string;
+  marktdaten_quelle: string;
+  beispielrechnung_text: string;
+  zielgruppe_verkaeufer: string;
+  zielgruppe_kaeufer: string;
 }
 
 const { data } = Astro.props as { data: StadtteilData };
@@ -64,6 +70,30 @@ const jsonLd = JSON.stringify({
   "telephone": "+49-341-800-900-0",
   "url": `https://wirkaufendeineimmobilie.build-upstream.com/leipzig/${data.slug}`
 });
+
+const breadcrumbLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://wirkaufendeineimmobilie.build-upstream.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Leipzig",
+      "item": "https://wirkaufendeineimmobilie.build-upstream.com/leipzig/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": data.name
+    }
+  ]
+});
 ---
 <Layout
   title={`Sanierungsbedürftige Wohnung verkaufen in ${data.name} — wirkaufendeineimmobilie.de`}
@@ -71,6 +101,7 @@ const jsonLd = JSON.stringify({
 >
 
   <script type="application/ld+json" set:html={jsonLd} />
+  <script type="application/ld+json" set:html={breadcrumbLd} />
 
   <!-- BREADCRUMB -->
   <nav class="breadcrumb section" style="padding-block: var(--space-4);" aria-label="Breadcrumb">
@@ -87,6 +118,13 @@ const jsonLd = JSON.stringify({
       <div class="label">{data.bezirk} &middot; Leipzig</div>
       <h1>Sanierungsbedürftige Wohnung verkaufen in {data.name}</h1>
       <p class="st-hero__sub">{data.besonderheit}</p>
+    </div>
+  </section>
+
+  <!-- DEFINITION (AI-Citability) -->
+  <section class="section" style="padding-block: var(--space-4) var(--space-2);">
+    <div class="container">
+      <p class="stadtteil-definition">{data.definition}</p>
     </div>
   </section>
 
@@ -112,11 +150,25 @@ const jsonLd = JSON.stringify({
           <span class="market-card__label">5-Jahres-Entwicklung</span>
         </div>
       </div>
+      <p class="text-muted" style="font-size: var(--text-xs); margin-top: var(--space-4);">
+        Quelle: {data.marktdaten_quelle}
+      </p>
+    </div>
+  </section>
+
+  <!-- FLIESSTEXT: STADTTEIL ALS IMMOBILIENSTANDORT -->
+  <section class="section">
+    <div class="container">
+      <h2>{data.name} als Immobilienstandort</h2>
+      <div class="stadtteil-text" set:html={data.fliesstext} />
+      <p class="text-muted" style="font-size: var(--text-xs); margin-top: var(--space-4);">
+        Quelle: {data.marktdaten_quelle}
+      </p>
     </div>
   </section>
 
   <!-- MINI ROI -->
-  <section class="section">
+  <section class="section bg-alt">
     <div class="container roi-example">
       <h2>Beispielrechnung für {data.name}</h2>
       <p class="text-mid">45 m&sup2; Wohnung, typisches Sanierungsobjekt</p>
@@ -138,7 +190,24 @@ const jsonLd = JSON.stringify({
           <span class="roi-row__val roi-row__val--accent">{gewinn.toLocaleString('de-DE')} &euro;</span>
         </div>
       </div>
+      <p class="beispielrechnung-text">{data.beispielrechnung_text}</p>
       <a href="/roi-rechner" class="btn btn-primary" style="margin-top: var(--space-6);">Exakt berechnen im ROI-Rechner &rarr;</a>
+    </div>
+  </section>
+
+  <!-- ZIELGRUPPEN -->
+  <section class="section">
+    <div class="container zielgruppen">
+      <div class="zielgruppen-grid">
+        <div class="zielgruppen-block">
+          <h2>Wer verkauft in {data.name}?</h2>
+          <p>{data.zielgruppe_verkaeufer}</p>
+        </div>
+        <div class="zielgruppen-block">
+          <h2>Wer kauft in {data.name}?</h2>
+          <p>{data.zielgruppe_kaeufer}</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -254,6 +323,15 @@ const jsonLd = JSON.stringify({
     margin-top: var(--space-4);
   }
 
+  /* DEFINITION */
+  .stadtteil-definition {
+    font-size: var(--text-base);
+    color: var(--color-text-mid);
+    line-height: 1.7;
+    max-width: 720px;
+    font-style: italic;
+  }
+
   /* MARKET */
   .market-grid {
     display: grid;
@@ -289,6 +367,22 @@ const jsonLd = JSON.stringify({
     .market-grid {
       grid-template-columns: repeat(2, 1fr);
     }
+  }
+
+  /* FLIESSTEXT */
+  .stadtteil-text {
+    max-width: 720px;
+    line-height: 1.8;
+    color: var(--color-text-mid);
+    margin-top: var(--space-6);
+  }
+
+  .stadtteil-text :global(p) {
+    margin-bottom: var(--space-4);
+  }
+
+  .stadtteil-text :global(p:last-child) {
+    margin-bottom: 0;
   }
 
   /* ROI EXAMPLE */
@@ -334,6 +428,38 @@ const jsonLd = JSON.stringify({
   .roi-row__val--accent {
     color: var(--color-accent);
     font-weight: var(--weight-extrabold);
+  }
+
+  .beispielrechnung-text {
+    max-width: 640px;
+    text-align: left;
+    line-height: 1.7;
+    color: var(--color-text-mid);
+    font-size: var(--text-sm);
+    margin-top: var(--space-6);
+  }
+
+  /* ZIELGRUPPEN */
+  .zielgruppen-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  .zielgruppen-block h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .zielgruppen-block p {
+    line-height: 1.7;
+    color: var(--color-text-mid);
+  }
+
+  @media (max-width: 640px) {
+    .zielgruppen-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* LOCAL INFO */

@@ -7,12 +7,14 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  noindex?: boolean;
 }
 
 const {
   title,
   description = 'Sanierungsbedürftige Immobilien in Leipzig verkaufen — ohne Makler, ohne Renovierung. Angebot in 48h.',
-  ogImage = '/og-default.jpg',
+  ogImage = '/og-default.svg',
+  noindex = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -25,8 +27,20 @@ const jsonLd = JSON.stringify({
   "description": "Vermittlungsplattform für sanierungsbedürftige Wohnungen in Leipzig",
   "url": "https://wirkaufendeineimmobilie.build-upstream.com",
   "areaServed": { "@type": "City", "name": "Leipzig" },
-  "telephone": "+49341800900",
+  "telephone": "+493418009000",
   "address": { "@type": "PostalAddress", "addressLocality": "Leipzig", "addressCountry": "DE" }
+});
+
+const personJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Joachim Kleinke",
+  "jobTitle": "Immobilienvermittler",
+  "description": "35+ Jahre Erfahrung im Leipziger Immobilienmarkt",
+  "worksFor": {
+    "@type": "RealEstateAgent",
+    "name": "wirkaufendeineimmobilie.de"
+  }
 });
 ---
 <!DOCTYPE html>
@@ -36,6 +50,7 @@ const jsonLd = JSON.stringify({
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
   <link rel="canonical" href={canonicalURL} />
 
   <!-- Open Graph -->
@@ -55,11 +70,10 @@ const jsonLd = JSON.stringify({
 
   <!-- JSON-LD -->
   <script type="application/ld+json" set:html={jsonLd} />
+  <script type="application/ld+json" set:html={personJsonLd} />
 
-  <!-- Outfit Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Outfit Font (lokal gehostet, DSGVO-konform) -->
+  <link rel="preload" href="/fonts/outfit.woff2" as="font" type="font/woff2" crossorigin />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>

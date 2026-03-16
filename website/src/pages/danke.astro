@@ -10,23 +10,23 @@ const guide = url.searchParams.get('guide') || '';
 const content: Record<string, { title: string; heading: string; message: string; next?: string; nextLink?: string }> = {
   verkaeufer: {
     title: 'Anfrage eingegangen',
-    heading: 'Ihre Anfrage ist eingegangen!',
-    message: 'Wir melden uns innerhalb von 24 Stunden mit einer ersten Einschätzung bei Ihnen.',
-    next: 'Wie funktioniert das Angebotsverfahren?',
+    heading: 'Deine Anfrage ist eingegangen!',
+    message: 'So geht es weiter: Wir prüfen deine Angaben und melden uns innerhalb von 24 Stunden mit einer ersten Einschätzung — per E-Mail oder Telefon.',
+    next: 'Erfahre, wie das Angebotsverfahren funktioniert',
     nextLink: '/so-funktionierts',
   },
   investor: {
-    title: 'Willkommen',
-    heading: 'Willkommen!',
-    message: 'Wir prüfen Ihren Zugang und melden uns in 48 Stunden. Bitte stellen Sie sicher, dass unsere E-Mails nicht im Spam landen.',
-    next: 'ROI-Rechner ausprobieren',
+    title: 'Zugang beantragt',
+    heading: 'Dein Zugang wird geprüft!',
+    message: 'Nächster Schritt: Wir prüfen deinen Antrag persönlich und melden uns innerhalb von 48 Stunden per E-Mail. Bitte stelle sicher, dass unsere Mails nicht im Spam landen.',
+    next: 'In der Zwischenzeit: ROI-Rechner ausprobieren',
     nextLink: '/roi-rechner',
   },
   guide: {
-    title: 'Ihr Guide ist unterwegs',
-    heading: 'Ihr Guide ist unterwegs!',
-    message: 'Prüfen Sie Ihren Posteingang — die E-Mail sollte in wenigen Minuten ankommen. Schauen Sie auch im Spam-Ordner nach.',
-    next: guide === 'erben' ? 'Immobilie jetzt bewerten lassen' : 'Investoren-Zugang anfragen',
+    title: 'Dein Guide ist unterwegs',
+    heading: 'Dein Guide ist unterwegs!',
+    message: 'Prüfe deinen Posteingang — die E-Mail sollte in wenigen Minuten ankommen. Schau auch im Spam-Ordner nach.',
+    next: guide === 'erben' ? 'Nächster Schritt: Immobilie bewerten lassen' : 'Nächster Schritt: Investoren-Zugang anfragen',
     nextLink: guide === 'erben' ? '/#bewertung' : '/investoren',
   },
 };
@@ -35,7 +35,8 @@ const c = content[typ] || content.verkaeufer;
 ---
 <Layout
   title={`${c.title} — wirkaufendeineimmobilie.de`}
-  description="Ihre Anfrage wurde erfolgreich übermittelt. Wir melden uns innerhalb von 48 Stunden."
+  description="Deine Anfrage wurde erfolgreich übermittelt. Wir melden uns innerhalb von 48 Stunden."
+  noindex={true}
 >
 
   <section class="section danke">
@@ -51,7 +52,7 @@ const c = content[typ] || content.verkaeufer;
       )}
 
       <div class="danke__contact">
-        <p>Fragen? Rufen Sie uns an:</p>
+        <p>Fragen? Ruf uns direkt an:</p>
         <a href="tel:+493418009000" class="danke__phone">0341 — 800 900 0</a>
       </div>
 

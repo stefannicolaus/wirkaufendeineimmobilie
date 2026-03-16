@@ -2,8 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout
-  title="wirkaufendeineimmobilie.de — Sanierungsbedürftige Immobilien verkaufen in Leipzig"
-  description="Sanierungsbedürftige Immobilien in Leipzig verkaufen — ohne Makler, ohne Renovierung. Angebot in 48h. Kostenlose Bewertung."
+  title="wirkaufendeineimmobilie.de — Sanierungsbedürftige Immobilien vermitteln in Leipzig"
+  description="Sanierungsbedürftige Immobilien in Leipzig verkaufen — an geprüfte Käufer im geschlossenen Angebotsverfahren. Kostenlose Erstbewertung in 48h."
 >
 
   <!-- HERO -->
@@ -14,12 +14,12 @@ import Layout from '../layouts/Layout.astro';
         Spezialist für sanierungsbedürftige Immobilien in Leipzig
       </div>
       <h1>
-        Deine Immobilie.<br />
-        <span class="text-accent">Unser Angebot. In 48h.</span>
+        Deine Immobilie verdient<br />
+        <span class="text-accent">den richtigen Käufer.</span>
       </h1>
       <p class="hero__sub">
-        Sanierungsbedürftig, geerbt oder vermüllt — wir kaufen im Ist-Zustand.
-        Ohne Makler, ohne Renovierung, ohne Besichtigungstourismus.
+        Sanierungsbedürftig, geerbt oder vermüllt — wir finden Käufer, die genau das suchen.
+        Keine Renovierung. Kein Makler-Ghosting. Nur geprüfte Käufer im geschlossenen Angebotsverfahren.
       </p>
 
       <form class="inline-form" id="hero-form" data-endpoint="/api/bewertung">
@@ -37,8 +37,8 @@ import Layout from '../layouts/Layout.astro';
 
       <div class="hero__trust">
         <span>&#10003; 100% unverbindlich</span>
-        <span>&#10003; Keine Kosten</span>
-        <span>&#10003; Angebot in 48h</span>
+        <span>&#10003; Kostenlose Bewertung</span>
+        <span>&#10003; Erstbewertung in 48h</span>
         <span>&#10003; Notariell abgesichert</span>
       </div>
     </div>
@@ -49,19 +49,19 @@ import Layout from '../layouts/Layout.astro';
     <div class="container stats-bar__inner">
       <div class="stat">
         <span class="stat__number">48h</span>
-        <span class="stat__label">bis zum Angebot</span>
+        <span class="stat__label">Erstbewertung</span>
       </div>
       <div class="stat">
         <span class="stat__number">0&euro;</span>
-        <span class="stat__label">Kosten für dich</span>
-      </div>
-      <div class="stat">
-        <span class="stat__number">14T</span>
-        <span class="stat__label">bis zur Auszahlung</span>
+        <span class="stat__label">für die Bewertung</span>
       </div>
       <div class="stat">
         <span class="stat__number">100%</span>
         <span class="stat__label">Diskretion</span>
+      </div>
+      <div class="stat">
+        <span class="stat__number">35+</span>
+        <span class="stat__label">Jahre Erfahrung</span>
       </div>
     </div>
   </section>
@@ -72,7 +72,7 @@ import Layout from '../layouts/Layout.astro';
       <h2 class="sr-only">Verkaufen oder Investieren</h2>
       <div class="card card--seller">
         <h3>Ich möchte verkaufen</h3>
-        <p>Sanierungsbedürftig, Erbengemeinschaft, Messie-Objekt — wir kaufen alles im Ist-Zustand.</p>
+        <p>Sanierungsbedürftig, Erbengemeinschaft, Messie-Objekt — wir vermitteln an Käufer, die im Ist-Zustand kaufen.</p>
         <a href="/#bewertung" class="btn btn-primary">Immobilie bewerten lassen &rarr;</a>
       </div>
       <div class="card card--buyer">
@@ -95,13 +95,13 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <div class="step">
           <span class="step__num">02</span>
-          <h3>Angebot in 48h</h3>
-          <p>Wir bewerten die Substanz — nicht die Unordnung.</p>
+          <h3>Erstbewertung in 48h</h3>
+          <p>Wir bewerten die Substanz — nicht die Unordnung. Geprüfte Käufer geben verdeckte Angebote ab.</p>
         </div>
         <div class="step">
           <span class="step__num">03</span>
-          <h3>Schlüssel ab, fertig</h3>
-          <p>Notar, Entrümpelung, alle Kosten übernehmen wir.</p>
+          <h3>Du entscheidest, fertig</h3>
+          <p>Der Käufer übernimmt Entrümpelung und alle Kosten. Du musst dich um nichts kümmern.</p>
         </div>
       </div>
     </div>
@@ -133,7 +133,7 @@ import Layout from '../layouts/Layout.astro';
         </details>
         <details class="faq__item">
           <summary>Was kostet mich das als Verkäufer?</summary>
-          <p>Provision nur bei erfolgreichem Verkauf. Kein Verkauf = keine Kosten. Die Bewertung und das Angebotsverfahren sind für Sie kostenlos.</p>
+          <p>Die Bewertung und das Angebotsverfahren sind kostenlos. Bei erfolgreichem Verkauf fällt eine Vermittlungsprovision an (2,5% vom Kaufpreis). Kein Verkauf = keine Kosten.</p>
         </details>
         <details class="faq__item">
           <summary>Wie sicher ist das?</summary>
@@ -141,8 +141,23 @@ import Layout from '../layouts/Layout.astro';
         </details>
         <details class="faq__item">
           <summary>Muss ich die Wohnung aufräumen?</summary>
-          <p>Nein. Unsere Käufer kaufen im Ist-Zustand. Entrümpelung, Reinigung und alle damit verbundenen Kosten übernehmen wir.</p>
+          <p>Nein. Unsere Käufer kaufen im Ist-Zustand. Entrümpelung, Reinigung und alle damit verbundenen Kosten übernimmt der Käufer — du musst dich um nichts kümmern.</p>
         </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- STADTTEILE -->
+  <section class="section">
+    <div class="container stadtteile">
+      <h2>Stadtteile in Leipzig</h2>
+      <p class="text-mid">Lokale Marktdaten für deinen Stadtteil</p>
+      <div class="stadtteile-grid">
+        <a href="/leipzig/volkmarsdorf" class="stadtteile-pill">Volkmarsdorf</a>
+        <a href="/leipzig/plagwitz" class="stadtteile-pill">Plagwitz</a>
+        <a href="/leipzig/lindenau" class="stadtteile-pill">Lindenau</a>
+        <a href="/leipzig/neustadt-neuschonefeld" class="stadtteile-pill">Neustadt-Neuschönefeld</a>
+        <a href="/leipzig/reudnitz-thonberg" class="stadtteile-pill">Reudnitz-Thonberg</a>
       </div>
     </div>
   </section>
@@ -151,7 +166,7 @@ import Layout from '../layouts/Layout.astro';
   <section class="section" id="bewertung">
     <div class="container bewertung">
       <h2>Jetzt Immobilie bewerten lassen</h2>
-      <p class="text-mid">Kostenlos, unverbindlich, in 48 Stunden.</p>
+      <p class="text-mid">Kostenlos, unverbindlich — Erstbewertung innerhalb von 48 Stunden.</p>
       <form class="bewertung__form" id="bewertung-form" data-endpoint="/api/bewertung">
         <div class="form-grid">
           <div class="form-group">
@@ -490,6 +505,44 @@ import Layout from '../layouts/Layout.astro';
     .form-grid {
       grid-template-columns: 1fr;
     }
+  }
+
+  /* STADTTEILE */
+  .stadtteile {
+    text-align: center;
+  }
+
+  .stadtteile p {
+    margin-inline: auto;
+    margin-bottom: var(--space-8);
+  }
+
+  .stadtteile-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+  }
+
+  .stadtteile-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    transition: all var(--duration-normal) var(--ease-default);
+    min-height: 44px;
+  }
+
+  .stadtteile-pill:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
   }
 </style>
 

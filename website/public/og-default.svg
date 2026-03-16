@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0F172A"/>
+  <text x="600" y="280" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="800" font-size="72" fill="#F8FAFC">wirkaufendeine</text>
+  <text x="600" y="360" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="800" font-size="72" fill="#3B82F6">immobilie.de</text>
+  <text x="600" y="430" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="400" font-size="28" fill="#94A3B8">Sanierungsbedürftige Immobilien vermitteln in Leipzig</text>
+  <rect x="540" y="470" width="120" height="4" rx="2" fill="#3B82F6"/>
+</svg>
