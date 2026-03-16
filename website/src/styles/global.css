@@ -190,7 +190,6 @@ h3 { font-size: var(--text-xl); font-weight: var(--weight-bold); line-height: va
 h4 { font-size: var(--text-lg); font-weight: var(--weight-semibold); line-height: var(--leading-snug); letter-spacing: var(--tracking-normal); }
 
 p {
-  max-width: 65ch;
 }
 
 a {
