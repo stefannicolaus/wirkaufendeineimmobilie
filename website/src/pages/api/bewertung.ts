@@ -6,9 +6,18 @@ export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.formData();
+  // Honeypot spam check
+  if (data.get('website')) {
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const submission = {
     typ: 'bewertung',
     plz: data.get('plz'),
+    immobilientyp: data.get('typ'),
     name: data.get('name'),
     email: data.get('email'),
     telefon: data.get('telefon'),

@@ -268,6 +268,10 @@ import Layout from '../layouts/Layout.astro';
               <input type="tel" id="bew-tel" name="telefon" placeholder="0341 123 456" />
             </div>
           </div>
+          <!-- Honeypot -->
+          <div style="position:absolute;left:-9999px;" aria-hidden="true">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+          </div>
           <button type="submit" class="btn btn-primary">Kostenlos bewerten &rarr;</button>
         </form>
       </div>
@@ -474,7 +478,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .card__icon-box--dark {
-    background: #334155;
+    background: var(--color-primary-muted);
     color: var(--color-text-on-dark);
   }
 
@@ -625,7 +629,7 @@ import Layout from '../layouts/Layout.astro';
   .trust-card__stars {
     display: flex;
     gap: 2px;
-    color: #F59E0B;
+    color: var(--color-warning);
   }
 
   .trust-card__heading {
