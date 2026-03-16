@@ -1,65 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 ---
 <Layout
-  title="Aktionsplan Erbengemeinschaft — persoenlich erstellt"
-  description="Beantworte 5 Fragen zu deiner Erbengemeinschaft. Joachim Kleinke erstellt deinen persoenlichen 7-Schritte Aktionsplan. Kostenlos."
+  title="Aktionsplan erstellen — 5 kurze Fragen"
+  description="Beantworte 5 Fragen zu deiner Erbengemeinschaft. Joachim Kleinke erstellt deinen persoenlichen Aktionsplan."
+  noindex={true}
 >
 
-  <!-- ===== LANDING SECTION ===== -->
-  <section class="section ap-hero">
-    <div class="container ap-hero__inner">
-      <div class="label">Persoenlich erstellt von Joachim Kleinke</div>
-      <h1>Dein 7-Schritte Aktionsplan —<br /><span class="text-accent">auf deine Erbengemeinschaft zugeschnitten</span></h1>
-      <p class="ap-hero__sub">Wir erstellen deinen Aktionsplan basierend auf deinen Angaben —
-        mit konkreten Empfehlungen fuer deine Situation. Dafuer brauchen wir
-        ein paar Informationen von dir. Unsere Experten schauen sich das an
-        und schicken dir deinen persoenlichen Aktionsplan, auf deine
-        Erbengemeinschaft zugeschnitten. Kostenlos.</p>
-
-      <div class="ap-steps">
-        <div class="ap-step">
-          <div class="ap-step__icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          </div>
-          <div class="ap-step__label">5 Fragen beantworten</div>
-          <div class="ap-step__detail">2 Minuten</div>
-        </div>
-        <div class="ap-step__divider"></div>
-        <div class="ap-step">
-          <div class="ap-step__icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-          <div class="ap-step__label">Joachim analysiert deine Situation</div>
-          <div class="ap-step__detail">Persoenlich, nicht automatisiert</div>
-        </div>
-        <div class="ap-step__divider"></div>
-        <div class="ap-step">
-          <div class="ap-step__icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          </div>
-          <div class="ap-step__label">Dein Aktionsplan in 24h</div>
-          <div class="ap-step__detail">Individuell, mit konkreten Zahlen</div>
-        </div>
-      </div>
-
-      <a href="#wizard" class="btn btn-primary ap-hero__cta">Jetzt Aktionsplan erstellen lassen &rarr;</a>
-
-      <div class="ap-includes">
-        <p class="text-mid">Dein Aktionsplan enthaelt:</p>
-        <ul class="ap-includes__list">
-          <li>7 konkrete Schritte — priorisiert fuer deine Situation</li>
-          <li>Blockade-Rechner: Was dich der Stillstand jeden Monat kostet</li>
-          <li>Verhandlungs-Skript fuer das Gespraech mit dem blockierenden Erben</li>
-          <li>Lokale Kontakte: Nachlassgericht und Fachanwaelte in deiner Region</li>
-          <li>Marktwert-Schaetzung fuer dein Objekt</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== WIZARD SECTION ===== -->
-  <section class="section" id="wizard">
+  <section class="section">
     <div class="container">
       <div class="wizard">
         <!-- Progress Bar -->
@@ -70,7 +18,7 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Step 1: Wie viele Erben? -->
         <div class="wizard-step" data-step="1">
-          <h3>Wie viele Erben seid ihr?</h3>
+          <h2>Wie viele Erben seid ihr?</h2>
           <p class="text-mid">Das beeinflusst die rechtlichen Optionen und die Aufteilung.</p>
           <div class="wizard-options">
             <button type="button" data-value="2" data-field="erben_anzahl">2 Erben</button>
@@ -83,7 +31,7 @@ import Layout from '../layouts/Layout.astro';
         <!-- Step 2: Wer blockiert? -->
         <div class="wizard-step" data-step="2" hidden>
           <button type="button" class="wizard-back" onclick="goToStep(1)">&larr; Zurueck</button>
-          <h3>Wer blockiert den Verkauf?</h3>
+          <h2>Wer blockiert den Verkauf?</h2>
           <p class="text-mid">Je nachdem wer blockiert, gibt es unterschiedliche rechtliche Hebel.</p>
           <div class="wizard-options">
             <button type="button" data-value="geschwister" data-field="wer_blockiert">Ein Geschwisterteil</button>
@@ -97,7 +45,7 @@ import Layout from '../layouts/Layout.astro';
         <!-- Step 3: Seit wann blockiert? -->
         <div class="wizard-step" data-step="3" hidden>
           <button type="button" class="wizard-back" onclick="goToStep(2)">&larr; Zurueck</button>
-          <h3>Seit wann geht nichts mehr voran?</h3>
+          <h2>Seit wann geht nichts mehr voran?</h2>
           <p class="text-mid">Die Dauer bestimmt die Eskalationsstufe — und was jetzt am meisten Sinn macht.</p>
           <div class="wizard-options">
             <button type="button" data-value="<6m" data-field="blockade_dauer">Weniger als 6 Monate</button>
@@ -107,21 +55,21 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
 
-        <!-- Step 4: Freitext — Die Geschichte -->
+        <!-- Step 4: Freitext -->
         <div class="wizard-step" data-step="4" hidden>
           <button type="button" class="wizard-back" onclick="goToStep(3)">&larr; Zurueck</button>
-          <h3>Beschreib kurz eure Situation</h3>
+          <h2>Beschreib kurz eure Situation</h2>
           <p class="text-mid">Was ist das Hauptproblem? Je mehr wir verstehen, desto konkreter wird dein Aktionsplan.</p>
           <textarea name="situation" rows="5" placeholder="z.B.: Meine Schwester will das Haus unserer Mutter nicht verkaufen. Seit 2 Jahren Stillstand, die Nebenkosten laufen, niemand kuemmert sich..."></textarea>
-          <p class="wizard-hint">Keine Sorge — deine Angaben sind vertraulich und werden nur fuer deinen Aktionsplan verwendet.</p>
+          <p class="wizard-hint">Deine Angaben sind vertraulich und werden nur fuer deinen Aktionsplan verwendet.</p>
           <button type="button" class="btn btn-primary wizard-next">Weiter &rarr;</button>
         </div>
 
         <!-- Step 5: PLZ + Objekt-Typ -->
         <div class="wizard-step" data-step="5" hidden>
           <button type="button" class="wizard-back" onclick="goToStep(4)">&larr; Zurueck</button>
-          <h3>Wo steht die Immobilie?</h3>
-          <p class="text-mid">Damit wir lokale Kontakte und Marktdaten fuer deinen Aktionsplan einbeziehen koennen.</p>
+          <h2>Wo steht die Immobilie?</h2>
+          <p class="text-mid">Damit wir lokale Kontakte und Marktdaten einbeziehen koennen.</p>
           <div class="wizard-inputs">
             <div class="form-group">
               <label for="wizard-plz">PLZ</label>
@@ -141,18 +89,16 @@ import Layout from '../layouts/Layout.astro';
           <button type="button" class="btn btn-primary wizard-next">Weiter &rarr;</button>
         </div>
 
-        <!-- Step 6: Email — Abschluss mit Joachim-Positionierung -->
+        <!-- Step 6: Email + Joachim -->
         <div class="wizard-step wizard-final" data-step="6" hidden>
           <button type="button" class="wizard-back" onclick="goToStep(5)">&larr; Zurueck</button>
           <div class="joachim-box">
             <div class="joachim-badge">Persoenlich erstellt von</div>
             <h3>Joachim Kleinke</h3>
-            <p class="text-mid">35+ Jahre Immobilienerfahrung im Leipziger Markt.
-              Joachim analysiert deine Angaben und erstellt deinen 7-Schritte Aktionsplan
-              mit konkreten Empfehlungen fuer DEINE Erbengemeinschaft.</p>
+            <p class="text-mid">35+ Jahre Immobilienerfahrung im Leipziger Markt.</p>
           </div>
 
-          <h3>Wohin sollen wir deinen Aktionsplan schicken?</h3>
+          <h2>Wohin sollen wir deinen Aktionsplan schicken?</h2>
           <div class="wizard-inputs">
             <div class="form-group">
               <label for="wizard-name">Dein Name</label>
@@ -168,7 +114,26 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
           <button type="button" class="btn btn-primary wizard-submit">Aktionsplan erstellen lassen &rarr;</button>
-          <p class="wizard-disclaimer">Kostenlos und unverbindlich. Dein Aktionsplan wird innerhalb von 24 Stunden per E-Mail zugestellt. Keine versteckten Kosten.</p>
+        </div>
+
+        <!-- Bestaetigungs-Screen (nach Submit) -->
+        <div class="wizard-step wizard-confirmation" data-step="done" hidden>
+          <div class="confirmation-icon">&#10003;</div>
+          <h2>Vielen Dank fuer deine Angaben!</h2>
+          <p>Wir sehen uns deine Situation so schnell wie moeglich an.
+            Du erhaeltst deinen persoenlichen 7-Schritte Aktionsplan
+            innerhalb von 24 Stunden per E-Mail — zugeschnitten auf
+            deine Erbengemeinschaft und dein Objekt.</p>
+          <div class="confirmation-next">
+            <p class="text-mid">Was jetzt passiert:</p>
+            <ol>
+              <li>Joachim Kleinke prueft deine Angaben persoenlich</li>
+              <li>Dein individueller Aktionsplan wird erstellt</li>
+              <li>Du erhaeltst ihn per E-Mail — mit konkreten Schritten, Zahlen und lokalen Kontakten</li>
+            </ol>
+          </div>
+          <p class="confirmation-hint">Fragen? Ruf uns direkt an: <a href="tel:+493418009000">0341 — 800 900 0</a></p>
+          <a href="/" class="btn btn-primary" style="margin-top: var(--space-6);">Zurueck zur Startseite</a>
         </div>
 
       </div>
@@ -178,145 +143,6 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-  /* ===== LANDING SECTION ===== */
-  .ap-hero {
-    text-align: center;
-    padding-top: var(--space-20);
-    padding-bottom: var(--space-16);
-  }
-
-  .ap-hero__inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-6);
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .ap-hero__sub {
-    color: var(--color-text-mid);
-    font-size: var(--text-lg);
-    max-width: 640px;
-    line-height: var(--leading-relaxed);
-  }
-
-  /* 3-Step Explanation */
-  .ap-steps {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-4);
-    margin: var(--space-6) 0;
-    width: 100%;
-    max-width: 700px;
-  }
-
-  .ap-step {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--space-2);
-  }
-
-  .ap-step__icon {
-    width: 56px;
-    height: 56px;
-    border-radius: var(--radius-lg);
-    background: var(--color-accent-light);
-    color: var(--color-accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .ap-step__label {
-    font-size: var(--text-sm);
-    font-weight: var(--weight-semibold);
-    color: var(--color-text);
-    line-height: var(--leading-snug);
-  }
-
-  .ap-step__detail {
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-  }
-
-  .ap-step__divider {
-    width: 40px;
-    height: 2px;
-    background: var(--color-border);
-    margin-top: 28px;
-    flex-shrink: 0;
-  }
-
-  @media (max-width: 600px) {
-    .ap-steps {
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-4);
-    }
-    .ap-step {
-      flex-direction: row;
-      text-align: left;
-      gap: var(--space-3);
-    }
-    .ap-step__divider {
-      display: none;
-    }
-    .ap-step__icon {
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
-    }
-    .ap-step__icon svg {
-      width: 22px;
-      height: 22px;
-    }
-  }
-
-  .ap-hero__cta {
-    margin-top: var(--space-2);
-    font-size: var(--text-lg);
-    padding: var(--space-4) var(--space-8);
-  }
-
-  /* Includes List */
-  .ap-includes {
-    max-width: 560px;
-    text-align: left;
-    margin-top: var(--space-4);
-  }
-
-  .ap-includes > p {
-    font-weight: var(--weight-semibold);
-    margin-bottom: var(--space-3);
-  }
-
-  .ap-includes__list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .ap-includes__list li {
-    font-size: var(--text-sm);
-    color: var(--color-text-mid);
-    padding-left: var(--space-5);
-    position: relative;
-  }
-
-  .ap-includes__list li::before {
-    content: '\2713';
-    color: var(--color-accent);
-    font-weight: var(--weight-bold);
-    position: absolute;
-    left: 0;
-  }
-
-  /* ===== WIZARD ===== */
   .wizard {
     max-width: 640px;
     margin: 0 auto;
@@ -330,7 +156,6 @@ import Layout from '../layouts/Layout.astro';
     .wizard { padding: var(--space-6) var(--space-5); }
   }
 
-  /* Progress Bar */
   .wizard-progress {
     height: 6px;
     background: var(--color-bg-alt);
@@ -353,8 +178,7 @@ import Layout from '../layouts/Layout.astro';
     margin-bottom: var(--space-8);
   }
 
-  /* Step Content */
-  .wizard-step h3 {
+  .wizard-step h2 {
     font-size: var(--text-2xl);
     font-weight: var(--weight-bold);
     line-height: var(--leading-snug);
@@ -368,7 +192,6 @@ import Layout from '../layouts/Layout.astro';
     margin-bottom: var(--space-2);
   }
 
-  /* Option Buttons (Karten-Style) */
   .wizard-options {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -413,14 +236,8 @@ import Layout from '../layouts/Layout.astro';
     color: var(--color-accent-hover);
   }
 
-  /* Step Animation */
-  .wizard-enter {
-    animation: wizardIn 300ms var(--ease-default);
-  }
-
-  .wizard-exit {
-    animation: wizardOut 200ms var(--ease-default);
-  }
+  .wizard-enter { animation: wizardIn 300ms var(--ease-default); }
+  .wizard-exit { animation: wizardOut 200ms var(--ease-default); }
 
   @keyframes wizardIn {
     from { opacity: 0; transform: translateY(12px); }
@@ -437,7 +254,6 @@ import Layout from '../layouts/Layout.astro';
     .wizard-progress-fill { transition: none; }
   }
 
-  /* Textarea */
   .wizard textarea {
     width: 100%;
     min-height: 120px;
@@ -453,16 +269,9 @@ import Layout from '../layouts/Layout.astro';
     margin-top: var(--space-4);
   }
 
-  .wizard textarea:focus {
-    outline: none;
-    border-color: var(--color-accent);
-  }
+  .wizard textarea:focus { outline: none; border-color: var(--color-accent); }
+  .wizard textarea::placeholder { color: var(--color-text-muted); }
 
-  .wizard textarea::placeholder {
-    color: var(--color-text-muted);
-  }
-
-  /* Form Inputs */
   .wizard-inputs {
     display: flex;
     flex-direction: column;
@@ -497,23 +306,12 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .wizard .form-group input:focus,
-  .wizard .form-group select:focus {
-    outline: none;
-    border-color: var(--color-accent);
-  }
+  .wizard .form-group select:focus { outline: none; border-color: var(--color-accent); }
+  .wizard .form-group input::placeholder { color: var(--color-text-muted); }
 
-  .wizard .form-group input::placeholder {
-    color: var(--color-text-muted);
-  }
-
-  /* Wizard Buttons */
   .wizard .wizard-next,
-  .wizard .wizard-submit {
-    width: 100%;
-    margin-top: var(--space-6);
-  }
+  .wizard .wizard-submit { width: 100%; margin-top: var(--space-6); }
 
-  /* Joachim Box */
   .joachim-box {
     text-align: center;
     padding: var(--space-6);
@@ -531,18 +329,9 @@ import Layout from '../layouts/Layout.astro';
     margin-bottom: var(--space-2);
   }
 
-  .joachim-box h3 {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-3);
-  }
+  .joachim-box h3 { margin-bottom: var(--space-2); }
+  .joachim-box .text-mid { font-size: var(--text-sm); }
 
-  .joachim-box .text-mid {
-    font-size: var(--text-sm);
-    max-width: 480px;
-    margin: 0 auto;
-  }
-
-  /* Back Link */
   .wizard-back {
     font-size: var(--text-sm);
     font-family: var(--font-family);
@@ -560,49 +349,119 @@ import Layout from '../layouts/Layout.astro';
 
   .wizard-back:hover { color: var(--color-text); }
 
-  /* Hint + Disclaimer */
   .wizard-hint {
     font-size: var(--text-xs);
     color: var(--color-text-muted);
     margin-top: var(--space-2);
   }
 
-  .wizard-disclaimer {
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    margin-top: var(--space-3);
+  /* Confirmation Screen */
+  .wizard-confirmation {
     text-align: center;
+  }
+
+  .confirmation-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--color-success-light);
+    color: var(--color-success);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-6);
+  }
+
+  .wizard-confirmation h2 {
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  .wizard-confirmation > p {
+    color: var(--color-text-mid);
+    line-height: var(--leading-relaxed);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .confirmation-next {
+    text-align: left;
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    margin: var(--space-8) 0;
+  }
+
+  .confirmation-next p {
+    font-weight: var(--weight-semibold);
+    margin-bottom: var(--space-3);
+  }
+
+  .confirmation-next ol {
+    list-style: none;
+    counter-reset: steps;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .confirmation-next li {
+    counter-increment: steps;
+    color: var(--color-text-mid);
+    font-size: var(--text-sm);
+    padding-left: var(--space-8);
+    position: relative;
+  }
+
+  .confirmation-next li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: white;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .confirmation-hint {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-4);
+  }
+
+  .confirmation-hint a {
+    font-weight: var(--weight-semibold);
   }
 </style>
 
 <script>
-  // State
   const answers: Record<string, string> = {};
   let currentStep = 1;
   const totalSteps = 6;
 
-  // Option-Button Click → save answer + auto-advance
   document.querySelectorAll('.wizard-options button').forEach(btn => {
     btn.addEventListener('click', () => {
       const field = (btn as HTMLElement).dataset.field!;
       const value = (btn as HTMLElement).dataset.value!;
       answers[field] = value;
-
-      // Visual feedback
       btn.parentElement!.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
-
-      // Auto-advance after 300ms
       setTimeout(() => goToStep(currentStep + 1), 300);
     });
   });
 
-  // "Weiter" Buttons
   document.querySelectorAll('.wizard-next').forEach(btn => {
     btn.addEventListener('click', () => goToStep(currentStep + 1));
   });
 
-  // Progress Bar Update
   function updateProgress() {
     const bar = document.querySelector('.wizard-progress-fill') as HTMLElement;
     bar.style.width = `${(currentStep / totalSteps) * 100}%`;
@@ -610,12 +469,10 @@ import Layout from '../layouts/Layout.astro';
     label.textContent = `Schritt ${currentStep} von ${totalSteps}`;
   }
 
-  // Step-Transition with Animation
   function goToStep(step: number) {
     if (step < 1 || step > totalSteps) return;
     const current = document.querySelector(`[data-step="${currentStep}"]`) as HTMLElement;
     const next = document.querySelector(`[data-step="${step}"]`) as HTMLElement;
-
     current.classList.add('wizard-exit');
     setTimeout(() => {
       current.classList.remove('wizard-exit');
@@ -624,22 +481,34 @@ import Layout from '../layouts/Layout.astro';
       next.classList.add('wizard-enter');
       setTimeout(() => next.classList.remove('wizard-enter'), 300);
     }, 200);
-
     currentStep = step;
     updateProgress();
   }
 
-  // Make goToStep available globally for inline onclick handlers
+  function showConfirmation() {
+    const current = document.querySelector(`[data-step="${currentStep}"]`) as HTMLElement;
+    const done = document.querySelector('[data-step="done"]') as HTMLElement;
+    const progress = document.querySelector('.wizard-progress') as HTMLElement;
+    const label = document.querySelector('.wizard-step-label') as HTMLElement;
+
+    current.classList.add('wizard-exit');
+    setTimeout(() => {
+      current.hidden = true;
+      progress.style.display = 'none';
+      label.style.display = 'none';
+      done.hidden = false;
+      done.classList.add('wizard-enter');
+      setTimeout(() => done.classList.remove('wizard-enter'), 300);
+    }, 200);
+  }
+
   (window as any).goToStep = goToStep;
 
-  // Submit
-  document.querySelector('.wizard-submit')?.addEventListener('click', async (e) => {
-    e.preventDefault();
+  document.querySelector('.wizard-submit')?.addEventListener('click', async () => {
     const finalStep = document.querySelector('.wizard-final') as HTMLElement;
     const emailInput = finalStep.querySelector('[name="email"]') as HTMLInputElement;
     if (!emailInput.value) { emailInput.focus(); return; }
 
-    // Merge all data
     const formData = new FormData();
     formData.append('typ', 'aktionsplan-erben');
     Object.entries(answers).forEach(([k, v]) => formData.append(k, v));
@@ -664,7 +533,7 @@ import Layout from '../layouts/Layout.astro';
     try {
       const res = await fetch('/api/lead-magnet', { method: 'POST', body: formData });
       if (res.ok) {
-        window.location.href = '/danke?typ=aktionsplan&tool=erben';
+        showConfirmation();
       } else {
         btn.textContent = 'Fehler — erneut versuchen';
         btn.disabled = false;

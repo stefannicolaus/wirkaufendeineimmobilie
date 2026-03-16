@@ -1,0 +1,180 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Aktionsplan Erbengemeinschaft — persoenlich erstellt"
+  description="Beantworte 5 Fragen zu deiner Erbengemeinschaft. Joachim Kleinke erstellt deinen persoenlichen 7-Schritte Aktionsplan. Kostenlos."
+>
+
+  <section class="section ap-hero">
+    <div class="container ap-hero__inner">
+      <div class="label">Persoenlich erstellt von Joachim Kleinke</div>
+      <h1>Dein 7-Schritte Aktionsplan —<br /><span class="text-accent">auf deine Erbengemeinschaft zugeschnitten</span></h1>
+      <p class="ap-hero__sub">Wir erstellen deinen Aktionsplan basierend auf deinen Angaben —
+        mit konkreten Empfehlungen fuer deine Situation. Dafuer brauchen wir
+        ein paar Informationen von dir. Unsere Experten schauen sich das an
+        und schicken dir deinen persoenlichen Aktionsplan, auf deine
+        Erbengemeinschaft zugeschnitten. Kostenlos.</p>
+
+      <div class="ap-steps">
+        <div class="ap-step">
+          <div class="ap-step__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="ap-step__label">5 Fragen beantworten</div>
+          <div class="ap-step__detail">2 Minuten</div>
+        </div>
+        <div class="ap-step__divider"></div>
+        <div class="ap-step">
+          <div class="ap-step__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="ap-step__label">Joachim analysiert deine Situation</div>
+          <div class="ap-step__detail">Persoenlich, nicht automatisiert</div>
+        </div>
+        <div class="ap-step__divider"></div>
+        <div class="ap-step">
+          <div class="ap-step__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div class="ap-step__label">Dein Aktionsplan in 24h</div>
+          <div class="ap-step__detail">Individuell, mit konkreten Zahlen</div>
+        </div>
+      </div>
+
+      <a href="/aktionsplan-erbengemeinschaft/start" class="btn btn-primary ap-hero__cta">Jetzt starten &rarr;</a>
+
+      <div class="ap-includes">
+        <p class="text-mid">Dein Aktionsplan enthaelt:</p>
+        <ul class="ap-includes__list">
+          <li>7 konkrete Schritte — priorisiert fuer deine Situation</li>
+          <li>Blockade-Rechner: Was dich der Stillstand jeden Monat kostet</li>
+          <li>Verhandlungs-Skript fuer das Gespraech mit dem blockierenden Erben</li>
+          <li>Lokale Kontakte: Nachlassgericht und Fachanwaelte in deiner Region</li>
+          <li>Marktwert-Schaetzung fuer dein Objekt</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .ap-hero {
+    text-align: center;
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-16);
+  }
+
+  .ap-hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .ap-hero__sub {
+    color: var(--color-text-mid);
+    font-size: var(--text-lg);
+    max-width: 640px;
+    line-height: var(--leading-relaxed);
+  }
+
+  .ap-steps {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    margin: var(--space-6) 0;
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .ap-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-2);
+  }
+
+  .ap-step__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-lg);
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ap-step__label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+    line-height: var(--leading-snug);
+  }
+
+  .ap-step__detail {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .ap-step__divider {
+    width: 40px;
+    height: 2px;
+    background: var(--color-border);
+    margin-top: 28px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .ap-steps { flex-direction: column; align-items: center; gap: var(--space-4); }
+    .ap-step { flex-direction: row; text-align: left; gap: var(--space-3); }
+    .ap-step__divider { display: none; }
+    .ap-step__icon { width: 44px; height: 44px; flex-shrink: 0; }
+    .ap-step__icon svg { width: 22px; height: 22px; }
+  }
+
+  .ap-hero__cta {
+    margin-top: var(--space-2);
+    font-size: var(--text-lg);
+    padding: var(--space-4) var(--space-8);
+  }
+
+  .ap-includes {
+    max-width: 560px;
+    text-align: left;
+    margin-top: var(--space-4);
+  }
+
+  .ap-includes > p {
+    font-weight: var(--weight-semibold);
+    margin-bottom: var(--space-3);
+  }
+
+  .ap-includes__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .ap-includes__list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-mid);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .ap-includes__list li::before {
+    content: '\2713';
+    color: var(--color-accent);
+    font-weight: var(--weight-bold);
+    position: absolute;
+    left: 0;
+  }
+</style>
