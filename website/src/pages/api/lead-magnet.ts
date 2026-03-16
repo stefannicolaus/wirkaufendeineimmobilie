@@ -7,32 +7,39 @@ export const prerender = false;
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.formData();
 
-  const typ = data.get('typ') as string; // 'erben' or 'flipstart'
+  const typ = data.get('typ') as string; // 'aktionsplan-erben', 'blueprint', or 'kompass'
 
   const submission: Record<string, unknown> = {
-    typ: `guide-${typ}`,
+    typ,
     email: data.get('email'),
     timestamp: new Date().toISOString(),
   };
 
-  // Erbengemeinschaft-specific fields
-  if (typ === 'erben') {
+  // Aktionsplan Erbengemeinschaft fields
+  if (typ === 'aktionsplan-erben') {
     submission.anzahl_erben = data.get('anzahl_erben');
     submission.blockiert_seit = data.get('blockiert_seit');
     submission.plz = data.get('plz');
   }
 
-  // Fix & Flip Starter-specific fields
-  if (typ === 'flipstart') {
+  // Blueprint fields
+  if (typ === 'blueprint') {
     submission.erfahrung = data.get('erfahrung');
     submission.budget = data.get('budget');
     submission.handwerker = data.get('handwerker');
   }
 
+  // Kompass Betreuung fields
+  if (typ === 'kompass') {
+    submission.rolle = data.get('rolle');
+    submission.vermoegenssorge = data.get('vermoegenssorge');
+    submission.plz = data.get('plz');
+  }
+
   const dir = join(process.cwd(), 'data', 'submissions');
   await mkdir(dir, { recursive: true });
   await writeFile(
-    join(dir, `guide-${typ}-${Date.now()}.json`),
+    join(dir, `${typ}-${Date.now()}.json`),
     JSON.stringify(submission, null, 2)
   );
 

@@ -1,46 +1,44 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 <Layout
-  title="Fix & Flip Starter-Guide Leipzig — Dein erster Deal in 90 Tagen | wirkaufendeineimmobilie.de"
-  description="Kalkulation, Finanzierung, Stadtteil-Analyse, Deal-Quellen — alles was du für deinen ersten Fix & Flip Deal in Leipzig brauchst."
+  title="Dein erster Flip in 90 Tagen — der Blueprint | wirkaufendeineimmobilie.de"
+  description="90-Tage-Schritt-fuer-Schritt-Plan, Deal-Rechner Leipzig, Kalkulations-Template mit Leipzig-Zahlen und Stadtteil-Analyse."
 >
 
-  <section class="section guide-hero">
-    <div class="container guide-hero__inner">
-      <div class="label">Kostenloser Guide</div>
-      <h1>Fix &amp; Flip Starter-Guide Leipzig —<br /><span class="text-accent">Dein erster Deal in 90 Tagen</span></h1>
+  <section class="section tool-hero">
+    <div class="container tool-hero__inner">
+      <div class="label">Kostenloser Blueprint</div>
+      <h1>Dein erster Flip in 90 Tagen —<br /><span class="text-accent">der Blueprint</span></h1>
     </div>
   </section>
 
   <section class="section bg-alt">
-    <div class="container guide-content">
-      <div class="guide-grid">
-        <div class="guide-pain">
-          <h2>Du willst starten, aber weißt nicht wo?</h2>
+    <div class="container tool-content">
+      <div class="tool-grid">
+        <div class="tool-pain">
+          <h2>Du willst starten, aber weisst nicht wo?</h2>
           <p class="text-mid" style="margin-top: var(--space-4); margin-bottom: var(--space-8);">
-            Dieser Guide zeigt dir den Weg — von der ersten Kalkulation bis zum ersten Notartermin.
+            Dieser Blueprint zeigt dir den Weg — von der ersten Kalkulation bis zum ersten Notartermin.
             Mit echten Leipziger Zahlen, nicht theoretischen Modellen.
           </p>
 
-          <h3>Was im Guide steht:</h3>
+          <h3>Was im Blueprint steht:</h3>
           <ul class="content-list">
-            <li>Vollständige Kalkulation eines echten Beispiel-Deals</li>
-            <li>Finanzierungsoptionen: mit und ohne Eigenkapital</li>
-            <li>Stadtteil-Analyse: Wo lohnt sich ein Flip in Leipzig?</li>
-            <li>Deal-Quellen: Wo findest du Off-Market Objekte?</li>
-            <li>Gewerk-Matrix: Welche Handwerker brauchst du?</li>
-            <li>90-Tage-Fahrplan: Schritt für Schritt zum ersten Deal</li>
+            <li>90-Tage-Schritt-fuer-Schritt-Plan — vom ersten Tag bis zum Notartermin</li>
+            <li>Deal-Rechner Leipzig: Flip-Rendite in 2 Minuten berechnen</li>
+            <li>Kalkulations-Template mit echten Leipzig-Zahlen</li>
+            <li>Stadtteil-Analyse + Deal-Quellen: Wo findest du Off-Market Objekte?</li>
           </ul>
 
-          <div class="guide-trust">
+          <div class="tool-trust">
             Kostenlos. 22 Seiten. Sofort per E-Mail.
           </div>
         </div>
 
-        <div class="guide-form-wrap">
-          <h3>Guide jetzt anfordern</h3>
-          <form class="guide-form" id="flip-form">
+        <div class="tool-form-wrap">
+          <h3>Blueprint anfordern</h3>
+          <form class="tool-form" id="flip-form">
             <div class="form-group">
               <label for="flip-erfahrung">Erfahrungslevel</label>
               <select id="flip-erfahrung" name="erfahrung">
@@ -55,7 +53,7 @@ import Layout from '../../layouts/Layout.astro';
                 <option value="<50k">Unter 50.000 &euro;</option>
                 <option value="50-100k">50.000 - 100.000 &euro;</option>
                 <option value="100-200k">100.000 - 200.000 &euro;</option>
-                <option value=">200k">Über 200.000 &euro;</option>
+                <option value=">200k">Ueber 200.000 &euro;</option>
               </select>
             </div>
             <div class="form-group">
@@ -70,7 +68,7 @@ import Layout from '../../layouts/Layout.astro';
               <label for="flip-email">E-Mail *</label>
               <input type="email" id="flip-email" name="email" required placeholder="max@beispiel.de" />
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;">Guide kostenlos erhalten &rarr;</button>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Blueprint kostenlos anfordern &rarr;</button>
           </form>
         </div>
       </div>
@@ -80,20 +78,20 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .guide-hero {
+  .tool-hero {
     text-align: center;
     padding-top: var(--space-20);
     padding-bottom: var(--space-12);
   }
 
-  .guide-hero__inner {
+  .tool-hero__inner {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-4);
   }
 
-  .guide-grid {
+  .tool-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-10);
@@ -101,7 +99,7 @@ import Layout from '../../layouts/Layout.astro';
   }
 
   @media (max-width: 768px) {
-    .guide-grid {
+    .tool-grid {
       grid-template-columns: 1fr;
     }
   }
@@ -125,13 +123,13 @@ import Layout from '../../layouts/Layout.astro';
     color: var(--color-text-mid);
   }
 
-  .guide-trust {
+  .tool-trust {
     font-weight: var(--weight-semibold);
     color: var(--color-accent);
     font-size: var(--text-sm);
   }
 
-  .guide-form-wrap {
+  .tool-form-wrap {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -139,11 +137,11 @@ import Layout from '../../layouts/Layout.astro';
     box-shadow: var(--shadow-lg);
   }
 
-  .guide-form-wrap h3 {
+  .tool-form-wrap h3 {
     margin-bottom: var(--space-6);
   }
 
-  .guide-form {
+  .tool-form {
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
@@ -172,14 +170,14 @@ import Layout from '../../layouts/Layout.astro';
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
-    formData.append('typ', 'flipstart');
+    formData.append('typ', 'blueprint');
     const btn = form.querySelector('button') as HTMLButtonElement;
     btn.textContent = 'Wird gesendet...';
     btn.disabled = true;
     try {
-      const res = await fetch('/api/guide', { method: 'POST', body: formData });
+      const res = await fetch('/api/lead-magnet', { method: 'POST', body: formData });
       if (res.ok) {
-        window.location.href = '/danke?typ=guide&guide=flipstart';
+        window.location.href = '/danke?typ=blueprint&tool=flipstart';
       } else {
         btn.textContent = 'Fehler — erneut versuchen';
         btn.disabled = false;

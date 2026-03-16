@@ -1,47 +1,47 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 <Layout
-  title="Erbengemeinschaft & Immobilie — 7 Wege aus der Blockade | wirkaufendeineimmobilie.de"
-  description="Einer will nicht verkaufen? Die Kosten laufen? 7 rechtliche Wege, wie Erbengemeinschaften eine Immobilie verwerten können."
+  title="Der 7-Schritte Aktionsplan fuer blockierte Erbengemeinschaften | wirkaufendeineimmobilie.de"
+  description="Einer will nicht verkaufen? Die Kosten laufen? 7-Schritte Aktionsplan mit Blockade-Rechner, Verhandlungs-Skript und 30-Tage-Plan."
 >
 
-  <section class="section guide-hero">
-    <div class="container guide-hero__inner">
-      <div class="label">Kostenloser Guide</div>
-      <h1>Erbengemeinschaft &amp; Immobilie —<br /><span class="text-accent">7 Wege aus der Blockade</span></h1>
+  <section class="section tool-hero">
+    <div class="container tool-hero__inner">
+      <div class="label">Kostenloser Aktionsplan</div>
+      <h1>Der 7-Schritte Aktionsplan fuer<br /><span class="text-accent">blockierte Erbengemeinschaften</span></h1>
     </div>
   </section>
 
   <section class="section bg-alt">
-    <div class="container guide-content">
-      <div class="guide-grid">
-        <div class="guide-pain">
+    <div class="container tool-content">
+      <div class="tool-grid">
+        <div class="tool-pain">
           <h2>Kommt Ihnen das bekannt vor?</h2>
           <ul class="pain-list">
             <li>Einer der Erben blockiert den Verkauf</li>
             <li>Die laufenden Kosten fressen die Substanz</li>
             <li>Seit Monaten passiert einfach nichts</li>
-            <li>Niemand will die Verantwortung übernehmen</li>
-            <li>Die Immobilie verfällt, während alle streiten</li>
+            <li>Niemand will die Verantwortung uebernehmen</li>
+            <li>Die Immobilie verfaellt, waehrend alle streiten</li>
           </ul>
 
-          <h3>Was im Guide steht:</h3>
+          <h3>Was im Aktionsplan steht:</h3>
           <ul class="content-list">
-            <li>7 rechtliche Wege, eine Erbengemeinschaft aufzulösen</li>
-            <li>Kostenrechner: Was kostet die Blockade pro Monat?</li>
-            <li>Lokale Ansprechpartner in Leipzig (Notar, Mediator)</li>
-            <li>Checkliste: Welcher Weg passt zu Ihrer Situation?</li>
+            <li>7-Schritte Aktionsplan — von der Blockade zum Verkauf</li>
+            <li>Blockade-Rechner: Was kostet dich die Blockade jeden Monat?</li>
+            <li>Verhandlungs-Skript: Das Gespraech mit dem blockierenden Erben — Wort fuer Wort</li>
+            <li>30-Tage-Plan: In 30 Tagen von der Blockade zum Verkauf</li>
           </ul>
 
-          <div class="guide-trust">
+          <div class="tool-trust">
             Kostenlos. 14 Seiten. Sofort per E-Mail.
           </div>
         </div>
 
-        <div class="guide-form-wrap">
-          <h3>Guide jetzt anfordern</h3>
-          <form class="guide-form" id="erben-form">
+        <div class="tool-form-wrap">
+          <h3>Aktionsplan sichern</h3>
+          <form class="tool-form" id="erben-form">
             <div class="form-group">
               <label for="erben-anzahl">Anzahl Erben</label>
               <select id="erben-anzahl" name="anzahl_erben">
@@ -68,7 +68,7 @@ import Layout from '../../layouts/Layout.astro';
               <label for="erben-email">E-Mail *</label>
               <input type="email" id="erben-email" name="email" required placeholder="max@beispiel.de" />
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;">Guide kostenlos erhalten &rarr;</button>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Aktionsplan kostenlos sichern &rarr;</button>
           </form>
         </div>
       </div>
@@ -78,20 +78,20 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .guide-hero {
+  .tool-hero {
     text-align: center;
     padding-top: var(--space-20);
     padding-bottom: var(--space-12);
   }
 
-  .guide-hero__inner {
+  .tool-hero__inner {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-4);
   }
 
-  .guide-grid {
+  .tool-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-10);
@@ -99,7 +99,7 @@ import Layout from '../../layouts/Layout.astro';
   }
 
   @media (max-width: 768px) {
-    .guide-grid {
+    .tool-grid {
       grid-template-columns: 1fr;
     }
   }
@@ -131,13 +131,13 @@ import Layout from '../../layouts/Layout.astro';
     color: var(--color-text-mid);
   }
 
-  .guide-trust {
+  .tool-trust {
     font-weight: var(--weight-semibold);
     color: var(--color-accent);
     font-size: var(--text-sm);
   }
 
-  .guide-form-wrap {
+  .tool-form-wrap {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -145,11 +145,11 @@ import Layout from '../../layouts/Layout.astro';
     box-shadow: var(--shadow-lg);
   }
 
-  .guide-form-wrap h3 {
+  .tool-form-wrap h3 {
     margin-bottom: var(--space-6);
   }
 
-  .guide-form {
+  .tool-form {
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
@@ -178,14 +178,14 @@ import Layout from '../../layouts/Layout.astro';
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
-    formData.append('typ', 'erben');
+    formData.append('typ', 'aktionsplan-erben');
     const btn = form.querySelector('button') as HTMLButtonElement;
     btn.textContent = 'Wird gesendet...';
     btn.disabled = true;
     try {
-      const res = await fetch('/api/guide', { method: 'POST', body: formData });
+      const res = await fetch('/api/lead-magnet', { method: 'POST', body: formData });
       if (res.ok) {
-        window.location.href = '/danke?typ=guide&guide=erben';
+        window.location.href = '/danke?typ=aktionsplan&tool=erben';
       } else {
         btn.textContent = 'Fehler — erneut versuchen';
         btn.disabled = false;

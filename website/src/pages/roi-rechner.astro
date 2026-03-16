@@ -440,9 +440,9 @@ import Layout from '../layouts/Layout.astro';
     btn.disabled = true;
 
     try {
-      const res = await fetch('/api/guide', { method: 'POST', body: formData });
+      const res = await fetch('/api/lead-magnet', { method: 'POST', body: formData });
       if (res.ok) {
-        window.location.href = '/danke?typ=guide&guide=flipstart';
+        window.location.href = '/danke?typ=blueprint&tool=flipstart';
       } else {
         btn.textContent = 'Fehler — erneut versuchen';
         btn.disabled = false;

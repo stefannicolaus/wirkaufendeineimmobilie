@@ -5,7 +5,7 @@ export const prerender = false;
 
 const url = new URL(Astro.request.url);
 const typ = url.searchParams.get('typ') || 'verkaeufer';
-const guide = url.searchParams.get('guide') || '';
+const tool = url.searchParams.get('tool') || '';
 
 const content: Record<string, { title: string; heading: string; message: string; next?: string; nextLink?: string }> = {
   verkaeufer: {
@@ -22,12 +22,26 @@ const content: Record<string, { title: string; heading: string; message: string;
     next: 'In der Zwischenzeit: ROI-Rechner ausprobieren',
     nextLink: '/roi-rechner',
   },
-  guide: {
-    title: 'Dein Guide ist unterwegs',
-    heading: 'Dein Guide ist unterwegs!',
+  aktionsplan: {
+    title: 'Dein Aktionsplan ist unterwegs',
+    heading: 'Dein Aktionsplan ist unterwegs!',
     message: 'Prüfe deinen Posteingang — die E-Mail sollte in wenigen Minuten ankommen. Schau auch im Spam-Ordner nach.',
-    next: guide === 'erben' ? 'Nächster Schritt: Immobilie bewerten lassen' : 'Nächster Schritt: Investoren-Zugang anfragen',
-    nextLink: guide === 'erben' ? '/#bewertung' : '/investoren',
+    next: 'Nächster Schritt: Immobilie bewerten lassen',
+    nextLink: '/#bewertung',
+  },
+  blueprint: {
+    title: 'Dein Blueprint ist unterwegs',
+    heading: 'Dein Blueprint ist unterwegs!',
+    message: 'Prüfe deinen Posteingang — die E-Mail sollte in wenigen Minuten ankommen. Schau auch im Spam-Ordner nach.',
+    next: 'Nächster Schritt: Investoren-Zugang anfragen',
+    nextLink: '/investoren',
+  },
+  kompass: {
+    title: 'Dein Entscheidungskompass ist unterwegs',
+    heading: 'Dein Entscheidungskompass ist unterwegs!',
+    message: 'Prüfe deinen Posteingang — die E-Mail sollte in wenigen Minuten ankommen. Schau auch im Spam-Ordner nach.',
+    next: 'Nächster Schritt: Immobilie bewerten lassen',
+    nextLink: '/#bewertung',
   },
 };
 
