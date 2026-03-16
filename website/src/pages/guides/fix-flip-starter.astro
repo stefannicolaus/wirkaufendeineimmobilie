@@ -1,0 +1,192 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Fix & Flip Starter-Guide Leipzig — Dein erster Deal in 90 Tagen | wirkaufendeineimmobilie.de"
+  description="Kalkulation, Finanzierung, Stadtteil-Analyse, Deal-Quellen — alles was du für deinen ersten Fix & Flip Deal in Leipzig brauchst."
+>
+
+  <section class="section guide-hero">
+    <div class="container guide-hero__inner">
+      <div class="label">Kostenloser Guide</div>
+      <h1>Fix &amp; Flip Starter-Guide Leipzig —<br /><span class="text-accent">Dein erster Deal in 90 Tagen</span></h1>
+    </div>
+  </section>
+
+  <section class="section bg-alt">
+    <div class="container guide-content">
+      <div class="guide-grid">
+        <div class="guide-pain">
+          <h2>Du willst starten, aber weißt nicht wo?</h2>
+          <p class="text-mid" style="margin-top: var(--space-4); margin-bottom: var(--space-8);">
+            Dieser Guide zeigt dir den Weg — von der ersten Kalkulation bis zum ersten Notartermin.
+            Mit echten Leipziger Zahlen, nicht theoretischen Modellen.
+          </p>
+
+          <h3>Was im Guide steht:</h3>
+          <ul class="content-list">
+            <li>Vollständige Kalkulation eines echten Beispiel-Deals</li>
+            <li>Finanzierungsoptionen: mit und ohne Eigenkapital</li>
+            <li>Stadtteil-Analyse: Wo lohnt sich ein Flip in Leipzig?</li>
+            <li>Deal-Quellen: Wo findest du Off-Market Objekte?</li>
+            <li>Gewerk-Matrix: Welche Handwerker brauchst du?</li>
+            <li>90-Tage-Fahrplan: Schritt für Schritt zum ersten Deal</li>
+          </ul>
+
+          <div class="guide-trust">
+            Kostenlos. 22 Seiten. Sofort per E-Mail.
+          </div>
+        </div>
+
+        <div class="guide-form-wrap">
+          <h3>Guide jetzt anfordern</h3>
+          <form class="guide-form" id="flip-form">
+            <div class="form-group">
+              <label for="flip-erfahrung">Erfahrungslevel</label>
+              <select id="flip-erfahrung" name="erfahrung">
+                <option value="0">Noch kein Deal</option>
+                <option value="1-2">1-2 Deals</option>
+                <option value="3+">3+ Deals</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="flip-budget">Budget-Range</label>
+              <select id="flip-budget" name="budget">
+                <option value="<50k">Unter 50.000 &euro;</option>
+                <option value="50-100k">50.000 - 100.000 &euro;</option>
+                <option value="100-200k">100.000 - 200.000 &euro;</option>
+                <option value=">200k">Über 200.000 &euro;</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="flip-handwerker">Eigene Handwerker?</label>
+              <select id="flip-handwerker" name="handwerker">
+                <option value="nein">Nein</option>
+                <option value="ja">Ja</option>
+                <option value="teilweise">Teilweise</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="flip-email">E-Mail *</label>
+              <input type="email" id="flip-email" name="email" required placeholder="max@beispiel.de" />
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Guide kostenlos erhalten &rarr;</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .guide-hero {
+    text-align: center;
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-12);
+  }
+
+  .guide-hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .guide-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .guide-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .content-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .content-list li::before {
+    content: '\2713  ';
+    color: var(--color-success);
+    font-weight: var(--weight-bold);
+  }
+
+  .content-list li {
+    color: var(--color-text-mid);
+  }
+
+  .guide-trust {
+    font-weight: var(--weight-semibold);
+    color: var(--color-accent);
+    font-size: var(--text-sm);
+  }
+
+  .guide-form-wrap {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .guide-form-wrap h3 {
+    margin-bottom: var(--space-6);
+  }
+
+  .guide-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .form-group label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-mid);
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+  }
+</style>
+
+<script>
+  const form = document.getElementById('flip-form') as HTMLFormElement;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    formData.append('typ', 'flipstart');
+    const btn = form.querySelector('button') as HTMLButtonElement;
+    btn.textContent = 'Wird gesendet...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/guide', { method: 'POST', body: formData });
+      if (res.ok) {
+        window.location.href = '/danke?typ=guide&guide=flipstart';
+      } else {
+        btn.textContent = 'Fehler — erneut versuchen';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Fehler — erneut versuchen';
+      btn.disabled = false;
+    }
+  });
+</script>

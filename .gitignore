@@ -1,1 +1,8 @@
 .DS_Store
+node_modules/
+dist/
+.astro/
+data/submissions/
+*.log
+.env
+.env.*

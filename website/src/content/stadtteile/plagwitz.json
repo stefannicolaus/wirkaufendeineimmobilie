@@ -1,0 +1,15 @@
+{
+  "name": "Plagwitz",
+  "slug": "plagwitz",
+  "bezirk": "West",
+  "qm_unsaniert": 2200,
+  "qm_saniert": 4200,
+  "trend": "stabil hoch",
+  "trend_5j": "+28%",
+  "typische_objekte": "Industrielofts, Gründerzeit-Altbauten, teils denkmalgeschützt",
+  "besonderheit": "Leipzigs Vorzeige-Gentrifizierung. Höchstes Preisniveau im Westen — aber immer noch Restpotenzial bei unsanierten Einheiten.",
+  "infrastruktur": ["S-Bahn Plagwitz", "Karl-Heine-Kanal", "Baumwollspinnerei", "Straßenbahn 14"],
+  "einwohner": 14200,
+  "sanierungsquote": "72%",
+  "nachbar_stadtteile": ["lindenau"]
+}

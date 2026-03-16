@@ -1,0 +1,324 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="So funktioniert's — wirkaufendeineimmobilie.de"
+  description="Vom ersten Kontakt bis zum Geld auf deinem Konto — transparent und fair. Für Verkäufer und Käufer."
+>
+
+  <!-- HERO -->
+  <section class="section sfh-hero">
+    <div class="container sfh-hero__inner">
+      <h1>So funktioniert's</h1>
+      <p class="sfh-hero__sub">
+        Vom ersten Kontakt bis zum Geld auf deinem Konto — transparent und fair.
+      </p>
+    </div>
+  </section>
+
+  <!-- PERSPECTIVE TABS -->
+  <section class="section bg-alt">
+    <div class="container perspectives">
+      <div class="tab-switch" role="tablist">
+        <button role="tab" aria-selected="true" aria-controls="panel-verkaeufer" id="tab-verkaeufer" class="tab-btn tab-btn--active">Verkäufer</button>
+        <button role="tab" aria-selected="false" aria-controls="panel-kaeufer" id="tab-kaeufer" class="tab-btn">Käufer</button>
+      </div>
+
+      <!-- Verkäufer Panel -->
+      <div role="tabpanel" id="panel-verkaeufer" aria-labelledby="tab-verkaeufer" class="tab-panel tab-panel--active">
+        <div class="process-steps">
+          <div class="pstep">
+            <div class="pstep__num">1</div>
+            <div class="pstep__content">
+              <h3>Objekt einreichen</h3>
+              <p>PLZ + Basisdaten — 2 Minuten. Keine Fotos nötig, kein Aufräumen. Wir bewerten die Substanz.</p>
+            </div>
+          </div>
+          <div class="pstep">
+            <div class="pstep__num">2</div>
+            <div class="pstep__content">
+              <h3>Wir starten das Angebotsverfahren</h3>
+              <p>Nur geprüfte Käufer. Geschlossen, fair, dokumentiert. Jeder Käufer gibt ein verdecktes Angebot ab.</p>
+            </div>
+          </div>
+          <div class="pstep">
+            <div class="pstep__num">3</div>
+            <div class="pstep__content">
+              <h3>Sie entscheiden</h3>
+              <p>Alle Angebote einsehen. Frei wählen. Notar übernehmen wir. Kein Zwang, kein Zeitdruck.</p>
+            </div>
+          </div>
+        </div>
+        <div class="panel-cta">
+          <a href="/#bewertung" class="btn btn-primary">Jetzt Objekt einreichen &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Käufer Panel -->
+      <div role="tabpanel" id="panel-kaeufer" aria-labelledby="tab-kaeufer" class="tab-panel" hidden>
+        <div class="process-steps">
+          <div class="pstep">
+            <div class="pstep__num">1</div>
+            <div class="pstep__content">
+              <h3>Zugang sichern</h3>
+              <p>Registrieren, verifizieren, Deal-Profil anlegen. Wir prüfen jeden Antrag persönlich.</p>
+            </div>
+          </div>
+          <div class="pstep">
+            <div class="pstep__num">2</div>
+            <div class="pstep__content">
+              <h3>Objekte prüfen &amp; bieten</h3>
+              <p>Kuratierte Objekte, alle Unterlagen, ein Gebot. Verdeckt — niemand sieht Ihr Angebot.</p>
+            </div>
+          </div>
+          <div class="pstep">
+            <div class="pstep__num">3</div>
+            <div class="pstep__content">
+              <h3>Zuschlag &amp; Sanierung</h3>
+              <p>Notartermin, Schlüssel, lossanieren. Vom Angebot bis zum Notartermin in 14 Tagen.</p>
+            </div>
+          </div>
+        </div>
+        <div class="panel-cta">
+          <a href="/investoren" class="btn btn-primary">Investoren-Zugang anfragen &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANGEBOTSVERFAHREN ERKLÄRT -->
+  <section class="section">
+    <div class="container av-section">
+      <h2>Das digitale Angebotsverfahren</h2>
+      <p class="av-section__intro">
+        <strong>Kein Bieterwettlauf. Kein Zwang.</strong> — Jeder gibt sein bestes Angebot ab, verdeckt.
+        Der Verkäufer sieht alle Angebote und entscheidet frei.
+      </p>
+      <div class="av-grid">
+        <div class="av-point">
+          <div class="av-point__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div>
+            <h3>Geschlossen</h3>
+            <p>Niemand sieht andere Gebote. Kein Hochbieten, kein FOMO.</p>
+          </div>
+        </div>
+        <div class="av-point">
+          <div class="av-point__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <h3>Fair</h3>
+            <p>Ein Gebot pro Käufer. Gleiche Regeln für alle.</p>
+          </div>
+        </div>
+        <div class="av-point">
+          <div class="av-point__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div>
+            <h3>Transparent</h3>
+            <p>Alle Angebote werden dem Verkäufer gezeigt. Vollständige Einsicht.</p>
+          </div>
+        </div>
+        <div class="av-point">
+          <div class="av-point__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h3>Rechtssicher</h3>
+            <p>Kaufvertrag kommt erst durch notarielle Beurkundung zustande.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* HERO */
+  .sfh-hero {
+    text-align: center;
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-12);
+  }
+
+  .sfh-hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .sfh-hero__sub {
+    font-size: var(--text-lg);
+    color: var(--color-text-mid);
+    max-width: 48ch;
+  }
+
+  /* TABS */
+  .tab-switch {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-10);
+  }
+
+  .tab-btn {
+    padding: var(--space-3) var(--space-8);
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background: var(--color-bg-card);
+    color: var(--color-text-mid);
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-default);
+    min-height: 44px;
+  }
+
+  .tab-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .tab-btn--active {
+    background: var(--color-accent);
+    color: var(--color-text-on-accent);
+    border-color: var(--color-accent);
+  }
+
+  /* PROCESS STEPS */
+  .process-steps {
+    max-width: 640px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .pstep {
+    display: flex;
+    gap: var(--space-6);
+    align-items: flex-start;
+  }
+
+  .pstep__num {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-xl);
+    font-weight: var(--weight-extrabold);
+    color: var(--color-accent);
+    background: var(--color-accent-light);
+    border-radius: var(--radius-md);
+  }
+
+  .pstep__content h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .pstep__content p {
+    color: var(--color-text-mid);
+  }
+
+  .panel-cta {
+    text-align: center;
+    margin-top: var(--space-10);
+  }
+
+  /* AV SECTION */
+  .av-section {
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .av-section h2 {
+    text-align: center;
+    margin-bottom: var(--space-4);
+  }
+
+  .av-section__intro {
+    text-align: center;
+    color: var(--color-text-mid);
+    margin-bottom: var(--space-10);
+    margin-inline: auto;
+  }
+
+  .av-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  .av-point {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  .av-point__icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent-light);
+    border-radius: var(--radius-sm);
+  }
+
+  .av-point h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-normal);
+  }
+
+  .av-point p {
+    color: var(--color-text-mid);
+    font-size: var(--text-sm);
+    margin-top: var(--space-1);
+  }
+
+  @media (max-width: 640px) {
+    .av-grid {
+      grid-template-columns: 1fr;
+    }
+    .pstep {
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+  }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => {
+        t.classList.remove('tab-btn--active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('tab-btn--active');
+      tab.setAttribute('aria-selected', 'true');
+
+      const targetId = tab.getAttribute('aria-controls');
+      document.querySelectorAll('.tab-panel').forEach((panel) => {
+        if (panel.id === targetId) {
+          panel.removeAttribute('hidden');
+          panel.classList.add('tab-panel--active');
+        } else {
+          panel.setAttribute('hidden', '');
+          panel.classList.remove('tab-panel--active');
+        }
+      });
+    });
+  });
+</script>

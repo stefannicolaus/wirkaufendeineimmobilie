@@ -1,0 +1,456 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="ROI-Rechner — Fix & Flip Rendite berechnen | wirkaufendeineimmobilie.de"
+  description="Der einzige Fix & Flip Rechner mit echten Leipziger Marktdaten. Berechne Rendite, Kosten und Gewinn."
+>
+
+  <section class="section roi-hero">
+    <div class="container roi-hero__inner">
+      <h1>Was bringt dein nächster Flip?<br /><span class="text-accent">Rechne es durch.</span></h1>
+      <p class="roi-hero__sub">Der einzige Fix &amp; Flip Rechner mit echten Leipziger Marktdaten.</p>
+    </div>
+  </section>
+
+  <section class="section bg-alt">
+    <div class="container roi-calc">
+      <div class="roi-calc__grid">
+
+        <!-- INPUTS -->
+        <div class="roi-inputs">
+          <h3>Deine Zahlen</h3>
+
+          <div class="input-group">
+            <label for="kaufpreis">Kaufpreis (&euro;)</label>
+            <input type="number" id="kaufpreis" value="65000" min="0" step="1000" />
+          </div>
+
+          <div class="input-group">
+            <label for="wohnflaeche">Wohnfläche (m&sup2;)</label>
+            <input type="number" id="wohnflaeche" value="45" min="1" step="1" />
+          </div>
+
+          <div class="input-group">
+            <label for="stadtteil">Stadtteil</label>
+            <select id="stadtteil">
+              <option value="volkmarsdorf">Volkmarsdorf</option>
+              <option value="neustadt">Neustadt-Neuschönefeld</option>
+              <option value="plagwitz">Plagwitz</option>
+              <option value="lindenau">Lindenau</option>
+              <option value="reudnitz">Reudnitz-Thonberg</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="sanierungskosten">Sanierungskosten (&euro;)</label>
+            <input type="number" id="sanierungskosten" value="35000" min="0" step="1000" />
+          </div>
+
+          <div class="input-group input-group--toggle">
+            <label class="toggle-label">
+              <input type="checkbox" id="eigenleistung-toggle" />
+              <span class="toggle-switch"></span>
+              Eigenleistung einrechnen
+            </label>
+          </div>
+
+          <div class="input-group" id="gewerk-group" style="display:none;">
+            <label for="gewerk">Gewerk</label>
+            <select id="gewerk">
+              <option value="maler">Maler</option>
+              <option value="elektriker">Elektriker</option>
+              <option value="shk">SHK (Sanitär/Heizung)</option>
+              <option value="trockenbau">Trockenbau</option>
+              <option value="fliesenleger">Fliesenleger</option>
+            </select>
+          </div>
+
+          <div class="nebenkosten-info">
+            <h4>Nebenkosten (automatisch)</h4>
+            <div class="nk-row"><span>Grunderwerbsteuer (3,5%)</span><span id="nk-grunderwerb">0 &euro;</span></div>
+            <div class="nk-row"><span>Notar + Grundbuch (2%)</span><span id="nk-notar">0 &euro;</span></div>
+            <div class="nk-row"><span>Provision (5%)</span><span id="nk-provision">0 &euro;</span></div>
+          </div>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="roi-results">
+          <h3>Dein Ergebnis</h3>
+
+          <div class="result-card">
+            <div class="result-row">
+              <span>Gesamtinvestition</span>
+              <span class="result-val" id="res-invest">0 &euro;</span>
+            </div>
+            <div class="result-row">
+              <span>Erwarteter Verkaufspreis</span>
+              <span class="result-val" id="res-verkauf">0 &euro;</span>
+            </div>
+            <div class="result-divider"></div>
+            <div class="result-row">
+              <span>Brutto-Gewinn</span>
+              <span class="result-val" id="res-brutto">0 &euro;</span>
+            </div>
+            <div class="result-row" id="row-eigenleistung" style="display:none;">
+              <span>Eigenleistungs-Ersparnis</span>
+              <span class="result-val result-val--green" id="res-eigenleistung">0 &euro;</span>
+            </div>
+            <div class="result-row">
+              <span>Provision (unsere 5%)</span>
+              <span class="result-val" id="res-provision">0 &euro;</span>
+            </div>
+            <div class="result-divider"></div>
+            <div class="result-row result-row--big">
+              <span>Netto-Gewinn</span>
+              <span class="result-val result-val--accent" id="res-netto">0 &euro;</span>
+            </div>
+            <div class="result-row result-row--big">
+              <span>ROI auf Eigenkapital</span>
+              <span class="result-val result-val--accent" id="res-roi">0%</span>
+            </div>
+          </div>
+
+          <div class="result-cta">
+            <p>Ergebnis als PDF speichern</p>
+            <form class="pdf-form" id="pdf-form">
+              <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required aria-label="E-Mail für PDF" />
+              <button type="submit" class="btn btn-primary">PDF senden &rarr;</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .roi-hero {
+    text-align: center;
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-12);
+  }
+
+  .roi-hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .roi-hero__sub {
+    font-size: var(--text-lg);
+    color: var(--color-text-mid);
+  }
+
+  /* CALC GRID */
+  .roi-calc__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .roi-calc__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .roi-inputs,
+  .roi-results {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .roi-inputs h3,
+  .roi-results h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .input-group label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-mid);
+  }
+
+  .input-group input[type="number"],
+  .input-group select {
+    width: 100%;
+  }
+
+  /* TOGGLE */
+  .input-group--toggle {
+    flex-direction: row;
+  }
+
+  .toggle-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    cursor: pointer;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    min-height: 44px;
+  }
+
+  .toggle-label input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle-switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background: var(--color-border-strong);
+    border-radius: var(--radius-full);
+    transition: background var(--duration-normal) var(--ease-default);
+    flex-shrink: 0;
+  }
+
+  .toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform var(--duration-normal) var(--ease-default);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .toggle-label input:checked + .toggle-switch {
+    background: var(--color-accent);
+  }
+
+  .toggle-label input:checked + .toggle-switch::after {
+    transform: translateX(20px);
+  }
+
+  .toggle-label input:focus-visible + .toggle-switch {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* NEBENKOSTEN */
+  .nebenkosten-info {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .nebenkosten-info h4 {
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-1);
+  }
+
+  .nk-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-sm);
+    color: var(--color-text-mid);
+  }
+
+  /* RESULTS */
+  .result-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    box-shadow: var(--shadow-md);
+  }
+
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--text-sm);
+    color: var(--color-text-mid);
+  }
+
+  .result-row--big {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+  }
+
+  .result-val {
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+  }
+
+  .result-val--accent {
+    color: var(--color-accent);
+    font-weight: var(--weight-extrabold);
+  }
+
+  .result-val--green {
+    color: var(--color-success);
+  }
+
+  .result-divider {
+    height: 1px;
+    background: var(--color-border);
+    margin-block: var(--space-1);
+  }
+
+  .result-cta {
+    margin-top: var(--space-4);
+    text-align: center;
+  }
+
+  .result-cta p {
+    font-weight: var(--weight-semibold);
+    margin-bottom: var(--space-3);
+    margin-inline: auto;
+  }
+
+  .pdf-form {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .pdf-form input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  @media (max-width: 480px) {
+    .pdf-form {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  const stadtteilData: Record<string, { unsaniert: number; saniert: number }> = {
+    volkmarsdorf: { unsaniert: 1500, saniert: 3300 },
+    neustadt: { unsaniert: 1400, saniert: 3000 },
+    plagwitz: { unsaniert: 2200, saniert: 4200 },
+    lindenau: { unsaniert: 1800, saniert: 3500 },
+    reudnitz: { unsaniert: 1600, saniert: 3200 },
+  };
+
+  const eigenleistungData: Record<string, number> = {
+    maler: 10000,
+    elektriker: 12000,
+    shk: 15000,
+    trockenbau: 8000,
+    fliesenleger: 7000,
+  };
+
+  const fmt = (n: number) => n.toLocaleString('de-DE') + ' \u20AC';
+
+  function calc() {
+    const kaufpreis = Number((document.getElementById('kaufpreis') as HTMLInputElement).value) || 0;
+    const qm = Number((document.getElementById('wohnflaeche') as HTMLInputElement).value) || 0;
+    const stadtteil = (document.getElementById('stadtteil') as HTMLSelectElement).value;
+    const sanKosten = Number((document.getElementById('sanierungskosten') as HTMLInputElement).value) || 0;
+    const eigenToggle = (document.getElementById('eigenleistung-toggle') as HTMLInputElement).checked;
+    const gewerk = (document.getElementById('gewerk') as HTMLSelectElement).value;
+
+    const sd = stadtteilData[stadtteil] || stadtteilData.volkmarsdorf;
+
+    // Nebenkosten
+    const grunderwerb = kaufpreis * 0.035;
+    const notar = kaufpreis * 0.02;
+    const provisionKauf = kaufpreis * 0.05;
+    const nebenkosten = grunderwerb + notar + provisionKauf;
+
+    // Eigenleistung
+    const eigenleistung = eigenToggle ? (eigenleistungData[gewerk] || 0) : 0;
+    const effektiveSanKosten = Math.max(0, sanKosten - eigenleistung);
+
+    // Totals
+    const gesamtInvest = kaufpreis + effektiveSanKosten + nebenkosten;
+    const verkaufspreis = qm * sd.saniert;
+    const bruttoGewinn = verkaufspreis - gesamtInvest;
+    const provisionVerkauf = verkaufspreis * 0.05;
+    const nettoGewinn = bruttoGewinn - provisionVerkauf;
+    const roi = gesamtInvest > 0 ? ((nettoGewinn / gesamtInvest) * 100) : 0;
+
+    // Display nebenkosten
+    document.getElementById('nk-grunderwerb')!.textContent = fmt(grunderwerb);
+    document.getElementById('nk-notar')!.textContent = fmt(notar);
+    document.getElementById('nk-provision')!.textContent = fmt(provisionKauf);
+
+    // Display results
+    document.getElementById('res-invest')!.textContent = fmt(gesamtInvest);
+    document.getElementById('res-verkauf')!.textContent = fmt(verkaufspreis);
+    document.getElementById('res-brutto')!.textContent = fmt(bruttoGewinn);
+    document.getElementById('res-provision')!.textContent = fmt(provisionVerkauf);
+    document.getElementById('res-netto')!.textContent = fmt(nettoGewinn);
+    document.getElementById('res-roi')!.textContent = roi.toFixed(1) + '%';
+
+    // Eigenleistung row
+    const eigenRow = document.getElementById('row-eigenleistung')!;
+    if (eigenToggle) {
+      eigenRow.style.display = 'flex';
+      document.getElementById('res-eigenleistung')!.textContent = fmt(eigenleistung);
+    } else {
+      eigenRow.style.display = 'none';
+    }
+  }
+
+  // Bind events
+  ['kaufpreis', 'wohnflaeche', 'stadtteil', 'sanierungskosten', 'gewerk'].forEach((id) => {
+    document.getElementById(id)?.addEventListener('input', calc);
+    document.getElementById(id)?.addEventListener('change', calc);
+  });
+
+  const eigenToggle = document.getElementById('eigenleistung-toggle') as HTMLInputElement;
+  const gewerkGroup = document.getElementById('gewerk-group')!;
+  eigenToggle?.addEventListener('change', () => {
+    gewerkGroup.style.display = eigenToggle.checked ? 'flex' : 'none';
+    calc();
+  });
+
+  // Initial calc
+  calc();
+
+  // PDF form
+  const pdfForm = document.getElementById('pdf-form') as HTMLFormElement;
+  pdfForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(pdfForm);
+    formData.append('typ', 'flipstart');
+    const btn = pdfForm.querySelector('button') as HTMLButtonElement;
+    btn.textContent = 'Wird gesendet...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/guide', { method: 'POST', body: formData });
+      if (res.ok) {
+        window.location.href = '/danke?typ=guide&guide=flipstart';
+      } else {
+        btn.textContent = 'Fehler — erneut versuchen';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Fehler — erneut versuchen';
+      btn.disabled = false;
+    }
+  });
+</script>

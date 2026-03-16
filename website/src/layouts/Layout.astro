@@ -1,0 +1,74 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'Sanierungsbedürftige Immobilien in Leipzig verkaufen — ohne Makler, ohne Renovierung. Angebot in 48h.',
+  ogImage = '/og-default.jpg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(ogImage, Astro.site).href;
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "wirkaufendeineimmobilie.de",
+  "description": "Vermittlungsplattform für sanierungsbedürftige Wohnungen in Leipzig",
+  "url": "https://wirkaufendeineimmobilie.build-upstream.com",
+  "areaServed": { "@type": "City", "name": "Leipzig" },
+  "telephone": "+49341800900",
+  "address": { "@type": "PostalAddress", "addressLocality": "Leipzig", "addressCountry": "DE" }
+});
+---
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:image" content={ogImageURL} />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:site_name" content="wirkaufendeineimmobilie.de" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageURL} />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json" set:html={jsonLd} />
+
+  <!-- Outfit Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+  <a href="#main" class="sr-only" style="position:absolute;top:-40px;left:0;background:var(--color-accent);color:white;padding:8px 16px;z-index:1000;" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">Zum Inhalt springen</a>
+  <Nav />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+</body>
+</html>

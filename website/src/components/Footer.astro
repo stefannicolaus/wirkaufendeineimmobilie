@@ -1,0 +1,169 @@
+---
+---
+<footer class="footer">
+  <div class="footer__inner container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo" aria-label="Startseite">
+          <span class="logo-text">wirkaufen<span class="logo-accent">deine</span>immobilie</span>
+        </a>
+        <p class="footer__tagline">Sanierungsbedürftige Immobilien in Leipzig — fair, schnell, diskret.</p>
+        <a href="tel:+493418009000" class="footer__phone">0341 — 800 900 0</a>
+      </div>
+
+      <div class="footer__col">
+        <h4>Navigation</h4>
+        <a href="/so-funktionierts">So funktioniert's</a>
+        <a href="/roi-rechner">ROI-Rechner</a>
+        <a href="/investoren">Für Investoren</a>
+      </div>
+
+      <div class="footer__col">
+        <h4>Für Verkäufer</h4>
+        <a href="/#bewertung">Immobilie bewerten</a>
+        <a href="/guides/erbengemeinschaft">Guide: Erbengemeinschaft</a>
+        <a href="/so-funktionierts">Ablauf für Verkäufer</a>
+      </div>
+
+      <div class="footer__col">
+        <h4>Für Investoren</h4>
+        <a href="/investoren">Investoren-Zugang</a>
+        <a href="/guides/fix-flip-starter">Guide: Fix &amp; Flip</a>
+        <a href="/roi-rechner">ROI berechnen</a>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="footer__legal">
+        <a href="/impressum">Impressum</a>
+        <span class="footer__sep">|</span>
+        <a href="/datenschutz">Datenschutz</a>
+        <span class="footer__sep">|</span>
+        <span>&copy; 2026 wirkaufendeineimmobilie.de</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-bg-dark);
+    color: var(--color-text-on-dark);
+    padding-block: var(--section-gap) var(--space-8);
+  }
+
+  .footer__top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: var(--space-10);
+    padding-bottom: var(--space-10);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer__logo {
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: var(--space-4);
+  }
+
+  .footer__logo .logo-text {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--color-text-on-dark);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .footer__logo .logo-accent {
+    color: var(--color-accent);
+  }
+
+  .footer__tagline {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    margin-bottom: var(--space-4);
+    max-width: 28ch;
+  }
+
+  .footer__phone {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .footer__phone:hover {
+    color: var(--color-accent-hover);
+  }
+
+  .footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .footer__col h4 {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-on-dark);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    margin-bottom: var(--space-2);
+  }
+
+  .footer__col a {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-default);
+  }
+
+  .footer__col a:hover {
+    color: var(--color-text-on-dark);
+  }
+
+  .footer__bottom {
+    padding-top: var(--space-6);
+  }
+
+  .footer__legal {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    flex-wrap: wrap;
+  }
+
+  .footer__legal a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .footer__legal a:hover {
+    color: var(--color-text-on-dark);
+  }
+
+  .footer__sep {
+    opacity: 0.3;
+  }
+
+  @media (max-width: 768px) {
+    .footer__top {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+
+    .footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer__top {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

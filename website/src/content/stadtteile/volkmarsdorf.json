@@ -1,0 +1,15 @@
+{
+  "name": "Volkmarsdorf",
+  "slug": "volkmarsdorf",
+  "bezirk": "Ost",
+  "qm_unsaniert": 1500,
+  "qm_saniert": 3300,
+  "trend": "stark steigend",
+  "trend_5j": "+42%",
+  "typische_objekte": "Gründerzeit-Altbauten, 1-2 Zimmer, oft unsaniert seit DDR-Zeiten",
+  "besonderheit": "Stärkstes Aufwertungspotenzial im Leipziger Osten. Gentrifizierung im Frühstadium — vergleichbar mit Plagwitz vor 10 Jahren.",
+  "infrastruktur": ["Straßenbahn 1/3/8", "Eisenbahnstraße (Gastronomie-Boom)", "Hermann-Liebmann-Straße", "Rabet-Park"],
+  "einwohner": 12800,
+  "sanierungsquote": "38%",
+  "nachbar_stadtteile": ["neustadt-neuschonefeld", "reudnitz-thonberg"]
+}

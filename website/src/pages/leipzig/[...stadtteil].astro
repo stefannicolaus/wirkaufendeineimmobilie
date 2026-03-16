@@ -1,0 +1,456 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+export function getStaticPaths() {
+  const dir = path.join(process.cwd(), 'src', 'content', 'stadtteile');
+  const files = fs.readdirSync(dir).filter((f: string) => f.endsWith('.json'));
+
+  return files.map((file: string) => {
+    const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf-8'));
+    return {
+      params: { stadtteil: data.slug },
+      props: { data },
+    };
+  });
+}
+
+interface StadtteilData {
+  name: string;
+  slug: string;
+  bezirk: string;
+  qm_unsaniert: number;
+  qm_saniert: number;
+  trend: string;
+  trend_5j: string;
+  typische_objekte: string;
+  besonderheit: string;
+  infrastruktur: string[];
+  einwohner: number;
+  sanierungsquote: string;
+  nachbar_stadtteile: string[];
+}
+
+const { data } = Astro.props as { data: StadtteilData };
+
+const kaufpreis = data.qm_unsaniert * 45;
+const sanierung = 35000;
+const verkaufspreis = data.qm_saniert * 45;
+const gewinn = verkaufspreis - kaufpreis - sanierung;
+
+// Map slug to readable name for nachbar links
+const slugDir = path.join(process.cwd(), 'src', 'content', 'stadtteile');
+const allFiles = fs.readdirSync(slugDir).filter((f: string) => f.endsWith('.json'));
+const slugMap: Record<string, string> = {};
+allFiles.forEach((f: string) => {
+  const d = JSON.parse(fs.readFileSync(path.join(slugDir, f), 'utf-8'));
+  slugMap[d.slug] = d.name;
+});
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": `wirkaufendeineimmobilie.de — ${data.name}`,
+  "description": `Sanierungsbedürftige Wohnungen verkaufen in ${data.name}, Leipzig`,
+  "areaServed": {
+    "@type": "City",
+    "name": "Leipzig",
+    "containsPlace": {
+      "@type": "Place",
+      "name": data.name
+    }
+  },
+  "telephone": "+49-341-800-900-0",
+  "url": `https://wirkaufendeineimmobilie.build-upstream.com/leipzig/${data.slug}`
+});
+---
+<Layout
+  title={`Sanierungsbedürftige Wohnung verkaufen in ${data.name} — wirkaufendeineimmobilie.de`}
+  description={`${data.name} (Leipzig ${data.bezirk}): qm-Preise unsaniert ab ${data.qm_unsaniert} €, saniert bis ${data.qm_saniert} €. ${data.trend_5j} in 5 Jahren.`}
+>
+
+  <script type="application/ld+json" set:html={jsonLd} />
+
+  <!-- BREADCRUMB -->
+  <nav class="breadcrumb section" style="padding-block: var(--space-4);" aria-label="Breadcrumb">
+    <div class="container">
+      <a href="/">Home</a> <span class="bc-sep">&rsaquo;</span>
+      <span>Leipzig</span> <span class="bc-sep">&rsaquo;</span>
+      <span class="bc-current">{data.name}</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="section st-hero">
+    <div class="container">
+      <div class="label">{data.bezirk} &middot; Leipzig</div>
+      <h1>Sanierungsbedürftige Wohnung verkaufen in {data.name}</h1>
+      <p class="st-hero__sub">{data.besonderheit}</p>
+    </div>
+  </section>
+
+  <!-- MARKET DATA -->
+  <section class="section bg-alt">
+    <div class="container">
+      <h2>Marktdaten {data.name}</h2>
+      <div class="market-grid">
+        <div class="market-card">
+          <span class="market-card__val">{data.qm_unsaniert} &euro;/m&sup2;</span>
+          <span class="market-card__label">Unsaniert</span>
+        </div>
+        <div class="market-card">
+          <span class="market-card__val">{data.qm_saniert} &euro;/m&sup2;</span>
+          <span class="market-card__label">Saniert</span>
+        </div>
+        <div class="market-card">
+          <span class="market-card__val">{data.trend}</span>
+          <span class="market-card__label">Trend</span>
+        </div>
+        <div class="market-card">
+          <span class="market-card__val">{data.trend_5j}</span>
+          <span class="market-card__label">5-Jahres-Entwicklung</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINI ROI -->
+  <section class="section">
+    <div class="container roi-example">
+      <h2>Beispielrechnung für {data.name}</h2>
+      <p class="text-mid">45 m&sup2; Wohnung, typisches Sanierungsobjekt</p>
+      <div class="roi-example__grid">
+        <div class="roi-row">
+          <span>Kauf (45 m&sup2; &times; {data.qm_unsaniert} &euro;)</span>
+          <span class="roi-row__val">{kaufpreis.toLocaleString('de-DE')} &euro;</span>
+        </div>
+        <div class="roi-row">
+          <span>Sanierung</span>
+          <span class="roi-row__val">{sanierung.toLocaleString('de-DE')} &euro;</span>
+        </div>
+        <div class="roi-row">
+          <span>Verkauf (45 m&sup2; &times; {data.qm_saniert} &euro;)</span>
+          <span class="roi-row__val">{verkaufspreis.toLocaleString('de-DE')} &euro;</span>
+        </div>
+        <div class="roi-row roi-row--result">
+          <span>Gewinn (vor Nebenkosten)</span>
+          <span class="roi-row__val roi-row__val--accent">{gewinn.toLocaleString('de-DE')} &euro;</span>
+        </div>
+      </div>
+      <a href="/roi-rechner" class="btn btn-primary" style="margin-top: var(--space-6);">Exakt berechnen im ROI-Rechner &rarr;</a>
+    </div>
+  </section>
+
+  <!-- LOCAL INFO -->
+  <section class="section bg-alt">
+    <div class="container local-info">
+      <h2>{data.name} im Detail</h2>
+      <div class="local-grid">
+        <div>
+          <h4>Typische Objekte</h4>
+          <p class="text-mid">{data.typische_objekte}</p>
+        </div>
+        <div>
+          <h4>Infrastruktur</h4>
+          <ul class="infra-list">
+            {data.infrastruktur.map((item: string) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div>
+          <h4>Einwohner</h4>
+          <p class="text-mid">{data.einwohner.toLocaleString('de-DE')}</p>
+        </div>
+        <div>
+          <h4>Sanierungsquote</h4>
+          <p class="text-mid">{data.sanierungsquote}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container st-cta">
+      <h2>Immobilie in {data.name} bewerten lassen</h2>
+      <form class="inline-form" id="st-form" data-endpoint="/api/bewertung">
+        <input
+          type="text"
+          name="plz"
+          placeholder="PLZ eingeben..."
+          pattern="[0-9]{5}"
+          maxlength="5"
+          required
+          aria-label="Postleitzahl"
+        />
+        <button type="submit" class="btn btn-primary">Kostenlos bewerten &rarr;</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- INTERNAL LINKS -->
+  <section class="section bg-alt">
+    <div class="container internal-links">
+      {data.nachbar_stadtteile.length > 0 && (
+        <div class="link-group">
+          <h4>Nachbar-Stadtteile</h4>
+          <div class="link-pills">
+            {data.nachbar_stadtteile.map((slug: string) => (
+              <a href={`/leipzig/${slug}`} class="pill">{slugMap[slug] || slug}</a>
+            ))}
+          </div>
+        </div>
+      )}
+      <div class="link-group">
+        <h4>Weitere Seiten</h4>
+        <div class="link-pills">
+          <a href="/roi-rechner" class="pill">ROI-Rechner</a>
+          <a href="/so-funktionierts" class="pill">So funktioniert's</a>
+          <a href="/" class="pill">Startseite</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* BREADCRUMB */
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-accent);
+  }
+
+  .bc-sep {
+    margin-inline: var(--space-2);
+    opacity: 0.5;
+  }
+
+  .bc-current {
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+  }
+
+  /* HERO */
+  .st-hero {
+    padding-bottom: var(--space-8);
+  }
+
+  .st-hero .label {
+    margin-bottom: var(--space-4);
+  }
+
+  .st-hero__sub {
+    font-size: var(--text-lg);
+    color: var(--color-text-mid);
+    margin-top: var(--space-4);
+  }
+
+  /* MARKET */
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+
+  .market-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .market-card__val {
+    display: block;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-extrabold);
+    color: var(--color-text);
+  }
+
+  .market-card__label {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--color-text-mid);
+    margin-top: var(--space-1);
+  }
+
+  @media (max-width: 640px) {
+    .market-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* ROI EXAMPLE */
+  .roi-example {
+    text-align: center;
+  }
+
+  .roi-example p {
+    margin-inline: auto;
+  }
+
+  .roi-example__grid {
+    max-width: 480px;
+    margin: var(--space-6) auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .roi-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-sm);
+    color: var(--color-text-mid);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .roi-row--result {
+    border-bottom: none;
+    border-top: 2px solid var(--color-text);
+    padding-top: var(--space-3);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    font-size: var(--text-base);
+  }
+
+  .roi-row__val {
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+  }
+
+  .roi-row__val--accent {
+    color: var(--color-accent);
+    font-weight: var(--weight-extrabold);
+  }
+
+  /* LOCAL INFO */
+  .local-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+  }
+
+  .local-grid h4 {
+    margin-bottom: var(--space-2);
+  }
+
+  .infra-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .infra-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-mid);
+  }
+
+  .infra-list li::before {
+    content: '\2022  ';
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 640px) {
+    .local-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* CTA */
+  .st-cta {
+    text-align: center;
+  }
+
+  .st-cta .inline-form {
+    display: flex;
+    gap: var(--space-2);
+    max-width: 520px;
+    margin: var(--space-6) auto 0;
+  }
+
+  .st-cta .inline-form input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  @media (max-width: 480px) {
+    .st-cta .inline-form {
+      flex-direction: column;
+    }
+  }
+
+  /* INTERNAL LINKS */
+  .internal-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .link-group h4 {
+    margin-bottom: var(--space-3);
+  }
+
+  .link-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-mid);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: all var(--duration-fast) var(--ease-default);
+    min-height: 44px;
+  }
+
+  .pill:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+</style>
+
+<script>
+  const form = document.getElementById('st-form') as HTMLFormElement;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const btn = form.querySelector('button') as HTMLButtonElement;
+    btn.textContent = 'Wird gesendet...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/bewertung', { method: 'POST', body: formData });
+      if (res.ok) {
+        window.location.href = '/danke?typ=verkaeufer';
+      } else {
+        btn.textContent = 'Fehler — erneut versuchen';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Fehler — erneut versuchen';
+      btn.disabled = false;
+    }
+  });
+</script>

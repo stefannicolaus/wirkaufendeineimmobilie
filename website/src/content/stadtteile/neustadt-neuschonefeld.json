@@ -1,0 +1,15 @@
+{
+  "name": "Neustadt-Neuschönefeld",
+  "slug": "neustadt-neuschonefeld",
+  "bezirk": "Ost",
+  "qm_unsaniert": 1400,
+  "qm_saniert": 3000,
+  "trend": "steigend",
+  "trend_5j": "+35%",
+  "typische_objekte": "Gründerzeit-Mehrfamilienhäuser, kleine Einheiten, teils Leerstand",
+  "besonderheit": "Direkt angrenzend an Volkmarsdorf — profitiert vom Spillover-Effekt der Eisenbahnstraßen-Entwicklung.",
+  "infrastruktur": ["Straßenbahn 1/3", "Nähe Hauptbahnhof", "Eilenburger Straße", "Mariannenpark"],
+  "einwohner": 9400,
+  "sanierungsquote": "42%",
+  "nachbar_stadtteile": ["volkmarsdorf", "reudnitz-thonberg"]
+}

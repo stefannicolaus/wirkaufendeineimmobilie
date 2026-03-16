@@ -1,0 +1,15 @@
+# wirkaufendeineimmobilie.de
+> Vermittlungsplattform für sanierungsbedürftige Wohnungen in Leipzig. Geschlossenes Angebotsverfahren.
+
+## Seiten
+- [Startseite](/): Immobilienbewertung anfordern
+- [Für Investoren](/investoren): Off-Market Sanierungsobjekte
+- [So funktioniert's](/so-funktionierts): Das Angebotsverfahren erklärt
+- [ROI-Rechner](/roi-rechner): Fix & Flip Rendite berechnen
+
+## Stadtteile
+- [Volkmarsdorf](/leipzig/volkmarsdorf)
+- [Plagwitz](/leipzig/plagwitz)
+- [Lindenau](/leipzig/lindenau)
+- [Neustadt-Neuschönefeld](/leipzig/neustadt-neuschonefeld)
+- [Reudnitz-Thonberg](/leipzig/reudnitz-thonberg)

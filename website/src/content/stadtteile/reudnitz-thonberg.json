@@ -1,0 +1,15 @@
+{
+  "name": "Reudnitz-Thonberg",
+  "slug": "reudnitz-thonberg",
+  "bezirk": "Südost",
+  "qm_unsaniert": 1600,
+  "qm_saniert": 3200,
+  "trend": "steigend",
+  "trend_5j": "+30%",
+  "typische_objekte": "Gründerzeit, kleine Einheiten, viele WGs und Studenten-Wohnungen",
+  "besonderheit": "Universitätsnähe treibt Nachfrage. Solide Mietrendite nach Sanierung — attraktiv für Erstinvestoren.",
+  "infrastruktur": ["Straßenbahn 4/15", "Nähe Universität Leipzig", "Reudnitzer Markt", "Lene-Voigt-Park"],
+  "einwohner": 16800,
+  "sanierungsquote": "61%",
+  "nachbar_stadtteile": ["volkmarsdorf", "neustadt-neuschonefeld"]
+}

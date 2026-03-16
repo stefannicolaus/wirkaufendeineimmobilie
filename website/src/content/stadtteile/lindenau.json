@@ -1,0 +1,15 @@
+{
+  "name": "Lindenau",
+  "slug": "lindenau",
+  "bezirk": "West",
+  "qm_unsaniert": 1800,
+  "qm_saniert": 3500,
+  "trend": "steigend",
+  "trend_5j": "+33%",
+  "typische_objekte": "Altbauten, kleine Wohnungen, Hinterhof-Lagen mit Potenzial",
+  "besonderheit": "Nächster Hotspot nach Plagwitz. Junge Szene, steigende Nachfrage — Sanierungslücke noch groß.",
+  "infrastruktur": ["Straßenbahn 7/8/14", "Lützner Straße", "Palmengarten-Nähe", "S-Bahn Leutzsch (nah)"],
+  "einwohner": 11600,
+  "sanierungsquote": "55%",
+  "nachbar_stadtteile": ["plagwitz"]
+}

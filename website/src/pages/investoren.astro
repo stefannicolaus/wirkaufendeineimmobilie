@@ -1,0 +1,273 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Investoren-Zugang — Off-Market Sanierungsobjekte Leipzig | wirkaufendeineimmobilie.de"
+  description="Exklusiver Zugang zu kuratierten Fix & Flip Objekten in Leipzig. Off-Market, vorgeprüft, mit Renditepotenzial."
+>
+
+  <!-- HERO -->
+  <section class="section inv-hero">
+    <div class="container inv-hero__inner">
+      <div class="label">Exklusiver Investoren-Zugang</div>
+      <h1>Dein nächstes Flip-Objekt.<br /><span class="text-accent">Bevor es jemand anderes sieht.</span></h1>
+      <p class="inv-hero__sub">
+        Off-Market Sanierungsobjekte in Leipzig. Kuratiert, vorgeprüft, mit Renditepotenzial.
+        Exklusiver Zugang für verifizierte Investoren.
+      </p>
+      <a href="#investor-form" class="btn btn-primary">Investoren-Zugang anfragen &rarr;</a>
+    </div>
+  </section>
+
+  <!-- VORTEILE -->
+  <section class="section bg-alt">
+    <div class="container vorteile">
+      <div class="vorteile__grid">
+        <div class="vorteil-card">
+          <div class="vorteil-card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Off-Market Zugang</h3>
+          <p>Objekte bevor sie auf ImmoScout landen. Direkter Zugang zu Verkäufern über unser Netzwerk.</p>
+        </div>
+        <div class="vorteil-card">
+          <div class="vorteil-card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Kuratierte Objekte</h3>
+          <p>Vorgeprüft, mit Renditepotenzial, kalkulierbar. Wir filtern — du entscheidest.</p>
+        </div>
+        <div class="vorteil-card">
+          <div class="vorteil-card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3>Geschlossenes Verfahren</h3>
+          <p>Faire Preisfindung im Angebotsverfahren, kein Bieterwettlauf. Ein Gebot pro Käufer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROI TEASER -->
+  <section class="section">
+    <div class="container roi-teaser">
+      <h2>Was bringt dein nächster Flip?</h2>
+      <p class="text-mid">Rechne es durch — mit echten Leipziger Marktdaten.</p>
+      <a href="/roi-rechner" class="btn btn-primary" style="margin-top: var(--space-6);">ROI-Rechner öffnen &rarr;</a>
+    </div>
+  </section>
+
+  <!-- REGISTRATION FORM -->
+  <section class="section bg-alt" id="investor-form">
+    <div class="container inv-form-wrap">
+      <h2>Investoren-Zugang anfragen</h2>
+      <p class="text-mid">Wir prüfen jeden Antrag persönlich. Antwort innerhalb von 48 Stunden.</p>
+
+      <form class="inv-form" id="investor-reg-form">
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label for="inv-name">Name *</label>
+            <input type="text" id="inv-name" name="name" required placeholder="Vorname Nachname" />
+          </div>
+          <div class="form-group">
+            <label for="inv-email">E-Mail *</label>
+            <input type="email" id="inv-email" name="email" required placeholder="max@beispiel.de" />
+          </div>
+          <div class="form-group">
+            <label for="inv-tel">Telefon</label>
+            <input type="tel" id="inv-tel" name="telefon" placeholder="0341 123 456" />
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="inv-erfahrung">Erfahrungslevel *</label>
+            <select id="inv-erfahrung" name="erfahrung" required>
+              <option value="">Bitte wählen...</option>
+              <option value="0">Noch kein Deal abgeschlossen</option>
+              <option value="1-2">1-2 Deals</option>
+              <option value="3+">3+ Deals</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inv-gewerk">Gewerk (optional)</label>
+            <select id="inv-gewerk" name="gewerk">
+              <option value="">Keins / nicht relevant</option>
+              <option value="maler">Maler</option>
+              <option value="elektriker">Elektriker</option>
+              <option value="shk">SHK (Sanitär/Heizung)</option>
+              <option value="trockenbau">Trockenbau</option>
+              <option value="fliesenleger">Fliesenleger</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Zugang anfragen &rarr;</button>
+      </form>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .inv-hero {
+    text-align: center;
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-16);
+  }
+
+  .inv-hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .inv-hero__sub {
+    font-size: var(--text-lg);
+    color: var(--color-text-mid);
+    max-width: 52ch;
+    text-align: center;
+  }
+
+  /* VORTEILE */
+  .vorteile__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  .vorteil-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--duration-normal) var(--ease-default),
+                transform var(--duration-normal) var(--ease-default);
+  }
+
+  .vorteil-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  .vorteil-card__icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent-light);
+    border-radius: var(--radius-md);
+  }
+
+  .vorteil-card p {
+    color: var(--color-text-mid);
+  }
+
+  @media (max-width: 768px) {
+    .vorteile__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ROI TEASER */
+  .roi-teaser {
+    text-align: center;
+  }
+
+  .roi-teaser p {
+    margin-inline: auto;
+  }
+
+  /* FORM */
+  .inv-form-wrap {
+    max-width: 720px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .inv-form-wrap p {
+    margin-inline: auto;
+    margin-bottom: var(--space-8);
+  }
+
+  .inv-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    text-align: left;
+    align-items: center;
+  }
+
+  .form-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    width: 100%;
+  }
+
+  .form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    width: 100%;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .form-group label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-mid);
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+  }
+
+  @media (max-width: 640px) {
+    .form-grid-3 {
+      grid-template-columns: 1fr;
+    }
+    .form-grid-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('investor-reg-form') as HTMLFormElement;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalText = btn.textContent;
+    btn.textContent = 'Wird gesendet...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/investor', { method: 'POST', body: formData });
+      if (res.ok) {
+        window.location.href = '/danke?typ=investor';
+      } else {
+        btn.textContent = 'Fehler — bitte erneut versuchen';
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = originalText; }, 3000);
+      }
+    } catch {
+      btn.textContent = 'Fehler — bitte erneut versuchen';
+      btn.disabled = false;
+      setTimeout(() => { btn.textContent = originalText; }, 3000);
+    }
+  });
+</script>

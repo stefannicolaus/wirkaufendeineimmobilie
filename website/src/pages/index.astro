@@ -1,0 +1,530 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="wirkaufendeineimmobilie.de — Sanierungsbedürftige Immobilien verkaufen in Leipzig"
+  description="Sanierungsbedürftige Immobilien in Leipzig verkaufen — ohne Makler, ohne Renovierung. Angebot in 48h. Kostenlose Bewertung."
+>
+
+  <!-- HERO -->
+  <section class="hero section">
+    <div class="container hero__inner">
+      <div class="label">
+        <span class="hero__dot"></span>
+        Spezialist für sanierungsbedürftige Immobilien in Leipzig
+      </div>
+      <h1>
+        Deine Immobilie.<br />
+        <span class="text-accent">Unser Angebot. In 48h.</span>
+      </h1>
+      <p class="hero__sub">
+        Sanierungsbedürftig, geerbt oder vermüllt — wir kaufen im Ist-Zustand.
+        Ohne Makler, ohne Renovierung, ohne Besichtigungstourismus.
+      </p>
+
+      <form class="inline-form" id="hero-form" data-endpoint="/api/bewertung">
+        <input
+          type="text"
+          name="plz"
+          placeholder="PLZ deines Objekts eingeben..."
+          pattern="[0-9]{5}"
+          maxlength="5"
+          required
+          aria-label="Postleitzahl"
+        />
+        <button type="submit" class="btn btn-primary">Kostenlos bewerten &rarr;</button>
+      </form>
+
+      <div class="hero__trust">
+        <span>&#10003; 100% unverbindlich</span>
+        <span>&#10003; Keine Kosten</span>
+        <span>&#10003; Angebot in 48h</span>
+        <span>&#10003; Notariell abgesichert</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <section class="stats-bar bg-alt">
+    <div class="container stats-bar__inner">
+      <div class="stat">
+        <span class="stat__number">48h</span>
+        <span class="stat__label">bis zum Angebot</span>
+      </div>
+      <div class="stat">
+        <span class="stat__number">0&euro;</span>
+        <span class="stat__label">Kosten für dich</span>
+      </div>
+      <div class="stat">
+        <span class="stat__number">14T</span>
+        <span class="stat__label">bis zur Auszahlung</span>
+      </div>
+      <div class="stat">
+        <span class="stat__number">100%</span>
+        <span class="stat__label">Diskretion</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DUAL CARDS -->
+  <section class="section">
+    <div class="container dual-cards">
+      <h2 class="sr-only">Verkaufen oder Investieren</h2>
+      <div class="card card--seller">
+        <h3>Ich möchte verkaufen</h3>
+        <p>Sanierungsbedürftig, Erbengemeinschaft, Messie-Objekt — wir kaufen alles im Ist-Zustand.</p>
+        <a href="/#bewertung" class="btn btn-primary">Immobilie bewerten lassen &rarr;</a>
+      </div>
+      <div class="card card--buyer">
+        <h3>Ich suche Objekte</h3>
+        <p>Off-Market Sanierungsobjekte in Leipzig. Kuratiert, vorgeprüft, mit Renditepotenzial.</p>
+        <a href="/investoren" class="btn btn-ghost">Investoren-Zugang anfragen &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="section bg-alt">
+    <div class="container steps">
+      <h2 class="steps__title">In 3 Schritten zum Verkauf</h2>
+      <div class="steps__grid">
+        <div class="step">
+          <span class="step__num">01</span>
+          <h3>PLZ eingeben</h3>
+          <p>2 Minuten. Keine Fotos, kein Aufräumen.</p>
+        </div>
+        <div class="step">
+          <span class="step__num">02</span>
+          <h3>Angebot in 48h</h3>
+          <p>Wir bewerten die Substanz — nicht die Unordnung.</p>
+        </div>
+        <div class="step">
+          <span class="step__num">03</span>
+          <h3>Schlüssel ab, fertig</h3>
+          <p>Notar, Entrümpelung, alle Kosten übernehmen wir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="section" id="trust">
+    <div class="container trust">
+      <h2>35+ Jahre Immobilien-Erfahrung</h2>
+      <p class="text-mid">
+        Joachim Kleinke kennt den Leipziger Markt wie seine Westentasche.
+        [Platzhalter — wird nach Call 19.03. befüllt]
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section bg-alt">
+    <div class="container faq">
+      <h2>Häufige Fragen</h2>
+      <div class="faq__list">
+        <details class="faq__item">
+          <summary>Ist das eine Versteigerung?</summary>
+          <p>Nein. Im Gegensatz zur Versteigerung (&sect;156 BGB) besteht beim Angebotsverfahren kein Zwang, das Höchstangebot anzunehmen. Sie entscheiden frei, welches Angebot Sie akzeptieren — oder ob Sie überhaupt verkaufen.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Muss ich das Höchstgebot annehmen?</summary>
+          <p>Nein. Sie sehen alle Angebote und entscheiden frei. Es gibt keinen Zuschlagszwang.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Was kostet mich das als Verkäufer?</summary>
+          <p>Provision nur bei erfolgreichem Verkauf. Kein Verkauf = keine Kosten. Die Bewertung und das Angebotsverfahren sind für Sie kostenlos.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Wie sicher ist das?</summary>
+          <p>Der Kaufvertrag kommt erst durch notarielle Beurkundung zustande. Bis dahin gehen Sie keinerlei Verpflichtung ein.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Muss ich die Wohnung aufräumen?</summary>
+          <p>Nein. Unsere Käufer kaufen im Ist-Zustand. Entrümpelung, Reinigung und alle damit verbundenen Kosten übernehmen wir.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- INLINE BEWERTUNG FORM (anchor target) -->
+  <section class="section" id="bewertung">
+    <div class="container bewertung">
+      <h2>Jetzt Immobilie bewerten lassen</h2>
+      <p class="text-mid">Kostenlos, unverbindlich, in 48 Stunden.</p>
+      <form class="bewertung__form" id="bewertung-form" data-endpoint="/api/bewertung">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="bew-plz">PLZ *</label>
+            <input type="text" id="bew-plz" name="plz" pattern="[0-9]{5}" maxlength="5" required placeholder="04315" />
+          </div>
+          <div class="form-group">
+            <label for="bew-name">Name</label>
+            <input type="text" id="bew-name" name="name" placeholder="Max Mustermann" />
+          </div>
+          <div class="form-group">
+            <label for="bew-email">E-Mail *</label>
+            <input type="email" id="bew-email" name="email" required placeholder="max@beispiel.de" />
+          </div>
+          <div class="form-group">
+            <label for="bew-tel">Telefon</label>
+            <input type="tel" id="bew-tel" name="telefon" placeholder="0341 123 456" />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Kostenlos bewerten &rarr;</button>
+      </form>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-16);
+  }
+
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .hero__dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-success);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    max-width: 14ch;
+  }
+
+  .hero__sub {
+    font-size: var(--text-lg);
+    color: var(--color-text-mid);
+    text-align: center;
+    max-width: 52ch;
+  }
+
+  .inline-form {
+    display: flex;
+    gap: var(--space-2);
+    width: 100%;
+    max-width: 520px;
+    margin-top: var(--space-4);
+  }
+
+  .inline-form input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .hero__trust {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4) var(--space-6);
+    font-size: var(--text-sm);
+    color: var(--color-text-mid);
+    margin-top: var(--space-4);
+  }
+
+  @media (max-width: 640px) {
+    .inline-form {
+      flex-direction: column;
+    }
+    .hero__trust {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+    }
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding-block: var(--space-8);
+  }
+
+  .stats-bar__inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+    text-align: center;
+  }
+
+  .stat__number {
+    display: block;
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-extrabold);
+    color: var(--color-text);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .stat__label {
+    font-size: var(--text-sm);
+    color: var(--color-text-mid);
+  }
+
+  @media (max-width: 640px) {
+    .stats-bar__inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* DUAL CARDS */
+  .dual-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  .card {
+    padding: var(--space-10);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .card--seller {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+  }
+
+  .card--buyer {
+    background: var(--color-bg-dark);
+    color: var(--color-text-on-dark);
+  }
+
+  .card--buyer h3 {
+    color: var(--color-text-on-dark);
+  }
+
+  .card--buyer p {
+    color: var(--color-text-muted);
+  }
+
+  .card .btn {
+    align-self: flex-start;
+    margin-top: var(--space-4);
+  }
+
+  @media (max-width: 768px) {
+    .dual-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* STEPS */
+  .steps__title {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
+
+  .steps__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+  }
+
+  .step {
+    text-align: center;
+  }
+
+  .step__num {
+    display: inline-block;
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-extrabold);
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+    opacity: 0.3;
+  }
+
+  .step h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .step p {
+    color: var(--color-text-mid);
+    margin-inline: auto;
+  }
+
+  @media (max-width: 640px) {
+    .steps__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+  }
+
+  /* TRUST */
+  .trust {
+    text-align: center;
+  }
+
+  .trust p {
+    margin-inline: auto;
+    margin-top: var(--space-4);
+  }
+
+  /* FAQ */
+  .faq h2 {
+    text-align: center;
+    margin-bottom: var(--space-10);
+  }
+
+  .faq__list {
+    max-width: 720px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .faq__item {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: box-shadow var(--duration-normal) var(--ease-default);
+  }
+
+  .faq__item[open] {
+    box-shadow: var(--shadow-md);
+  }
+
+  .faq__item summary {
+    padding: var(--space-4) var(--space-5);
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 44px;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__item summary::after {
+    content: '+';
+    font-size: var(--text-xl);
+    font-weight: var(--weight-light);
+    color: var(--color-text-muted);
+    transition: transform var(--duration-normal) var(--ease-default);
+    flex-shrink: 0;
+    margin-left: var(--space-4);
+  }
+
+  .faq__item[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .faq__item p {
+    padding: 0 var(--space-5) var(--space-5);
+    color: var(--color-text-mid);
+    line-height: var(--leading-relaxed);
+    max-width: none;
+  }
+
+  /* BEWERTUNG */
+  .bewertung {
+    text-align: center;
+  }
+
+  .bewertung p {
+    margin-inline: auto;
+    margin-bottom: var(--space-8);
+  }
+
+  .bewertung__form {
+    max-width: 600px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    width: 100%;
+    text-align: left;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .form-group label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-mid);
+  }
+
+  .form-group input {
+    width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  function handleFormSubmit(form: HTMLFormElement) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) return;
+
+      const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      const originalText = btn.textContent;
+      btn.textContent = 'Wird gesendet...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: formData });
+        if (res.ok) {
+          window.location.href = '/danke?typ=verkaeufer';
+        } else {
+          btn.textContent = 'Fehler — bitte erneut versuchen';
+          btn.disabled = false;
+          setTimeout(() => { btn.textContent = originalText; }, 3000);
+        }
+      } catch {
+        btn.textContent = 'Fehler — bitte erneut versuchen';
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = originalText; }, 3000);
+      }
+    });
+  }
+
+  const heroForm = document.getElementById('hero-form') as HTMLFormElement;
+  const bewertungForm = document.getElementById('bewertung-form') as HTMLFormElement;
+  if (heroForm) handleFormSubmit(heroForm);
+  if (bewertungForm) handleFormSubmit(bewertungForm);
+</script>

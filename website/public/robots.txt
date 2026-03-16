@@ -1,0 +1,23 @@
+# robots.txt — wirkaufendeineimmobilie.de
+
+User-agent: *
+Allow: /
+
+# AI Crawlers — Allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# AI Crawlers — Blocked
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+Sitemap: https://wirkaufendeineimmobilie.build-upstream.com/sitemap-index.xml
