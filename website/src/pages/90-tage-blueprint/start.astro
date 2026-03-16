@@ -1,0 +1,546 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="90-Tage-Blueprint erstellen — 5 kurze Fragen"
+  description="Beantworte 5 Fragen zu deinem Flip-Vorhaben. Unsere Experten erstellen deinen persoenlichen 90-Tage-Blueprint."
+  noindex={true}
+>
+
+  <section class="section">
+    <div class="container">
+      <div class="wizard">
+        <!-- Progress Bar -->
+        <div class="wizard-progress">
+          <div class="wizard-progress-fill" style="width: 16.66%"></div>
+        </div>
+        <div class="wizard-step-label">Schritt 1 von 6</div>
+
+        <!-- Step 1: Erfahrung -->
+        <div class="wizard-step" data-step="1">
+          <h2>Wie viel Erfahrung hast du?</h2>
+          <p class="text-mid">Dein Blueprint wird auf dein Level zugeschnitten — Anfaenger bekommen die Grundlagen, Fortgeschrittene den Fokus auf Skalierung.</p>
+          <div class="wizard-options">
+            <button type="button" data-value="0" data-field="erfahrung">Noch kein Deal</button>
+            <button type="button" data-value="1-2" data-field="erfahrung">1-2 Deals</button>
+            <button type="button" data-value="3+" data-field="erfahrung">3+ Deals</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Eigenkapital -->
+        <div class="wizard-step" data-step="2" hidden>
+          <button type="button" class="wizard-back" onclick="goToStep(1)">&larr; Zurueck</button>
+          <h2>Wie viel Eigenkapital steht dir zur Verfuegung?</h2>
+          <p class="text-mid">Damit wir berechnen koennen, welche Objekte in deinem Budget liegen.</p>
+          <div class="wizard-options">
+            <button type="button" data-value="<20k" data-field="budget">Unter 20.000 EUR</button>
+            <button type="button" data-value="20-50k" data-field="budget">20.000 - 50.000 EUR</button>
+            <button type="button" data-value="50-100k" data-field="budget">50.000 - 100.000 EUR</button>
+            <button type="button" data-value=">100k" data-field="budget">Ueber 100.000 EUR</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Handwerker -->
+        <div class="wizard-step" data-step="3" hidden>
+          <button type="button" class="wizard-back" onclick="goToStep(2)">&larr; Zurueck</button>
+          <h2>Bist du Handwerker oder hast Handwerker-Kontakte?</h2>
+          <p class="text-mid">Das veraendert deine Kalkulation — Eigenleistung kann den ROI erheblich steigern.</p>
+          <div class="wizard-options">
+            <button type="button" data-value="selbst" data-field="handwerker">Ja, ich bin Handwerker</button>
+            <button type="button" data-value="kontakte" data-field="handwerker">Ja, ich habe gute Kontakte</button>
+            <button type="button" data-value="nein" data-field="handwerker">Nein, ich brauche Handwerker</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Freitext — Ziel -->
+        <div class="wizard-step" data-step="4" hidden>
+          <button type="button" class="wizard-back" onclick="goToStep(3)">&larr; Zurueck</button>
+          <h2>Was ist dein Ziel mit dem ersten Flip?</h2>
+          <p class="text-mid">Je mehr wir ueber dein Vorhaben wissen, desto konkreter wird dein Blueprint.</p>
+          <textarea name="ziel" rows="5" placeholder="z.B.: Ich bin Elektriker und will mein erstes Objekt in Leipzig-Ost kaufen, sanieren und vermieten. Budget ca. 40.000 EUR Eigenkapital..."></textarea>
+          <p class="wizard-hint">Deine Angaben sind vertraulich und werden nur fuer deinen Blueprint verwendet.</p>
+          <button type="button" class="btn btn-primary wizard-next">Weiter &rarr;</button>
+        </div>
+
+        <!-- Step 5: Stadtteil + Email -->
+        <div class="wizard-step" data-step="5" hidden>
+          <button type="button" class="wizard-back" onclick="goToStep(4)">&larr; Zurueck</button>
+          <h2>Welcher Stadtteil in Leipzig interessiert dich?</h2>
+          <p class="text-mid">Damit wir echte qm-Preise und Deal-Quellen fuer dein Zielgebiet einbeziehen.</p>
+          <div class="wizard-inputs">
+            <div class="form-group">
+              <label for="wizard-stadtteil">Stadtteil</label>
+              <select id="wizard-stadtteil" name="stadtteil">
+                <option value="" disabled selected>Stadtteil waehlen</option>
+                <option value="Volkmarsdorf">Volkmarsdorf</option>
+                <option value="Neustadt-Neuschönefeld">Neustadt-Neuschönefeld</option>
+                <option value="Plagwitz">Plagwitz</option>
+                <option value="Lindenau">Lindenau</option>
+                <option value="Reudnitz-Thonberg">Reudnitz-Thonberg</option>
+                <option value="Andere">Andere</option>
+              </select>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary wizard-next">Weiter &rarr;</button>
+        </div>
+
+        <!-- Step 6: Name + Email + Telefon + Joachim -->
+        <div class="wizard-step wizard-final" data-step="6" hidden>
+          <button type="button" class="wizard-back" onclick="goToStep(5)">&larr; Zurueck</button>
+          <div class="joachim-box">
+            <div class="joachim-badge">Persoenlich erstellt von</div>
+            <h3>Joachim Kleinke</h3>
+            <p class="text-mid">35+ Jahre Immobilienerfahrung im Leipziger Markt.</p>
+          </div>
+
+          <h2>Wohin sollen wir deinen Blueprint schicken?</h2>
+          <div class="wizard-inputs">
+            <div class="form-group">
+              <label for="wizard-name">Dein Name</label>
+              <input type="text" id="wizard-name" name="name" placeholder="Max Mustermann" />
+            </div>
+            <div class="form-group">
+              <label for="wizard-email">Deine E-Mail *</label>
+              <input type="email" id="wizard-email" name="email" required placeholder="max@beispiel.de" />
+            </div>
+            <div class="form-group">
+              <label for="wizard-telefon">Telefon (optional — fuer Rueckfragen)</label>
+              <input type="tel" id="wizard-telefon" name="telefon" placeholder="0341 123 456" />
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary wizard-submit">Blueprint erstellen lassen &rarr;</button>
+        </div>
+
+        <!-- Bestaetigungs-Screen -->
+        <div class="wizard-step wizard-confirmation" data-step="done" hidden>
+          <div class="confirmation-icon">&#10003;</div>
+          <h2>Vielen Dank fuer deine Angaben!</h2>
+          <p>Wir sehen uns deine Angaben so schnell wie moeglich an.
+            Du erhaeltst deinen persoenlichen 90-Tage-Blueprint
+            innerhalb von 24 Stunden per E-Mail — mit konkreten Zahlen
+            fuer <span id="confirm-stadtteil">deinen Stadtteil</span> und dein Budget.</p>
+          <div class="confirmation-next">
+            <p class="text-mid">Was jetzt passiert:</p>
+            <ol>
+              <li>Unsere Experten pruefen deine Angaben persoenlich</li>
+              <li>Dein individueller Blueprint wird erstellt</li>
+              <li>Du erhaeltst ihn per E-Mail — mit konkretem 90-Tage-Plan, Zahlen und Stadtteil-Analyse</li>
+            </ol>
+          </div>
+          <p class="confirmation-hint">Fragen? Ruf uns direkt an: <a href="tel:+493418009000">0341 — 800 900 0</a></p>
+          <a href="/" class="btn btn-primary" style="margin-top: var(--space-6);">Zurueck zur Startseite</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .wizard {
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--color-bg-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-10);
+    box-shadow: var(--shadow-lg);
+  }
+
+  @media (max-width: 480px) {
+    .wizard { padding: var(--space-6) var(--space-5); }
+  }
+
+  .wizard-progress {
+    height: 6px;
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-bottom: var(--space-2);
+  }
+
+  .wizard-progress-fill {
+    height: 100%;
+    background: var(--color-accent);
+    border-radius: var(--radius-full);
+    transition: width 400ms var(--ease-default);
+  }
+
+  .wizard-step-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-align: right;
+    margin-bottom: var(--space-8);
+  }
+
+  .wizard-step h2 {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-snug);
+    margin-bottom: var(--space-2);
+  }
+
+  .wizard-step .text-mid {
+    color: var(--color-text-mid);
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-2);
+  }
+
+  .wizard-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  @media (max-width: 480px) {
+    .wizard-options { grid-template-columns: 1fr; }
+  }
+
+  .wizard-options button {
+    background: var(--color-bg);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-default);
+    min-height: 56px;
+    text-align: left;
+    line-height: var(--leading-snug);
+  }
+
+  .wizard-options button:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  .wizard-options button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .wizard-options button.selected {
+    border-color: var(--color-accent);
+    background: var(--color-accent-light);
+    color: var(--color-accent-hover);
+  }
+
+  .wizard-enter { animation: wizardIn 300ms var(--ease-default); }
+  .wizard-exit { animation: wizardOut 200ms var(--ease-default); }
+
+  @keyframes wizardIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes wizardOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-8px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wizard-enter, .wizard-exit { animation: none; }
+    .wizard-progress-fill { transition: none; }
+  }
+
+  .wizard textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    padding: var(--space-4);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: border-color var(--duration-normal) var(--ease-default);
+    margin-top: var(--space-4);
+  }
+
+  .wizard textarea:focus { outline: none; border-color: var(--color-accent); }
+  .wizard textarea::placeholder { color: var(--color-text-muted); }
+
+  .wizard-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  .wizard .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .wizard .form-group label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-mid);
+  }
+
+  .wizard .form-group input,
+  .wizard .form-group select {
+    width: 100%;
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    padding: var(--space-3) var(--space-4);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: border-color var(--duration-normal) var(--ease-default);
+    min-height: 48px;
+  }
+
+  .wizard .form-group input:focus,
+  .wizard .form-group select:focus { outline: none; border-color: var(--color-accent); }
+  .wizard .form-group input::placeholder { color: var(--color-text-muted); }
+
+  .wizard .wizard-next,
+  .wizard .wizard-submit { width: 100%; margin-top: var(--space-6); }
+
+  .joachim-box {
+    text-align: center;
+    padding: var(--space-6);
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-8);
+  }
+
+  .joachim-badge {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .joachim-box h3 { margin-bottom: var(--space-2); }
+  .joachim-box .text-mid { font-size: var(--text-sm); }
+
+  .wizard-back {
+    font-size: var(--text-sm);
+    font-family: var(--font-family);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    margin-bottom: var(--space-4);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    background: none;
+    border: none;
+    padding: 0;
+    transition: color var(--duration-normal) var(--ease-default);
+  }
+
+  .wizard-back:hover { color: var(--color-text); }
+
+  .wizard-hint {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-2);
+  }
+
+  /* Confirmation Screen */
+  .wizard-confirmation {
+    text-align: center;
+  }
+
+  .confirmation-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--color-success-light);
+    color: var(--color-success);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-6);
+  }
+
+  .wizard-confirmation h2 {
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  .wizard-confirmation > p {
+    color: var(--color-text-mid);
+    line-height: var(--leading-relaxed);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .confirmation-next {
+    text-align: left;
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    margin: var(--space-8) 0;
+  }
+
+  .confirmation-next p {
+    font-weight: var(--weight-semibold);
+    margin-bottom: var(--space-3);
+  }
+
+  .confirmation-next ol {
+    list-style: none;
+    counter-reset: steps;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .confirmation-next li {
+    counter-increment: steps;
+    color: var(--color-text-mid);
+    font-size: var(--text-sm);
+    padding-left: var(--space-8);
+    position: relative;
+  }
+
+  .confirmation-next li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: white;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .confirmation-hint {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-4);
+  }
+
+  .confirmation-hint a {
+    font-weight: var(--weight-semibold);
+  }
+</style>
+
+<script>
+  const answers: Record<string, string> = {};
+  let currentStep = 1;
+  const totalSteps = 6;
+
+  document.querySelectorAll('.wizard-options button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const field = (btn as HTMLElement).dataset.field!;
+      const value = (btn as HTMLElement).dataset.value!;
+      answers[field] = value;
+      btn.parentElement!.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      setTimeout(() => goToStep(currentStep + 1), 300);
+    });
+  });
+
+  document.querySelectorAll('.wizard-next').forEach(btn => {
+    btn.addEventListener('click', () => goToStep(currentStep + 1));
+  });
+
+  function updateProgress() {
+    const bar = document.querySelector('.wizard-progress-fill') as HTMLElement;
+    bar.style.width = `${(currentStep / totalSteps) * 100}%`;
+    const label = document.querySelector('.wizard-step-label') as HTMLElement;
+    label.textContent = `Schritt ${currentStep} von ${totalSteps}`;
+  }
+
+  function goToStep(step: number) {
+    if (step < 1 || step > totalSteps) return;
+    const current = document.querySelector(`[data-step="${currentStep}"]`) as HTMLElement;
+    const next = document.querySelector(`[data-step="${step}"]`) as HTMLElement;
+    current.classList.add('wizard-exit');
+    setTimeout(() => {
+      current.classList.remove('wizard-exit');
+      current.hidden = true;
+      next.hidden = false;
+      next.classList.add('wizard-enter');
+      setTimeout(() => next.classList.remove('wizard-enter'), 300);
+    }, 200);
+    currentStep = step;
+    updateProgress();
+  }
+
+  function showConfirmation() {
+    const current = document.querySelector(`[data-step="${currentStep}"]`) as HTMLElement;
+    const done = document.querySelector('[data-step="done"]') as HTMLElement;
+    const progress = document.querySelector('.wizard-progress') as HTMLElement;
+    const label = document.querySelector('.wizard-step-label') as HTMLElement;
+
+    // Set stadtteil in confirmation
+    const stadtteilEl = document.querySelector('[name="stadtteil"]') as HTMLSelectElement;
+    const confirmEl = document.getElementById('confirm-stadtteil');
+    if (confirmEl && stadtteilEl?.value && stadtteilEl.value !== 'Andere') {
+      confirmEl.textContent = stadtteilEl.value;
+    }
+
+    current.classList.add('wizard-exit');
+    setTimeout(() => {
+      current.hidden = true;
+      progress.style.display = 'none';
+      label.style.display = 'none';
+      done.hidden = false;
+      done.classList.add('wizard-enter');
+      setTimeout(() => done.classList.remove('wizard-enter'), 300);
+    }, 200);
+  }
+
+  (window as any).goToStep = goToStep;
+
+  document.querySelector('.wizard-submit')?.addEventListener('click', async () => {
+    const finalStep = document.querySelector('.wizard-final') as HTMLElement;
+    const emailInput = finalStep.querySelector('[name="email"]') as HTMLInputElement;
+    if (!emailInput.value) { emailInput.focus(); return; }
+
+    const formData = new FormData();
+    formData.append('typ', 'blueprint');
+    Object.entries(answers).forEach(([k, v]) => formData.append(k, v));
+
+    const zielEl = document.querySelector('[name="ziel"]') as HTMLTextAreaElement;
+    const stadtteilEl = document.querySelector('[name="stadtteil"]') as HTMLSelectElement;
+    const nameEl = finalStep.querySelector('[name="name"]') as HTMLInputElement;
+    const telEl = finalStep.querySelector('[name="telefon"]') as HTMLInputElement;
+
+    formData.append('ziel', zielEl?.value || '');
+    formData.append('stadtteil', stadtteilEl?.value || '');
+    formData.append('name', nameEl?.value || '');
+    formData.append('email', emailInput.value);
+    formData.append('telefon', telEl?.value || '');
+
+    const btn = document.querySelector('.wizard-submit') as HTMLButtonElement;
+    btn.textContent = 'Wird erstellt...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/lead-magnet', { method: 'POST', body: formData });
+      if (res.ok) {
+        showConfirmation();
+      } else {
+        btn.textContent = 'Fehler — erneut versuchen';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Fehler — erneut versuchen';
+      btn.disabled = false;
+    }
+  });
+</script>

@@ -22,18 +22,18 @@ import Layout from '../layouts/Layout.astro';
         Keine Renovierung. Kein Makler-Ghosting. Nur geprüfte Käufer im geschlossenen Angebotsverfahren.
       </p>
 
-      <form class="inline-form" id="hero-form" data-endpoint="/api/bewertung">
+      <div class="inline-form" id="hero-form">
         <input
           type="text"
-          name="plz"
+          id="hero-plz"
           placeholder="PLZ deines Objekts eingeben..."
           pattern="[0-9]{5}"
           maxlength="5"
-          required
+          inputmode="numeric"
           aria-label="Postleitzahl"
         />
-        <button type="submit" class="btn btn-primary">Kostenlos bewerten &rarr;</button>
-      </form>
+        <button type="button" class="btn btn-primary" id="hero-cta">Kostenlos bewerten &rarr;</button>
+      </div>
 
       <div class="hero__trust">
         <span>&#10003; 100% unverbindlich</span>
@@ -533,6 +533,24 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
+  // Hero PLZ → scroll to full form + prefill PLZ
+  const heroCta = document.getElementById('hero-cta');
+  const heroPlz = document.getElementById('hero-plz') as HTMLInputElement;
+  heroCta?.addEventListener('click', () => {
+    const bewertung = document.getElementById('bewertung');
+    const plzField = document.getElementById('bew-plz') as HTMLInputElement;
+    if (heroPlz?.value && plzField) {
+      plzField.value = heroPlz.value;
+    }
+    bewertung?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Focus email field after scroll
+    setTimeout(() => {
+      const emailField = document.getElementById('bew-email') as HTMLInputElement;
+      emailField?.focus();
+    }, 600);
+  });
+
+  // Full form submit
   function handleFormSubmit(form: HTMLFormElement) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -562,8 +580,6 @@ import Layout from '../layouts/Layout.astro';
     });
   }
 
-  const heroForm = document.getElementById('hero-form') as HTMLFormElement;
   const bewertungForm = document.getElementById('bewertung-form') as HTMLFormElement;
-  if (heroForm) handleFormSubmit(heroForm);
   if (bewertungForm) handleFormSubmit(bewertungForm);
 </script>
