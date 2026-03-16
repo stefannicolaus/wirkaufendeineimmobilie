@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand V2 — Direkt & Modern</title>
+<style>
+  :root {
+    --primary: #0F172A;
+    --accent: #3B82F6;
+    --accent-hover: #2563EB;
+    --success: #10B981;
+    --bg: #FFFFFF;
+    --bg-alt: #F8FAFC;
+    --text: #0F172A;
+    --text-mid: #64748B;
+    --text-muted: #94A3B8;
+    --border: #E2E8F0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background:var(--bg); color:var(--text); }
+
+  .label { position:fixed; top:0; left:0; right:0; background:var(--primary); color:white; text-align:center; padding:10px; font-size:13px; font-weight:700; letter-spacing:2px; z-index:100; }
+  .label span { color:var(--accent); }
+
+  /* NAV */
+  nav { display:flex; justify-content:space-between; align-items:center; padding:16px 48px; margin-top:40px; background:white; border-bottom:1px solid var(--border); }
+  .logo { font-size:20px; font-weight:800; color:var(--primary); }
+  .logo em { font-style:normal; color:var(--accent); }
+  .nav-right { display:flex; align-items:center; gap:20px; }
+  .nav-link { font-size:14px; color:var(--text-mid); text-decoration:none; font-weight:500; }
+  .nav-phone { font-size:14px; font-weight:700; color:var(--primary); background:var(--bg-alt); padding:8px 16px; border-radius:8px; border:1px solid var(--border); }
+
+  /* HERO */
+  .hero { max-width:1100px; margin:0 auto; padding:80px 48px 40px; text-align:center; }
+  .hero-badge { display:inline-flex; align-items:center; gap:6px; background:var(--bg-alt); border:1px solid var(--border); border-radius:40px; padding:6px 16px; font-size:12px; font-weight:600; color:var(--text-mid); margin-bottom:24px; }
+  .hero-badge .dot { width:6px; height:6px; border-radius:50%; background:var(--success); }
+  .hero h1 { font-size:52px; font-weight:800; line-height:1.1; margin-bottom:20px; letter-spacing:-1px; }
+  .hero h1 span { color:var(--accent); }
+  .hero p { font-size:18px; line-height:1.7; color:var(--text-mid); max-width:640px; margin:0 auto 36px; }
+
+  /* INLINE FORM */
+  .inline-form { display:flex; gap:0; max-width:600px; margin:0 auto; background:white; border-radius:12px; border:2px solid var(--border); overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+  .inline-form input { flex:1; padding:16px 20px; border:none; font-size:16px; outline:none; }
+  .inline-form button { padding:16px 28px; background:var(--accent); color:white; border:none; font-size:15px; font-weight:700; cursor:pointer; white-space:nowrap; }
+  .inline-form button:hover { background:var(--accent-hover); }
+
+  .hero-sub { display:flex; justify-content:center; gap:24px; margin-top:16px; font-size:13px; color:var(--text-muted); }
+  .hero-sub span { display:flex; align-items:center; gap:4px; }
+
+  /* STATS */
+  .stats { display:flex; justify-content:center; gap:48px; padding:40px 48px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--bg-alt); margin-top:40px; }
+  .stat { text-align:center; }
+  .stat .num { font-size:36px; font-weight:800; color:var(--primary); }
+  .stat .num span { color:var(--accent); font-size:20px; }
+  .stat .desc { font-size:12px; color:var(--text-muted); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
+
+  /* DUAL CTA */
+  .dual-section { max-width:1100px; margin:0 auto; padding:60px 48px; display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .dual-card { padding:36px; border-radius:16px; border:1px solid var(--border); }
+  .dual-card.seller { background:white; }
+  .dual-card.buyer { background:var(--primary); color:white; }
+  .dual-card h3 { font-size:22px; font-weight:700; margin-bottom:8px; }
+  .dual-card p { font-size:14px; line-height:1.6; margin-bottom:20px; }
+  .dual-card.seller p { color:var(--text-mid); }
+  .dual-card.buyer p { color:rgba(255,255,255,0.7); }
+  .dual-btn { display:inline-block; padding:12px 24px; border-radius:8px; font-size:14px; font-weight:700; text-decoration:none; cursor:pointer; border:none; }
+  .dual-btn.primary { background:var(--accent); color:white; }
+  .dual-btn.ghost { background:transparent; color:white; border:1px solid rgba(255,255,255,0.3); }
+  .dual-icon { font-size:32px; margin-bottom:16px; }
+
+  /* STEPS */
+  .section { max-width:1100px; margin:0 auto; padding:60px 48px; }
+  .section h2 { font-size:28px; font-weight:800; margin-bottom:8px; }
+  .section .sub { font-size:14px; color:var(--text-muted); margin-bottom:32px; }
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .step { padding:24px; background:var(--bg-alt); border-radius:12px; border:1px solid var(--border); }
+  .step-num { font-size:28px; font-weight:800; color:var(--accent); margin-bottom:12px; }
+  .step h3 { font-size:16px; font-weight:700; margin-bottom:6px; }
+  .step p { font-size:13px; color:var(--text-mid); line-height:1.6; }
+</style>
+</head>
+<body>
+
+<div class="label">VARIANTE 2 — <span>DIREKT & MODERN</span> — Slate + Blau, Sans-Serif, Tech-Clean wie SaaS</div>
+
+<nav>
+  <div class="logo">wirkaufen<em>deine</em>immobilie</div>
+  <div class="nav-right">
+    <a href="#" class="nav-link">So funktioniert's</a>
+    <a href="#" class="nav-link">Für Investoren</a>
+    <div class="nav-phone">📞 0341 — 800 900 0</div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge"><span class="dot"></span> Spezialist für sanierungsbedürftige Immobilien in Leipzig</div>
+  <h1>Deine Immobilie.<br><span>Unser Angebot. In 48h.</span></h1>
+  <p>Sanierungsbedürftig, geerbt oder vermüllt — wir kaufen im Ist-Zustand. Ohne Makler, ohne Renovierung, ohne Besichtigungstourismus.</p>
+
+  <div class="inline-form">
+    <input type="text" placeholder="PLZ deines Objekts eingeben...">
+    <button>Kostenlos bewerten →</button>
+  </div>
+
+  <div class="hero-sub">
+    <span>✓ 100% unverbindlich</span>
+    <span>✓ Keine Kosten</span>
+    <span>✓ Angebot in 48h</span>
+    <span>✓ Notariell abgesichert</span>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="num">48<span>h</span></div>
+    <div class="desc">bis zum Angebot</div>
+  </div>
+  <div class="stat">
+    <div class="num">0<span>€</span></div>
+    <div class="desc">Kosten für dich</div>
+  </div>
+  <div class="stat">
+    <div class="num">14<span>T</span></div>
+    <div class="desc">bis zur Auszahlung</div>
+  </div>
+  <div class="stat">
+    <div class="num">100<span>%</span></div>
+    <div class="desc">Diskretion</div>
+  </div>
+</div>
+
+<div class="dual-section">
+  <div class="dual-card seller">
+    <div class="dual-icon">🏠</div>
+    <h3>Ich möchte verkaufen</h3>
+    <p>Sanierungsbedürftig, Erbengemeinschaft, Messie-Objekt — wir kaufen alles im Ist-Zustand. Kein Aufräumen, kein Renovieren.</p>
+    <button class="dual-btn primary">Immobilie bewerten lassen →</button>
+  </div>
+  <div class="dual-card buyer">
+    <div class="dual-icon">📊</div>
+    <h3>Ich suche Objekte</h3>
+    <p>Off-Market Sanierungsobjekte in Leipzig. Kuratiert, vorgeprüft, mit Renditepotenzial. Exklusiver Zugang für verifizierte Investoren.</p>
+    <button class="dual-btn ghost">Investoren-Zugang anfragen →</button>
+  </div>
+</div>
+
+<div class="section">
+  <h2>So funktioniert's</h2>
+  <div class="sub">3 Schritte — von der Anfrage bis zum Geld auf deinem Konto</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>PLZ eingeben</h3>
+      <p>2 Minuten. Keine Fotos, kein Aufräumen. Wir brauchen nur die Basisdaten deines Objekts.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Angebot in 48h</h3>
+      <p>Unser Team bewertet die Substanz — nicht die Unordnung. Du bekommst ein faires Angebot im Ist-Zustand.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Schlüssel ab, fertig</h3>
+      <p>Wir übernehmen Notar, Entrümpelung und alle Kosten. Auszahlung in 14 Tagen. Kapitel geschlossen.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

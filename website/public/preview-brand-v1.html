@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand V1 — Bodenständig Professionell</title>
+<style>
+  :root {
+    --primary: #1B4332;
+    --primary-light: #2D6A4F;
+    --accent: #D4A039;
+    --accent-light: #E8C36A;
+    --bg: #FAFAF7;
+    --bg-warm: #F5F3EE;
+    --text: #1A1A1A;
+    --text-mid: #4A5568;
+    --text-muted: #8A9AB0;
+    --border: rgba(0,0,0,0.08);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Georgia', 'Times New Roman', serif; background: var(--bg); color: var(--text); }
+
+  .label { position:fixed; top:0; left:0; right:0; background:var(--primary); color:white; text-align:center; padding:10px; font-family:system-ui; font-size:13px; font-weight:700; letter-spacing:2px; z-index:100; }
+  .label span { color:var(--accent); }
+
+  /* NAV */
+  nav { display:flex; justify-content:space-between; align-items:center; padding:20px 48px; margin-top:40px; background:white; border-bottom:1px solid var(--border); }
+  .logo { font-size:18px; font-weight:700; color:var(--primary); font-family:system-ui; }
+  .logo em { font-style:normal; color:var(--accent); }
+  .nav-phone { display:flex; align-items:center; gap:8px; font-family:system-ui; font-size:14px; color:var(--text-mid); }
+  .nav-phone strong { color:var(--primary); font-size:16px; }
+
+  /* HERO */
+  .hero { max-width:1100px; margin:0 auto; padding:80px 48px 60px; display:grid; grid-template-columns:1.2fr 0.8fr; gap:64px; align-items:center; }
+  .hero h1 { font-size:48px; line-height:1.15; font-weight:400; margin-bottom:20px; color:var(--text); }
+  .hero h1 em { font-style:italic; color:var(--primary); }
+  .hero p { font-size:19px; line-height:1.7; color:var(--text-mid); margin-bottom:32px; font-family:system-ui; font-weight:300; }
+  .hero-cta { display:inline-flex; align-items:center; gap:10px; background:var(--primary); color:white; padding:16px 32px; border-radius:8px; font-family:system-ui; font-size:15px; font-weight:600; text-decoration:none; border:none; cursor:pointer; }
+  .hero-cta:hover { background:var(--primary-light); }
+  .hero-sub-cta { display:inline-block; margin-left:16px; font-family:system-ui; font-size:14px; color:var(--text-mid); text-decoration:underline; }
+
+  /* TRUST BAR */
+  .trust-bar { display:flex; align-items:center; gap:24px; margin-top:32px; padding-top:24px; border-top:1px solid var(--border); }
+  .trust-item { font-family:system-ui; font-size:12px; color:var(--text-muted); display:flex; align-items:center; gap:6px; }
+  .trust-item strong { color:var(--text); font-size:13px; }
+
+  /* HERO RIGHT — Form Card */
+  .form-card { background:white; border-radius:16px; padding:36px; border:1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+  .form-card h3 { font-size:20px; margin-bottom:6px; font-weight:400; }
+  .form-card .sub { font-family:system-ui; font-size:13px; color:var(--text-muted); margin-bottom:24px; }
+  .form-field { margin-bottom:14px; }
+  .form-field label { display:block; font-family:system-ui; font-size:12px; font-weight:600; color:var(--text-mid); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .form-field input, .form-field select { width:100%; padding:12px 14px; border:1px solid #ddd; border-radius:8px; font-size:15px; font-family:system-ui; background:var(--bg); }
+  .form-submit { width:100%; padding:14px; background:var(--accent); color:white; border:none; border-radius:8px; font-size:15px; font-weight:700; font-family:system-ui; cursor:pointer; margin-top:8px; }
+  .form-note { font-family:system-ui; font-size:11px; color:var(--text-muted); margin-top:10px; text-align:center; }
+
+  /* SECTION */
+  .section { max-width:1100px; margin:0 auto; padding:60px 48px; }
+  .section h2 { font-size:32px; font-weight:400; margin-bottom:32px; }
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+  .step { padding:28px; background:white; border-radius:14px; border:1px solid var(--border); }
+  .step-num { width:36px; height:36px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-family:system-ui; font-weight:700; font-size:14px; margin-bottom:14px; }
+  .step h3 { font-size:17px; font-weight:700; font-family:system-ui; margin-bottom:8px; }
+  .step p { font-size:14px; color:var(--text-mid); line-height:1.6; font-family:system-ui; }
+</style>
+</head>
+<body>
+
+<div class="label">VARIANTE 1 — <span>BODENSTÄNDIG PROFESSIONELL</span> — Waldgrün + Gold, Serif Headlines, Empathisch-seriös</div>
+
+<nav>
+  <div class="logo">wirkaufen<em>deine</em>immobilie</div>
+  <div class="nav-phone">
+    Fragen? Ruf uns an:
+    <strong>0341 — 800 900 0</strong>
+  </div>
+</nav>
+
+<div class="hero">
+  <div>
+    <h1>Wir kaufen deine Immobilie.<br><em>Genau so, wie sie steht.</em></h1>
+    <p>Sanierungsbedürftig, geerbt, vermüllt — egal. Kein Makler, keine Renovierung, keine Besichtigungen mit Fremden. Diskret, fair und in 14 Tagen abgewickelt.</p>
+    <button class="hero-cta">Kostenlose Bewertung starten →</button>
+    <a href="#" class="hero-sub-cta">Für Investoren →</a>
+
+    <div class="trust-bar">
+      <div class="trust-item">✓ <strong>§34c GewO</strong> geprüft</div>
+      <div class="trust-item">✓ <strong>100%</strong> unverbindlich</div>
+      <div class="trust-item">✓ <strong>Notariell</strong> abgesichert</div>
+      <div class="trust-item">✓ <strong>Leipzig</strong> & Umgebung</div>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <h3>Deine Immobilie bewerten</h3>
+    <div class="sub">Kostenlos, unverbindlich, diskret — in 2 Minuten</div>
+    <div class="form-field">
+      <label>Was möchtest du verkaufen?</label>
+      <select><option>Wohnung</option><option>Haus</option><option>Mehrfamilienhaus</option><option>Grundstück</option></select>
+    </div>
+    <div class="form-field">
+      <label>PLZ des Objekts</label>
+      <input type="text" placeholder="z.B. 04103">
+    </div>
+    <div class="form-field">
+      <label>Zustand</label>
+      <select><option>Sanierungsbedürftig</option><option>Teilsaniert</option><option>Stark sanierungsbedürftig / Messie</option><option>Bewohnbar, aber veraltet</option></select>
+    </div>
+    <button class="form-submit">Kostenlose Bewertung erhalten</button>
+    <div class="form-note">🔒 Deine Daten sind sicher. 100% DSGVO-konform.</div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>So funktioniert's — <em>in 3 Schritten</em></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Daten eingeben</h3>
+      <p>Beschreib dein Objekt in 2 Minuten. Keine Fotos nötig, kein Aufräumen, keine Vorbereitung.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Angebot erhalten</h3>
+      <p>Innerhalb von 48 Stunden bekommst du ein faires, transparentes Kaufangebot — im Ist-Zustand.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Schlüssel übergeben</h3>
+      <p>Wir übernehmen Notar, Kosten und Formalitäten. Du bekommst dein Geld und hast Ruhe.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
