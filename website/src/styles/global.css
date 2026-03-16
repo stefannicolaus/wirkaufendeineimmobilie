@@ -175,6 +175,7 @@ body {
   line-height: var(--leading-normal);
   color: var(--color-text);
   background: var(--color-bg);
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4 {
@@ -182,6 +183,8 @@ h1, h2, h3, h4 {
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
   color: var(--color-text);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 h1 { font-size: var(--text-4xl); }
