@@ -6,20 +6,23 @@ import Layout from '../layouts/Layout.astro';
   description="So vermitteln wir deine Immobilie — vom ersten Kontakt bis zum Notartermin. Transparent und fair, für Verkäufer und Käufer."
 >
 
-  <!-- HERO -->
+  <!-- HERO + CTA above-the-fold -->
   <section class="section sfh-hero">
     <div class="container sfh-hero__inner">
       <h1>So funktioniert's</h1>
       <p class="sfh-hero__sub">
         Vom ersten Kontakt bis zum Geld auf deinem Konto — transparent und fair.
       </p>
-      <a href="/#bewertung" class="btn btn-primary" style="margin-top: var(--space-4);">Jetzt Immobilie einreichen &rarr;</a>
+      <div class="sfh-hero__cta">
+        <a href="/#bewertung" class="btn btn-primary">Jetzt Immobilie einreichen &rarr;</a>
+        <a href="/investoren" class="btn btn-outline">Investoren-Zugang &darr;</a>
+      </div>
     </div>
   </section>
 
   <!-- PERSPECTIVE TABS -->
-  <section class="section bg-alt">
-    <div class="container perspectives">
+  <section class="sfh-tabs-section bg-alt">
+    <div class="container">
       <div class="tab-switch" role="tablist">
         <button role="tab" aria-selected="true" aria-controls="panel-verkaeufer" id="tab-verkaeufer" class="tab-btn tab-btn--active">Verkäufer</button>
         <button role="tab" aria-selected="false" aria-controls="panel-kaeufer" id="tab-kaeufer" class="tab-btn">Käufer</button>
@@ -29,21 +32,21 @@ import Layout from '../layouts/Layout.astro';
       <div role="tabpanel" id="panel-verkaeufer" aria-labelledby="tab-verkaeufer" class="tab-panel tab-panel--active">
         <div class="process-steps">
           <div class="pstep">
-            <div class="pstep__num">1</div>
+            <div class="pstep__num">01</div>
             <div class="pstep__content">
               <h3>Objekt einreichen</h3>
               <p>PLZ + Basisdaten — 2 Minuten. Keine Fotos nötig, kein Aufräumen. Wir bewerten die Substanz.</p>
             </div>
           </div>
           <div class="pstep">
-            <div class="pstep__num">2</div>
+            <div class="pstep__num">02</div>
             <div class="pstep__content">
               <h3>Wir starten das Angebotsverfahren</h3>
               <p>Nur geprüfte Käufer. Geschlossen, fair, dokumentiert. Jeder Käufer gibt ein verdecktes Angebot ab.</p>
             </div>
           </div>
           <div class="pstep">
-            <div class="pstep__num">3</div>
+            <div class="pstep__num">03</div>
             <div class="pstep__content">
               <h3>Du entscheidest</h3>
               <p>Alle Angebote einsehen. Frei wählen. Wir koordinieren den Notartermin. Kein Zwang, kein Zeitdruck.</p>
@@ -59,21 +62,21 @@ import Layout from '../layouts/Layout.astro';
       <div role="tabpanel" id="panel-kaeufer" aria-labelledby="tab-kaeufer" class="tab-panel" hidden>
         <div class="process-steps">
           <div class="pstep">
-            <div class="pstep__num">1</div>
+            <div class="pstep__num">01</div>
             <div class="pstep__content">
               <h3>Zugang sichern</h3>
               <p>Registrieren, verifizieren, Deal-Profil anlegen. Wir prüfen jeden Antrag persönlich.</p>
             </div>
           </div>
           <div class="pstep">
-            <div class="pstep__num">2</div>
+            <div class="pstep__num">02</div>
             <div class="pstep__content">
               <h3>Objekte prüfen &amp; bieten</h3>
-              <p>Kuratierte Objekte, alle Unterlagen, ein Gebot. Verdeckt — niemand sieht Ihr Angebot.</p>
+              <p>Kuratierte Objekte, alle Unterlagen, ein Gebot. Verdeckt — niemand sieht dein Angebot.</p>
             </div>
           </div>
           <div class="pstep">
-            <div class="pstep__num">3</div>
+            <div class="pstep__num">03</div>
             <div class="pstep__content">
               <h3>Zuschlag &amp; Sanierung</h3>
               <p>Notartermin, Schlüssel, lossanieren. Schnelle Abwicklung — wir koordinieren alles bis zum Notar.</p>
@@ -88,44 +91,44 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- ANGEBOTSVERFAHREN ERKLÄRT -->
-  <section class="section">
-    <div class="container av-section">
+  <section class="sfh-av-section">
+    <div class="container">
       <h2>Das digitale Angebotsverfahren</h2>
-      <p class="av-section__intro">
+      <p class="sfh-av__intro">
         <strong>Kein Bieterwettlauf. Kein Zwang.</strong> — Jeder gibt sein bestes Angebot ab, verdeckt.
         Der Verkäufer sieht alle Angebote und entscheidet frei.
       </p>
-      <div class="av-grid">
-        <div class="av-point">
-          <div class="av-point__icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <div class="sfh-av-grid">
+        <div class="sfh-av-point">
+          <div class="sfh-av-point__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
           <div>
             <h3>Geschlossen</h3>
             <p>Niemand sieht andere Gebote. Kein Hochbieten, kein FOMO.</p>
           </div>
         </div>
-        <div class="av-point">
-          <div class="av-point__icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div class="sfh-av-point">
+          <div class="sfh-av-point__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
           <div>
             <h3>Fair</h3>
             <p>Ein Gebot pro Käufer. Gleiche Regeln für alle.</p>
           </div>
         </div>
-        <div class="av-point">
-          <div class="av-point__icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <div class="sfh-av-point">
+          <div class="sfh-av-point__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </div>
           <div>
             <h3>Transparent</h3>
             <p>Alle Angebote werden dem Verkäufer gezeigt. Vollständige Einsicht.</p>
           </div>
         </div>
-        <div class="av-point">
-          <div class="av-point__icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="sfh-av-point">
+          <div class="sfh-av-point__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
           <div>
             <h3>Rechtssicher</h3>
@@ -156,9 +159,47 @@ import Layout from '../layouts/Layout.astro';
   .sfh-hero__sub {
     font-size: var(--text-lg);
     color: var(--color-text-mid);
+    max-width: 640px;
   }
 
-  /* TABS */
+  .sfh-hero__cta {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: var(--space-4);
+  }
+
+  /* Outline Button */
+  .btn-outline {
+    background: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+    padding: var(--space-3) var(--space-6);
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-default);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: rgba(59, 130, 246, 0.04);
+  }
+
+  /* TABS SECTION — full width bg */
+  .sfh-tabs-section {
+    padding-block: var(--section-gap);
+  }
+
   .tab-switch {
     display: flex;
     justify-content: center;
@@ -191,31 +232,39 @@ import Layout from '../layouts/Layout.astro';
     border-color: var(--color-accent);
   }
 
-  /* PROCESS STEPS */
+  /* PROCESS STEPS — horizontal cards */
   .process-steps {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
   }
 
   .pstep {
     display: flex;
-    gap: var(--space-6);
+    gap: var(--space-5);
     align-items: flex-start;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--duration-normal) var(--ease-default),
+                transform var(--duration-normal) var(--ease-default);
+  }
+
+  .pstep:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
   }
 
   .pstep__num {
     flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--text-xl);
+    font-size: var(--text-3xl);
     font-weight: var(--weight-extrabold);
     color: var(--color-accent);
-    background: var(--color-accent-light);
-    border-radius: var(--radius-md);
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+    opacity: 0.3;
   }
 
   .pstep__content h3 {
@@ -224,6 +273,7 @@ import Layout from '../layouts/Layout.astro';
 
   .pstep__content p {
     color: var(--color-text-mid);
+    font-size: var(--text-sm);
   }
 
   .panel-cta {
@@ -231,64 +281,81 @@ import Layout from '../layouts/Layout.astro';
     margin-top: var(--space-10);
   }
 
-  /* AV SECTION */
-  .av-section {
+  @media (max-width: 768px) {
+    .process-steps {
+      grid-template-columns: 1fr;
+    }
   }
 
-  .av-section h2 {
+  /* ANGEBOTSVERFAHREN — full width bg-alt */
+  .sfh-av-section {
+    background: var(--color-bg-alt);
+    padding-block: var(--section-gap);
+  }
+
+  .sfh-av-section h2 {
     text-align: center;
     margin-bottom: var(--space-4);
   }
 
-  .av-section__intro {
+  .sfh-av__intro {
     text-align: center;
     color: var(--color-text-mid);
     margin-bottom: var(--space-10);
+    max-width: var(--container-narrow);
+    margin-inline: auto;
   }
 
-  .av-grid {
+  .sfh-av-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-6);
   }
 
-  .av-point {
+  .sfh-av-point {
     display: flex;
     gap: var(--space-4);
     align-items: flex-start;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--duration-normal) var(--ease-default);
   }
 
-  .av-point__icon {
+  .sfh-av-point:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .sfh-av-point__icon {
     flex-shrink: 0;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--color-accent-light);
+    color: var(--color-accent);
     border-radius: var(--radius-sm);
   }
 
-  .av-point h3 {
+  .sfh-av-point h3 {
     font-size: var(--text-lg);
     font-weight: var(--weight-semibold);
     line-height: var(--leading-snug);
     letter-spacing: var(--tracking-normal);
   }
 
-  .av-point p {
+  .sfh-av-point p {
     color: var(--color-text-mid);
     font-size: var(--text-sm);
     margin-top: var(--space-1);
   }
 
   @media (max-width: 640px) {
-    .av-grid {
+    .sfh-av-grid {
       grid-template-columns: 1fr;
-    }
-    .pstep {
-      flex-direction: column;
-      gap: var(--space-3);
     }
   }
 </style>

@@ -104,11 +104,11 @@ const breadcrumbLd = JSON.stringify({
   <script type="application/ld+json" set:html={breadcrumbLd} />
 
   <!-- BREADCRUMB -->
-  <nav class="breadcrumb section" style="padding-block: var(--space-4);" aria-label="Breadcrumb">
+  <nav class="st-breadcrumb" aria-label="Breadcrumb">
     <div class="container">
-      <a href="/">Home</a> <span class="bc-sep">&rsaquo;</span>
-      <span>Leipzig</span> <span class="bc-sep">&rsaquo;</span>
-      <span class="bc-current">{data.name}</span>
+      <a href="/">Home</a> <span class="st-bc-sep">&rsaquo;</span>
+      <span>Leipzig</span> <span class="st-bc-sep">&rsaquo;</span>
+      <span class="st-bc-current">{data.name}</span>
     </div>
   </nav>
 
@@ -121,90 +121,96 @@ const breadcrumbLd = JSON.stringify({
     </div>
   </section>
 
-  <!-- DEFINITION (AI-Citability) -->
-  <section class="section" style="padding-block: var(--space-4) var(--space-2);">
-    <div class="container">
-      <p class="stadtteil-definition">{data.definition}</p>
-    </div>
-  </section>
-
-  <!-- MARKET DATA -->
-  <section class="section bg-alt">
+  <!-- 4 MARKET DATA CARDS -->
+  <section class="st-market-section">
     <div class="container">
       <h2>Marktdaten {data.name}</h2>
-      <div class="market-grid">
-        <div class="market-card">
-          <span class="market-card__val">{data.qm_unsaniert} &euro;/m&sup2;</span>
-          <span class="market-card__label">Unsaniert</span>
+      <div class="st-market-grid">
+        <div class="st-market-card">
+          <span class="st-market-card__val">{data.qm_unsaniert} &euro;/m&sup2;</span>
+          <span class="st-market-card__label">Unsaniert</span>
         </div>
-        <div class="market-card">
-          <span class="market-card__val">{data.qm_saniert} &euro;/m&sup2;</span>
-          <span class="market-card__label">Saniert</span>
+        <div class="st-market-card">
+          <span class="st-market-card__val">{data.qm_saniert} &euro;/m&sup2;</span>
+          <span class="st-market-card__label">Saniert</span>
         </div>
-        <div class="market-card">
-          <span class="market-card__val">{data.trend}</span>
-          <span class="market-card__label">Trend</span>
+        <div class="st-market-card">
+          <span class="st-market-card__val">{data.trend}</span>
+          <span class="st-market-card__label">Trend</span>
         </div>
-        <div class="market-card">
-          <span class="market-card__val">{data.trend_5j}</span>
-          <span class="market-card__label">5-Jahres-Entwicklung</span>
+        <div class="st-market-card">
+          <span class="st-market-card__val">{data.trend_5j}</span>
+          <span class="st-market-card__label">5-Jahres-Entwicklung</span>
         </div>
       </div>
-      <p class="text-muted" style="font-size: var(--text-xs); margin-top: var(--space-4);">
+      <p class="st-source">
         Quelle: {data.marktdaten_quelle}
       </p>
     </div>
   </section>
 
-  <!-- FLIESSTEXT: STADTTEIL ALS IMMOBILIENSTANDORT -->
-  <section class="section">
+  <!-- FLIESSTEXT — full width bg-alt -->
+  <section class="st-text-section">
     <div class="container">
       <h2>{data.name} als Immobilienstandort</h2>
-      <div class="stadtteil-text" set:html={data.fliesstext} />
-      <p class="text-muted" style="font-size: var(--text-xs); margin-top: var(--space-4);">
+      <div class="st-text-body" set:html={data.fliesstext} />
+      <p class="st-source">
         Quelle: {data.marktdaten_quelle}
       </p>
     </div>
   </section>
 
-  <!-- MINI ROI -->
-  <section class="section bg-alt">
-    <div class="container roi-example">
+  <!-- DEFINITION (AI-Citability) -->
+  <section class="st-definition-section">
+    <div class="container">
+      <p class="st-definition">{data.definition}</p>
+    </div>
+  </section>
+
+  <!-- MINI ROI — compact horizontal table -->
+  <section class="st-roi-section">
+    <div class="container">
       <h2>Beispielrechnung für {data.name}</h2>
       <p class="text-mid">45 m&sup2; Wohnung, typisches Sanierungsobjekt</p>
-      <div class="roi-example__grid">
-        <div class="roi-row">
-          <span>Kauf (45 m&sup2; &times; {data.qm_unsaniert} &euro;)</span>
-          <span class="roi-row__val">{kaufpreis.toLocaleString('de-DE')} &euro;</span>
+      <div class="st-roi-table">
+        <div class="st-roi-row">
+          <span class="st-roi-row__label">Kauf (45 m&sup2; &times; {data.qm_unsaniert} &euro;)</span>
+          <span class="st-roi-row__val">{kaufpreis.toLocaleString('de-DE')} &euro;</span>
         </div>
-        <div class="roi-row">
-          <span>Sanierung</span>
-          <span class="roi-row__val">{sanierung.toLocaleString('de-DE')} &euro;</span>
+        <div class="st-roi-row">
+          <span class="st-roi-row__label">Sanierung</span>
+          <span class="st-roi-row__val">{sanierung.toLocaleString('de-DE')} &euro;</span>
         </div>
-        <div class="roi-row">
-          <span>Verkauf (45 m&sup2; &times; {data.qm_saniert} &euro;)</span>
-          <span class="roi-row__val">{verkaufspreis.toLocaleString('de-DE')} &euro;</span>
+        <div class="st-roi-row">
+          <span class="st-roi-row__label">Verkauf (45 m&sup2; &times; {data.qm_saniert} &euro;)</span>
+          <span class="st-roi-row__val">{verkaufspreis.toLocaleString('de-DE')} &euro;</span>
         </div>
-        <div class="roi-row roi-row--result">
-          <span>Gewinn (vor Nebenkosten)</span>
-          <span class="roi-row__val roi-row__val--accent">{gewinn.toLocaleString('de-DE')} &euro;</span>
+        <div class="st-roi-row st-roi-row--result">
+          <span class="st-roi-row__label">Gewinn (vor Nebenkosten)</span>
+          <span class="st-roi-row__val st-roi-row__val--accent">{gewinn.toLocaleString('de-DE')} &euro;</span>
         </div>
       </div>
-      <p class="beispielrechnung-text">{data.beispielrechnung_text}</p>
+      <p class="st-roi-footnote">{data.beispielrechnung_text}</p>
       <a href="/roi-rechner" class="btn btn-primary" style="margin-top: var(--space-6);">Exakt berechnen im ROI-Rechner &rarr;</a>
     </div>
   </section>
 
-  <!-- ZIELGRUPPEN -->
+  <!-- ZIELGRUPPEN — 2 Column Split -->
   <section class="section">
-    <div class="container zielgruppen">
-      <div class="zielgruppen-grid">
-        <div class="zielgruppen-block">
-          <h2>Wer verkauft in {data.name}?</h2>
+    <div class="container">
+      <div class="st-zielgruppen-grid">
+        <div class="st-zg-block">
+          <div class="st-zg-block__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          </div>
+          <h3>Wer verkauft in {data.name}?</h3>
           <p>{data.zielgruppe_verkaeufer}</p>
         </div>
-        <div class="zielgruppen-block">
-          <h2>Wer kauft in {data.name}?</h2>
+        <div class="st-zg-block">
+          <div class="st-zg-block__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+          </div>
+          <h3>Wer kauft in {data.name}?</h3>
           <p>{data.zielgruppe_kaeufer}</p>
         </div>
       </div>
@@ -213,16 +219,16 @@ const breadcrumbLd = JSON.stringify({
 
   <!-- LOCAL INFO -->
   <section class="section bg-alt">
-    <div class="container local-info">
+    <div class="container">
       <h2>{data.name} im Detail</h2>
-      <div class="local-grid">
+      <div class="st-local-grid">
         <div>
           <h4>Typische Objekte</h4>
           <p class="text-mid">{data.typische_objekte}</p>
         </div>
         <div>
           <h4>Infrastruktur</h4>
-          <ul class="infra-list">
+          <ul class="st-infra-list">
             {data.infrastruktur.map((item: string) => <li>{item}</li>)}
           </ul>
         </div>
@@ -238,11 +244,12 @@ const breadcrumbLd = JSON.stringify({
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section">
-    <div class="container st-cta">
+  <!-- CTA FORM — accent-light background -->
+  <section class="st-cta-section">
+    <div class="container st-cta__inner">
       <h2>Immobilie in {data.name} bewerten lassen</h2>
-      <form class="inline-form" id="st-form" data-endpoint="/api/bewertung">
+      <p class="text-mid">Kostenlos, unverbindlich — Erstbewertung innerhalb von 48 Stunden.</p>
+      <form class="st-cta-form" id="st-form" data-endpoint="/api/bewertung">
         <input
           type="text"
           name="plz"
@@ -257,25 +264,25 @@ const breadcrumbLd = JSON.stringify({
     </div>
   </section>
 
-  <!-- INTERNAL LINKS -->
+  <!-- NACHBAR-STADTTEILE — Pill-Links -->
   <section class="section bg-alt">
-    <div class="container internal-links">
+    <div class="container st-links">
       {data.nachbar_stadtteile.length > 0 && (
-        <div class="link-group">
+        <div class="st-link-group">
           <h4>Nachbar-Stadtteile</h4>
-          <div class="link-pills">
+          <div class="st-pills">
             {data.nachbar_stadtteile.map((slug: string) => (
-              <a href={`/leipzig/${slug}`} class="pill">{slugMap[slug] || slug}</a>
+              <a href={`/leipzig/${slug}`} class="st-pill">{slugMap[slug] || slug}</a>
             ))}
           </div>
         </div>
       )}
-      <div class="link-group">
+      <div class="st-link-group">
         <h4>Weitere Seiten</h4>
-        <div class="link-pills">
-          <a href="/roi-rechner" class="pill">ROI-Rechner</a>
-          <a href="/so-funktionierts" class="pill">So funktioniert's</a>
-          <a href="/" class="pill">Startseite</a>
+        <div class="st-pills">
+          <a href="/roi-rechner" class="st-pill">ROI-Rechner</a>
+          <a href="/so-funktionierts" class="st-pill">So funktioniert's</a>
+          <a href="/" class="st-pill">Startseite</a>
         </div>
       </div>
     </div>
@@ -285,25 +292,26 @@ const breadcrumbLd = JSON.stringify({
 
 <style>
   /* BREADCRUMB */
-  .breadcrumb {
+  .st-breadcrumb {
+    padding-block: var(--space-4);
     font-size: var(--text-sm);
     color: var(--color-text-muted);
   }
 
-  .breadcrumb a {
+  .st-breadcrumb a {
     color: var(--color-text-muted);
   }
 
-  .breadcrumb a:hover {
+  .st-breadcrumb a:hover {
     color: var(--color-accent);
   }
 
-  .bc-sep {
+  .st-bc-sep {
     margin-inline: var(--space-2);
     opacity: 0.5;
   }
 
-  .bc-current {
+  .st-bc-current {
     color: var(--color-text);
     font-weight: var(--weight-medium);
   }
@@ -323,110 +331,157 @@ const breadcrumbLd = JSON.stringify({
     margin-top: var(--space-4);
   }
 
-  /* DEFINITION */
-  .stadtteil-definition {
-    font-size: var(--text-base);
-    color: var(--color-text-mid);
-    line-height: 1.7;
-    font-style: italic;
+  /* MARKET DATA — 4 cards */
+  .st-market-section {
+    background: var(--color-bg-alt);
+    padding-block: var(--section-gap);
   }
 
-  /* MARKET */
-  .market-grid {
+  .st-market-section h2 {
+    margin-bottom: var(--space-6);
+  }
+
+  .st-market-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--space-4);
-    margin-top: var(--space-6);
   }
 
-  .market-card {
+  .st-market-card {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: var(--space-5);
     text-align: center;
     box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--duration-normal) var(--ease-default),
+                transform var(--duration-normal) var(--ease-default);
   }
 
-  .market-card__val {
+  .st-market-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .st-market-card__val {
     display: block;
     font-size: var(--text-2xl);
     font-weight: var(--weight-extrabold);
     color: var(--color-text);
   }
 
-  .market-card__label {
+  .st-market-card__label {
     display: block;
     font-size: var(--text-sm);
     color: var(--color-text-mid);
     margin-top: var(--space-1);
   }
 
+  .st-source {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-4);
+  }
+
   @media (max-width: 640px) {
-    .market-grid {
+    .st-market-grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  /* FLIESSTEXT */
-  .stadtteil-text {
-    line-height: 1.8;
-    color: var(--color-text-mid);
-    margin-top: var(--space-6);
+  /* FLIESSTEXT — full width bg-alt */
+  .st-text-section {
+    padding-block: var(--section-gap);
   }
 
-  .stadtteil-text :global(p) {
+  .st-text-section h2 {
+    margin-bottom: var(--space-6);
+  }
+
+  .st-text-body {
+    line-height: 1.8;
+    color: var(--color-text-mid);
+  }
+
+  .st-text-body :global(p) {
     margin-bottom: var(--space-4);
   }
 
-  .stadtteil-text :global(p:last-child) {
+  .st-text-body :global(p:last-child) {
     margin-bottom: 0;
   }
 
-  /* ROI EXAMPLE */
-  .roi-example {
+  /* DEFINITION */
+  .st-definition-section {
+    padding-block: var(--space-4) var(--space-2);
+  }
+
+  .st-definition {
+    font-size: var(--text-base);
+    color: var(--color-text-mid);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* MINI ROI — compact horizontal table */
+  .st-roi-section {
+    background: var(--color-bg-alt);
+    padding-block: var(--section-gap);
+  }
+
+  .st-roi-section h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .st-roi-section > .container {
     text-align: center;
   }
 
-  .roi-example p {
+  .st-roi-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
   }
 
-  .roi-example__grid {
-    margin-top: var(--space-6);
+  .st-roi-row {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-1);
+    padding: var(--space-3);
   }
 
-  .roi-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: var(--text-sm);
+  .st-roi-row:not(:last-child) {
+    border-right: 1px solid var(--color-border);
+  }
+
+  .st-roi-row__label {
+    font-size: var(--text-xs);
     color: var(--color-text-mid);
-    padding: var(--space-2) 0;
-    border-bottom: 1px solid var(--color-border);
+    font-weight: var(--weight-medium);
   }
 
-  .roi-row--result {
-    border-bottom: none;
-    border-top: 2px solid var(--color-text);
-    padding-top: var(--space-3);
-    font-weight: var(--weight-bold);
-    color: var(--color-text);
-    font-size: var(--text-base);
-  }
-
-  .roi-row__val {
-    font-weight: var(--weight-semibold);
-    color: var(--color-text);
-  }
-
-  .roi-row__val--accent {
-    color: var(--color-accent);
+  .st-roi-row__val {
+    font-size: var(--text-xl);
     font-weight: var(--weight-extrabold);
+    color: var(--color-text);
   }
 
-  .beispielrechnung-text {
+  .st-roi-row--result .st-roi-row__val {
+    color: var(--color-accent);
+  }
+
+  .st-roi-row__val--accent {
+    color: var(--color-accent);
+  }
+
+  .st-roi-footnote {
     text-align: left;
     line-height: 1.7;
     color: var(--color-text-mid);
@@ -434,105 +489,157 @@ const breadcrumbLd = JSON.stringify({
     margin-top: var(--space-6);
   }
 
-  /* ZIELGRUPPEN */
-  .zielgruppen-grid {
+  @media (max-width: 768px) {
+    .st-roi-table {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .st-roi-row:nth-child(2) {
+      border-right: none;
+    }
+
+    .st-roi-row:nth-child(1),
+    .st-roi-row:nth-child(2) {
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: var(--space-4);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .st-roi-table {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* ZIELGRUPPEN — 2 Column Split */
+  .st-zielgruppen-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-8);
   }
 
-  .zielgruppen-block h2 {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-4);
+  .st-zg-block {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
   }
 
-  .zielgruppen-block p {
+  .st-zg-block__icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+    border-radius: var(--radius-sm);
+  }
+
+  .st-zg-block h3 {
+    font-size: var(--text-xl);
+  }
+
+  .st-zg-block p {
     line-height: 1.7;
     color: var(--color-text-mid);
   }
 
   @media (max-width: 640px) {
-    .zielgruppen-grid {
+    .st-zielgruppen-grid {
       grid-template-columns: 1fr;
     }
   }
 
   /* LOCAL INFO */
-  .local-grid {
+  .st-local-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-6);
     margin-top: var(--space-6);
   }
 
-  .local-grid h4 {
+  .st-local-grid h4 {
     margin-bottom: var(--space-2);
   }
 
-  .infra-list {
+  .st-infra-list {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
   }
 
-  .infra-list li {
+  .st-infra-list li {
     font-size: var(--text-sm);
     color: var(--color-text-mid);
   }
 
-  .infra-list li::before {
+  .st-infra-list li::before {
     content: '\2022  ';
     color: var(--color-accent);
   }
 
   @media (max-width: 640px) {
-    .local-grid {
+    .st-local-grid {
       grid-template-columns: 1fr;
     }
   }
 
-  /* CTA */
-  .st-cta {
+  /* CTA — accent-light background */
+  .st-cta-section {
+    background: rgba(59, 130, 246, 0.05);
+    padding-block: var(--section-gap);
+  }
+
+  .st-cta__inner {
     text-align: center;
   }
 
-  .st-cta .inline-form {
+  .st-cta__inner p {
+    margin-bottom: var(--space-6);
+  }
+
+  .st-cta-form {
     display: flex;
     gap: var(--space-2);
     max-width: 520px;
-    margin: var(--space-6) auto 0;
+    margin-inline: auto;
   }
 
-  .st-cta .inline-form input {
+  .st-cta-form input {
     flex: 1;
     min-width: 0;
   }
 
   @media (max-width: 480px) {
-    .st-cta .inline-form {
+    .st-cta-form {
       flex-direction: column;
     }
   }
 
-  /* INTERNAL LINKS */
-  .internal-links {
+  /* NACHBAR LINKS */
+  .st-links {
     display: flex;
     flex-direction: column;
     gap: var(--space-6);
   }
 
-  .link-group h4 {
+  .st-link-group h4 {
     margin-bottom: var(--space-3);
   }
 
-  .link-pills {
+  .st-pills {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
   }
 
-  .pill {
+  .st-pill {
     display: inline-flex;
     align-items: center;
     padding: var(--space-2) var(--space-4);
@@ -547,9 +654,11 @@ const breadcrumbLd = JSON.stringify({
     min-height: 44px;
   }
 
-  .pill:hover {
+  .st-pill:hover {
     color: var(--color-accent);
     border-color: var(--color-accent);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
   }
 </style>
 

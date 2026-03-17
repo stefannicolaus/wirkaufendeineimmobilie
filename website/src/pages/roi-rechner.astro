@@ -6,6 +6,7 @@ import Layout from '../layouts/Layout.astro';
   description="Fix & Flip Rechner mit echten Leipziger Marktdaten. Berechne Rendite, Kosten und Gewinn für dein nächstes Sanierungsobjekt."
 >
 
+  <!-- HERO -->
   <section class="section roi-hero">
     <div class="container roi-hero__inner">
       <h1>Was bringt dein nächster Flip?<br /><span class="text-accent">Rechne es durch.</span></h1>
@@ -13,25 +14,16 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
-  <section class="section bg-alt">
-    <div class="container roi-calc">
+  <!-- CALCULATOR — 2 Column Split -->
+  <section class="roi-calc-section">
+    <div class="container">
       <div class="roi-calc__grid">
 
-        <!-- INPUTS -->
-        <div class="roi-inputs">
+        <!-- INPUTS — white card -->
+        <div class="roi-inputs-card">
           <h3>Deine Zahlen</h3>
 
-          <div class="input-group">
-            <label for="kaufpreis">Kaufpreis (&euro;)</label>
-            <input type="number" id="kaufpreis" value="65000" min="0" step="1000" />
-          </div>
-
-          <div class="input-group">
-            <label for="wohnflaeche">Wohnfläche (m&sup2;)</label>
-            <input type="number" id="wohnflaeche" value="45" min="1" step="1" />
-          </div>
-
-          <div class="input-group">
+          <div class="roi-input-group">
             <label for="stadtteil">Stadtteil</label>
             <select id="stadtteil">
               <option value="volkmarsdorf">Volkmarsdorf</option>
@@ -42,12 +34,22 @@ import Layout from '../layouts/Layout.astro';
             </select>
           </div>
 
-          <div class="input-group">
+          <div class="roi-input-group">
+            <label for="kaufpreis">Kaufpreis (&euro;)</label>
+            <input type="number" id="kaufpreis" value="65000" min="0" step="1000" />
+          </div>
+
+          <div class="roi-input-group">
+            <label for="wohnflaeche">Wohnfläche (m&sup2;)</label>
+            <input type="number" id="wohnflaeche" value="45" min="1" step="1" />
+          </div>
+
+          <div class="roi-input-group">
             <label for="sanierungskosten">Sanierungskosten (&euro;)</label>
             <input type="number" id="sanierungskosten" value="35000" min="0" step="1000" />
           </div>
 
-          <div class="input-group input-group--toggle">
+          <div class="roi-input-group roi-input-group--toggle">
             <label class="toggle-label">
               <input type="checkbox" id="eigenleistung-toggle" />
               <span class="toggle-switch"></span>
@@ -55,7 +57,7 @@ import Layout from '../layouts/Layout.astro';
             </label>
           </div>
 
-          <div class="input-group" id="gewerk-group" style="display:none;">
+          <div class="roi-input-group" id="gewerk-group" style="display:none;">
             <label for="gewerk">Gewerk</label>
             <select id="gewerk">
               <option value="maler">Maler</option>
@@ -66,57 +68,49 @@ import Layout from '../layouts/Layout.astro';
             </select>
           </div>
 
-          <div class="nebenkosten-info">
+          <div class="roi-nk-info">
             <h4>Nebenkosten (automatisch)</h4>
-            <div class="nk-row"><span>Grunderwerbsteuer (3,5%)</span><span id="nk-grunderwerb">0 &euro;</span></div>
-            <div class="nk-row"><span>Notar + Grundbuch (2%)</span><span id="nk-notar">0 &euro;</span></div>
-            <div class="nk-row"><span>Maklerprovision Kauf (5%)</span><span id="nk-provision">0 &euro;</span></div>
+            <div class="roi-nk-row"><span>Grunderwerbsteuer (3,5%)</span><span id="nk-grunderwerb">0 &euro;</span></div>
+            <div class="roi-nk-row"><span>Notar + Grundbuch (2%)</span><span id="nk-notar">0 &euro;</span></div>
+            <div class="roi-nk-row"><span>Maklerprovision Kauf (5%)</span><span id="nk-provision">0 &euro;</span></div>
           </div>
         </div>
 
-        <!-- RESULTS -->
-        <div class="roi-results">
+        <!-- RESULTS — dark card -->
+        <div class="roi-results-card">
           <h3>Dein Ergebnis</h3>
 
-          <div class="result-card">
-            <div class="result-row">
+          <div class="roi-result-rows">
+            <div class="roi-result-row">
               <span>Gesamtinvestition</span>
-              <span class="result-val" id="res-invest">0 &euro;</span>
+              <span class="roi-result-val" id="res-invest">0 &euro;</span>
             </div>
-            <div class="result-row">
+            <div class="roi-result-row">
               <span>Erwarteter Verkaufspreis</span>
-              <span class="result-val" id="res-verkauf">0 &euro;</span>
+              <span class="roi-result-val" id="res-verkauf">0 &euro;</span>
             </div>
-            <div class="result-divider"></div>
-            <div class="result-row">
+            <div class="roi-result-divider"></div>
+            <div class="roi-result-row">
               <span>Brutto-Gewinn</span>
-              <span class="result-val" id="res-brutto">0 &euro;</span>
+              <span class="roi-result-val" id="res-brutto">0 &euro;</span>
             </div>
-            <div class="result-row" id="row-eigenleistung" style="display:none;">
+            <div class="roi-result-row" id="row-eigenleistung" style="display:none;">
               <span>Eigenleistungs-Ersparnis</span>
-              <span class="result-val result-val--green" id="res-eigenleistung">0 &euro;</span>
+              <span class="roi-result-val roi-result-val--green" id="res-eigenleistung">0 &euro;</span>
             </div>
-            <div class="result-row">
-              <span>Vermittlungsprovision (5%, erfolgsbasiert)</span>
-              <span class="result-val" id="res-provision">0 &euro;</span>
+            <div class="roi-result-row">
+              <span>Vermittlungsprovision (5%)</span>
+              <span class="roi-result-val" id="res-provision">0 &euro;</span>
             </div>
-            <div class="result-divider"></div>
-            <div class="result-row result-row--big">
+            <div class="roi-result-divider"></div>
+            <div class="roi-result-row roi-result-row--big">
               <span>Netto-Gewinn</span>
-              <span class="result-val result-val--accent" id="res-netto">0 &euro;</span>
+              <span class="roi-result-val roi-result-val--accent" id="res-netto">0 &euro;</span>
             </div>
-            <div class="result-row result-row--big">
+            <div class="roi-result-row roi-result-row--big">
               <span>ROI auf Eigenkapital</span>
-              <span class="result-val result-val--accent" id="res-roi">0%</span>
+              <span class="roi-result-val roi-result-val--accent" id="res-roi">0%</span>
             </div>
-          </div>
-
-          <div class="result-cta">
-            <p>Ergebnis als PDF speichern</p>
-            <form class="pdf-form" id="pdf-form">
-              <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required aria-label="E-Mail für PDF" />
-              <button type="submit" class="btn btn-primary">PDF senden &rarr;</button>
-            </form>
           </div>
         </div>
 
@@ -124,9 +118,22 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
+  <!-- PDF CTA Section -->
+  <section class="roi-pdf-section">
+    <div class="container roi-pdf__inner">
+      <h2>Ergebnis speichern</h2>
+      <p class="text-mid">Lass dir die Kalkulation als PDF zuschicken — kostenlos und unverbindlich.</p>
+      <form class="roi-pdf-form" id="pdf-form">
+        <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required aria-label="E-Mail für PDF" />
+        <button type="submit" class="btn btn-primary">PDF senden &rarr;</button>
+      </form>
+    </div>
+  </section>
+
 </Layout>
 
 <style>
+  /* HERO */
   .roi-hero {
     text-align: center;
     padding-top: var(--space-20);
@@ -143,9 +150,14 @@ import Layout from '../layouts/Layout.astro';
   .roi-hero__sub {
     font-size: var(--text-lg);
     color: var(--color-text-mid);
+    max-width: 640px;
   }
 
-  /* CALC GRID */
+  /* CALCULATOR SECTION */
+  .roi-calc-section {
+    padding-block: var(--section-gap);
+  }
+
   .roi-calc__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -153,43 +165,44 @@ import Layout from '../layouts/Layout.astro';
     align-items: start;
   }
 
-  @media (max-width: 768px) {
-    .roi-calc__grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .roi-inputs,
-  .roi-results {
+  /* INPUTS CARD — white */
+  .roi-inputs-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: clamp(24px, 3vw, 40px);
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
+    box-shadow:
+      0 4px 8px rgba(15, 23, 42, 0.04),
+      0 8px 24px rgba(15, 23, 42, 0.1),
+      0 16px 48px rgba(15, 23, 42, 0.06);
   }
 
-  .roi-inputs h3,
-  .roi-results h3 {
+  .roi-inputs-card h3 {
     margin-bottom: var(--space-2);
   }
 
-  .input-group {
+  .roi-input-group {
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
   }
 
-  .input-group label {
+  .roi-input-group label {
     font-size: var(--text-sm);
     font-weight: var(--weight-medium);
     color: var(--color-text-mid);
   }
 
-  .input-group input[type="number"],
-  .input-group select {
+  .roi-input-group input[type="number"],
+  .roi-input-group select {
     width: 100%;
   }
 
   /* TOGGLE */
-  .input-group--toggle {
+  .roi-input-group--toggle {
     flex-direction: row;
   }
 
@@ -247,9 +260,9 @@ import Layout from '../layouts/Layout.astro';
     outline-offset: 2px;
   }
 
-  /* NEBENKOSTEN */
-  .nebenkosten-info {
-    background: var(--color-bg-card);
+  /* NEBENKOSTEN INFO */
+  .roi-nk-info {
+    background: var(--color-bg-alt);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: var(--space-4);
@@ -258,86 +271,118 @@ import Layout from '../layouts/Layout.astro';
     gap: var(--space-2);
   }
 
-  .nebenkosten-info h4 {
+  .roi-nk-info h4 {
     font-size: var(--text-sm);
     margin-bottom: var(--space-1);
   }
 
-  .nk-row {
+  .roi-nk-row {
     display: flex;
     justify-content: space-between;
     font-size: var(--text-sm);
     color: var(--color-text-mid);
   }
 
-  /* RESULTS */
-  .result-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
+  /* RESULTS CARD — dark */
+  .roi-results-card {
+    background: var(--color-bg-dark);
+    color: var(--color-text-on-dark);
+    border-radius: var(--radius-xl);
+    padding: clamp(24px, 3vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    box-shadow:
+      0 4px 8px rgba(15, 23, 42, 0.15),
+      0 8px 24px rgba(15, 23, 42, 0.25),
+      0 16px 48px rgba(15, 23, 42, 0.15);
+    position: sticky;
+    top: var(--space-8);
+  }
+
+  .roi-results-card h3 {
+    color: var(--color-text-on-dark);
+  }
+
+  .roi-result-rows {
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    box-shadow: var(--shadow-md);
   }
 
-  .result-row {
+  .roi-result-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: var(--text-sm);
-    color: var(--color-text-mid);
+    color: var(--color-text-muted);
   }
 
-  .result-row--big {
+  .roi-result-row--big {
     font-size: var(--text-lg);
     font-weight: var(--weight-bold);
-    color: var(--color-text);
+    color: var(--color-text-on-dark);
   }
 
-  .result-val {
+  .roi-result-val {
     font-weight: var(--weight-semibold);
-    color: var(--color-text);
+    color: var(--color-text-on-dark);
   }
 
-  .result-val--accent {
+  .roi-result-val--accent {
     color: var(--color-accent);
     font-weight: var(--weight-extrabold);
+    font-size: var(--text-xl);
   }
 
-  .result-val--green {
+  .roi-result-val--green {
     color: var(--color-success);
   }
 
-  .result-divider {
+  .roi-result-divider {
     height: 1px;
-    background: var(--color-border);
+    background: var(--color-primary-muted);
     margin-block: var(--space-1);
   }
 
-  .result-cta {
-    margin-top: var(--space-4);
+  /* PDF CTA SECTION */
+  .roi-pdf-section {
+    background: var(--color-bg-alt);
+    padding-block: var(--section-gap);
+  }
+
+  .roi-pdf__inner {
     text-align: center;
   }
 
-  .result-cta p {
-    font-weight: var(--weight-semibold);
-    margin-bottom: var(--space-3);
+  .roi-pdf__inner p {
+    margin-bottom: var(--space-6);
   }
 
-  .pdf-form {
+  .roi-pdf-form {
     display: flex;
     gap: var(--space-2);
+    max-width: 520px;
+    margin-inline: auto;
   }
 
-  .pdf-form input {
+  .roi-pdf-form input {
     flex: 1;
     min-width: 0;
   }
 
+  @media (max-width: 768px) {
+    .roi-calc__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .roi-results-card {
+      position: static;
+    }
+  }
+
   @media (max-width: 480px) {
-    .pdf-form {
+    .roi-pdf-form {
       flex-direction: column;
     }
   }
