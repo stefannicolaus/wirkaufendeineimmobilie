@@ -547,23 +547,18 @@ import Layout from '../layouts/Layout.astro';
   .step {
     text-align: center;
     position: relative;
-    padding-top: var(--space-12);
   }
 
   .step__num {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    display: block;
     font-size: 120px;
     font-weight: var(--weight-extrabold);
     color: var(--color-accent);
-    line-height: 1;
-    opacity: 0.08;
+    line-height: 0.85;
+    opacity: 0.12;
     letter-spacing: var(--tracking-tight);
     user-select: none;
-    pointer-events: none;
-    z-index: 0;
+    margin-bottom: var(--space-4);
   }
 
   .step__header {
@@ -571,8 +566,6 @@ import Layout from '../layouts/Layout.astro';
     align-items: center;
     gap: var(--space-2);
     justify-content: center;
-    position: relative;
-    z-index: 1;
   }
 
   .step__icon {
@@ -582,14 +575,10 @@ import Layout from '../layouts/Layout.astro';
 
   .step h3 {
     margin-bottom: var(--space-2);
-    position: relative;
-    z-index: 1;
   }
 
   .step p {
     color: var(--color-text-mid);
-    position: relative;
-    z-index: 1;
   }
 
   @media (max-width: 640px) {
