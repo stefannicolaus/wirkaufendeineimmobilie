@@ -68,15 +68,19 @@ import Layout from '../layouts/Layout.astro';
             </select>
           </div>
 
+          <!-- Nebenkosten-Info-Box — Stitch Pattern -->
           <div class="roi-nk-info">
-            <h4>Nebenkosten (automatisch)</h4>
+            <div class="roi-nk-info__header">
+              <svg class="roi-nk-info__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <h4>Nebenkosten (automatisch)</h4>
+            </div>
             <div class="roi-nk-row"><span>Grunderwerbsteuer (3,5%)</span><span id="nk-grunderwerb">0 &euro;</span></div>
             <div class="roi-nk-row"><span>Notar + Grundbuch (2%)</span><span id="nk-notar">0 &euro;</span></div>
             <div class="roi-nk-row"><span>Maklerprovision Kauf (5%)</span><span id="nk-provision">0 &euro;</span></div>
           </div>
         </div>
 
-        <!-- RESULTS — dark card -->
+        <!-- RESULTS — dark card with inline PDF CTA -->
         <div class="roi-results-card">
           <h3>Dein Ergebnis</h3>
 
@@ -112,21 +116,19 @@ import Layout from '../layouts/Layout.astro';
               <span class="roi-result-val roi-result-val--accent" id="res-roi">0%</span>
             </div>
           </div>
+
+          <!-- PDF CTA inline in dark card -->
+          <div class="roi-pdf-inline">
+            <p class="roi-pdf-inline__title">Ergebnis als PDF speichern</p>
+            <form class="roi-pdf-inline__form" id="pdf-form">
+              <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required aria-label="E-Mail für PDF" />
+              <button type="submit" class="btn btn-primary">PDF &rarr;</button>
+            </form>
+            <p class="roi-pdf-inline__disclaimer">Kostenlos und unverbindlich. Kein Spam.</p>
+          </div>
         </div>
 
       </div>
-    </div>
-  </section>
-
-  <!-- PDF CTA Section -->
-  <section class="roi-pdf-section">
-    <div class="container roi-pdf__inner">
-      <h2>Ergebnis speichern</h2>
-      <p class="text-mid">Lass dir die Kalkulation als PDF zuschicken — kostenlos und unverbindlich.</p>
-      <form class="roi-pdf-form" id="pdf-form">
-        <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required aria-label="E-Mail für PDF" />
-        <button type="submit" class="btn btn-primary">PDF senden &rarr;</button>
-      </form>
     </div>
   </section>
 
@@ -260,10 +262,10 @@ import Layout from '../layouts/Layout.astro';
     outline-offset: 2px;
   }
 
-  /* NEBENKOSTEN INFO */
+  /* NEBENKOSTEN INFO — Stitch style: accent bg + border + icon */
   .roi-nk-info {
-    background: var(--color-bg-alt);
-    border: 1px solid var(--color-border);
+    background: rgba(59, 130, 246, 0.05);
+    border: 1px solid rgba(59, 130, 246, 0.2);
     border-radius: var(--radius-md);
     padding: var(--space-4);
     display: flex;
@@ -271,9 +273,20 @@ import Layout from '../layouts/Layout.astro';
     gap: var(--space-2);
   }
 
+  .roi-nk-info__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-1);
+  }
+
+  .roi-nk-info__icon {
+    flex-shrink: 0;
+  }
+
   .roi-nk-info h4 {
     font-size: var(--text-sm);
-    margin-bottom: var(--space-1);
+    color: var(--color-accent);
   }
 
   .roi-nk-row {
@@ -281,6 +294,10 @@ import Layout from '../layouts/Layout.astro';
     justify-content: space-between;
     font-size: var(--text-sm);
     color: var(--color-text-mid);
+  }
+
+  .roi-nk-row span:last-child {
+    font-variant-numeric: tabular-nums;
   }
 
   /* RESULTS CARD — dark */
@@ -327,12 +344,14 @@ import Layout from '../layouts/Layout.astro';
   .roi-result-val {
     font-weight: var(--weight-semibold);
     color: var(--color-text-on-dark);
+    font-variant-numeric: tabular-nums;
   }
 
   .roi-result-val--accent {
     color: var(--color-accent);
     font-weight: var(--weight-extrabold);
     font-size: var(--text-xl);
+    font-variant-numeric: tabular-nums;
   }
 
   .roi-result-val--green {
@@ -345,30 +364,43 @@ import Layout from '../layouts/Layout.astro';
     margin-block: var(--space-1);
   }
 
-  /* PDF CTA SECTION */
-  .roi-pdf-section {
-    background: var(--color-bg-alt);
-    padding-block: var(--section-gap);
+  /* PDF CTA — inline inside dark card, glass effect */
+  .roi-pdf-inline {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    margin-top: var(--space-2);
   }
 
-  .roi-pdf__inner {
-    text-align: center;
+  .roi-pdf-inline__title {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-on-dark);
+    margin-bottom: var(--space-3);
   }
 
-  .roi-pdf__inner p {
-    margin-bottom: var(--space-6);
-  }
-
-  .roi-pdf-form {
+  .roi-pdf-inline__form {
     display: flex;
     gap: var(--space-2);
-    max-width: 520px;
-    margin-inline: auto;
   }
 
-  .roi-pdf-form input {
+  .roi-pdf-inline__form input {
     flex: 1;
     min-width: 0;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--color-text-on-dark);
+  }
+
+  .roi-pdf-inline__form input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .roi-pdf-inline__disclaimer {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-2);
   }
 
   @media (max-width: 768px) {
@@ -382,7 +414,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   @media (max-width: 480px) {
-    .roi-pdf-form {
+    .roi-pdf-inline__form {
       flex-direction: column;
     }
   }

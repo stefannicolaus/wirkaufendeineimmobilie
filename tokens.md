@@ -41,7 +41,7 @@
 
   /* Text */
   --color-text: #0F172A;        /* = Primary */
-  --color-text-mid: #64748B;
+  --color-text-mid: #475569;
   --color-text-muted: #94A3B8;
   --color-text-on-dark: #F8FAFC;
   --color-text-on-accent: #FFFFFF;

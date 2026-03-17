@@ -2,40 +2,38 @@
 import Layout from '../../layouts/Layout.astro';
 ---
 <Layout
-  title="Aktionsplan Erbengemeinschaft — persoenlich erstellt"
-  description="Beantworte 5 Fragen zu deiner Erbengemeinschaft. Joachim Kleinke erstellt deinen persoenlichen 7-Schritte Aktionsplan. Kostenlos."
+  title="Aktionsplan Erbengemeinschaft — persönlich erstellt"
+  description="Beantworte 5 Fragen zu deiner Erbengemeinschaft. Joachim Kleinke erstellt deinen persönlichen 7-Schritte Aktionsplan. Kostenlos."
 >
 
   <section class="section ap-hero">
     <div class="container ap-hero__inner">
-      <div class="label">Persoenlich erstellt von Joachim Kleinke</div>
+      <div class="label">Persönlich erstellt von Joachim Kleinke</div>
       <h1>Dein 7-Schritte Aktionsplan —<br /><span class="text-accent">auf deine Erbengemeinschaft zugeschnitten</span></h1>
       <p class="ap-hero__sub">Wir erstellen deinen Aktionsplan basierend auf deinen Angaben —
-        mit konkreten Empfehlungen fuer deine Situation. Dafuer brauchen wir
-        ein paar Informationen von dir. Unsere Experten schauen sich das an
-        und schicken dir deinen persoenlichen Aktionsplan, auf deine
+        mit konkreten Empfehlungen für deine Situation. Dafür brauchen wir
+        ein paar Informationen von dir. Joachim Kleinke und sein Team schauen sich das an
+        und schicken dir deinen persönlichen Aktionsplan, auf deine
         Erbengemeinschaft zugeschnitten. Kostenlos.</p>
 
       <div class="ap-steps">
         <div class="ap-step">
           <div class="ap-step__icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           </div>
           <div class="ap-step__label">5 Fragen beantworten</div>
           <div class="ap-step__detail">2 Minuten</div>
         </div>
-        <div class="ap-step__divider"></div>
         <div class="ap-step">
           <div class="ap-step__icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div>
           <div class="ap-step__label">Joachim analysiert deine Situation</div>
-          <div class="ap-step__detail">Persoenlich, nicht automatisiert</div>
+          <div class="ap-step__detail">Persönlich, nicht automatisiert</div>
         </div>
-        <div class="ap-step__divider"></div>
         <div class="ap-step">
           <div class="ap-step__icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           </div>
           <div class="ap-step__label">Dein Aktionsplan in 24h</div>
           <div class="ap-step__detail">Individuell, mit konkreten Zahlen</div>
@@ -44,15 +42,90 @@ import Layout from '../../layouts/Layout.astro';
 
       <a href="/aktionsplan-erbengemeinschaft/start" class="btn btn-primary ap-hero__cta">Jetzt starten &rarr;</a>
 
-      <div class="ap-includes">
-        <p class="text-mid">Dein Aktionsplan enthaelt:</p>
-        <ul class="ap-includes__list">
-          <li>7 konkrete Schritte — priorisiert fuer deine Situation</li>
-          <li>Blockade-Rechner: Was dich der Stillstand jeden Monat kostet</li>
-          <li>Verhandlungs-Skript fuer das Gespraech mit dem blockierenden Erben</li>
-          <li>Lokale Kontakte: Nachlassgericht und Fachanwaelte in deiner Region</li>
-          <li>Marktwert-Schaetzung fuer dein Objekt</li>
+      <!-- Includes-Liste als 2-Spalten Grid Card -->
+      <div class="ap-includes-card">
+        <p class="ap-includes-card__title">Dein Aktionsplan enthält:</p>
+        <ul class="ap-includes-grid">
+          <li>
+            <svg class="ap-check" width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="var(--color-accent)"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>7 konkrete Schritte — priorisiert für deine Situation</span>
+          </li>
+          <li>
+            <svg class="ap-check" width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="var(--color-accent)"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Blockade-Rechner: Was dich der Stillstand jeden Monat kostet</span>
+          </li>
+          <li>
+            <svg class="ap-check" width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="var(--color-accent)"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Verhandlungs-Skript für das Gespräch mit dem blockierenden Erben</span>
+          </li>
+          <li>
+            <svg class="ap-check" width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="var(--color-accent)"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Lokale Kontakte: Nachlassgericht und Fachanwälte in deiner Region</span>
+          </li>
+          <li>
+            <svg class="ap-check" width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="var(--color-accent)"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Marktwert-Schätzung für dein Objekt</span>
+          </li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST SECTION — 2 Column Split -->
+  <section class="section ap-trust-section">
+    <div class="container">
+      <div class="ap-trust-grid">
+        <!-- LEFT: Joachim Card -->
+        <div class="ap-joachim-card">
+          <div class="ap-joachim-photo">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+              <rect width="64" height="64" rx="16" fill="var(--color-bg-alt)"/>
+              <circle cx="32" cy="24" r="10" stroke="var(--color-text-muted)" stroke-width="1.5" fill="none"/>
+              <path d="M16 52c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="var(--color-text-muted)" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+          <div class="ap-joachim-stars" aria-label="5 von 5 Sternen">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--color-warning)"><path d="M8 0l2.47 5.01L16 5.81l-4 3.9.94 5.49L8 12.35 3.06 15.2 4 9.71 0 5.81l5.53-.8z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--color-warning)"><path d="M8 0l2.47 5.01L16 5.81l-4 3.9.94 5.49L8 12.35 3.06 15.2 4 9.71 0 5.81l5.53-.8z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--color-warning)"><path d="M8 0l2.47 5.01L16 5.81l-4 3.9.94 5.49L8 12.35 3.06 15.2 4 9.71 0 5.81l5.53-.8z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--color-warning)"><path d="M8 0l2.47 5.01L16 5.81l-4 3.9.94 5.49L8 12.35 3.06 15.2 4 9.71 0 5.81l5.53-.8z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--color-warning)"><path d="M8 0l2.47 5.01L16 5.81l-4 3.9.94 5.49L8 12.35 3.06 15.2 4 9.71 0 5.81l5.53-.8z"/></svg>
+          </div>
+          <blockquote class="ap-joachim-quote">
+            &bdquo;Jede Erbengemeinschaft ist anders. Deshalb erstelle ich jeden Aktionsplan persönlich.&ldquo;
+          </blockquote>
+          <p class="ap-joachim-name">Joachim Kleinke</p>
+          <div class="ap-joachim-stats">
+            <div class="ap-joachim-stat">
+              <span class="ap-joachim-stat__num">200+</span>
+              <span class="ap-joachim-stat__label">Aktionspläne erstellt</span>
+            </div>
+            <div class="ap-joachim-stat">
+              <span class="ap-joachim-stat__num">15 Jahre</span>
+              <span class="ap-joachim-stat__label">Immobilien-Erfahrung</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Copy -->
+        <div class="ap-trust-copy">
+          <h2>Warum dieser Aktionsplan den Unterschied macht</h2>
+          <p>
+            Die meisten Erbengemeinschaften verlieren Geld — nicht weil die Immobilie schlecht ist,
+            sondern weil niemand den ersten Schritt kennt. Unser Aktionsplan gibt dir eine klare
+            Reihenfolge mit konkreten Handlungsanweisungen.
+          </p>
+          <p>
+            Joachim Kleinke hat über 200 Erbengemeinschaften begleitet und kennt die typischen
+            Blockaden. Dein Aktionsplan basiert auf echten Erfahrungswerten — keine generischen
+            Checklisten aus dem Internet.
+          </p>
+          <ul class="ap-trust-bullets">
+            <li>Individuelle Analyse deiner Erbengemeinschafts-Konstellation</li>
+            <li>Konkrete Zahlen: Was die Verzögerung kostet, was der Verkauf bringt</li>
+            <li>Persönliche Empfehlung von Joachim — nicht von einem Algorithmus</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -82,6 +155,7 @@ import Layout from '../../layouts/Layout.astro';
     line-height: var(--leading-relaxed);
   }
 
+  /* STEPS — 64x64 icons, white bg, shadow, border, divider lines */
   .ap-steps {
     display: flex;
     align-items: flex-start;
@@ -97,18 +171,32 @@ import Layout from '../../layouts/Layout.astro';
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: var(--space-2);
+    gap: var(--space-3);
+    position: relative;
+  }
+
+  /* Divider line between steps via ::after */
+  .ap-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 32px;
+    right: calc(-1 * var(--space-4) / 2 - 20px);
+    width: 40px;
+    height: 2px;
+    background: var(--color-border-strong);
   }
 
   .ap-step__icon {
-    width: 56px;
-    height: 56px;
+    width: 64px;
+    height: 64px;
     border-radius: var(--radius-lg);
-    background: var(--color-accent-light);
+    background: var(--color-bg-card);
     color: var(--color-accent);
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
   }
 
   .ap-step__label {
@@ -123,58 +211,199 @@ import Layout from '../../layouts/Layout.astro';
     color: var(--color-text-muted);
   }
 
-  .ap-step__divider {
-    width: 40px;
-    height: 2px;
-    background: var(--color-border);
-    margin-top: 28px;
-    flex-shrink: 0;
-  }
-
   @media (max-width: 600px) {
     .ap-steps { flex-direction: column; align-items: center; gap: var(--space-4); }
     .ap-step { flex-direction: row; text-align: left; gap: var(--space-3); }
-    .ap-step__divider { display: none; }
-    .ap-step__icon { width: 44px; height: 44px; flex-shrink: 0; }
-    .ap-step__icon svg { width: 22px; height: 22px; }
+    .ap-step::after { display: none; }
+    .ap-step__icon { width: 52px; height: 52px; flex-shrink: 0; }
+    .ap-step__icon svg { width: 26px; height: 26px; }
   }
 
+  /* CTA Button — groesser */
   .ap-hero__cta {
     margin-top: var(--space-2);
     font-size: var(--text-lg);
-    padding: var(--space-4) var(--space-8);
+    padding: var(--space-5) var(--space-10);
+    border-radius: var(--radius-xl);
+    transition: all var(--duration-normal) var(--ease-default);
+    box-shadow:
+      0 2px 4px rgba(59, 130, 246, 0.15),
+      0 4px 16px rgba(59, 130, 246, 0.2),
+      0 8px 32px rgba(59, 130, 246, 0.12);
   }
 
-  .ap-includes {
-    max-width: 560px;
+  .ap-hero__cta:hover {
+    transform: scale(1.05);
+  }
+
+  /* INCLUDES — 2-Spalten Grid in weisser Card */
+  .ap-includes-card {
+    width: 100%;
+    max-width: 700px;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 1.5rem;
+    padding: var(--space-8);
+    box-shadow: var(--shadow-sm);
     text-align: left;
-    margin-top: var(--space-4);
   }
 
-  .ap-includes > p {
+  .ap-includes-card__title {
     font-weight: var(--weight-semibold);
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--space-5);
+    font-size: var(--text-lg);
   }
 
-  .ap-includes__list {
+  .ap-includes-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .ap-includes-grid li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-mid);
+    line-height: var(--leading-snug);
+  }
+
+  .ap-check {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  @media (max-width: 600px) {
+    .ap-includes-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* TRUST SECTION — 2 Column Split */
+  .ap-trust-section {
+    background: var(--color-bg-alt);
+  }
+
+  .ap-trust-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .ap-trust-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Joachim Card */
+  .ap-joachim-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 1.5rem;
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-4);
+    box-shadow: var(--shadow-md);
+  }
+
+  .ap-joachim-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ap-joachim-stars {
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  .ap-joachim-quote {
+    font-size: var(--text-base);
+    color: var(--color-text-mid);
+    line-height: var(--leading-relaxed);
+    font-style: italic;
+    max-width: 320px;
+  }
+
+  .ap-joachim-name {
+    font-weight: var(--weight-bold);
+    font-size: var(--text-base);
+  }
+
+  .ap-joachim-stats {
+    display: flex;
+    gap: var(--space-8);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ap-joachim-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .ap-joachim-stat__num {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-extrabold);
+    color: var(--color-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ap-joachim-stat__label {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  /* Trust Copy (right side) */
+  .ap-trust-copy h2 {
+    margin-bottom: var(--space-5);
+  }
+
+  .ap-trust-copy p {
+    color: var(--color-text-mid);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-4);
+  }
+
+  .ap-trust-bullets {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--space-3);
+    margin-top: var(--space-4);
   }
 
-  .ap-includes__list li {
+  .ap-trust-bullets li {
     font-size: var(--text-sm);
     color: var(--color-text-mid);
     padding-left: var(--space-5);
     position: relative;
+    line-height: var(--leading-snug);
   }
 
-  .ap-includes__list li::before {
-    content: '\2713';
-    color: var(--color-accent);
-    font-weight: var(--weight-bold);
+  .ap-trust-bullets li::before {
+    content: '';
     position: absolute;
     left: 0;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent);
   }
 </style>

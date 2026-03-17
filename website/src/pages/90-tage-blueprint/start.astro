@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 ---
 <Layout
   title="90-Tage-Blueprint erstellen — 5 kurze Fragen"
-  description="Beantworte 5 Fragen zu deinem Flip-Vorhaben. Unsere Experten erstellen deinen persoenlichen 90-Tage-Blueprint."
+  description="Beantworte 5 Fragen zu deinem Flip-Vorhaben. Joachim Kleinke und sein Team erstellen deinen persönlichen 90-Tage-Blueprint."
   noindex={true}
 >
 
@@ -19,7 +19,7 @@ import Layout from '../../layouts/Layout.astro';
         <!-- Step 1: Erfahrung -->
         <div class="wizard-step" data-step="1">
           <h2>Wie viel Erfahrung hast du?</h2>
-          <p class="text-mid">Dein Blueprint wird auf dein Level zugeschnitten — Anfaenger bekommen die Grundlagen, Fortgeschrittene den Fokus auf Skalierung.</p>
+          <p class="text-mid">Dein Blueprint wird auf dein Level zugeschnitten — Anfänger bekommen die Grundlagen, Fortgeschrittene den Fokus auf Skalierung.</p>
           <div class="wizard-options">
             <button type="button" data-value="0" data-field="erfahrung">Noch kein Deal</button>
             <button type="button" data-value="1-2" data-field="erfahrung">1-2 Deals</button>
@@ -29,22 +29,22 @@ import Layout from '../../layouts/Layout.astro';
 
         <!-- Step 2: Eigenkapital -->
         <div class="wizard-step" data-step="2" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(1)">&larr; Zurueck</button>
-          <h2>Wie viel Eigenkapital steht dir zur Verfuegung?</h2>
-          <p class="text-mid">Damit wir berechnen koennen, welche Objekte in deinem Budget liegen.</p>
+          <button type="button" class="wizard-back" onclick="goToStep(1)">&larr; Zurück</button>
+          <h2>Wie viel Eigenkapital steht dir zur Verfügung?</h2>
+          <p class="text-mid">Damit wir berechnen können, welche Objekte in deinem Budget liegen.</p>
           <div class="wizard-options">
             <button type="button" data-value="<20k" data-field="budget">Unter 20.000 EUR</button>
             <button type="button" data-value="20-50k" data-field="budget">20.000 - 50.000 EUR</button>
             <button type="button" data-value="50-100k" data-field="budget">50.000 - 100.000 EUR</button>
-            <button type="button" data-value=">100k" data-field="budget">Ueber 100.000 EUR</button>
+            <button type="button" data-value=">100k" data-field="budget">Über 100.000 EUR</button>
           </div>
         </div>
 
         <!-- Step 3: Handwerker -->
         <div class="wizard-step" data-step="3" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(2)">&larr; Zurueck</button>
+          <button type="button" class="wizard-back" onclick="goToStep(2)">&larr; Zurück</button>
           <h2>Bist du Handwerker oder hast Handwerker-Kontakte?</h2>
-          <p class="text-mid">Das veraendert deine Kalkulation — Eigenleistung kann den ROI erheblich steigern.</p>
+          <p class="text-mid">Das verändert deine Kalkulation — Eigenleistung kann den ROI erheblich steigern.</p>
           <div class="wizard-options">
             <button type="button" data-value="selbst" data-field="handwerker">Ja, ich bin Handwerker</button>
             <button type="button" data-value="kontakte" data-field="handwerker">Ja, ich habe gute Kontakte</button>
@@ -54,24 +54,24 @@ import Layout from '../../layouts/Layout.astro';
 
         <!-- Step 4: Freitext — Ziel -->
         <div class="wizard-step" data-step="4" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(3)">&larr; Zurueck</button>
+          <button type="button" class="wizard-back" onclick="goToStep(3)">&larr; Zurück</button>
           <h2>Was ist dein Ziel mit dem ersten Flip?</h2>
-          <p class="text-mid">Je mehr wir ueber dein Vorhaben wissen, desto konkreter wird dein Blueprint.</p>
+          <p class="text-mid">Je mehr wir über dein Vorhaben wissen, desto konkreter wird dein Blueprint.</p>
           <textarea name="ziel" rows="5" placeholder="z.B.: Ich bin Elektriker und will mein erstes Objekt in Leipzig-Ost kaufen, sanieren und vermieten. Budget ca. 40.000 EUR Eigenkapital..."></textarea>
-          <p class="wizard-hint">Deine Angaben sind vertraulich und werden nur fuer deinen Blueprint verwendet.</p>
+          <p class="wizard-hint">Deine Angaben sind vertraulich und werden nur für deinen Blueprint verwendet.</p>
           <button type="button" class="btn btn-primary wizard-next">Weiter &rarr;</button>
         </div>
 
         <!-- Step 5: Stadtteil + Email -->
         <div class="wizard-step" data-step="5" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(4)">&larr; Zurueck</button>
+          <button type="button" class="wizard-back" onclick="goToStep(4)">&larr; Zurück</button>
           <h2>Welcher Stadtteil in Leipzig interessiert dich?</h2>
-          <p class="text-mid">Damit wir echte qm-Preise und Deal-Quellen fuer dein Zielgebiet einbeziehen.</p>
+          <p class="text-mid">Damit wir echte qm-Preise und Deal-Quellen für dein Zielgebiet einbeziehen.</p>
           <div class="wizard-inputs">
             <div class="form-group">
               <label for="wizard-stadtteil">Stadtteil</label>
               <select id="wizard-stadtteil" name="stadtteil">
-                <option value="" disabled selected>Stadtteil waehlen</option>
+                <option value="" disabled selected>Stadtteil wählen</option>
                 <option value="Volkmarsdorf">Volkmarsdorf</option>
                 <option value="Neustadt-Neuschönefeld">Neustadt-Neuschönefeld</option>
                 <option value="Plagwitz">Plagwitz</option>
@@ -86,9 +86,9 @@ import Layout from '../../layouts/Layout.astro';
 
         <!-- Step 6: Name + Email + Telefon + Joachim -->
         <div class="wizard-step wizard-final" data-step="6" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(5)">&larr; Zurueck</button>
+          <button type="button" class="wizard-back" onclick="goToStep(5)">&larr; Zurück</button>
           <div class="joachim-box">
-            <div class="joachim-badge">Persoenlich erstellt von</div>
+            <div class="joachim-badge">Persönlich erstellt von</div>
             <h3>Joachim Kleinke</h3>
             <p class="text-mid">35+ Jahre Immobilienerfahrung im Leipziger Markt.</p>
           </div>
@@ -104,7 +104,7 @@ import Layout from '../../layouts/Layout.astro';
               <input type="email" id="wizard-email" name="email" required placeholder="max@beispiel.de" />
             </div>
             <div class="form-group">
-              <label for="wizard-telefon">Telefon (optional — fuer Rueckfragen)</label>
+              <label for="wizard-telefon">Telefon (optional — für Rückfragen)</label>
               <input type="tel" id="wizard-telefon" name="telefon" placeholder="0341 123 456" />
             </div>
           </div>
@@ -114,21 +114,21 @@ import Layout from '../../layouts/Layout.astro';
         <!-- Bestaetigungs-Screen -->
         <div class="wizard-step wizard-confirmation" data-step="done" hidden>
           <div class="confirmation-icon">&#10003;</div>
-          <h2>Vielen Dank fuer deine Angaben!</h2>
-          <p>Wir sehen uns deine Angaben so schnell wie moeglich an.
-            Du erhaeltst deinen persoenlichen 90-Tage-Blueprint
+          <h2>Vielen Dank für deine Angaben!</h2>
+          <p>Wir sehen uns deine Angaben so schnell wie möglich an.
+            Du erhältst deinen persönlichen 90-Tage-Blueprint
             innerhalb von 24 Stunden per E-Mail — mit konkreten Zahlen
-            fuer <span id="confirm-stadtteil">deinen Stadtteil</span> und dein Budget.</p>
+            für <span id="confirm-stadtteil">deinen Stadtteil</span> und dein Budget.</p>
           <div class="confirmation-next">
             <p class="text-mid">Was jetzt passiert:</p>
             <ol>
-              <li>Unsere Experten pruefen deine Angaben persoenlich</li>
+              <li>Joachim Kleinke und sein Team prüfen deine Angaben persönlich</li>
               <li>Dein individueller Blueprint wird erstellt</li>
-              <li>Du erhaeltst ihn per E-Mail — mit konkretem 90-Tage-Plan, Zahlen und Stadtteil-Analyse</li>
+              <li>Du erhältst ihn per E-Mail — mit konkretem 90-Tage-Plan, Zahlen und Stadtteil-Analyse</li>
             </ol>
           </div>
           <p class="confirmation-hint">Fragen? Ruf uns direkt an: <a href="tel:+493418009000">0341 — 800 900 0</a></p>
-          <a href="/" class="btn btn-primary" style="margin-top: var(--space-6);">Zurueck zur Startseite</a>
+          <a href="/" class="btn btn-primary" style="margin-top: var(--space-6);">Zurück zur Startseite</a>
         </div>
 
       </div>

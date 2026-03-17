@@ -23,7 +23,8 @@ import Layout from '../layouts/Layout.astro';
   <!-- PERSPECTIVE TABS -->
   <section class="sfh-tabs-section bg-alt">
     <div class="container">
-      <div class="tab-switch" role="tablist">
+      <!-- Pill-Container Tab-Switch -->
+      <div class="tab-switch-container" role="tablist">
         <button role="tab" aria-selected="true" aria-controls="panel-verkaeufer" id="tab-verkaeufer" class="tab-btn tab-btn--active">Verkäufer</button>
         <button role="tab" aria-selected="false" aria-controls="panel-kaeufer" id="tab-kaeufer" class="tab-btn">Käufer</button>
       </div>
@@ -32,21 +33,21 @@ import Layout from '../layouts/Layout.astro';
       <div role="tabpanel" id="panel-verkaeufer" aria-labelledby="tab-verkaeufer" class="tab-panel tab-panel--active">
         <div class="process-steps">
           <div class="pstep">
-            <div class="pstep__num">01</div>
+            <div class="pstep__num-box">01</div>
             <div class="pstep__content">
               <h3>Objekt einreichen</h3>
               <p>PLZ + Basisdaten — 2 Minuten. Keine Fotos nötig, kein Aufräumen. Wir bewerten die Substanz.</p>
             </div>
           </div>
           <div class="pstep">
-            <div class="pstep__num">02</div>
+            <div class="pstep__num-box">02</div>
             <div class="pstep__content">
               <h3>Wir starten das Angebotsverfahren</h3>
               <p>Nur geprüfte Käufer. Geschlossen, fair, dokumentiert. Jeder Käufer gibt ein verdecktes Angebot ab.</p>
             </div>
           </div>
           <div class="pstep">
-            <div class="pstep__num">03</div>
+            <div class="pstep__num-box">03</div>
             <div class="pstep__content">
               <h3>Du entscheidest</h3>
               <p>Alle Angebote einsehen. Frei wählen. Wir koordinieren den Notartermin. Kein Zwang, kein Zeitdruck.</p>
@@ -62,21 +63,21 @@ import Layout from '../layouts/Layout.astro';
       <div role="tabpanel" id="panel-kaeufer" aria-labelledby="tab-kaeufer" class="tab-panel" hidden>
         <div class="process-steps">
           <div class="pstep">
-            <div class="pstep__num">01</div>
+            <div class="pstep__num-box">01</div>
             <div class="pstep__content">
               <h3>Zugang sichern</h3>
               <p>Registrieren, verifizieren, Deal-Profil anlegen. Wir prüfen jeden Antrag persönlich.</p>
             </div>
           </div>
           <div class="pstep">
-            <div class="pstep__num">02</div>
+            <div class="pstep__num-box">02</div>
             <div class="pstep__content">
               <h3>Objekte prüfen &amp; bieten</h3>
               <p>Kuratierte Objekte, alle Unterlagen, ein Gebot. Verdeckt — niemand sieht dein Angebot.</p>
             </div>
           </div>
           <div class="pstep">
-            <div class="pstep__num">03</div>
+            <div class="pstep__num-box">03</div>
             <div class="pstep__content">
               <h3>Zuschlag &amp; Sanierung</h3>
               <p>Notartermin, Schlüssel, lossanieren. Schnelle Abwicklung — wir koordinieren alles bis zum Notar.</p>
@@ -171,40 +172,22 @@ import Layout from '../layouts/Layout.astro';
     margin-top: var(--space-4);
   }
 
-  /* Outline Button */
-  .btn-outline {
-    background: transparent;
-    color: var(--color-text);
-    border: 1px solid var(--color-border-strong);
-    padding: var(--space-3) var(--space-6);
-    font-family: var(--font-family);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-bold);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all var(--duration-normal) var(--ease-default);
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .btn-outline:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    background: rgba(59, 130, 246, 0.04);
-  }
-
   /* TABS SECTION — full width bg */
   .sfh-tabs-section {
     padding-block: var(--section-gap);
   }
 
-  .tab-switch {
+  /* Pill-Container Tab Switch */
+  .tab-switch-container {
     display: flex;
     justify-content: center;
-    gap: var(--space-2);
     margin-bottom: var(--space-10);
+    background: rgba(148, 163, 184, 0.15);
+    border-radius: var(--radius-xl);
+    padding: var(--space-1);
+    width: fit-content;
+    margin-inline: auto;
+    gap: var(--space-1);
   }
 
   .tab-btn {
@@ -212,9 +195,9 @@ import Layout from '../layouts/Layout.astro';
     font-family: var(--font-family);
     font-size: var(--text-base);
     font-weight: var(--weight-semibold);
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-full);
-    background: var(--color-bg-card);
+    border: none;
+    border-radius: var(--radius-xl);
+    background: transparent;
     color: var(--color-text-mid);
     cursor: pointer;
     transition: all var(--duration-normal) var(--ease-default);
@@ -227,16 +210,18 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .tab-btn--active {
-    background: var(--color-accent);
-    color: var(--color-text-on-accent);
-    border-color: var(--color-accent);
+    background: var(--color-bg-card);
+    color: var(--color-text);
+    box-shadow: var(--shadow-md);
   }
 
-  /* PROCESS STEPS — horizontal cards */
+  /* PROCESS STEPS — horizontal layout (num left, text right) */
   .process-steps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: var(--container-narrow);
+    margin-inline: auto;
   }
 
   .pstep {
@@ -257,14 +242,20 @@ import Layout from '../layouts/Layout.astro';
     transform: translateY(-2px);
   }
 
-  .pstep__num {
+  /* Nummer als accent-light box 48x48 */
+  .pstep__num-box {
     flex-shrink: 0;
-    font-size: var(--text-3xl);
-    font-weight: var(--weight-extrabold);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent-light);
     color: var(--color-accent);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-extrabold);
+    border-radius: var(--radius-md);
     line-height: 1;
-    letter-spacing: var(--tracking-tight);
-    opacity: 0.3;
   }
 
   .pstep__content h3 {
@@ -281,15 +272,15 @@ import Layout from '../layouts/Layout.astro';
     margin-top: var(--space-10);
   }
 
-  @media (max-width: 768px) {
-    .process-steps {
-      grid-template-columns: 1fr;
+  @media (max-width: 600px) {
+    .pstep {
+      flex-direction: column;
+      gap: var(--space-3);
     }
   }
 
-  /* ANGEBOTSVERFAHREN — full width bg-alt */
+  /* ANGEBOTSVERFAHREN — white bg cards with shadow */
   .sfh-av-section {
-    background: var(--color-bg-alt);
     padding-block: var(--section-gap);
   }
 
@@ -321,11 +312,15 @@ import Layout from '../layouts/Layout.astro';
     border-radius: var(--radius-md);
     padding: var(--space-5);
     box-shadow: var(--shadow-sm);
-    transition: box-shadow var(--duration-normal) var(--ease-default);
+    transition: box-shadow var(--duration-normal) var(--ease-default),
+                transform var(--duration-normal) var(--ease-default);
   }
 
   .sfh-av-point:hover {
-    box-shadow: var(--shadow-md);
+    box-shadow:
+      0 4px 8px rgba(15, 23, 42, 0.04),
+      0 8px 24px rgba(15, 23, 42, 0.1);
+    transform: translateY(-2px);
   }
 
   .sfh-av-point__icon {
@@ -335,9 +330,11 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-accent-light);
+    background: var(--color-bg-card);
     color: var(--color-accent);
     border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
   }
 
   .sfh-av-point h3 {

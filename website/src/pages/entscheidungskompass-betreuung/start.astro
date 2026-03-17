@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 ---
 <Layout
   title="Entscheidungskompass erstellen — 4 kurze Fragen"
-  description="Beantworte 4 Fragen zu deiner Betreuungssituation. Unsere Experten erstellen deinen persoenlichen Entscheidungskompass."
+  description="Beantworte 4 Fragen zu deiner Betreuungssituation. Joachim Kleinke erstellt deinen persönlichen Entscheidungskompass."
   noindex={true}
 >
 
@@ -19,19 +19,19 @@ import Layout from '../../layouts/Layout.astro';
         <!-- Step 1: Rolle -->
         <div class="wizard-step" data-step="1">
           <h2>Welche Rolle hast du?</h2>
-          <p class="text-mid">Dein Kompass wird auf deine Rolle zugeschnitten — Berufsbetreuer bekommen Fortgeschrittenen-Strategien, Angehoerige die Grundlagen.</p>
+          <p class="text-mid">Dein Kompass wird auf deine Rolle zugeschnitten — Berufsbetreuer bekommen Fortgeschrittenen-Strategien, Angehörige die Grundlagen.</p>
           <div class="wizard-options">
             <button type="button" data-value="berufsbetreuer" data-field="rolle">Berufsbetreuer/in</button>
             <button type="button" data-value="ehrenamtlich" data-field="rolle">Ehrenamtliche/r Betreuer/in</button>
-            <button type="button" data-value="angehoeriger" data-field="rolle">Angehoerige/r</button>
+            <button type="button" data-value="angehoeriger" data-field="rolle">Angehörige/r</button>
           </div>
         </div>
 
-        <!-- Step 2: Vermoegenssorge -->
+        <!-- Step 2: Vermögenssorge -->
         <div class="wizard-step" data-step="2" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(1)">&larr; Zurueck</button>
-          <h2>Hast du den Aufgabenkreis Vermoegenssorge?</h2>
-          <p class="text-mid">Das bestimmt, ob du ueberhaupt verkaufen darfst — und welche Genehmigungen noetig sind.</p>
+          <button type="button" class="wizard-back" onclick="goToStep(1)">&larr; Zurück</button>
+          <h2>Hast du den Aufgabenkreis Vermögenssorge?</h2>
+          <p class="text-mid">Das bestimmt, ob du überhaupt verkaufen darfst — und welche Genehmigungen nötig sind.</p>
           <div class="wizard-options">
             <button type="button" data-value="ja" data-field="vermoegenssorge">Ja</button>
             <button type="button" data-value="nein" data-field="vermoegenssorge">Nein</button>
@@ -41,31 +41,31 @@ import Layout from '../../layouts/Layout.astro';
 
         <!-- Step 3: Freitext — Situation -->
         <div class="wizard-step" data-step="3" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(2)">&larr; Zurueck</button>
+          <button type="button" class="wizard-back" onclick="goToStep(2)">&larr; Zurück</button>
           <h2>Beschreib kurz die Situation</h2>
           <p class="text-mid">Was ist die aktuelle Lage? Je mehr wir verstehen, desto konkreter wird dein Entscheidungskompass.</p>
           <textarea name="situation" rows="5" placeholder="z.B.: Ich betreue meinen Vater, er lebt im Pflegeheim. Die Wohnung steht seit 8 Monaten leer, das Betreuungsgericht hat nach dem Verkehrswert gefragt..."></textarea>
-          <p class="wizard-hint">Deine Angaben sind vertraulich und werden nur fuer deinen Kompass verwendet.</p>
+          <p class="wizard-hint">Deine Angaben sind vertraulich und werden nur für deinen Kompass verwendet.</p>
           <button type="button" class="btn btn-primary wizard-next">Weiter &rarr;</button>
         </div>
 
         <!-- Step 4: PLZ + Immobilientyp -->
         <div class="wizard-step" data-step="4" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(3)">&larr; Zurueck</button>
+          <button type="button" class="wizard-back" onclick="goToStep(3)">&larr; Zurück</button>
           <h2>Wo steht die Immobilie?</h2>
-          <p class="text-mid">Damit wir dein zustaendiges Betreuungsgericht und lokale Kontakte einbeziehen koennen.</p>
+          <p class="text-mid">Damit wir dein zuständiges Betreuungsgericht und lokale Kontakte einbeziehen können.</p>
           <div class="wizard-inputs">
             <div class="form-group">
               <label for="wizard-plz">PLZ</label>
               <input type="text" id="wizard-plz" name="plz" pattern="[0-9]{5}" maxlength="5" inputmode="numeric" placeholder="04315" />
             </div>
             <div class="form-group">
-              <label for="wizard-objekt">Was fuer eine Immobilie?</label>
+              <label for="wizard-objekt">Was für eine Immobilie?</label>
               <select id="wizard-objekt" name="objekt_typ">
                 <option value="wohnung">Eigentumswohnung</option>
                 <option value="haus">Einfamilienhaus</option>
                 <option value="mehrfamilienhaus">Mehrfamilienhaus</option>
-                <option value="grundstueck">Grundstueck</option>
+                <option value="grundstueck">Grundstück</option>
                 <option value="sonstiges">Sonstiges</option>
               </select>
             </div>
@@ -75,9 +75,9 @@ import Layout from '../../layouts/Layout.astro';
 
         <!-- Step 5: Name + Email + Telefon + Joachim -->
         <div class="wizard-step wizard-final" data-step="5" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(4)">&larr; Zurueck</button>
+          <button type="button" class="wizard-back" onclick="goToStep(4)">&larr; Zurück</button>
           <div class="joachim-box">
-            <div class="joachim-badge">Persoenlich erstellt von</div>
+            <div class="joachim-badge">Persönlich erstellt von</div>
             <h3>Joachim Kleinke</h3>
             <p class="text-mid">35+ Jahre Immobilienerfahrung im Leipziger Markt.</p>
           </div>
@@ -93,7 +93,7 @@ import Layout from '../../layouts/Layout.astro';
               <input type="email" id="wizard-email" name="email" required placeholder="betreuer@beispiel.de" />
             </div>
             <div class="form-group">
-              <label for="wizard-telefon">Telefon (optional — fuer Rueckfragen)</label>
+              <label for="wizard-telefon">Telefon (optional — für Rückfragen)</label>
               <input type="tel" id="wizard-telefon" name="telefon" placeholder="0341 123 456" />
             </div>
           </div>
@@ -103,21 +103,21 @@ import Layout from '../../layouts/Layout.astro';
         <!-- Bestaetigungs-Screen -->
         <div class="wizard-step wizard-confirmation" data-step="done" hidden>
           <div class="confirmation-icon">&#10003;</div>
-          <h2>Vielen Dank fuer deine Angaben!</h2>
-          <p>Wir sehen uns deine Situation so schnell wie moeglich an.
-            Du erhaeltst deinen persoenlichen Entscheidungskompass
+          <h2>Vielen Dank für deine Angaben!</h2>
+          <p>Wir sehen uns deine Situation so schnell wie möglich an.
+            Du erhältst deinen persönlichen Entscheidungskompass
             innerhalb von 24 Stunden per E-Mail — zugeschnitten auf
-            deine Rolle und dein Betreuungsverhaeltnis.</p>
+            deine Rolle und dein Betreuungsverhältnis.</p>
           <div class="confirmation-next">
             <p class="text-mid">Was jetzt passiert:</p>
             <ol>
-              <li>Joachim Kleinke prueft deine Angaben persoenlich</li>
+              <li>Joachim Kleinke prüft deine Angaben persönlich</li>
               <li>Dein individueller Kompass wird erstellt</li>
-              <li>Du erhaeltst ihn per E-Mail — mit Pflichten-Checkliste, Genehmigungsprozess und lokalen Kontakten</li>
+              <li>Du erhältst ihn per E-Mail — mit Pflichten-Checkliste, Genehmigungsprozess und lokalen Kontakten</li>
             </ol>
           </div>
           <p class="confirmation-hint">Fragen? Ruf uns direkt an: <a href="tel:+493418009000">0341 — 800 900 0</a></p>
-          <a href="/" class="btn btn-primary" style="margin-top: var(--space-6);">Zurueck zur Startseite</a>
+          <a href="/" class="btn btn-primary" style="margin-top: var(--space-6);">Zurück zur Startseite</a>
         </div>
 
       </div>

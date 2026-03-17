@@ -280,6 +280,29 @@ img {
   transform: translateY(-1px);
 }
 
+.btn-outline {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-family);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-default);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-outline:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: rgba(59, 130, 246, 0.04);
+}
+
 .btn-ghost {
   background: transparent;
   color: var(--color-text-on-dark);
@@ -329,6 +352,12 @@ input::placeholder {
   background: var(--color-bg-alt);
   border: 1px solid var(--color-border);
   color: var(--color-text-mid);
+}
+
+/* --- Tabular Nums (Stats, ROI, Zahlen) --- */
+.stat__number,
+.roi-result-val {
+  font-variant-numeric: tabular-nums;
 }
 
 /* --- Visually Hidden (a11y) --- */

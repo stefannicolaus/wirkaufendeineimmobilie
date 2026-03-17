@@ -7,6 +7,14 @@ export const prerender = false;
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.formData();
 
+  // Honeypot spam check
+  if (data.get('website')) {
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const typ = data.get('typ') as string; // 'aktionsplan-erben', 'blueprint', or 'kompass'
 
   const submission: Record<string, unknown> = {

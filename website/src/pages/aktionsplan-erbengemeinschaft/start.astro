@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 ---
 <Layout
   title="Aktionsplan erstellen — 5 kurze Fragen"
-  description="Beantworte 5 Fragen zu deiner Erbengemeinschaft. Joachim Kleinke erstellt deinen persoenlichen Aktionsplan."
+  description="Beantworte 5 Fragen zu deiner Erbengemeinschaft. Joachim Kleinke erstellt deinen persönlichen Aktionsplan."
   noindex={true}
 >
 
@@ -30,7 +30,7 @@ import Layout from '../../layouts/Layout.astro';
 
         <!-- Step 2: Wer blockiert? -->
         <div class="wizard-step" data-step="2" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(1)">&larr; Zurueck</button>
+          <button type="button" class="wizard-back" onclick="goToStep(1)">&larr; Zurück</button>
           <h2>Wer blockiert den Verkauf?</h2>
           <p class="text-mid">Je nachdem wer blockiert, gibt es unterschiedliche rechtliche Hebel.</p>
           <div class="wizard-options">
@@ -44,44 +44,44 @@ import Layout from '../../layouts/Layout.astro';
 
         <!-- Step 3: Seit wann blockiert? -->
         <div class="wizard-step" data-step="3" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(2)">&larr; Zurueck</button>
+          <button type="button" class="wizard-back" onclick="goToStep(2)">&larr; Zurück</button>
           <h2>Seit wann geht nichts mehr voran?</h2>
           <p class="text-mid">Die Dauer bestimmt die Eskalationsstufe — und was jetzt am meisten Sinn macht.</p>
           <div class="wizard-options">
             <button type="button" data-value="<6m" data-field="blockade_dauer">Weniger als 6 Monate</button>
             <button type="button" data-value="6-24m" data-field="blockade_dauer">6 bis 24 Monate</button>
-            <button type="button" data-value=">2j" data-field="blockade_dauer">Ueber 2 Jahre</button>
-            <button type="button" data-value="unklar" data-field="blockade_dauer">Weiss ich nicht genau</button>
+            <button type="button" data-value=">2j" data-field="blockade_dauer">Über 2 Jahre</button>
+            <button type="button" data-value="unklar" data-field="blockade_dauer">Weiß ich nicht genau</button>
           </div>
         </div>
 
         <!-- Step 4: Freitext -->
         <div class="wizard-step" data-step="4" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(3)">&larr; Zurueck</button>
+          <button type="button" class="wizard-back" onclick="goToStep(3)">&larr; Zurück</button>
           <h2>Beschreib kurz eure Situation</h2>
           <p class="text-mid">Was ist das Hauptproblem? Je mehr wir verstehen, desto konkreter wird dein Aktionsplan.</p>
-          <textarea name="situation" rows="5" placeholder="z.B.: Meine Schwester will das Haus unserer Mutter nicht verkaufen. Seit 2 Jahren Stillstand, die Nebenkosten laufen, niemand kuemmert sich..."></textarea>
-          <p class="wizard-hint">Deine Angaben sind vertraulich und werden nur fuer deinen Aktionsplan verwendet.</p>
+          <textarea name="situation" rows="5" placeholder="z.B.: Meine Schwester will das Haus unserer Mutter nicht verkaufen. Seit 2 Jahren Stillstand, die Nebenkosten laufen, niemand kümmert sich..."></textarea>
+          <p class="wizard-hint">Deine Angaben sind vertraulich und werden nur für deinen Aktionsplan verwendet.</p>
           <button type="button" class="btn btn-primary wizard-next">Weiter &rarr;</button>
         </div>
 
         <!-- Step 5: PLZ + Objekt-Typ -->
         <div class="wizard-step" data-step="5" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(4)">&larr; Zurueck</button>
+          <button type="button" class="wizard-back" onclick="goToStep(4)">&larr; Zurück</button>
           <h2>Wo steht die Immobilie?</h2>
-          <p class="text-mid">Damit wir lokale Kontakte und Marktdaten einbeziehen koennen.</p>
+          <p class="text-mid">Damit wir lokale Kontakte und Marktdaten einbeziehen können.</p>
           <div class="wizard-inputs">
             <div class="form-group">
               <label for="wizard-plz">PLZ</label>
               <input type="text" id="wizard-plz" name="plz" pattern="[0-9]{5}" maxlength="5" inputmode="numeric" placeholder="04315" />
             </div>
             <div class="form-group">
-              <label for="wizard-objekt">Was fuer eine Immobilie?</label>
+              <label for="wizard-objekt">Was für eine Immobilie?</label>
               <select id="wizard-objekt" name="objekt_typ">
                 <option value="wohnung">Eigentumswohnung</option>
                 <option value="haus">Einfamilienhaus</option>
                 <option value="mehrfamilienhaus">Mehrfamilienhaus</option>
-                <option value="grundstueck">Grundstueck</option>
+                <option value="grundstueck">Grundstück</option>
                 <option value="sonstiges">Sonstiges</option>
               </select>
             </div>
@@ -91,9 +91,9 @@ import Layout from '../../layouts/Layout.astro';
 
         <!-- Step 6: Email + Joachim -->
         <div class="wizard-step wizard-final" data-step="6" hidden>
-          <button type="button" class="wizard-back" onclick="goToStep(5)">&larr; Zurueck</button>
+          <button type="button" class="wizard-back" onclick="goToStep(5)">&larr; Zurück</button>
           <div class="joachim-box">
-            <div class="joachim-badge">Persoenlich erstellt von</div>
+            <div class="joachim-badge">Persönlich erstellt von</div>
             <h3>Joachim Kleinke</h3>
             <p class="text-mid">35+ Jahre Immobilienerfahrung im Leipziger Markt.</p>
           </div>
@@ -109,7 +109,7 @@ import Layout from '../../layouts/Layout.astro';
               <input type="email" id="wizard-email" name="email" required placeholder="max@beispiel.de" />
             </div>
             <div class="form-group">
-              <label for="wizard-telefon">Telefon (optional — fuer Rueckfragen)</label>
+              <label for="wizard-telefon">Telefon (optional — für Rückfragen)</label>
               <input type="tel" id="wizard-telefon" name="telefon" placeholder="0341 123 456" />
             </div>
           </div>
@@ -119,21 +119,21 @@ import Layout from '../../layouts/Layout.astro';
         <!-- Bestaetigungs-Screen (nach Submit) -->
         <div class="wizard-step wizard-confirmation" data-step="done" hidden>
           <div class="confirmation-icon">&#10003;</div>
-          <h2>Vielen Dank fuer deine Angaben!</h2>
-          <p>Wir sehen uns deine Situation so schnell wie moeglich an.
-            Du erhaeltst deinen persoenlichen 7-Schritte Aktionsplan
+          <h2>Vielen Dank für deine Angaben!</h2>
+          <p>Wir sehen uns deine Situation so schnell wie möglich an.
+            Du erhältst deinen persönlichen 7-Schritte Aktionsplan
             innerhalb von 24 Stunden per E-Mail — zugeschnitten auf
             deine Erbengemeinschaft und dein Objekt.</p>
           <div class="confirmation-next">
             <p class="text-mid">Was jetzt passiert:</p>
             <ol>
-              <li>Joachim Kleinke prueft deine Angaben persoenlich</li>
+              <li>Joachim Kleinke prüft deine Angaben persönlich</li>
               <li>Dein individueller Aktionsplan wird erstellt</li>
-              <li>Du erhaeltst ihn per E-Mail — mit konkreten Schritten, Zahlen und lokalen Kontakten</li>
+              <li>Du erhältst ihn per E-Mail — mit konkreten Schritten, Zahlen und lokalen Kontakten</li>
             </ol>
           </div>
           <p class="confirmation-hint">Fragen? Ruf uns direkt an: <a href="tel:+493418009000">0341 — 800 900 0</a></p>
-          <a href="/" class="btn btn-primary" style="margin-top: var(--space-6);">Zurueck zur Startseite</a>
+          <a href="/" class="btn btn-primary" style="margin-top: var(--space-6);">Zurück zur Startseite</a>
         </div>
 
       </div>
