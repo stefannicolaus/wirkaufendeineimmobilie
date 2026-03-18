@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WKDI — Verkäufer-Einwertung PDF Mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #1a1a2e;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding: 40px 20px;
+    }
+
+    .page-label {
+      color: #64748b;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      align-self: flex-start;
+      margin-left: calc(50% - 397px);
+    }
+
+    /* A4: 794 × 1123px */
+    .page {
+      width: 794px;
+      min-height: 1123px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    /* ── PAGE 1 — COVER ── */
+    .cover {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cover__image {
+      width: 100%;
+      height: 680px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 60%;
+      display: block;
+    }
+
+    .cover__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.65) 100%);
+    }
+
+    .cover__logo {
+      position: absolute;
+      top: 36px;
+      left: 48px;
+      z-index: 10;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .cover__logo span { color: #3B82F6; }
+
+    .cover__badge {
+      position: absolute;
+      top: 36px;
+      right: 48px;
+      z-index: 10;
+      background: #3B82F6;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 2px;
+    }
+
+    .cover__text {
+      position: absolute;
+      bottom: 48px;
+      left: 48px;
+      right: 48px;
+      z-index: 10;
+      color: #fff;
+    }
+
+    .cover__eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #93c5fd;
+      margin-bottom: 16px;
+    }
+
+    .cover__headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 52px;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .cover__sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+      max-width: 480px;
+    }
+
+    .cover__footer {
+      background: #0F172A;
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .cover__footer-info {
+      color: #64748b;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .cover__footer-info strong {
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    .cover__divider {
+      width: 1px;
+      height: 40px;
+      background: #1e293b;
+    }
+
+    /* ── PAGE 2 — ÜBER JOACHIM ── */
+    .page-header {
+      background: #0F172A;
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .page-header__logo {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .page-header__logo span { color: #3B82F6; }
+
+    .page-header__chapter {
+      font-size: 10px;
+      font-weight: 600;
+      color: #3B82F6;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: calc(1123px - 80px);
+    }
+
+    .about__image {
+      overflow: hidden;
+    }
+
+    .about__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .about__content {
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .section-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #3B82F6;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 34px;
+      line-height: 1.15;
+      color: #0F172A;
+    }
+
+    .body-text {
+      font-size: 13.5px;
+      color: #475569;
+      line-height: 1.75;
+    }
+
+    .credential-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .credential-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    .credential-list li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3B82F6;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .quote-block {
+      border-left: 3px solid #3B82F6;
+      padding-left: 20px;
+    }
+
+    .quote-block p {
+      font-size: 14px;
+      font-style: italic;
+      color: #334155;
+      line-height: 1.7;
+    }
+
+    .quote-block cite {
+      display: block;
+      margin-top: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #3B82F6;
+      font-style: normal;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── PAGE 3 — ANGEBOTSVERFAHREN ── */
+    .process-page {
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .process-page__header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 32px;
+      padding: 36px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .step:last-child { border-bottom: none; }
+
+    .step__number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 64px;
+      color: #e2e8f0;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .step__content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 8px;
+    }
+
+    .step__title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .step__desc {
+      font-size: 13.5px;
+      color: #64748b;
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .step__tag {
+      display: inline-flex;
+      align-items: center;
+      background: #eff6ff;
+      color: #3B82F6;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      width: fit-content;
+    }
+
+    .process-note {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .process-note__item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .process-note__value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: #0F172A;
+    }
+
+    .process-note__label {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* ── PAGE 4 — KÄUFER-NETZWERK ── */
+    .network-page {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .network__image {
+      width: 100%;
+      height: 340px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .network__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+
+    .network__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(15,23,42,0.6) 100%);
+    }
+
+    .network__content {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    .network__header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .buyer-types {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .buyer-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .buyer-card__type {
+      font-size: 12px;
+      font-weight: 700;
+      color: #3B82F6;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .buyer-card__title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0F172A;
+    }
+
+    .buyer-card__desc {
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    /* ── PAGE 5 — MARKT + GRUNDRISSE ── */
+    .market-page {
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .market__header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .market-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #e2e8f0;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .market-stat {
+      background: #fff;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .market-stat__value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      color: #0F172A;
+    }
+
+    .market-stat__label {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .grundrisse-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .grundrisse-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #94a3b8;
+    }
+
+    .grundrisse-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .grundriss-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .grundriss-card__img {
+      width: 100%;
+      height: 280px;
+      object-fit: contain;
+      background: #f8fafc;
+      padding: 12px;
+    }
+
+    .grundriss-card__label {
+      padding: 12px 16px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grundriss-card__name {
+      font-size: 12px;
+      font-weight: 600;
+      color: #0F172A;
+    }
+
+    .grundriss-card__size {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* ── PAGE 6 — NÄCHSTE SCHRITTE ── */
+    .cta-page {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cta__image {
+      width: 100%;
+      height: 320px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cta__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+
+    .cta__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(15,23,42,0.3), rgba(15,23,42,0.7));
+    }
+
+    .cta__content {
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+      flex: 1;
+    }
+
+    .cta__header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cta__steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .cta__step {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cta__step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #3B82F6;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cta__step-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .cta__step-desc {
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    .cta__contact {
+      background: #0F172A;
+      border-radius: 4px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .cta__contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cta__contact-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .cta__contact-role {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .cta__contact-detail {
+      font-size: 13px;
+      color: #93c5fd;
+      margin-top: 8px;
+    }
+
+    .cta__button {
+      background: #3B82F6;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 3px;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+
+    .page-footer {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      padding: 16px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .page-footer__brand {
+      font-size: 11px;
+      font-weight: 700;
+      color: #cbd5e1;
+      letter-spacing: -0.01em;
+    }
+
+    .page-footer__brand span { color: #3B82F6; }
+
+    .page-footer__page {
+      font-size: 10px;
+      color: #cbd5e1;
+    }
+
+    .page-footer__url {
+      font-size: 10px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1 — COVER -->
+  <div class="page-label">Seite 1 — Cover</div>
+  <div class="page cover">
+    <div class="cover__image">
+      <img src="/images/wkdi-pdf-cover-fassade.png" alt="Leipzig Gründerzeit" />
+      <div class="cover__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="cover__badge">Vertraulich</div>
+      <div class="cover__text">
+        <div class="cover__eyebrow">Ihre persönliche Markteinschätzung · Leipzig 2026</div>
+        <h1 class="cover__headline">Ihre Immobilie.<br />Der richtige Käufer.</h1>
+        <p class="cover__sub">Messie-Wohnung, Erbengemeinschaft, Insolvenzverfahren oder GEG-Sanierungsstau — wir finden Käufer, die im Ist-Zustand kaufen. Kein Aufräumen. Keine Renovierung.</p>
+      </div>
+    </div>
+    <div class="cover__footer">
+      <div class="cover__footer-info">
+        <strong>Vorbereitet für</strong><br />
+        Musterstraße 12, 04109 Leipzig
+      </div>
+      <div class="cover__divider"></div>
+      <div class="cover__footer-info">
+        <strong>Erstellt von</strong><br />
+        Joachim Kleinke · 35+ Jahre Erfahrung
+      </div>
+      <div class="cover__divider"></div>
+      <div class="cover__footer-info">
+        <strong>Datum</strong><br />
+        März 2026
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2 — ÜBER JOACHIM -->
+  <div class="page-label">Seite 2 — Über Joachim Kleinke</div>
+  <div class="page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Ihr Ansprechpartner</div>
+    </div>
+    <div class="about-grid">
+      <div class="about__image">
+        <img src="/images/wkdi-pdf-beratung.png" alt="Beratungsgespräch" />
+      </div>
+      <div class="about__content">
+        <div class="section-eyebrow">Über uns</div>
+        <h2 class="section-title">35 Jahre Leipzig.<br />Für die Fälle, für die andere ablehnen.</h2>
+        <p class="body-text">Joachim Kleinke ist seit über drei Jahrzehnten im Leipziger Immobilienmarkt aktiv. Er kennt jeden Käufer-Typ — vom Fix-&-Flip-Investor bis zum geduldigen Kapitalanleger.</p>
+        <ul class="credential-list">
+          <li>§ 34c Maklererlaubnis — seit 1991</li>
+          <li>Spezialisierung auf Messie-, Erbschafts- und Insolvenz-Objekte</li>
+          <li>Netzwerk von 200+ verifizierten Investoren in Leipzig und Berlin</li>
+          <li>Erfahrung mit Milieuschutzgebieten, GEG und Sonderumlagen</li>
+          <li>Kein Erfolg — keine Provision</li>
+        </ul>
+        <div class="quote-block">
+          <p>„Ob Messie-Wohnung, zerstrittene Erbengemeinschaft oder GEG-Problemfall — ich kenne jeden dieser Fälle aus der Praxis. Und ich kenne die Käufer, die genau das suchen."</p>
+          <cite>Joachim Kleinke</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 3 — ANGEBOTSVERFAHREN -->
+  <div class="page-label">Seite 3 — Das Angebotsverfahren</div>
+  <div class="page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">So funktioniert es</div>
+    </div>
+    <div class="process-page">
+      <div class="process-page__header">
+        <div class="section-eyebrow">Das Verfahren</div>
+        <h2 class="section-title">In 3 Schritten<br />zum Verkauf.</h2>
+        <p class="body-text">Kein öffentliches Bieterverfahren. Keine Fotos auf ImmoScout. Nur geprüfte Käufer — diskret und auf Augenhöhe.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step__number">01</div>
+          <div class="step__content">
+            <div class="step__tag">Kostenlos · 48h</div>
+            <div class="step__title">Erstbewertung</div>
+            <p class="step__desc">PLZ eingeben, 2 Minuten Fragebogen. Keine Fotos, kein Aufräumen nötig. Wir bewerten die Substanz — nicht die Unordnung. Sie erhalten innerhalb von 48 Stunden Ihre persönliche Markteinschätzung.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__number">02</div>
+          <div class="step__content">
+            <div class="step__tag">Geschlossen · Diskret</div>
+            <div class="step__title">Verdecktes Angebotsverfahren</div>
+            <p class="step__desc">Wir präsentieren Ihr Objekt unserem Netzwerk aus 200+ verifizierten Investoren und Käufern. Jeder Interessent gibt ein verdecktes Gebot ab — kein Bieterstress, kein öffentlicher Markt.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__number">03</div>
+          <div class="step__content">
+            <div class="step__tag">Notariell · Abgesichert</div>
+            <div class="step__title">Notarieller Abschluss</div>
+            <p class="step__desc">Sie wählen das beste Angebot. Der Käufer übernimmt Entrümpelung und alle Kosten. Notariell abgesichert. Sie müssen sich um nichts kümmern.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-note">
+        <div class="process-note__item">
+          <div class="process-note__value">48h</div>
+          <div class="process-note__label">bis zur Erstbewertung</div>
+        </div>
+        <div class="process-note__item">
+          <div class="process-note__value">0 €</div>
+          <div class="process-note__label">Kosten für Verkäufer</div>
+        </div>
+        <div class="process-note__item">
+          <div class="process-note__value">100%</div>
+          <div class="process-note__label">Diskretion garantiert</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 4 — KÄUFER-NETZWERK -->
+  <div class="page-label">Seite 4 — Unser Käufer-Netzwerk</div>
+  <div class="page network-page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Unser Netzwerk</div>
+    </div>
+    <div class="network__image">
+      <img src="/images/wkdi-pdf-wohnung-innen.png" alt="Sanierungsbedürftige Wohnung" />
+    </div>
+    <div class="network__content">
+      <div class="network__header">
+        <div class="section-eyebrow">Käufer-Netzwerk</div>
+        <h2 class="section-title">200+ geprüfte Käufer,<br />die genau das suchen.</h2>
+        <p class="body-text">Jedes Objekt hat den richtigen Käufer. Unser Netzwerk deckt alle Szenarien ab — von der Messie-Wohnung bis zur GEG-Problemimmobilie.</p>
+      </div>
+      <div class="buyer-types">
+        <div class="buyer-card">
+          <div class="buyer-card__type">Fix &amp; Flip</div>
+          <div class="buyer-card__title">Profi-Investoren</div>
+          <p class="buyer-card__desc">Kaufen im Ist-Zustand, sanieren selbst. Messie-Objekte, GEG-Sanierungsstau, Erbschaftsobjekte — genau ihr Markt.</p>
+        </div>
+        <div class="buyer-card">
+          <div class="buyer-card__type">Langfrist</div>
+          <div class="buyer-card__title">Kapitalanleger</div>
+          <p class="buyer-card__desc">Geduldige Investoren für vermietete Objekte. Milieuschutz und Spekulationsfrist kein Problem.</p>
+        </div>
+        <div class="buyer-card">
+          <div class="buyer-card__type">Handwerker</div>
+          <div class="buyer-card__title">Eigennutzer mit Gewerk</div>
+          <p class="buyer-card__desc">Maler, Elektriker, SHK — kaufen renovierungsbedürftig und wohnen selbst darin. Ideal für kleinere Objekte.</p>
+        </div>
+        <div class="buyer-card">
+          <div class="buyer-card__type">Schnäppchen</div>
+          <div class="buyer-card__title">Insolvenz-Spezialisten</div>
+          <p class="buyer-card__desc">Kaufen schnell und sicher. Für Insolvenzverfahren: Bonitätsgeprüft, kein Finanzierungsvorbehalt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 5 — MARKT + GRUNDRISSE -->
+  <div class="page-label">Seite 5 — Marktübersicht Leipzig + Grundrisse</div>
+  <div class="page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Markt &amp; Objekt</div>
+    </div>
+    <div class="market-page">
+      <div class="market__header">
+        <div class="section-eyebrow">Marktdaten Leipzig 2026</div>
+        <h2 class="section-title">Der Markt für<br />Sanierungsobjekte.</h2>
+      </div>
+
+      <div class="market-stats">
+        <div class="market-stat">
+          <div class="market-stat__value">3.200 €</div>
+          <div class="market-stat__label">Ø €/m² saniert (Plagwitz, Südvorstadt)</div>
+        </div>
+        <div class="market-stat">
+          <div class="market-stat__value">−30%</div>
+          <div class="market-stat__label">Abschlag sanierungsbedürftig</div>
+        </div>
+        <div class="market-stat">
+          <div class="market-stat__value">GEG 2026</div>
+          <div class="market-stat__label">Banken restriktiv bei Kl. E–H</div>
+        </div>
+      </div>
+
+      <div class="grundrisse-section">
+        <div class="grundrisse-label">Typische Objekte in unserem Portfolio</div>
+        <div class="grundrisse-grid">
+          <div class="grundriss-card">
+            <img class="grundriss-card__img" src="/images/wkdi-grundriss-1zimmer.png" alt="1-Zimmer Grundriss" />
+            <div class="grundriss-card__label">
+              <span class="grundriss-card__name">1-Zimmer Wohnung</span>
+              <span class="grundriss-card__size">ca. 35 m²</span>
+            </div>
+          </div>
+          <div class="grundriss-card">
+            <img class="grundriss-card__img" src="/images/wkdi-grundriss-2zimmer.png" alt="2-Zimmer Grundriss" />
+            <div class="grundriss-card__label">
+              <span class="grundriss-card__name">2-Zimmer Wohnung</span>
+              <span class="grundriss-card__size">ca. 58 m²</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="body-text" style="font-size:12px; color:#94a3b8;">Hinweis: Grundrisse sind exemplarisch. Ihr Objekt wird individuell bewertet und Interessenten im Detail präsentiert.</p>
+    </div>
+  </div>
+
+  <!-- PAGE 6 — NÄCHSTE SCHRITTE -->
+  <div class="page-label">Seite 6 — Nächste Schritte</div>
+  <div class="page cta-page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Nächste Schritte</div>
+    </div>
+    <div class="cta__image">
+      <img src="/images/wkdi-deal-handshake-jung.png" alt="Fairer Deal" />
+    </div>
+    <div class="cta__content">
+      <div class="cta__header">
+        <div class="section-eyebrow">So geht es weiter</div>
+        <h2 class="section-title">Bereit für den<br />nächsten Schritt?</h2>
+        <p class="body-text">Kein Aufräumen. Keine Vorab-Investition. Nur ein Gespräch — und wir übernehmen den Rest.</p>
+      </div>
+
+      <div class="cta__steps">
+        <div class="cta__step">
+          <div class="cta__step-num">1</div>
+          <div class="cta__step-title">Gespräch vereinbaren</div>
+          <p class="cta__step-desc">30 Minuten. Telefonisch oder vor Ort. Keine Verpflichtung.</p>
+        </div>
+        <div class="cta__step">
+          <div class="cta__step-num">2</div>
+          <div class="cta__step-title">Objekt bewerten lassen</div>
+          <p class="cta__step-desc">Kostenlos, 48h. Auch bei Erbengemeinschaft oder Insolvenz.</p>
+        </div>
+        <div class="cta__step">
+          <div class="cta__step-num">3</div>
+          <div class="cta__step-title">Angebote prüfen</div>
+          <p class="cta__step-desc">Sie entscheiden. Kein Druck, kein Bieterstress.</p>
+        </div>
+      </div>
+
+      <div class="cta__contact">
+        <div class="cta__contact-info">
+          <div class="cta__contact-name">Joachim Kleinke</div>
+          <div class="cta__contact-role">Immobilienvermittler · Leipzig · § 34c Maklererlaubnis</div>
+          <div class="cta__contact-detail">0341 — 800 900 0 · wirkaufendeineimmobilie.de</div>
+        </div>
+        <div class="cta__button">Jetzt kontaktieren →</div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <div class="page-footer__brand">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-footer__url">wirkaufendeineimmobilie.de</div>
+      <div class="page-footer__page">6 / 6</div>
+    </div>
+  </div>
+
+</body>
+</html>

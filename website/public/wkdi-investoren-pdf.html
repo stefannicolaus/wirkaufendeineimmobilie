@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>WKDI — Investoren-Exposé</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0a0f1e;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding: 40px 20px;
+    }
+    .page-label {
+      color: #334155;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      align-self: flex-start;
+      margin-left: calc(50% - 397px);
+    }
+    .page {
+      width: 794px;
+      min-height: 1123px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.7);
+    }
+
+    /* ── SHARED ── */
+    .page-header {
+      background: #0F172A;
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .page-header__logo { color: #fff; font-size: 13px; font-weight: 700; letter-spacing: -0.02em; }
+    .page-header__logo span { color: #3B82F6; }
+    .page-header__chapter { font-size: 10px; font-weight: 600; color: #3B82F6; letter-spacing: 0.1em; text-transform: uppercase; }
+    .section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #3B82F6; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: 36px; line-height: 1.15; color: #0F172A; }
+    .body-text { font-size: 13.5px; color: #475569; line-height: 1.75; }
+    .page-footer {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      padding: 14px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .page-footer__brand { font-size: 11px; font-weight: 700; color: #cbd5e1; }
+    .page-footer__brand span { color: #3B82F6; }
+    .page-footer__page { font-size: 10px; color: #cbd5e1; }
+    .page-footer__url { font-size: 10px; color: #94a3b8; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      background: #eff6ff;
+      color: #3B82F6;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      width: fit-content;
+    }
+    .tag--dark { background: #0F172A; color: #93c5fd; }
+
+    /* ── PAGE 1 — COVER ── */
+    .inv-cover__image {
+      width: 100%;
+      height: 700px;
+      position: relative;
+      overflow: hidden;
+    }
+    .inv-cover__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 50%;
+    }
+    .inv-cover__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.4) 60%, rgba(59,130,246,0.2) 100%);
+    }
+    .inv-cover__logo {
+      position: absolute;
+      top: 36px;
+      left: 48px;
+      z-index: 10;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .inv-cover__logo span { color: #3B82F6; }
+    .inv-cover__badge {
+      position: absolute;
+      top: 36px;
+      right: 48px;
+      z-index: 10;
+      border: 1px solid rgba(59,130,246,0.5);
+      color: #93c5fd;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 2px;
+    }
+    .inv-cover__text {
+      position: absolute;
+      bottom: 56px;
+      left: 48px;
+      right: 48px;
+      z-index: 10;
+    }
+    .inv-cover__eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #3B82F6;
+      margin-bottom: 16px;
+    }
+    .inv-cover__headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 54px;
+      line-height: 1.05;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .inv-cover__headline em { color: #3B82F6; font-style: normal; }
+    .inv-cover__sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+      max-width: 500px;
+    }
+    .inv-cover__footer {
+      background: #0F172A;
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .inv-cover__footer-item { display: flex; flex-direction: column; gap: 3px; }
+    .inv-cover__footer-label { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: 0.08em; }
+    .inv-cover__footer-value { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+    .inv-divider { width: 1px; height: 36px; background: #1e293b; }
+
+    /* ── PAGE 2 — WARUM JETZT ── */
+    .why-page { padding: 56px 48px; display: flex; flex-direction: column; gap: 44px; }
+    .why-header { display: flex; flex-direction: column; gap: 12px; }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .why-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .why-card--accent { border-color: #bfdbfe; background: #f0f7ff; }
+    .why-card__label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #3B82F6; }
+    .why-card__title { font-size: 15px; font-weight: 700; color: #0F172A; }
+    .why-card__desc { font-size: 12.5px; color: #64748b; line-height: 1.65; }
+    .market-bar {
+      background: #0F172A;
+      border-radius: 4px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .market-bar__item { display: flex; flex-direction: column; gap: 4px; }
+    .market-bar__value { font-family: 'DM Serif Display', serif; font-size: 28px; color: #fff; }
+    .market-bar__label { font-size: 10px; color: #475569; line-height: 1.5; }
+
+    /* ── PAGE 3 — OBJEKT-TYPEN ── */
+    .types-page { padding: 56px 48px; display: flex; flex-direction: column; gap: 44px; }
+    .types-grid { display: flex; flex-direction: column; gap: 0; }
+    .type-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      padding: 28px 0;
+      border-bottom: 1px solid #f1f5f9;
+      align-items: start;
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-row__left { display: flex; flex-direction: column; gap: 6px; }
+    .type-row__klartext { font-size: 11px; color: #94a3b8; text-decoration: line-through; }
+    .type-row__profi { font-size: 14px; font-weight: 700; color: #3B82F6; }
+    .type-row__content { display: flex; flex-direction: column; gap: 6px; }
+    .type-row__title { font-size: 15px; font-weight: 600; color: #0F172A; }
+    .type-row__desc { font-size: 13px; color: #64748b; line-height: 1.65; }
+    .type-row__tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+    .mini-tag {
+      font-size: 10px;
+      font-weight: 600;
+      color: #3B82F6;
+      background: #eff6ff;
+      padding: 3px 8px;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── PAGE 4 — RENDITE-KALKULATION ── */
+    .roi-page { display: flex; flex-direction: column; }
+    .roi__image { width: 100%; height: 300px; overflow: hidden; position: relative; }
+    .roi__image img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+    .roi__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(15,23,42,0.5) 100%);
+    }
+    .roi__content { padding: 48px; display: flex; flex-direction: column; gap: 32px; }
+    .roi-table { border: 1px solid #e2e8f0; border-radius: 4px; overflow: hidden; }
+    .roi-table__header {
+      background: #0F172A;
+      padding: 14px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+    .roi-table__header span { font-size: 10px; font-weight: 600; color: #64748b; letter-spacing: 0.08em; text-transform: uppercase; }
+    .roi-table__header span:last-child { text-align: right; }
+    .roi-row {
+      padding: 14px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      border-top: 1px solid #f1f5f9;
+      font-size: 13px;
+    }
+    .roi-row:first-of-type { border-top: none; }
+    .roi-row__label { color: #475569; }
+    .roi-row__value { color: #0F172A; font-weight: 500; }
+    .roi-row__note { color: #94a3b8; text-align: right; font-size: 11px; }
+    .roi-row--total { background: #f8fafc; font-weight: 700; }
+    .roi-row--total .roi-row__label { color: #0F172A; }
+    .roi-row--total .roi-row__value { color: #3B82F6; font-size: 15px; }
+    .roi-note { font-size: 11px; color: #94a3b8; line-height: 1.6; }
+
+    /* ── PAGE 5 — PROZESS ── */
+    .inv-process { padding: 56px 48px; display: flex; flex-direction: column; gap: 44px; }
+    .inv-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .inv-step { display: flex; flex-direction: column; gap: 12px; }
+    .inv-step__num {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 2px solid #3B82F6;
+      color: #3B82F6;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .inv-step__title { font-size: 14px; font-weight: 700; color: #0F172A; }
+    .inv-step__desc { font-size: 12.5px; color: #64748b; line-height: 1.65; }
+    .inv-guarantee {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .inv-guarantee__item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .inv-guarantee__title { font-size: 13px; font-weight: 700; color: #0F172A; }
+    .inv-guarantee__desc { font-size: 12px; color: #64748b; line-height: 1.6; }
+
+    /* ── PAGE 6 — REGISTRIERUNG ── */
+    .reg-page { display: flex; flex-direction: column; }
+    .reg__image { width: 100%; height: 280px; overflow: hidden; position: relative; }
+    .reg__image img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+    .reg__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(15,23,42,0.4), rgba(15,23,42,0.75));
+    }
+    .reg__content { padding: 48px; display: flex; flex-direction: column; gap: 32px; flex: 1; }
+    .reg-criteria { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .reg-criteria__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: #334155;
+    }
+    .reg-criteria__item::before {
+      content: '✓';
+      color: #3B82F6;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .reg-cta {
+      background: #0F172A;
+      border-radius: 4px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .reg-cta__title { font-family: 'DM Serif Display', serif; font-size: 24px; color: #fff; }
+    .reg-cta__sub { font-size: 13px; color: #64748b; }
+    .reg-cta__btn {
+      background: #3B82F6;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 3px;
+      width: fit-content;
+      letter-spacing: 0.02em;
+    }
+    .reg-contact { font-size: 12px; color: #94a3b8; }
+    .reg-contact strong { color: #cbd5e1; }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1 — COVER -->
+  <div class="page-label">Seite 1 — Cover</div>
+  <div class="page">
+    <div class="inv-cover__image">
+      <img src="/images/wkdi-pdf-leipzig-quartier.png" alt="Leipzig Altbau-Quartier" />
+      <div class="inv-cover__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="inv-cover__badge">Nur für verifizierte Investoren</div>
+      <div class="inv-cover__text">
+        <div class="inv-cover__eyebrow">Off-Market Fix &amp; Flip · Leipzig 2026</div>
+        <h1 class="inv-cover__headline">Dein nächstes<br /><em>GEG-Upgrade.</em><br />Bevor es auf<br />ImmoScout landet.</h1>
+        <p class="inv-cover__sub">Kuratierte Fix-&amp;-Flip-Objekte in Leipzig. Energieklasse E–H mit iSFP-Potenzial. Vorgeprüft, mit detaillierter Sanierungs-Kalkulation.</p>
+      </div>
+    </div>
+    <div class="inv-cover__footer">
+      <div class="inv-cover__footer-item">
+        <span class="inv-cover__footer-label">Zugang</span>
+        <span class="inv-cover__footer-value">Verifizierte Investoren</span>
+      </div>
+      <div class="inv-divider"></div>
+      <div class="inv-cover__footer-item">
+        <span class="inv-cover__footer-label">Markt</span>
+        <span class="inv-cover__footer-value">Leipzig · Erstmarkt</span>
+      </div>
+      <div class="inv-divider"></div>
+      <div class="inv-cover__footer-item">
+        <span class="inv-cover__footer-label">Netzwerk</span>
+        <span class="inv-cover__footer-value">200+ Investoren</span>
+      </div>
+      <div class="inv-divider"></div>
+      <div class="inv-cover__footer-item">
+        <span class="inv-cover__footer-label">Stand</span>
+        <span class="inv-cover__footer-value">März 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2 — WARUM JETZT -->
+  <div class="page-label">Seite 2 — Warum Leipzig, warum jetzt</div>
+  <div class="page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Marktchance</div>
+    </div>
+    <div class="why-page">
+      <div class="why-header">
+        <div class="section-eyebrow">Warum Leipzig 2026</div>
+        <h2 class="section-title">Das Fenster für<br />GEG-Upgrade-Deals.</h2>
+        <p class="body-text">Die neuen GEG-Anforderungen 2026 schaffen einen Käufermarkt für Investoren mit Sanierungskompetenz. Banken verweigern Kredit bei Energieklasse E–H — Verkäufer suchen Abnehmer. Das ist deine Chance.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card why-card--accent">
+          <div class="why-card__label">GEG 2026</div>
+          <div class="why-card__title">Kreditklemme für Käufer</div>
+          <p class="why-card__desc">Banken verweigern Finanzierung bei Energieklasse E–H. Nur Barzahler und professionelle Investoren kommen durch — du hast den Vorteil.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__label">Milieuschutz</div>
+          <div class="why-card__title">Geschützte Mietbasis</div>
+          <p class="why-card__desc">Lindenau, Reudnitz, Neuschönefeld: Milieuschutz begrenzt Modernisierungsumlagen — aber sichert stabile Mieterstruktur nach GEG-Upgrade.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__label">Off-Market</div>
+          <div class="why-card__title">Keine ImmoScout-Konkurrenz</div>
+          <p class="why-card__desc">Messie-, Erbschafts- und Insolvenz-Objekte landen nie auf dem freien Markt. Diskretion ist Pflicht — wir vermitteln bevor jemand anderes davon weiß.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__label">iSFP</div>
+          <div class="why-card__title">Subventionierter Fahrplan</div>
+          <p class="why-card__desc">Individueller Sanierungsfahrplan (iSFP) erhöht BEG-Fördersätze um 5%. Wir liefern iSFP-Status mit jedem Objekt-Exposé.</p>
+        </div>
+      </div>
+
+      <div class="market-bar">
+        <div class="market-bar__item">
+          <div class="market-bar__value">3.200 €</div>
+          <div class="market-bar__label">Ø €/m² saniert<br />(Plagwitz, Südvorstadt)</div>
+        </div>
+        <div class="market-bar__item">
+          <div class="market-bar__value">−30%</div>
+          <div class="market-bar__label">Abschlag bei<br />Energieklasse E–H</div>
+        </div>
+        <div class="market-bar__item">
+          <div class="market-bar__value">50–110k</div>
+          <div class="market-bar__label">Typisches Einstiegs-<br />preisniveau (€)</div>
+        </div>
+        <div class="market-bar__item">
+          <div class="market-bar__value">48h</div>
+          <div class="market-bar__label">Bis zur ersten<br />Objekt-Info</div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <div class="page-footer__brand">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-footer__url">wirkaufendeineimmobilie.de</div>
+      <div class="page-footer__page">2 / 6</div>
+    </div>
+  </div>
+
+  <!-- PAGE 3 — OBJEKT-TYPEN -->
+  <div class="page-label">Seite 3 — Objekt-Typen</div>
+  <div class="page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Unser Portfolio</div>
+    </div>
+    <div class="types-page">
+      <div>
+        <div class="section-eyebrow">Objekt-Typen</div>
+        <h2 class="section-title" style="margin-top:8px;">Was wir vermitteln —<br />und was Profis darin sehen.</h2>
+      </div>
+
+      <div class="types-grid">
+        <div class="type-row">
+          <div class="type-row__left">
+            <span class="type-row__klartext">Messie-Wohnung</span>
+            <span class="type-row__profi">Off-Market Deal</span>
+          </div>
+          <div class="type-row__content">
+            <div class="type-row__title">Attraktivster Einstiegspreis</div>
+            <p class="type-row__desc">95% der Privatkäufer können nicht hinter den Zustand blicken. Für Profis: Entrümpelung 3.000–8.000 €, dann freie Hand. Einstiegspreis weit unter Marktwert.</p>
+            <div class="type-row__tags">
+              <span class="mini-tag">Kauf wie gesehen</span>
+              <span class="mini-tag">Sofort verfügbar</span>
+            </div>
+          </div>
+        </div>
+        <div class="type-row">
+          <div class="type-row__left">
+            <span class="type-row__klartext">Energieklasse F/G/H</span>
+            <span class="type-row__profi">GEG-Upgrade-Potenzial</span>
+          </div>
+          <div class="type-row__content">
+            <div class="type-row__title">Kalkulierbares Sanierungspotenzial</div>
+            <p class="type-row__desc">Formel: Kaufpreis = Marktwert (saniert) − Sanierungskosten − Risikoaufschlag 15–20%. Mit iSFP: BEG-Förderung erhöht sich um 5%. Wir liefern die Kalkulation.</p>
+            <div class="type-row__tags">
+              <span class="mini-tag">iSFP inklusive</span>
+              <span class="mini-tag">BEG-förderfähig</span>
+            </div>
+          </div>
+        </div>
+        <div class="type-row">
+          <div class="type-row__left">
+            <span class="type-row__klartext">Erbengemeinschaft</span>
+            <span class="type-row__profi">Marktunterbewertetes Angebot</span>
+          </div>
+          <div class="type-row__content">
+            <div class="type-row__title">Einigungsdruck = dein Vorteil</div>
+            <p class="type-row__desc">Zerstrittene Erben brauchen schnelle Lösung um Teilungsversteigerung (meist −20% unter Marktwert) zu vermeiden. Geduldige Käufer profitieren von Einigungsdruck.</p>
+            <div class="type-row__tags">
+              <span class="mini-tag">Off-Market</span>
+              <span class="mini-tag">Schneller Abschluss</span>
+            </div>
+          </div>
+        </div>
+        <div class="type-row">
+          <div class="type-row__left">
+            <span class="type-row__klartext">Vermietet, schwierig</span>
+            <span class="type-row__profi">Geschützte Mietbasis</span>
+          </div>
+          <div class="type-row__content">
+            <div class="type-row__title">Langfrist-Rendite nach 10 Jahren</div>
+            <p class="type-row__desc">Spekulationsfrist abgelaufen, Milieuschutz begrenzt Umlagen, aber sichert stabile Mietstruktur. Für Langfrist-Investoren: steuerfreier Exit nach 10 Jahren.</p>
+            <div class="type-row__tags">
+              <span class="mini-tag">Renditepotenzial</span>
+              <span class="mini-tag">Milieuschutz</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <div class="page-footer__brand">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-footer__url">wirkaufendeineimmobilie.de</div>
+      <div class="page-footer__page">3 / 6</div>
+    </div>
+  </div>
+
+  <!-- PAGE 4 — RENDITE-KALKULATION -->
+  <div class="page-label">Seite 4 — Beispiel-Renditekalkulation</div>
+  <div class="page roi-page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Rendite-Beispiel</div>
+    </div>
+    <div class="roi__image">
+      <img src="/images/wkdi-wohnung-renoviert.png" alt="Renovierte Wohnung" />
+    </div>
+    <div class="roi__content">
+      <div>
+        <div class="section-eyebrow">Beispiel-Kalkulation</div>
+        <h2 class="section-title" style="margin-top:8px; font-size:28px;">2-Zimmer, Leipzig-Lindenau<br />Energieklasse G → B (iSFP)</h2>
+      </div>
+
+      <div class="roi-table">
+        <div class="roi-table__header">
+          <span>Position</span>
+          <span>Betrag</span>
+          <span style="text-align:right;">Anmerkung</span>
+        </div>
+        <div class="roi-row">
+          <span class="roi-row__label">Kaufpreis (Ist-Zustand)</span>
+          <span class="roi-row__value">72.000 €</span>
+          <span class="roi-row__note">Energieklasse G, verhandelt</span>
+        </div>
+        <div class="roi-row">
+          <span class="roi-row__label">Nebenkosten (Notar, GrESt, Makler)</span>
+          <span class="roi-row__value">8.640 €</span>
+          <span class="roi-row__note">ca. 12% des Kaufpreises</span>
+        </div>
+        <div class="roi-row">
+          <span class="roi-row__label">Sanierungskosten (GEG-Upgrade)</span>
+          <span class="roi-row__value">38.000 €</span>
+          <span class="roi-row__note">inkl. Wärmepumpe, Dämmung</span>
+        </div>
+        <div class="roi-row">
+          <span class="roi-row__label">BEG-Förderung (iSFP, 35%+5%)</span>
+          <span class="roi-row__value" style="color:#16a34a;">−15.200 €</span>
+          <span class="roi-row__note">40% auf förderfähige Kosten</span>
+        </div>
+        <div class="roi-row roi-row--total">
+          <span class="roi-row__label">Gesamtinvestition netto</span>
+          <span class="roi-row__value">103.440 €</span>
+          <span class="roi-row__note"></span>
+        </div>
+        <div class="roi-row">
+          <span class="roi-row__label">Marktwert nach Sanierung</span>
+          <span class="roi-row__value">152.000 €</span>
+          <span class="roi-row__note">58m² × 2.620 €/m²</span>
+        </div>
+        <div class="roi-row roi-row--total">
+          <span class="roi-row__label">Wertzuwachs (Fix &amp; Flip)</span>
+          <span class="roi-row__value" style="color:#3B82F6;">+ 48.560 €</span>
+          <span class="roi-row__note">+ 47% auf Gesamtinvestition</span>
+        </div>
+      </div>
+      <p class="roi-note">* Beispielkalkulation. Individuelle Objekte werden mit vollständiger iSFP-Analyse und Sanierungs-Kostenvoranschlag geliefert. Provision: 2,5% des Kaufpreises (Käuferseite).</p>
+    </div>
+    <div class="page-footer">
+      <div class="page-footer__brand">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-footer__url">wirkaufendeineimmobilie.de</div>
+      <div class="page-footer__page">4 / 6</div>
+    </div>
+  </div>
+
+  <!-- PAGE 5 — PROZESS -->
+  <div class="page-label">Seite 5 — Der Prozess</div>
+  <div class="page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Wie es funktioniert</div>
+    </div>
+    <div class="inv-process">
+      <div>
+        <div class="section-eyebrow">Der Prozess</div>
+        <h2 class="section-title" style="margin-top:8px;">Kein Bietergefecht.<br />Kein ImmoScout.</h2>
+        <p class="body-text" style="margin-top:12px;">Diskretes Angebotsverfahren: Du gibst ein verdecktes Gebot ab — fair, ohne Bieterkrieg, ohne öffentlichen Markt.</p>
+      </div>
+
+      <div class="inv-steps">
+        <div class="inv-step">
+          <div class="inv-step__num">1</div>
+          <div class="inv-step__title">Verifizierung</div>
+          <p class="inv-step__desc">Einmalige Registrierung. Wir prüfen Erfahrungslevel und Bonität. Antwort innerhalb 48h.</p>
+        </div>
+        <div class="inv-step">
+          <div class="inv-step__num">2</div>
+          <div class="inv-step__title">Objekt-Info</div>
+          <p class="inv-step__desc">Du erhältst vollständiges Exposé: Grundriss, iSFP-Status, Sanierungs-Kalkulation, Energieklasse.</p>
+        </div>
+        <div class="inv-step">
+          <div class="inv-step__num">3</div>
+          <div class="inv-step__title">Verdecktes Gebot</div>
+          <p class="inv-step__desc">Ein Gebot pro Investor. Kein Nachbieten. Fairer Preis — du weißt was du zahlst.</p>
+        </div>
+        <div class="inv-step">
+          <div class="inv-step__num">4</div>
+          <div class="inv-step__title">Notarieller Abschluss</div>
+          <p class="inv-step__desc">Beim Zuschlag: direkt zum Notar. Wir koordinieren alles. Provision 2,5% bei Abschluss.</p>
+        </div>
+        <div class="inv-step">
+          <div class="inv-step__num">5</div>
+          <div class="inv-step__title">Nächstes Objekt</div>
+          <p class="inv-step__desc">Du bleibst im Netzwerk. Neue Objekte kommen direkt zu dir — bevor sie irgendwo auftauchen.</p>
+        </div>
+        <div class="inv-step">
+          <div class="inv-step__num">6</div>
+          <div class="inv-step__title">Support</div>
+          <p class="inv-step__desc">Joachim Kleinke steht für Fragen zu Marktlage, GEG-Kalkulation und Finanzierungsfragen zur Verfügung.</p>
+        </div>
+      </div>
+
+      <div class="inv-guarantee">
+        <div class="inv-guarantee__item">
+          <div class="inv-guarantee__title">Keine Provision ohne Abschluss</div>
+          <p class="inv-guarantee__desc">2,5% nur bei erfolgreichem Notartermin. Kein Risiko für Interessenten.</p>
+        </div>
+        <div class="inv-guarantee__item">
+          <div class="inv-guarantee__title">iSFP mit jedem Exposé</div>
+          <p class="inv-guarantee__desc">Individueller Sanierungsfahrplan und Energieklasse immer inklusive — du kalkulierst sicher.</p>
+        </div>
+        <div class="inv-guarantee__item">
+          <div class="inv-guarantee__title">Verifizierte Verkäufer</div>
+          <p class="inv-guarantee__desc">Eigentumsnachweis und GwG-Prüfung vor jedem Exposé-Versand. Rechtssicher.</p>
+        </div>
+        <div class="inv-guarantee__item">
+          <div class="inv-guarantee__title">Kein Bieterstress</div>
+          <p class="inv-guarantee__desc">Ein verdecktes Gebot. Du weißt was du bietest — ohne Eskalationsspirale.</p>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <div class="page-footer__brand">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-footer__url">wirkaufendeineimmobilie.de</div>
+      <div class="page-footer__page">5 / 6</div>
+    </div>
+  </div>
+
+  <!-- PAGE 6 — REGISTRIERUNG -->
+  <div class="page-label">Seite 6 — Registrierung</div>
+  <div class="page reg-page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Zugang anfragen</div>
+    </div>
+    <div class="reg__image">
+      <img src="/images/wkdi-investor-profi.png" alt="Investor" />
+    </div>
+    <div class="reg__content">
+      <div>
+        <div class="section-eyebrow">Investoren-Zugang</div>
+        <h2 class="section-title" style="margin-top:8px;">Bereit für deinen<br />ersten Fix &amp; Flip in Leipzig?</h2>
+        <p class="body-text" style="margin-top:12px;">Wir prüfen jeden Antrag persönlich. Antwort innerhalb von 48 Stunden. Zugang für verifizierte Investoren mit klarer Kaufabsicht.</p>
+      </div>
+
+      <div>
+        <p style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#94a3b8; margin-bottom:12px;">Was du mitbringst</p>
+        <div class="reg-criteria">
+          <div class="reg-criteria__item">Klare Kaufabsicht (kein Browsing)</div>
+          <div class="reg-criteria__item">Eigenkapital oder gesicherte Finanzierung</div>
+          <div class="reg-criteria__item">Sanierungserfahrung oder Handwerker-Netzwerk</div>
+          <div class="reg-criteria__item">Bereitschaft zur Bonititätsprüfung</div>
+          <div class="reg-criteria__item">Fix &amp; Flip oder Langfrist-Strategie definiert</div>
+          <div class="reg-criteria__item">Reaktion innerhalb 48h auf Exposés</div>
+        </div>
+      </div>
+
+      <div class="reg-cta">
+        <div class="reg-cta__title">Investoren-Zugang anfragen</div>
+        <p class="reg-cta__sub">Formular auf wirkaufendeineimmobilie.de/investoren · Oder direkt: 0341 — 800 900 0</p>
+        <div class="reg-cta__btn">Jetzt registrieren →</div>
+      </div>
+
+      <p class="reg-contact"><strong>Joachim Kleinke</strong> · § 34c Maklererlaubnis · 35+ Jahre Leipzig · joachim@wirkaufendeineimmobilie.de</p>
+    </div>
+    <div class="page-footer">
+      <div class="page-footer__brand">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-footer__url">wirkaufendeineimmobilie.de</div>
+      <div class="page-footer__page">6 / 6</div>
+    </div>
+  </div>
+
+</body>
+</html>

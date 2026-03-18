@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>WKDI — Persönliche Handlungsempfehlung · Sabine M.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #111827;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding: 40px 20px;
+    }
+    .page-label {
+      color: #374151;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      align-self: flex-start;
+      margin-left: calc(50% - 397px);
+    }
+    .page {
+      width: 794px;
+      min-height: 1123px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+    }
+
+    /* SHARED */
+    .page-header {
+      background: #0F172A;
+      padding: 22px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .page-header__logo { color: #fff; font-size: 13px; font-weight: 700; letter-spacing: -0.02em; }
+    .page-header__logo span { color: #3B82F6; }
+    .page-header__chapter { font-size: 10px; font-weight: 600; color: #3B82F6; letter-spacing: 0.1em; text-transform: uppercase; }
+    .page-footer {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      padding: 14px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .page-footer__brand { font-size: 11px; font-weight: 700; color: #cbd5e1; }
+    .page-footer__brand span { color: #3B82F6; }
+    .page-footer__page { font-size: 10px; color: #cbd5e1; }
+    .page-footer__conf { font-size: 10px; color: #e2e8f0; background: #334155; padding: 2px 8px; border-radius: 2px; }
+
+    /* ── PAGE 1 — COVER ── */
+    .sabine-cover {
+      display: flex;
+      flex-direction: column;
+      min-height: 1123px;
+    }
+    .sabine-cover__top {
+      background: #0F172A;
+      padding: 36px 48px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .sabine-cover__logo { color: #fff; font-size: 15px; font-weight: 700; letter-spacing: -0.02em; }
+    .sabine-cover__logo span { color: #3B82F6; }
+    .sabine-cover__meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sabine-cover__tag {
+      display: inline-flex;
+      background: rgba(59,130,246,0.15);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: #93c5fd;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 2px;
+      width: fit-content;
+    }
+    .sabine-cover__title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 42px;
+      line-height: 1.1;
+      color: #fff;
+    }
+    .sabine-cover__addressee {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    .sabine-cover__addressee strong { color: #94a3b8; }
+
+    .sabine-cover__image {
+      width: 100%;
+      height: 320px;
+      overflow: hidden;
+      position: relative;
+    }
+    .sabine-cover__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+    .sabine-cover__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(15,23,42,0.4) 0%, transparent 60%);
+    }
+
+    .sabine-cover__summary {
+      padding: 40px 48px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .summary-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #94a3b8;
+    }
+    .situation-box {
+      background: #fef9ec;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #f59e0b;
+      border-radius: 4px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .situation-box__label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #b45309;
+    }
+    .situation-box__quote {
+      font-size: 14px;
+      font-style: italic;
+      color: #78350f;
+      line-height: 1.65;
+    }
+    .situation-box__from {
+      font-size: 11px;
+      color: #b45309;
+      font-weight: 600;
+    }
+
+    .expert-box {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+    }
+    .expert-box__avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .expert-box__avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .expert-box__text { display: flex; flex-direction: column; gap: 3px; }
+    .expert-box__name { font-size: 14px; font-weight: 700; color: #0F172A; }
+    .expert-box__role { font-size: 12px; color: #64748b; }
+    .expert-box__note { font-size: 12px; color: #3B82F6; font-weight: 500; margin-top: 4px; }
+
+    /* ── PAGE 2 — IHRE SITUATION ── */
+    .situation-page { padding: 48px 48px 80px; display: flex; flex-direction: column; gap: 36px; }
+    .section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #3B82F6; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: 32px; line-height: 1.15; color: #0F172A; }
+    .body-text { font-size: 13.5px; color: #475569; line-height: 1.75; }
+
+    .situation-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .fact-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .fact-card__label { font-size: 10px; font-weight: 700; color: #94a3b8; letter-spacing: 0.08em; text-transform: uppercase; }
+    .fact-card__value { font-size: 14px; font-weight: 600; color: #0F172A; }
+
+    .risk-box {
+      background: #fff7f7;
+      border: 1px solid #fecaca;
+      border-left: 4px solid #ef4444;
+      border-radius: 4px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .risk-box__label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #b91c1c; }
+    .risk-box__text { font-size: 13.5px; color: #7f1d1d; line-height: 1.65; }
+
+    .good-news-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 4px solid #22c55e;
+      border-radius: 4px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .good-news-box__label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #15803d; }
+    .good-news-box__text { font-size: 13.5px; color: #14532d; line-height: 1.65; }
+
+    /* ── PAGE 3 — FAHRPLAN ── */
+    .fahrplan-page { padding: 48px 48px 80px; display: flex; flex-direction: column; gap: 32px; }
+    .fahrplan-steps { display: flex; flex-direction: column; gap: 0; }
+    .fahrplan-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .fahrplan-step:last-child { border-bottom: none; }
+    .fahrplan-step__num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #3B82F6;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .fahrplan-step__num--done { background: #22c55e; }
+    .fahrplan-step__num--soon { background: #f59e0b; }
+    .fahrplan-step__content { display: flex; flex-direction: column; gap: 4px; padding-top: 6px; }
+    .fahrplan-step__title { font-size: 14px; font-weight: 700; color: #0F172A; }
+    .fahrplan-step__desc { font-size: 12.5px; color: #64748b; line-height: 1.6; }
+    .fahrplan-step__wkdi {
+      font-size: 11px;
+      font-weight: 600;
+      color: #3B82F6;
+      margin-top: 2px;
+    }
+
+    /* ── PAGE 4 — MARKTBEWERTUNG + NÄCHSTE SCHRITTE ── */
+    .markt-page { padding: 48px 48px 80px; display: flex; flex-direction: column; gap: 36px; }
+    .wert-box {
+      background: #0F172A;
+      border-radius: 4px;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+    .wert-item { display: flex; flex-direction: column; gap: 4px; }
+    .wert-item__value { font-family: 'DM Serif Display', serif; font-size: 32px; color: #fff; }
+    .wert-item__label { font-size: 11px; color: #475569; line-height: 1.5; }
+    .wert-item__note { font-size: 10px; color: #3B82F6; font-weight: 600; margin-top: 4px; }
+
+    .next-steps { display: flex; flex-direction: column; gap: 12px; }
+    .next-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+    }
+    .next-step__icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #eff6ff;
+      color: #3B82F6;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .next-step__content { display: flex; flex-direction: column; gap: 2px; }
+    .next-step__title { font-size: 13px; font-weight: 700; color: #0F172A; }
+    .next-step__desc { font-size: 12px; color: #64748b; }
+
+    .contact-final {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .contact-final__avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .contact-final__avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .contact-final__text { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+    .contact-final__name { font-size: 15px; font-weight: 700; color: #0F172A; }
+    .contact-final__role { font-size: 12px; color: #64748b; }
+    .contact-final__contact { font-size: 13px; color: #3B82F6; font-weight: 500; margin-top: 6px; }
+    .contact-final__btn {
+      background: #3B82F6;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 0 — ANSCHREIBEN JOACHIM -->
+  <div class="page-label">Seite 1 — Persönliches Anschreiben</div>
+  <div class="page" style="display:flex; flex-direction:column;">
+
+    <!-- Briefkopf -->
+    <div style="background:#0F172A; padding:32px 56px; display:flex; align-items:center; justify-content:space-between;">
+      <div style="color:#fff; font-size:15px; font-weight:700; letter-spacing:-0.02em;">wirkaufen<span style="color:#3B82F6;">deine</span>immobilie</div>
+      <div style="text-align:right;">
+        <div style="font-size:11px; color:#64748b;">Joachim Kleinke · Immobilienvermittler</div>
+        <div style="font-size:11px; color:#64748b;">§ 34c Maklererlaubnis · Leipzig</div>
+        <div style="font-size:11px; color:#3B82F6; margin-top:2px;">0341 — 800 900 0</div>
+      </div>
+    </div>
+
+    <!-- Brief-Body -->
+    <div style="padding:56px 72px; flex:1; display:flex; flex-direction:column; gap:0;">
+
+      <!-- Empfänger + Datum -->
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:48px;">
+        <div>
+          <div style="font-size:13px; color:#0F172A; font-weight:600;">Sabine M.</div>
+          <div style="font-size:12px; color:#64748b;">München</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:12px; color:#64748b;">Leipzig, 18. März 2026</div>
+          <div style="font-size:11px; color:#94a3b8; margin-top:2px;">Ref: WKDI-2026-0312</div>
+        </div>
+      </div>
+
+      <!-- Betreff -->
+      <div style="font-size:14px; font-weight:700; color:#0F172A; margin-bottom:32px; padding-bottom:16px; border-bottom:2px solid #0F172A;">
+        Ihre persönliche Handlungsempfehlung — Erbengemeinschaft Leipzig-Lindenau
+      </div>
+
+      <!-- Brieftext -->
+      <div style="display:flex; flex-direction:column; gap:20px; font-size:14px; line-height:1.85; color:#334155;">
+        <p>Sehr geehrte Frau M.,</p>
+
+        <p>ich habe Ihre Anfrage persönlich gelesen — und ehrlich gesagt, erkenne ich Ihre Situation sofort. In meinen 35 Jahren in Leipzig habe ich genau diesen Fall wohl über hundert Mal erlebt: eine Immobilie, die geerbt wurde, zwei Erben, die sich nicht einigen können, und die Wohnung, die derweil leer steht und monatlich Geld kostet.</p>
+
+        <p>Was Sie beschreiben — Ihr Bruder blockiert, Sie sind in München, das Telefon reicht nicht mehr — das ist nicht Ihre Schuld, und es ist auch kein Einzelfall. Es ist die klassische Erbengemeinschafts-Situation. Und sie hat eine Lösung, auch wenn es sich gerade nicht so anfühlt.</p>
+
+        <p>Ich habe mir Ihre Unterlagen angeschaut und eine Einschätzung erarbeitet, die ich Ihnen in diesem Dokument vorlege. Darin finden Sie:</p>
+
+        <ul style="padding-left:20px; display:flex; flex-direction:column; gap:8px;">
+          <li>Eine ehrliche Analyse Ihrer Lage — was das größte Risiko ist und wie es sich vermeiden lässt</li>
+          <li>Einen konkreten Schritt-für-Schritt-Fahrplan, den ich speziell für Ihre Situation ausgearbeitet habe</li>
+          <li>Eine realistische Markteinschätzung für Ihre Wohnung in Leipzig-Lindenau</li>
+          <li>Drei konkrete nächste Schritte — mit meiner Empfehlung, womit Sie anfangen sollten</li>
+        </ul>
+
+        <p>Ein Hinweis vorab: Ich werde Ihnen keine unrealistischen Zahlen nennen und Ihnen auch keine Entscheidung abnehmen. Aber ich kann Ihnen helfen, die Situation zu strukturieren — und Ihrem Bruder gegenüber mit einer neutralen, sachlichen Grundlage aufzutreten. Das verändert meistens die Dynamik.</p>
+
+        <p>Falls Sie nach der Lektüre Fragen haben oder einen Gesprächstermin wünschen: Ich bin direkt unter 0341 — 800 900 0 erreichbar. Kein Callcenter, kein Assistent — ich selbst.</p>
+
+        <p style="margin-top:8px;">Mit freundlichen Grüßen aus Leipzig,</p>
+
+        <!-- Unterschrift-Block -->
+        <div style="margin-top:16px; display:flex; flex-direction:column; gap:4px;">
+          <div style="font-family:'DM Serif Display', serif; font-size:22px; color:#0F172A; letter-spacing:-0.01em; font-style:italic;">Joachim Kleinke</div>
+          <div style="font-size:12px; color:#64748b;">Immobilienvermittler · § 34c Maklererlaubnis</div>
+          <div style="font-size:12px; color:#64748b;">wirkaufendeineimmobilie.de · Leipzig</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="background:#f8fafc; border-top:1px solid #e2e8f0; padding:14px 56px; display:flex; align-items:center; justify-content:space-between;">
+      <div style="font-size:11px; font-weight:700; color:#cbd5e1;">wirkaufen<span style="color:#3B82F6;">deine</span>immobilie</div>
+      <div style="font-size:10px; background:#334155; color:#e2e8f0; padding:2px 8px; border-radius:2px;">Vertraulich · Nur für Sabine M.</div>
+      <div style="font-size:10px; color:#cbd5e1;">1 / 5</div>
+    </div>
+  </div>
+
+  <!-- PAGE 1 — COVER -->
+  <div class="page-label">Seite 2 — Zusammenfassung</div>
+  <div class="page sabine-cover">
+    <div class="sabine-cover__top">
+      <div class="sabine-cover__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="sabine-cover__meta">
+        <span class="sabine-cover__tag">Persönliche Handlungsempfehlung</span>
+        <h1 class="sabine-cover__title">Ihre Erbengemeinschaft<br />in Leipzig-Lindenau.</h1>
+        <p class="sabine-cover__addressee">Erstellt für <strong>Sabine M., München</strong> · Eingegangen: 14. März 2026 · Ref: WKDI-2026-0312</p>
+      </div>
+    </div>
+    <div class="sabine-cover__image">
+      <img src="/images/wkdi-geerbte-wohnung.png" alt="Geerbte Wohnung" />
+    </div>
+    <div class="sabine-cover__summary">
+      <div class="summary-label">Ihre Situation — in Ihren eigenen Worten</div>
+      <div class="situation-box">
+        <div class="situation-box__label">Freitext aus Ihrem Fragebogen</div>
+        <p class="situation-box__quote">„Mein Bruder blockiert alles, ich wohne in München und kann nicht einfach hinfahren. Wir einigen uns auf nichts. Die Wohnung steht leer und kostet uns jeden Monat Geld."</p>
+        <div class="situation-box__from">— Sabine M., eingereicht 14.03.2026</div>
+      </div>
+
+      <div>
+        <div class="summary-label" style="margin-bottom:12px;">Unser Experte hat sich persönlich damit beschäftigt</div>
+        <div class="expert-box">
+          <div class="expert-box__avatar">
+            <img src="/images/wkdi-pdf-beratung.png" alt="Joachim Kleinke" />
+          </div>
+          <div class="expert-box__text">
+            <div class="expert-box__name">Joachim Kleinke</div>
+            <div class="expert-box__role">35+ Jahre Leipzig · § 34c Maklererlaubnis · Spezialist Erbengemeinschaften</div>
+            <div class="expert-box__note">„Ich kenne diese Situation gut. Erbengemeinschaften sind mein Spezialfall — lassen Sie mich Ihnen zeigen, was ich in Ihrer Lage tun würde."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <div class="page-footer__brand">wirkaufen<span>deine</span>immobilie</div>
+      <span class="page-footer__conf">Vertraulich · Nur für Sabine M.</span>
+      <div class="page-footer__page">1 / 4</div>
+    </div>
+  </div>
+
+  <!-- PAGE 2 — IHRE SITUATION -->
+  <div class="page-label">Seite 2 — Ihre Situation im Detail</div>
+  <div class="page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Ihre Situation</div>
+    </div>
+    <div class="situation-page">
+      <div>
+        <div class="section-eyebrow">Analyse Ihrer Lage</div>
+        <h2 class="section-title" style="margin-top:8px;">Was Sie gerade<br />durchmachen — und warum<br />es lösbar ist.</h2>
+      </div>
+
+      <div class="situation-facts">
+        <div class="fact-card">
+          <div class="fact-card__label">Objekt</div>
+          <div class="fact-card__value">2-Zimmer, Leipzig-Lindenau</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-card__label">Situation</div>
+          <div class="fact-card__value">Erbengemeinschaft · 2 Erben</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-card__label">Problem</div>
+          <div class="fact-card__value">Bruder blockiert · kein Konsens</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-card__label">Stand</div>
+          <div class="fact-card__value">Leerstand · laufende Kosten</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-card__label">Ihr Standort</div>
+          <div class="fact-card__value">München — Distanz ist real</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-card__label">Zeitdruck</div>
+          <div class="fact-card__value">Monatliche Fixkosten laufen</div>
+        </div>
+      </div>
+
+      <div class="risk-box">
+        <div class="risk-box__label">Das größte Risiko in Ihrer Situation</div>
+        <p class="risk-box__text">Wenn Sie sich weiter nicht einigen, kann jeder Miterbe eine <strong>Teilungsversteigerung</strong> beantragen. Das Ergebnis: Die Wohnung wird öffentlich versteigert — typischerweise <strong>15–25% unter Marktwert</strong>. Beide Erben verlieren Geld. Das passiert häufiger als man denkt, und es lässt sich vermeiden.</p>
+      </div>
+
+      <div class="good-news-box">
+        <div class="good-news-box__label">Die gute Nachricht</div>
+        <p class="good-news-box__text">Erbengemeinschaften sind mein Spezialfall. Ich kenne neutrale Wege, wie Ihr Bruder und Sie zu einem Ergebnis kommen — ohne Familienzerwürfnis, ohne Gericht. In den meisten Fällen reicht ein gemeinsamer Anker: eine <strong>faire, neutrale Marktwertanalyse</strong>, die beide akzeptieren können. Ab dort geht es schneller als Sie denken.</p>
+      </div>
+
+      <p class="body-text">Lindenau ist eines der aktivsten Viertel in Leipzig — Nachfrage von Investoren und Eigennutzern ist hoch. Ihre Wohnung <em>kann</em> verkauft werden. Die Frage ist nur, unter welchen Bedingungen.</p>
+    </div>
+    <div class="page-footer">
+      <div class="page-footer__brand">wirkaufen<span>deine</span>immobilie</div>
+      <span class="page-footer__conf">Vertraulich · Nur für Sabine M.</span>
+      <div class="page-footer__page">2 / 4</div>
+    </div>
+  </div>
+
+  <!-- PAGE 3 — FAHRPLAN -->
+  <div class="page-label">Seite 3 — Ihr persönlicher Fahrplan</div>
+  <div class="page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Ihr Fahrplan</div>
+    </div>
+    <div class="fahrplan-page">
+      <div>
+        <div class="section-eyebrow">Schritt-für-Schritt</div>
+        <h2 class="section-title" style="margin-top:8px;">Was ich an Ihrer<br />Stelle jetzt tun würde.</h2>
+        <p class="body-text" style="margin-top:10px;">Dieser Fahrplan ist speziell auf Ihre Situation als Erbengemeinschaft mit Distanz und blockierendem Miterben ausgelegt.</p>
+      </div>
+
+      <div class="fahrplan-steps">
+        <div class="fahrplan-step">
+          <div class="fahrplan-step__num fahrplan-step__num--soon">1</div>
+          <div class="fahrplan-step__content">
+            <div class="fahrplan-step__title">Grundbuchauszug + WEG-Unterlagen beschaffen</div>
+            <p class="fahrplan-step__desc">Bevor irgendjemand eine Zahl nennt: aktueller Grundbuchauszug, Teilungserklärung und WEG-Protokolle der letzten 3 Jahre. Das kostet ca. 30 € und klärt, was Sie überhaupt besitzen.</p>
+            <div class="fahrplan-step__wkdi">→ Wir helfen Ihnen dabei, diese Unterlagen zu beschaffen</div>
+          </div>
+        </div>
+        <div class="fahrplan-step">
+          <div class="fahrplan-step__num">2</div>
+          <div class="fahrplan-step__content">
+            <div class="fahrplan-step__title">Gemeinsamen digitalen Ordner für alle Erben einrichten</div>
+            <p class="fahrplan-step__desc">Alle Dokumente für alle gleichzeitig sichtbar — kein Informationsvorsprung, kein Misstrauen. Reduziert Blockaden erheblich.</p>
+            <div class="fahrplan-step__wkdi">→ Wir richten das für Sie ein und befüllen es</div>
+          </div>
+        </div>
+        <div class="fahrplan-step">
+          <div class="fahrplan-step__num">3</div>
+          <div class="fahrplan-step__content">
+            <div class="fahrplan-step__title">Neutralen Marktwert ermitteln lassen</div>
+            <p class="fahrplan-step__desc">Weder Sie noch Ihr Bruder nennen eine Zahl — ein neutraler Profi tut es. Das nimmt die Emotionalität raus. In Leipzig-Lindenau, Energieklasse typisch D–F: ca. 80.000–115.000 € realistisch.</p>
+            <div class="fahrplan-step__wkdi">→ Wir erstellen eine kostenfreie Marktbewertung für beide Erben</div>
+          </div>
+        </div>
+        <div class="fahrplan-step">
+          <div class="fahrplan-step__num">4</div>
+          <div class="fahrplan-step__content">
+            <div class="fahrplan-step__title">Anker-Preis schriftlich festlegen</div>
+            <p class="fahrplan-step__desc">Beide Erben legen eine Untergrenze fest — darunter verkaufen wir nicht. Diese Einigung reicht für den nächsten Schritt.</p>
+          </div>
+        </div>
+        <div class="fahrplan-step">
+          <div class="fahrplan-step__num">5</div>
+          <div class="fahrplan-step__content">
+            <div class="fahrplan-step__title">Strategie wählen: As-Is oder Fix &amp; Flip</div>
+            <p class="fahrplan-step__desc"><strong>As-Is-Verkauf</strong> (Weg des geringsten Widerstands): Käufer aus unserem Netzwerk kauft im Ist-Zustand, übernimmt alles. Schnell, diskret. Preis etwas niedriger. <strong>Fix &amp; Flip</strong>: Investor kauft, saniert, Sie erhalten höheren Preis — aber Zeitaufwand.</p>
+            <div class="fahrplan-step__wkdi">→ Für Ihre Situation empfehle ich As-Is — Geschwindigkeit schlägt maximalen Preis</div>
+          </div>
+        </div>
+        <div class="fahrplan-step">
+          <div class="fahrplan-step__num">6</div>
+          <div class="fahrplan-step__content">
+            <div class="fahrplan-step__title">Notarielle Vollmacht — alle Erben</div>
+            <p class="fahrplan-step__desc">Praktisch: Sie benennen einen Hauptansprechpartner mit Vollmacht. Ihr Bruder muss einmalig zum Notar — das kann auch in München erfolgen.</p>
+            <div class="fahrplan-step__wkdi">→ Wir koordinieren Notar-Termine für beide Standorte</div>
+          </div>
+        </div>
+        <div class="fahrplan-step">
+          <div class="fahrplan-step__num">7</div>
+          <div class="fahrplan-step__content">
+            <div class="fahrplan-step__title">Diskretes Angebotsverfahren starten</div>
+            <p class="fahrplan-step__desc">Wir präsentieren Ihr Objekt 200+ verifizierten Käufern im geschlossenen Verfahren. Keine Fotos auf ImmoScout. Kein öffentlicher Druck. Angebote innerhalb von 2–3 Wochen.</p>
+          </div>
+        </div>
+        <div class="fahrplan-step">
+          <div class="fahrplan-step__num fahrplan-step__num--done">8</div>
+          <div class="fahrplan-step__content">
+            <div class="fahrplan-step__title">Abschluss beim Notar — beide Erben unterschreiben</div>
+            <p class="fahrplan-step__desc">Notartermin in Leipzig oder per Vollmacht. Kaufpreis wird geteilt. Das monatliche Kostenbluten endet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <div class="page-footer__brand">wirkaufen<span>deine</span>immobilie</div>
+      <span class="page-footer__conf">Vertraulich · Nur für Sabine M.</span>
+      <div class="page-footer__page">3 / 4</div>
+    </div>
+  </div>
+
+  <!-- PAGE 4 — MARKTBEWERTUNG + NÄCHSTE SCHRITTE -->
+  <div class="page-label">Seite 4 — Marktbewertung & Nächste Schritte</div>
+  <div class="page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Markt &amp; Nächste Schritte</div>
+    </div>
+    <div class="markt-page">
+      <div>
+        <div class="section-eyebrow">Marktbewertung Leipzig-Lindenau</div>
+        <h2 class="section-title" style="margin-top:8px;">Was Ihre Wohnung<br />realistisch wert ist.</h2>
+        <p class="body-text" style="margin-top:10px;">Basierend auf aktuellen Vergleichspreisen in Leipzig-Lindenau für eine 2-Zimmer Wohnung, Gründerzeit, Sanierungsbedarf mittel bis hoch.</p>
+      </div>
+
+      <div class="wert-box">
+        <div class="wert-item">
+          <div class="wert-item__value">80.000 €</div>
+          <div class="wert-item__label">Untergrenze<br />As-Is, schnell</div>
+          <div class="wert-item__note">Mindestpreis Angebotsverfahren</div>
+        </div>
+        <div class="wert-item">
+          <div class="wert-item__value">95.000 €</div>
+          <div class="wert-item__label">Realistischer<br />Marktpreis</div>
+          <div class="wert-item__note">Unser Zielkorridor</div>
+        </div>
+        <div class="wert-item">
+          <div class="wert-item__value">115.000 €</div>
+          <div class="wert-item__label">Nach Sanierung<br />(Fix &amp; Flip)</div>
+          <div class="wert-item__note">Investoren-Szenario</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:12px;">Ihre nächsten 3 Schritte</div>
+        <div class="next-steps">
+          <div class="next-step">
+            <div class="next-step__icon">1</div>
+            <div class="next-step__content">
+              <div class="next-step__title">Rückruf mit Joachim vereinbaren (kostenlos, 20 Min.)</div>
+              <p class="next-step__desc">Wir besprechen Ihre Situation im Detail und klären, ob Ihr Bruder für ein gemeinsames Gespräch erreichbar ist.</p>
+            </div>
+          </div>
+          <div class="next-step">
+            <div class="next-step__icon">2</div>
+            <div class="next-step__content">
+              <div class="next-step__title">Grundbuchauszug anfordern</div>
+              <p class="next-step__desc">Beim Grundbuchamt Leipzig: ca. 30 €, online bestellbar. Wir schicken Ihnen den direkten Link.</p>
+            </div>
+          </div>
+          <div class="next-step">
+            <div class="next-step__icon">3</div>
+            <div class="next-step__content">
+              <div class="next-step__title">Ihrem Bruder diese Handlungsempfehlung weiterleiten</div>
+              <p class="next-step__desc">Manchmal hilft ein neutrales Dokument mehr als ein weiteres Telefonat. Wir können ihm auch direkt schreiben — auf Wunsch.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-final">
+        <div class="contact-final__avatar">
+          <img src="/images/wkdi-pdf-beratung.png" alt="Joachim Kleinke" />
+        </div>
+        <div class="contact-final__text">
+          <div class="contact-final__name">Joachim Kleinke</div>
+          <div class="contact-final__role">Ihr persönlicher Ansprechpartner · Erbengemeinschaften · Leipzig</div>
+          <div class="contact-final__contact">0341 — 800 900 0 · joachim@wirkaufendeineimmobilie.de</div>
+        </div>
+        <div class="contact-final__btn">Jetzt anrufen →</div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <div class="page-footer__brand">wirkaufen<span>deine</span>immobilie</div>
+      <span class="page-footer__conf">Vertraulich · Nur für Sabine M.</span>
+      <div class="page-footer__page">4 / 4</div>
+    </div>
+  </div>
+
+</body>
+</html>
