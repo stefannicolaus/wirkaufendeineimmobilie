@@ -132,17 +132,18 @@ export const prerender = false;
       </div>
 
       <div class="wiz-missing-section" id="missing-section-1">
-        <details class="wiz-missing-details">
-          <summary>Ich habe dieses Dokument nicht</summary>
-          <div class="wiz-missing-content">
-            <p>Kein Problem. Wir können den Energieausweis für Sie besorgen — das ist unser normaler Ablauf.</p>
-            <textarea class="wiz-notiz" id="notiz-1" placeholder="Optional: Kurze Notiz (z.B. 'liegt bei der Hausverwaltung, ich frage nach')" rows="2"></textarea>
-            <label class="wiz-checkbox">
-              <input type="checkbox" id="wkdi-kuemmert-1" />
-              <span>Bitte um Ihre Hilfe — ich kann den Energieausweis nicht selbst besorgen</span>
-            </label>
-          </div>
-        </details>
+        <div class="wiz-missing-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Ich habe dieses Dokument nicht
+        </div>
+        <div class="wiz-missing-content">
+          <p><strong>Kein Problem.</strong> Wir können den Energieausweis für Sie besorgen — das machen wir regelmäßig. Haken Sie einfach unten an, dann kümmern wir uns darum.</p>
+          <label class="wiz-checkbox">
+            <input type="checkbox" id="wkdi-kuemmert-1" />
+            <span>Ja, bitte — besorgen Sie den Energieausweis für mich</span>
+          </label>
+          <textarea class="wiz-notiz" id="notiz-1" placeholder="Optional: Kurze Notiz (z.B. 'liegt vielleicht bei der Hausverwaltung')" rows="2"></textarea>
+        </div>
       </div>
 
       <div class="wiz-actions">
@@ -848,6 +849,19 @@ Vielen Dank und freundliche Grüße,
 
   /* ── MISSING SECTION ── */
   .wiz-missing-section { margin-bottom: var(--space-4); }
+  .wiz-missing-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: #F59E0B;
+    padding: var(--space-2) var(--space-3);
+    background: #FEF3C7;
+    border: 1px solid #FDE68A;
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-3);
+  }
   .wiz-missing-details summary {
     font-size: var(--text-sm);
     color: var(--color-text-muted);
