@@ -63,9 +63,15 @@ export const prerender = false;
           <input type="email" id="k-email" name="email" required placeholder="ihre@email.de" autocomplete="email" />
           <p class="form-hint">Damit wir Ihnen den Link zum Fortführen schicken können.</p>
         </div>
-        <div class="form-group">
-          <label for="k-strasse">Straße + Hausnummer *</label>
-          <input type="text" id="k-strasse" name="strasse" required placeholder="Musterstraße 12" autocomplete="street-address" />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="k-strasse">Straße *</label>
+            <input type="text" id="k-strasse" name="strasse" required placeholder="Musterstraße" autocomplete="address-line1" />
+          </div>
+          <div class="form-group">
+            <label for="k-hausnummer">Nr. *</label>
+            <input type="text" id="k-hausnummer" name="hausnummer" required placeholder="12" style="max-width:80px" />
+          </div>
         </div>
         <div class="form-row">
           <div class="form-group">
@@ -1062,7 +1068,7 @@ Vielen Dank und freundliche Grüße,
   const state = {
     sessionId: null,
     currentStep: 0,
-    kontakt: { vorname: '', nachname: '', email: '', strasse: '', plz: '', ort: '' },
+    kontakt: { vorname: '', nachname: '', email: '', strasse: '', hausnummer: '', plz: '', ort: '' },
     steps: {
       1: { status: 'pending', files: [] },
       2: { status: 'pending', files: [] },
@@ -1123,6 +1129,7 @@ Vielen Dank und freundliche Grüße,
     state.kontakt.nachname = (document.getElementById('k-nachname') as HTMLInputElement).value;
     state.kontakt.email = (document.getElementById('k-email') as HTMLInputElement).value;
     state.kontakt.strasse = (document.getElementById('k-strasse') as HTMLInputElement).value;
+    state.kontakt.hausnummer = (document.getElementById('k-hausnummer') as HTMLInputElement).value;
     state.kontakt.plz = (document.getElementById('k-plz') as HTMLInputElement).value;
     state.kontakt.ort = (document.getElementById('k-ort') as HTMLInputElement).value;
     const fd = new FormData();
@@ -1130,7 +1137,7 @@ Vielen Dank und freundliche Grüße,
     fd.append('docType', 'kontakt');
     fd.append('name', `${state.kontakt.vorname} ${state.kontakt.nachname}`);
     fd.append('email', state.kontakt.email);
-    fd.append('adresse', `${state.kontakt.strasse}, ${state.kontakt.plz} ${state.kontakt.ort}`);
+    fd.append('adresse', `${state.kontakt.strasse} ${state.kontakt.hausnummer}, ${state.kontakt.plz} ${state.kontakt.ort}`);
     try { await fetch('/api/unterlagen', { method: 'POST', body: fd }); } catch {}
     goToStep(1);
   });
@@ -1263,7 +1270,7 @@ Vielen Dank und freundliche Grüße,
       const doc = (btn as HTMLElement).getAttribute('data-doc') || '';
       const tpl = (document.getElementById('email-template') as HTMLTemplateElement)?.innerHTML || '';
       const text = tpl
-        .replace(/{adresse}/g, `${state.kontakt.strasse}, ${state.kontakt.plz} ${state.kontakt.ort}`.trim() || 'Ihre Adresse')
+        .replace(/{adresse}/g, `${state.kontakt.strasse} ${state.kontakt.hausnummer}, ${state.kontakt.plz} ${state.kontakt.ort}`.trim() || 'Ihre Adresse')
         .replace(/{name}/g, `${state.kontakt.vorname} ${state.kontakt.nachname}`.trim() || 'Ihr Name')
         .replace(/{dokument}/g, doc);
       navigator.clipboard.writeText(text).then(() => {
