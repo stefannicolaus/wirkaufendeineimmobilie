@@ -1257,6 +1257,29 @@ Vielen Dank und freundliche Grüße,
       state.sessionId = crypto.randomUUID();
       localStorage.setItem('wkdi_session', state.sessionId);
     }
+
+    // Pre-fill step 0 fields from URL params (passed from bewertung form)
+    const nameParam = params.get('name') || '';
+    const emailParam = params.get('email') || '';
+    const plzParam = params.get('plz') || '';
+
+    if (nameParam) {
+      const parts = nameParam.trim().split(' ');
+      const vorname = parts[0] || '';
+      const nachname = parts.slice(1).join(' ') || '';
+      const vornameEl = document.getElementById('k-vorname') as HTMLInputElement;
+      const nachnameEl = document.getElementById('k-nachname') as HTMLInputElement;
+      if (vornameEl) vornameEl.value = vorname;
+      if (nachnameEl) nachnameEl.value = nachname;
+    }
+    if (emailParam) {
+      const emailEl = document.getElementById('k-email') as HTMLInputElement;
+      if (emailEl) emailEl.value = emailParam;
+    }
+    if (plzParam) {
+      const plzEl = document.getElementById('k-plz') as HTMLInputElement;
+      if (plzEl) plzEl.value = plzParam;
+    }
   }
 
   // ── NAVIGATION ──
