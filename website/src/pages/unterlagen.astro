@@ -36,9 +36,7 @@ export const prerender = false;
       <div class="label">Unterlagen-Portal</div>
       <h1>Wir holen Sie da ab,<br /><span class="text-accent">wo Sie gerade stehen.</span></h1>
       <p class="wiz-intro__sub">
-        Egal ob Sie alle Unterlagen haben oder keinen einzigen Zettel finden —
-        wir führen Sie Schritt für Schritt durch. Kein Dokument ist Pflicht.
-        Kein Aufwand zu groß. Wir helfen Ihnen bei allem, was fehlt.
+        Laden Sie hoch, was Sie haben. Was fehlt, besprechen wir gemeinsam.
       </p>
       <div class="wiz-reassure">
         <span>✓ Kein Dokument ist Pflicht</span>
@@ -50,9 +48,15 @@ export const prerender = false;
     <div class="wiz-card">
       <h2 class="wiz-card__title">Kurz vorstellen — damit wir wissen, für wen die Unterlagen sind.</h2>
       <form class="wiz-form" id="form-kontakt">
-        <div class="form-group">
-          <label for="k-name">Ihr Name *</label>
-          <input type="text" id="k-name" name="name" required placeholder="Vorname Nachname" autocomplete="name" />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="k-vorname">Vorname *</label>
+            <input type="text" id="k-vorname" name="vorname" required placeholder="Max" autocomplete="given-name" />
+          </div>
+          <div class="form-group">
+            <label for="k-nachname">Nachname *</label>
+            <input type="text" id="k-nachname" name="nachname" required placeholder="Mustermann" autocomplete="family-name" />
+          </div>
         </div>
         <div class="form-group">
           <label for="k-email">Ihre E-Mail *</label>
@@ -60,8 +64,18 @@ export const prerender = false;
           <p class="form-hint">Damit wir Ihnen den Link zum Fortführen schicken können.</p>
         </div>
         <div class="form-group">
-          <label for="k-adresse">Adresse der Wohnung *</label>
-          <input type="text" id="k-adresse" name="adresse" required placeholder="Musterstraße 12, 04315 Leipzig" autocomplete="off" />
+          <label for="k-strasse">Straße + Hausnummer *</label>
+          <input type="text" id="k-strasse" name="strasse" required placeholder="Musterstraße 12" autocomplete="street-address" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="k-plz">PLZ *</label>
+            <input type="text" id="k-plz" name="plz" required placeholder="04315" autocomplete="postal-code" maxlength="5" style="max-width:120px" />
+          </div>
+          <div class="form-group">
+            <label for="k-ort">Ort *</label>
+            <input type="text" id="k-ort" name="ort" required placeholder="Leipzig" autocomplete="address-level2" />
+          </div>
         </div>
         <button type="submit" class="btn btn-primary wiz-btn-next">
           Unterlagen hochladen starten &rarr;
@@ -482,7 +496,7 @@ export const prerender = false;
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
     <h3 class="modal__title">Etwas unklar?</h3>
-    <p class="modal__sub">Joachim Kleinke hört sich das persönlich an und ruft Sie zurück.</p>
+    <p class="modal__sub">Wir rufen Sie gerne zurück — Joachim Kleinke meldet sich persönlich bei Ihnen.</p>
 
     <div class="modal-tabs">
       <button class="modal-tab active" data-tab="voice">Sprachnachricht</button>
@@ -1030,6 +1044,7 @@ Vielen Dank und freundliche Grüße,
   /* ── FORM ── */
   .wiz-form { display: flex; flex-direction: column; gap: var(--space-4); }
   .form-hint { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
@@ -1047,7 +1062,7 @@ Vielen Dank und freundliche Grüße,
   const state = {
     sessionId: null,
     currentStep: 0,
-    kontakt: { name: '', email: '', adresse: '' },
+    kontakt: { vorname: '', nachname: '', email: '', strasse: '', plz: '', ort: '' },
     steps: {
       1: { status: 'pending', files: [] },
       2: { status: 'pending', files: [] },
@@ -1104,15 +1119,18 @@ Vielen Dank und freundliche Grüße,
     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
     btn.textContent = 'Wird gespeichert…';
     btn.disabled = true;
-    state.kontakt.name = (document.getElementById('k-name') as HTMLInputElement).value;
+    state.kontakt.vorname = (document.getElementById('k-vorname') as HTMLInputElement).value;
+    state.kontakt.nachname = (document.getElementById('k-nachname') as HTMLInputElement).value;
     state.kontakt.email = (document.getElementById('k-email') as HTMLInputElement).value;
-    state.kontakt.adresse = (document.getElementById('k-adresse') as HTMLInputElement).value;
+    state.kontakt.strasse = (document.getElementById('k-strasse') as HTMLInputElement).value;
+    state.kontakt.plz = (document.getElementById('k-plz') as HTMLInputElement).value;
+    state.kontakt.ort = (document.getElementById('k-ort') as HTMLInputElement).value;
     const fd = new FormData();
     fd.append('sessionId', state.sessionId!);
     fd.append('docType', 'kontakt');
-    fd.append('name', state.kontakt.name);
+    fd.append('name', `${state.kontakt.vorname} ${state.kontakt.nachname}`);
     fd.append('email', state.kontakt.email);
-    fd.append('adresse', state.kontakt.adresse);
+    fd.append('adresse', `${state.kontakt.strasse}, ${state.kontakt.plz} ${state.kontakt.ort}`);
     try { await fetch('/api/unterlagen', { method: 'POST', body: fd }); } catch {}
     goToStep(1);
   });
@@ -1245,8 +1263,8 @@ Vielen Dank und freundliche Grüße,
       const doc = (btn as HTMLElement).getAttribute('data-doc') || '';
       const tpl = (document.getElementById('email-template') as HTMLTemplateElement)?.innerHTML || '';
       const text = tpl
-        .replace(/{adresse}/g, state.kontakt.adresse || 'Ihre Adresse')
-        .replace(/{name}/g, state.kontakt.name || 'Ihr Name')
+        .replace(/{adresse}/g, `${state.kontakt.strasse}, ${state.kontakt.plz} ${state.kontakt.ort}`.trim() || 'Ihre Adresse')
+        .replace(/{name}/g, `${state.kontakt.vorname} ${state.kontakt.nachname}`.trim() || 'Ihr Name')
         .replace(/{dokument}/g, doc);
       navigator.clipboard.writeText(text).then(() => {
         btn.classList.add('copied');
