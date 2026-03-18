@@ -131,11 +131,12 @@ export const prerender = false;
       </div>
 
       <div class="wiz-missing-section" id="missing-section-1">
-        <div class="wiz-missing-label">
+        <button class="wiz-missing-label" data-toggle="missing-1" aria-expanded="false">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           Ich habe dieses Dokument nicht
-        </div>
-        <div class="wiz-missing-content">
+          <svg class="wiz-missing-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wiz-missing-content hidden" id="missing-1">
           <p><strong>Kein Problem.</strong> Wir können den Energieausweis für Sie besorgen — das machen wir regelmäßig. Haken Sie einfach unten an, dann kümmern wir uns darum.</p>
           <label class="wiz-checkbox">
             <input type="checkbox" id="wkdi-kuemmert-1" />
@@ -201,11 +202,12 @@ export const prerender = false;
       </div>
 
       <div class="wiz-missing-section">
-        <div class="wiz-missing-label wiz-missing-label--blue">
+        <button class="wiz-missing-label wiz-missing-label--blue" data-toggle="missing-2" aria-expanded="false">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           Ich habe diese Protokolle nicht
-        </div>
-        <div class="wiz-missing-content">
+          <svg class="wiz-missing-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wiz-missing-content hidden" id="missing-2">
           <p><strong>Kein Problem.</strong> Schreiben Sie Ihrer Hausverwaltung einfach eine kurze E-Mail — kopieren Sie einfach diesen Text:</p>
           <div class="wiz-email-preview">
             <div class="wiz-email-subject">Betreff: Anfrage WEG-Protokolle zur Wohnung [Ihre Adresse]</div>
@@ -282,13 +284,15 @@ Vielen Dank und freundliche Grüße,
       </div>
 
       <div class="wiz-missing-section">
-        <details class="wiz-missing-details">
-          <summary>Ich habe diesen Plan nicht</summary>
-          <div class="wiz-missing-content">
-            <p>Kein Problem. Eine kurze E-Mail an die Hausverwaltung reicht — den Text haben wir für Sie.</p>
-            <textarea class="wiz-notiz" id="notiz-3" placeholder="Optional: Kurze Notiz" rows="2"></textarea>
-          </div>
-        </details>
+        <button class="wiz-missing-label wiz-missing-label--blue" data-toggle="missing-3" aria-expanded="false">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Ich habe diesen Plan nicht
+          <svg class="wiz-missing-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wiz-missing-content hidden" id="missing-3">
+          <p>Kein Problem. Eine kurze E-Mail an die Hausverwaltung reicht — den Text haben wir für Sie.</p>
+          <textarea class="wiz-notiz" id="notiz-3" placeholder="Optional: Kurze Notiz" rows="2"></textarea>
+        </div>
       </div>
 
       <div class="wiz-actions">
@@ -344,13 +348,15 @@ Vielen Dank und freundliche Grüße,
       </div>
 
       <div class="wiz-missing-section">
-        <details class="wiz-missing-details">
-          <summary>Ich habe diese Abrechnungen nicht</summary>
-          <div class="wiz-missing-content">
-            <p>Kein Problem. Die Hausverwaltung stellt Kopien aus — nutzen Sie unsere E-Mail-Vorlage.</p>
-            <textarea class="wiz-notiz" id="notiz-4" placeholder="Optional: Kurze Notiz" rows="2"></textarea>
-          </div>
-        </details>
+        <button class="wiz-missing-label wiz-missing-label--blue" data-toggle="missing-4" aria-expanded="false">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Ich habe diese Abrechnungen nicht
+          <svg class="wiz-missing-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wiz-missing-content hidden" id="missing-4">
+          <p>Kein Problem. Die Hausverwaltung stellt Kopien aus — nutzen Sie unsere E-Mail-Vorlage.</p>
+          <textarea class="wiz-notiz" id="notiz-4" placeholder="Optional: Kurze Notiz" rows="2"></textarea>
+        </div>
       </div>
 
       <div class="wiz-actions">
@@ -408,13 +414,15 @@ Vielen Dank und freundliche Grüße,
       </div>
 
       <div class="wiz-missing-section">
-        <details class="wiz-missing-details">
-          <summary>Ich habe keinen Grundriss</summary>
-          <div class="wiz-missing-content">
-            <p>Kein Problem. Wir können ihn über die Hausverwaltung oder das Baurechtsamt besorgen.</p>
-            <textarea class="wiz-notiz" id="notiz-5" placeholder="Optional: Kurze Notiz" rows="2"></textarea>
-          </div>
-        </details>
+        <button class="wiz-missing-label wiz-missing-label--blue" data-toggle="missing-5" aria-expanded="false">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Ich habe keinen Grundriss
+          <svg class="wiz-missing-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wiz-missing-content hidden" id="missing-5">
+          <p>Kein Problem. Wir können ihn über die Hausverwaltung oder das Baurechtsamt besorgen.</p>
+          <textarea class="wiz-notiz" id="notiz-5" placeholder="Optional: Kurze Notiz" rows="2"></textarea>
+        </div>
       </div>
 
       <div class="wiz-actions">
@@ -471,16 +479,19 @@ Vielen Dank und freundliche Grüße,
       </div>
 
       <div class="wiz-missing-section">
-        <details class="wiz-missing-details">
-          <summary>Ich habe noch keinen Grundbuchauszug</summary>
-          <div class="wiz-missing-content">
-            <p>Kein Problem. Das ist das häufigste fehlende Dokument — dauert einfach etwas. Wir können ihn auch für Sie besorgen.</p>
-            <textarea class="wiz-notiz" id="notiz-6" placeholder="Optional: Notiz (z.B. 'beantrage ich diese Woche beim Amtsgericht')" rows="2"></textarea>
-            <label class="wiz-checkbox">
-              <input type="checkbox" id="wkdi-kuemmert-6" />
-              <span>Bitte um Ihre Hilfe — besorgen Sie den Grundbuchauszug für mich</span>
-            </label>
-          </div>
+        <button class="wiz-missing-label wiz-missing-label--blue" data-toggle="missing-6" aria-expanded="false">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Ich habe noch keinen Grundbuchauszug
+          <svg class="wiz-missing-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wiz-missing-content hidden" id="missing-6">
+          <p>Kein Problem. Das ist das häufigste fehlende Dokument — dauert einfach etwas. Wir können ihn auch für Sie besorgen.</p>
+          <textarea class="wiz-notiz" id="notiz-6" placeholder="Optional: Notiz (z.B. 'beantrage ich diese Woche beim Amtsgericht')" rows="2"></textarea>
+          <label class="wiz-checkbox">
+            <input type="checkbox" id="wkdi-kuemmert-6" />
+            <span>Bitte um Ihre Hilfe — besorgen Sie den Grundbuchauszug für mich</span>
+          </label>
+        </div>
         </details>
       </div>
 
@@ -897,12 +908,24 @@ Vielen Dank und freundliche Grüße,
     border: 1px solid #FDE68A;
     border-radius: var(--radius-sm);
     margin-bottom: var(--space-3);
+    cursor: pointer;
+    transition: background var(--duration-fast);
+    font-family: var(--font-family);
   }
+  .wiz-missing-label:hover { background: #FDE68A; }
   .wiz-missing-label--blue {
     color: var(--color-accent);
     background: #EFF6FF;
     border-color: #BFDBFE;
   }
+  .wiz-missing-label--blue:hover { background: #DBEAFE; }
+  .wiz-missing-chevron {
+    margin-left: auto;
+    transition: transform var(--duration-fast);
+  }
+  .wiz-missing-label[aria-expanded="true"] .wiz-missing-chevron { transform: rotate(180deg); }
+  .wiz-missing-label[aria-expanded="true"] { margin-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  .wiz-missing-content:not(.hidden) { border-top: none; border-top-left-radius: 0; border-top-right-radius: 0; }
   .wiz-email-preview {
     background: white;
     border: 1px solid var(--color-border);
@@ -1293,6 +1316,18 @@ Vielen Dank und freundliche Grüße,
       }
     });
   }
+
+  // ── MISSING TOGGLE ──
+  document.querySelectorAll('.wiz-missing-label[data-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = (btn as HTMLElement).dataset.toggle!;
+      const content = document.getElementById(id);
+      if (!content) return;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      content.classList.toggle('hidden', expanded);
+    });
+  });
 
   // ── BACK BUTTON ──
   document.querySelectorAll('.wiz-btn-back').forEach(btn => {
