@@ -899,7 +899,14 @@ import Layout from '../layouts/Layout.astro';
       try {
         const res = await fetch(endpoint, { method: 'POST', body: formData });
         if (res.ok) {
-          window.location.href = '/danke?typ=verkaeufer';
+          const name = (formData.get('name') as string || '').trim();
+          const email = (formData.get('email') as string || '').trim();
+          const plz = (formData.get('plz') as string || '').trim();
+          const params = new URLSearchParams();
+          if (name) params.set('name', name);
+          if (email) params.set('email', email);
+          if (plz) params.set('plz', plz);
+          window.location.href = '/unterlagen?' + params.toString();
         } else {
           btn.textContent = 'Fehler — bitte erneut versuchen';
           btn.disabled = false;
