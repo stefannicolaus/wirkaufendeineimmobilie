@@ -48,7 +48,7 @@ export const prerender = false;
     <div class="wiz-card">
       <h2 class="wiz-card__title">Kurz vorstellen — damit wir wissen, für wen die Unterlagen sind.</h2>
       <form class="wiz-form" id="form-kontakt">
-        <div class="form-row">
+        <div class="form-row form-row--name">
           <div class="form-group">
             <label for="k-vorname">Vorname *</label>
             <input type="text" id="k-vorname" name="vorname" required placeholder="Max" autocomplete="given-name" />
@@ -63,20 +63,20 @@ export const prerender = false;
           <input type="email" id="k-email" name="email" required placeholder="ihre@email.de" autocomplete="email" />
           <p class="form-hint">Damit wir Ihnen den Link zum Fortführen schicken können.</p>
         </div>
-        <div class="form-row">
+        <div class="form-row form-row--strasse">
           <div class="form-group">
             <label for="k-strasse">Straße *</label>
             <input type="text" id="k-strasse" name="strasse" required placeholder="Musterstraße" autocomplete="address-line1" />
           </div>
           <div class="form-group">
             <label for="k-hausnummer">Nr. *</label>
-            <input type="text" id="k-hausnummer" name="hausnummer" required placeholder="12" style="max-width:80px" />
+            <input type="text" id="k-hausnummer" name="hausnummer" required placeholder="12" />
           </div>
         </div>
-        <div class="form-row">
+        <div class="form-row form-row--plzort">
           <div class="form-group">
             <label for="k-plz">PLZ *</label>
-            <input type="text" id="k-plz" name="plz" required placeholder="04315" autocomplete="postal-code" maxlength="5" style="max-width:120px" />
+            <input type="text" id="k-plz" name="plz" required placeholder="04315" autocomplete="postal-code" maxlength="5" />
           </div>
           <div class="form-group">
             <label for="k-ort">Ort *</label>
@@ -1048,15 +1048,29 @@ Vielen Dank und freundliche Grüße,
   }
 
   /* ── FORM ── */
-  .wiz-form { display: flex; flex-direction: column; gap: var(--space-4); }
-  .form-hint { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .wiz-form { display: flex; flex-direction: column; gap: var(--space-5); }
+  .form-group { display: flex; flex-direction: column; gap: var(--space-1); }
+  .form-group label { font-size: var(--text-sm); font-weight: var(--weight-medium); color: var(--color-text); }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border); border-radius: var(--radius-md);
+    font-size: var(--text-base); color: var(--color-text);
+    background: var(--color-bg); transition: border-color 0.15s;
+    box-sizing: border-box;
+  }
+  .form-group input:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent); }
+  .form-hint { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 0; }
+  .form-row { display: grid; gap: var(--space-4); }
+  .form-row--name { grid-template-columns: 1fr 1fr; }
+  .form-row--strasse { grid-template-columns: 1fr 100px; }
+  .form-row--plzort { grid-template-columns: 120px 1fr; }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
     .wiz-card { padding: var(--space-5); }
     .wiz-actions { flex-direction: column; }
     .wiz-actions .btn { width: 100%; }
+    .form-row { grid-template-columns: 1fr !important; }
     .voice-fab span { display: none; }
     .voice-fab { width: 56px; height: 56px; border-radius: var(--radius-full); justify-content: center; padding: 0; }
   }
