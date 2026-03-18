@@ -83,7 +83,7 @@ import Layout from '../layouts/Layout.astro';
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
         </div>
         <h3>Ich möchte verkaufen</h3>
-        <p>Messie-Objekt, Erbengemeinschaft, GEG-Sanierungsstau oder Insolvenzverfahren — wir vermitteln diskret an Käufer, die im Ist-Zustand kaufen.</p>
+        <p>Messie-Objekt, Erbengemeinschaft, GEG-Sanierungsstau, Insolvenzverfahren oder Kapitalanlage mit Renovierungsdruck — wir vermitteln diskret an Käufer, die im Ist-Zustand kaufen.</p>
         <ul class="card__checks">
           <li>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -123,6 +123,56 @@ import Layout from '../layouts/Layout.astro';
           </li>
         </ul>
         <a href="/investoren" class="btn btn-ghost card__btn">Investoren-Zugang anfragen &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SZENARIEN -->
+  <section class="section section--scenarios">
+    <div class="container">
+      <h2 class="scenarios-heading">Für welche Situationen wir der richtige Ansprechpartner sind</h2>
+      <div class="scenarios-grid">
+
+        <div class="scenario-card">
+          <div class="scenario-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Erbengemeinschaft</h3>
+          <p>Zerstrittene Erben, fehlende Vollmachten, unklare Eigentumsverhältnisse. Wir koordinieren alle Beteiligten und verhindern die Teilungsversteigerung.</p>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><line x1="12" y1="22" x2="12" y2="12"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+          </div>
+          <h3>Messie-Objekt</h3>
+          <p>Vollgestellte Wohnung, Gerüche, jahrelanger Leerstand. Kein Aufräumen, keine Entrümpelung vorab. Wir vermitteln an Käufer, die den Zustand kennen und trotzdem kaufen.</p>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <h3>GEG-Sanierungsstau</h3>
+          <p>Energieklasse E bis H, Heizung veraltet, Förderpflicht droht. Unsere Käufer rechnen die Sanierungskosten ein — du trägst sie nicht.</p>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+          </div>
+          <h3>Insolvenzverfahren</h3>
+          <p>Zwangsversteigerung droht, Insolvenzverwalter ist eingebunden. Wir kennen die juristischen Abläufe und holen das Maximum raus — diskret und schnell.</p>
+        </div>
+
+        <div class="scenario-card scenario-card--highlight">
+          <div class="scenario-icon scenario-icon--highlight">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Kapitalanleger mit Renovierungsdruck</h3>
+          <p>Vor 10 Jahren gekauft, abgeschrieben, jetzt steht die Sanierung an. Wer pro Stunde mehr verdient als der Handwerker, sollte seine Zeit nicht mit Renovierungskoordination verbringen. Wir übernehmen den Verkauf — ohne dass du eine Schraube anfasst.</p>
+        </div>
+
       </div>
     </div>
   </section>
@@ -537,6 +587,68 @@ import Layout from '../layouts/Layout.astro';
     .dual-cards {
       grid-template-columns: 1fr;
     }
+  }
+
+  /* SCENARIOS */
+  .section--scenarios {
+    background: var(--color-bg-alt);
+    padding-block: var(--section-gap);
+  }
+  .scenarios-heading {
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--color-text);
+    text-align: center;
+  }
+  .scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .scenario-card {
+    background: var(--color-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border, #e5e7eb);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .scenario-card--highlight {
+    border-color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-accent) 4%, var(--color-bg));
+    grid-column: span 2;
+  }
+  @media (max-width: 640px) {
+    .scenario-card--highlight { grid-column: span 1; }
+  }
+  .scenario-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--color-bg-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+  .scenario-icon--highlight {
+    background: color-mix(in srgb, var(--color-accent) 12%, var(--color-bg));
+    color: var(--color-accent);
+  }
+  .scenario-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-text);
+  }
+  .scenario-card p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.55;
   }
 
   /* STEPS — full width bg, large numbers */
