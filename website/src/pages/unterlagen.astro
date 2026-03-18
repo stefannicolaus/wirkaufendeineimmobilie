@@ -516,19 +516,19 @@ export const prerender = false;
 </div>
 
 <!-- EMAIL TEMPLATE (hidden, used by JS) -->
-<template id="email-template">Betreff: Anfrage Unterlagen zur Wohnung {adresse}
+<template id="email-template">Betreff: Anfrage Unterlagen zur Wohnung {"{"+"adresse"+"}"}
 
 Sehr geehrte Damen und Herren,
 
-ich bin Eigentümer der Wohnung {adresse}.
+ich bin Eigentümer der Wohnung {"{"+"adresse"+"}"}.
 Für eine bevorstehende Immobilienbewertung benötige ich kurzfristig folgende Unterlagen:
 
-• {dokument}
+• {"{"+"dokument"+"}"}
 
 Bitte senden Sie mir diese Unterlagen möglichst zeitnah per E-Mail zu.
 
 Vielen Dank und freundliche Grüße,
-{name}</template>
+{"{"+"name"+"}"}</template>
 
 </Layout>
 
