@@ -8,21 +8,20 @@ export const prerender = false;
   noindex={true}
 >
 
-<!-- PROGRESS BAR -->
-<div class="wiz-progress-wrap" id="wiz-progress-wrap">
-  <div class="container">
-    <div class="wiz-progress">
-      <div class="wiz-progress__bar" id="wiz-progress-bar"></div>
-      <div class="wiz-progress__steps" id="wiz-progress-steps">
-        <button class="wiz-step-dot" data-step="1" aria-label="Schritt 1: Energieausweis"><span class="wiz-step-dot__num">1</span><span class="wiz-step-dot__label">Energie</span></button>
-        <button class="wiz-step-dot" data-step="2" aria-label="Schritt 2: WEG-Protokolle"><span class="wiz-step-dot__num">2</span><span class="wiz-step-dot__label">WEG</span></button>
-        <button class="wiz-step-dot" data-step="3" aria-label="Schritt 3: Wirtschaftsplan"><span class="wiz-step-dot__num">3</span><span class="wiz-step-dot__label">Wirtschaft</span></button>
-        <button class="wiz-step-dot" data-step="4" aria-label="Schritt 4: Hausgeldabrechnungen"><span class="wiz-step-dot__num">4</span><span class="wiz-step-dot__label">Hausgeld</span></button>
-        <button class="wiz-step-dot" data-step="5" aria-label="Schritt 5: Grundriss"><span class="wiz-step-dot__num">5</span><span class="wiz-step-dot__label">Grundriss</span></button>
-        <button class="wiz-step-dot" data-step="6" aria-label="Schritt 6: Grundbuchauszug"><span class="wiz-step-dot__num">6</span><span class="wiz-step-dot__label">Grundbuch</span></button>
-      </div>
-    </div>
+<!-- PROGRESS CHECKLIST — JS moves this into the active .wiz-card -->
+<div id="wiz-progress-block" class="wiz-progress-block hidden">
+  <div class="wpb-bar-wrap">
+    <div class="wiz-progress__bar" id="wiz-progress-bar"></div>
+    <span class="wpb-step-label" id="wiz-progress-label">Schritt 1 von 6</span>
   </div>
+  <ul class="wpb-checklist">
+    <li class="wiz-step-dot" data-step="1"><span class="wiz-step-dot__num">1</span><span class="wiz-step-dot__label">Energieausweis</span><span class="wiz-step-dot__status"></span></li>
+    <li class="wiz-step-dot" data-step="2"><span class="wiz-step-dot__num">2</span><span class="wiz-step-dot__label">WEG-Protokolle</span><span class="wiz-step-dot__status"></span></li>
+    <li class="wiz-step-dot" data-step="3"><span class="wiz-step-dot__num">3</span><span class="wiz-step-dot__label">Wirtschaftsplan</span><span class="wiz-step-dot__status"></span></li>
+    <li class="wiz-step-dot" data-step="4"><span class="wiz-step-dot__num">4</span><span class="wiz-step-dot__label">Hausgeldabrechnungen</span><span class="wiz-step-dot__status"></span></li>
+    <li class="wiz-step-dot" data-step="5"><span class="wiz-step-dot__num">5</span><span class="wiz-step-dot__label">Grundriss</span><span class="wiz-step-dot__status"></span></li>
+    <li class="wiz-step-dot" data-step="6"><span class="wiz-step-dot__num">6</span><span class="wiz-step-dot__label">Grundbuchauszug</span><span class="wiz-step-dot__status"></span></li>
+  </ul>
 </div>
 
 <div class="container wiz-container">
@@ -580,25 +579,27 @@ Vielen Dank und freundliche Grüße,
 
   .hidden { display: none !important; }
 
-  /* ── PROGRESS BAR ── */
-  .wiz-progress-wrap {
-    position: sticky;
-    top: 64px;
-    z-index: var(--z-sticky);
-    background: var(--color-bg-card);
+  /* ── PROGRESS BLOCK (inside card) ── */
+  .wiz-progress-block {
     border-bottom: 1px solid var(--color-border);
-    padding: var(--space-3) 0;
+    padding-bottom: var(--space-4);
+    margin-bottom: var(--space-5);
   }
-  .wiz-progress-wrap .container { max-width: var(--container-narrow); }
-  .wiz-progress {
+  .wpb-bar-wrap {
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    margin-bottom: var(--space-1);
+    margin-bottom: var(--space-3);
+  }
+  .wpb-step-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    font-weight: var(--weight-medium);
   }
   .wiz-progress__bar {
     flex: 1;
-    height: 6px;
+    height: 4px;
     background: var(--color-border);
     border-radius: var(--radius-full);
     overflow: hidden;
@@ -620,55 +621,71 @@ Vielen Dank und freundliche Grüße,
   .wiz-progress__bar[data-pct="83"]::after { right: 17%; }
   .wiz-progress__bar[data-pct="100"]::after { right: 0%; }
 
-  .wiz-progress__steps {
-    display: flex;
-    gap: var(--space-3);
-    align-items: flex-start;
+  .wpb-checklist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px var(--space-2);
   }
+  @media (max-width: 480px) { .wpb-checklist { grid-template-columns: 1fr; } }
+
   .wiz-step-dot {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 3px;
+    gap: var(--space-2);
     background: none;
     border: none;
     cursor: default;
-    padding: 0;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
     pointer-events: none;
+    text-align: left;
+    width: 100%;
+    transition: background var(--duration-fast);
   }
   .wiz-step-dot[data-navigable] { cursor: pointer; pointer-events: auto; }
-  .wiz-step-dot[data-navigable]:hover .wiz-step-dot__num { opacity: 0.8; transform: scale(1.1); }
+  .wiz-step-dot[data-navigable]:hover { background: var(--color-bg-alt); }
   .wiz-step-dot__num {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
     border-radius: var(--radius-full);
     background: var(--color-border);
     color: var(--color-text-muted);
-    font-size: var(--text-xs);
+    font-size: 11px;
     font-weight: var(--weight-bold);
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     transition: all var(--duration-normal) var(--ease-default);
   }
   .wiz-step-dot__label {
-    font-size: 9px;
+    font-size: var(--text-sm);
     color: var(--color-text-muted);
     font-weight: var(--weight-medium);
+    flex: 1;
+    line-height: 1.2;
+  }
+  .wiz-step-dot__status {
+    font-size: 11px;
+    color: var(--color-text-muted);
     white-space: nowrap;
-    transition: color var(--duration-normal);
   }
   /* Active */
+  .wiz-step-dot.active { background: #EFF6FF; }
   .wiz-step-dot.active .wiz-step-dot__num { background: var(--color-accent); color: white; }
   .wiz-step-dot.active .wiz-step-dot__label { color: var(--color-accent); font-weight: var(--weight-bold); }
+  .wiz-step-dot.active .wiz-step-dot__status { color: var(--color-accent); font-weight: var(--weight-medium); }
   /* Done — uploaded */
   .wiz-step-dot.done .wiz-step-dot__num { background: var(--color-success); color: white; }
-  .wiz-step-dot.done .wiz-step-dot__num::before { content: '✓'; font-size: 12px; }
   .wiz-step-dot.done .wiz-step-dot__label { color: var(--color-success); }
+  .wiz-step-dot.done .wiz-step-dot__status { color: var(--color-success); }
   /* Missing — skipped without upload */
   .wiz-step-dot.missing .wiz-step-dot__num { background: #F59E0B; color: white; }
-  .wiz-step-dot.missing .wiz-step-dot__num::before { content: '⚠'; font-size: 10px; }
   .wiz-step-dot.missing .wiz-step-dot__label { color: #F59E0B; }
+  .wiz-step-dot.missing .wiz-step-dot__status { color: #F59E0B; }
 
   /* ── INTRO ── */
   .wiz-intro { text-align: center; padding: var(--space-12) 0 var(--space-8); }
@@ -1160,7 +1177,20 @@ Vielen Dank und freundliche Grüße,
   function goToStep(n) {
     document.querySelectorAll('.wiz-step').forEach(el => el.classList.add('hidden'));
     const el = document.getElementById('step-' + n);
-    if (el) { el.classList.remove('hidden'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    if (el) {
+      el.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const block = document.getElementById('wiz-progress-block');
+      if (block) {
+        if (n >= 1 && n <= 6) {
+          const card = el.querySelector('.wiz-card');
+          if (card && card.firstChild !== block) card.insertBefore(block, card.firstChild);
+          block.classList.remove('hidden');
+        } else {
+          block.classList.add('hidden');
+        }
+      }
+    }
     state.currentStep = n;
     updateProgress(n);
     if (n > 0) document.getElementById('voice-fab')?.classList.remove('hidden');
@@ -1168,24 +1198,35 @@ Vielen Dank und freundliche Grüße,
 
   function updateProgress(step) {
     const bar = document.getElementById('wiz-progress-bar');
-    const pct = step === 0 ? 0 : Math.round((step / 6) * 100);
+    const pct = step === 0 ? 0 : Math.min(Math.round((step / 6) * 100), 100);
     if (bar) bar.setAttribute('data-pct', String(pct));
+    const label = document.getElementById('wiz-progress-label');
+    if (label && step >= 1 && step <= 6) label.textContent = `Schritt ${step} von 6`;
     document.querySelectorAll('.wiz-step-dot').forEach(dot => {
       const s = parseInt(dot.getAttribute('data-step') || '0');
       const numEl = dot.querySelector('.wiz-step-dot__num') as HTMLElement;
+      const statusEl = dot.querySelector('.wiz-step-dot__status') as HTMLElement;
       dot.classList.remove('active', 'done', 'missing');
       dot.removeAttribute('data-navigable');
       if (s < step) {
         const st = state.steps[s as keyof typeof state.steps]?.status;
-        if (st === 'missing') { dot.classList.add('missing'); }
-        else { dot.classList.add('done'); }
-        if (numEl) numEl.textContent = '';
+        if (st === 'missing') {
+          dot.classList.add('missing');
+          if (numEl) numEl.textContent = '⚠';
+          if (statusEl) statusEl.textContent = 'Fehlt noch';
+        } else {
+          dot.classList.add('done');
+          if (numEl) numEl.textContent = '✓';
+          if (statusEl) statusEl.textContent = 'Hochgeladen';
+        }
         dot.setAttribute('data-navigable', '1');
       } else if (s === step) {
         dot.classList.add('active');
         if (numEl) numEl.textContent = String(s);
+        if (statusEl) statusEl.textContent = '← Aktuell';
       } else {
         if (numEl) numEl.textContent = String(s);
+        if (statusEl) statusEl.textContent = '';
       }
     });
   }
@@ -1509,13 +1550,8 @@ Vielen Dank und freundliche Grüße,
   // ── STEP 7 SUMMARY HOOK ──
   const origStep7 = () => {
     buildSummary();
-    document.getElementById('wiz-progress-bar')?.setAttribute('data-pct', '100');
-    document.getElementById('wiz-progress-label')!.textContent = 'Alle Schritte abgeschlossen';
-    document.querySelectorAll('.wiz-step-dot').forEach(d => {
-      d.classList.remove('active');
-      d.classList.add('done');
-      d.textContent = '';
-    });
+    const label = document.getElementById('wiz-progress-label');
+    if (label) label.textContent = 'Alle Schritte abgeschlossen';
   };
 
   // Patch goToStep for step 7
@@ -1537,12 +1573,7 @@ Vielen Dank und freundliche Grüße,
   // Handle goToStep calls from upload/skip buttons (they call goToStep directly)
   // Monkey-patch the local function reference via a shared object
   (window as any).__wkdiGoToStep = function(n: number) {
-    document.querySelectorAll('.wiz-step').forEach(el => el.classList.add('hidden'));
-    const el = document.getElementById('step-' + n);
-    if (el) { el.classList.remove('hidden'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-    state.currentStep = n;
-    updateProgress(n);
-    if (n > 0) document.getElementById('voice-fab')?.classList.remove('hidden');
+    goToStep(n);
     if (n === 7) origStep7();
   };
 })();
