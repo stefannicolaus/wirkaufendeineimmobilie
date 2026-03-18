@@ -201,13 +201,32 @@ export const prerender = false;
       </div>
 
       <div class="wiz-missing-section">
-        <details class="wiz-missing-details">
-          <summary>Ich habe diese Protokolle nicht</summary>
-          <div class="wiz-missing-content">
-            <p>Kein Problem. Schreiben Sie Ihrer Hausverwaltung einfach eine kurze E-Mail — den Text haben wir schon für Sie vorbereitet.</p>
-            <textarea class="wiz-notiz" id="notiz-2" placeholder="Optional: Kurze Notiz" rows="2"></textarea>
+        <div class="wiz-missing-label wiz-missing-label--blue">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Ich habe diese Protokolle nicht
+        </div>
+        <div class="wiz-missing-content">
+          <p><strong>Kein Problem.</strong> Schreiben Sie Ihrer Hausverwaltung einfach eine kurze E-Mail — kopieren Sie einfach diesen Text:</p>
+          <div class="wiz-email-preview">
+            <div class="wiz-email-subject">Betreff: Anfrage WEG-Protokolle zur Wohnung [Ihre Adresse]</div>
+            <div class="wiz-email-body">Sehr geehrte Damen und Herren,
+
+ich bin Eigentümer der Wohnung [Ihre Adresse].
+Für eine bevorstehende Immobilienbewertung benötige ich kurzfristig folgende Unterlagen:
+
+• WEG-Protokolle der letzten 2–3 Eigentümerversammlungen
+
+Bitte senden Sie mir diese Unterlagen möglichst zeitnah per E-Mail zu.
+
+Vielen Dank und freundliche Grüße,
+[Ihr Name]</div>
+            <button class="btn-copy wiz-copy-email" data-doc="WEG-Protokolle der letzten 2–3 Jahre" id="copy-2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              E-Mail-Text kopieren
+            </button>
           </div>
-        </details>
+          <textarea class="wiz-notiz" id="notiz-2" placeholder="Optional: Kurze Notiz (z.B. 'frage diese Woche nach')" rows="2"></textarea>
+        </div>
       </div>
 
       <div class="wiz-actions">
@@ -879,6 +898,50 @@ Vielen Dank und freundliche Grüße,
     border-radius: var(--radius-sm);
     margin-bottom: var(--space-3);
   }
+  .wiz-missing-label--blue {
+    color: var(--color-accent);
+    background: #EFF6FF;
+    border-color: #BFDBFE;
+  }
+  .wiz-email-preview {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .wiz-email-subject {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-muted);
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
+  }
+  .wiz-email-body {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text);
+    padding: var(--space-3);
+    white-space: pre-wrap;
+    font-family: var(--font-family);
+  }
+  .wiz-copy-email {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    background: #EFF6FF;
+    border: none;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-accent);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    cursor: pointer;
+    font-family: var(--font-family);
+    transition: background var(--duration-fast);
+  }
+  .wiz-copy-email:hover { background: #DBEAFE; }
   .wiz-missing-details summary {
     font-size: var(--text-sm);
     color: var(--color-text-muted);
