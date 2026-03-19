@@ -2,20 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout
-  title="Objekteinreichung für Immobilienmakler — Problemimmobilien ohne Aufwand vermitteln | wirkaufendeineimmobilie.de"
-  description="Haben Sie 1-2-Zimmer-Wohnungen im Bestand, die mehr kosten als sie einbringen? Wir übernehmen Messie-Objekte, Erbengemeinschaften und Insolvenzen — Sie erhalten Ihre Provision ohne den üblichen Aufwand."
+  title="Makler-Kooperation — Problemobjekte zu Geld machen | wirkaufendeineimmobilie.de"
+  description="Problemobjekte fressen Zeit und Nerven? Wir haben die Käufer. Vertraglich abgesicherter Provisionsanspruch, null Mehraufwand für Sie."
 >
 
   <!-- HERO -->
   <section class="section makler-hero">
     <div class="container makler-hero__inner">
-      <div class="label">Für Immobilienmakler — Objekteinreichung</div>
-      <h1>Ihr Clean Desk.<br /><span class="text-accent">Unsere Spezialität.</span></h1>
+      <div class="label">Für Immobilienmakler — Kooperation</div>
+      <h1>Ihre Problemobjekte.<br /><span class="text-accent">Unser Spezialgebiet.</span></h1>
       <p class="makler-hero__sub">
-        Die kleinen, renovierungsbedürftigen Problemimmobilien in Ihrem Portfolio — Messie-Wohnungen, Erbengemeinschaften, Insolvenzen — sind nicht Ihre lukrativsten Objekte. Wir nehmen sie Ihnen ab. Sie erhalten Ihre Provision mit einem Bruchteil des Aufwands.
+        Problemobjekte fressen Zeit und Nerven. Messie, Erbschaft, Sanierungsstau — Stundenlohn geht gegen Null. Wir haben die Käufer die genau das suchen. Machen Sie Ihre Problemobjekte zu Geld. Vertraglich abgesicherter Provisionsanspruch, null Mehraufwand.
       </p>
       <div class="makler-hero__buttons">
-        <a href="#makler-form" class="btn btn-primary">Objekt jetzt einreichen &rarr;</a>
+        <a href="#makler-form" class="btn btn-primary">Jetzt bewerben &rarr;</a>
         <a href="#painpoints" class="btn btn-outline">Warum das funktioniert &darr;</a>
       </div>
     </div>
@@ -33,8 +33,8 @@ import Layout from '../layouts/Layout.astro';
         <div class="makler-stat__label">Marketingkosten für Sie</div>
       </div>
       <div class="makler-stat">
-        <div class="makler-stat__value">100%</div>
-        <div class="makler-stat__label">Ihre Provision bleibt</div>
+        <div class="makler-stat__value">Vertraglich</div>
+        <div class="makler-stat__label">Provision abgesichert</div>
       </div>
       <div class="makler-stat">
         <div class="makler-stat__value">Kauf wie gesehen</div>
@@ -179,20 +179,20 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
-  <!-- FORMULAR -->
+  <!-- FORMULAR — Bewerbung -->
   <section class="makler-form-section bg-alt" id="makler-form">
     <div class="container makler-form-split">
       <div class="makler-form-split__text">
-        <h2>Objekt einreichen —<br />in 2 Minuten.</h2>
-        <p class="text-mid">Kein Exposé nötig. Kein Fotograf. Nur die Eckdaten — wir melden uns innerhalb von 48 Stunden mit einem verbindlichen Angebot.</p>
+        <h2>Kooperationspartner<br />werden.</h2>
+        <p class="text-mid">Wir sichern Ihren Provisionsanspruch vertraglich ab. Nach Ihrer Anmeldung erhalten Sie unsere Kooperationsvereinbarung — transparent, fair, rechtsverbindlich.</p>
         <ul class="makler-form-split__checks">
           <li>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Verbindliches Angebot in 48h
+            Vertraglich abgesicherter Provisionsanspruch
           </li>
           <li>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Ihre Provision bleibt vollständig
+            Persönliche Rückmeldung in 48h
           </li>
           <li>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -203,47 +203,27 @@ import Layout from '../layouts/Layout.astro';
 
       <div class="makler-form-card">
         <form class="makler-form" id="makler-reg-form">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="makler-name">Ihr Name *</label>
-              <input type="text" id="makler-name" name="name" required placeholder="Vorname Nachname" />
-            </div>
-            <div class="form-group">
-              <label for="makler-firma">Maklerbüro</label>
-              <input type="text" id="makler-firma" name="firma" placeholder="Büro / Kanzlei" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="makler-email">E-Mail *</label>
-              <input type="email" id="makler-email" name="email" required placeholder="name@maklerbuero.de" />
-            </div>
-            <div class="form-group">
-              <label for="makler-tel">Telefon *</label>
-              <input type="tel" id="makler-tel" name="telefon" required placeholder="0341 123 456" />
-            </div>
+          <div class="form-group">
+            <label for="makler-name">Ihr Name *</label>
+            <input type="text" id="makler-name" name="name" required placeholder="Vorname Nachname" />
           </div>
           <div class="form-group">
-            <label for="makler-plz">PLZ des Objekts *</label>
-            <input type="text" id="makler-plz" name="plz" required placeholder="z.B. 04177 (Leipzig-Lindenau)" />
+            <label for="makler-firma">Maklerbüro</label>
+            <input type="text" id="makler-firma" name="maklerbuero" placeholder="Ihr Unternehmen" />
           </div>
           <div class="form-group">
-            <label for="makler-typ">Objekt-Typ *</label>
-            <select id="makler-typ" name="typ" required>
-              <option value="">Bitte wählen...</option>
-              <option value="messie">Messie-Wohnung</option>
-              <option value="erbengemeinschaft">Erbengemeinschaft</option>
-              <option value="insolvenz">Insolvenzverfahren</option>
-              <option value="renovierung">Renovierungsstau / GEG E–H</option>
-              <option value="vermietet">Vermietet &amp; schwierig</option>
-              <option value="sonstiges">Sonstiges Problemobjekt</option>
-            </select>
+            <label for="makler-email">E-Mail *</label>
+            <input type="email" id="makler-email" name="email" required placeholder="name@maklerbuero.de" />
           </div>
           <div class="form-group">
-            <label for="makler-notiz">Kurze Beschreibung (optional)</label>
-            <textarea id="makler-notiz" name="notiz" rows="3" placeholder="Was macht dieses Objekt schwierig? Je mehr wir wissen, desto schneller können wir ein Angebot machen."></textarea>
+            <label for="makler-tel">Telefon *</label>
+            <input type="tel" id="makler-tel" name="telefon" required placeholder="030 123 456" />
           </div>
-          <button type="submit" class="btn btn-primary makler-form__submit">Objekt einreichen &rarr;</button>
+          <!-- Honeypot -->
+          <div style="position: absolute; left: -9999px;" aria-hidden="true">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+          <button type="submit" class="btn btn-primary makler-form__submit">Bewerbung einreichen &rarr;</button>
         </form>
       </div>
     </div>
