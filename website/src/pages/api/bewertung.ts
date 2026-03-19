@@ -1,11 +1,11 @@
 import type { APIRoute } from 'astro';
-import { writeFile, mkdir } from 'node:fs/promises';
-import { join } from 'node:path';
+import { insertRegistration } from '../../lib/db';
 
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.formData();
+
   // Honeypot spam check
   if (data.get('website')) {
     return new Response(JSON.stringify({ success: true }), {
@@ -14,22 +14,14 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const submission = {
+  insertRegistration({
     typ: 'bewertung',
-    plz: data.get('plz'),
-    immobilientyp: data.get('typ'),
-    name: data.get('name'),
+    name: data.get('name') || '',
     email: data.get('email'),
     telefon: data.get('telefon'),
-    timestamp: new Date().toISOString(),
-  };
-
-  const dir = join(process.cwd(), 'data', 'submissions');
-  await mkdir(dir, { recursive: true });
-  await writeFile(
-    join(dir, `bewertung-${Date.now()}.json`),
-    JSON.stringify(submission, null, 2)
-  );
+    plz: data.get('plz'),
+    immobilientyp: data.get('typ'),
+  });
 
   return new Response(JSON.stringify({ success: true }), {
     status: 200,

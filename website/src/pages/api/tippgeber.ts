@@ -15,11 +15,12 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   insertRegistration({
-    typ: 'makler',
+    typ: 'tippgeber',
     name: data.get('name'),
     email: data.get('email'),
     telefon: data.get('telefon'),
-    maklerbuero: data.get('maklerbuero'),
+    tippgeber_typ: data.get('tippgeber_typ'),
+    tippgeber_plz: data.get('plz'),
   });
 
   return new Response(JSON.stringify({ success: true }), {

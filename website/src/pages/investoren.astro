@@ -2,18 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout
-  title="Fix &amp; Flip Leipzig — Off-Market GEG-Sanierungsobjekte | wirkaufendeineimmobilie.de"
-  description="Exklusiver Zugang zu kuratierten Fix-&amp;-Flip-Objekten in Leipzig: GEG-Sanierungspotenzial, Milieuschutzgebiete, Off-Market. Vorgeprüft, mit Renditekalkulation."
+  title="Fix &amp; Flip Leipzig — Off-Market Sanierungsobjekte | wirkaufendeineimmobilie.de"
+  description="Exklusiver Zugang zu kuratierten Fix-&amp;-Flip-Objekten in Leipzig. Off-Market, vorgeprüft, mit Renditekalkulation. GEG-Sanierungspotenzial inklusive."
 >
 
   <!-- HERO -->
   <section class="section inv-hero">
     <div class="container inv-hero__inner">
-      <div class="label">Exklusiver Fix-&amp;-Flip-Zugang Leipzig</div>
-      <h1>Dein nächstes GEG-Upgrade.<br /><span class="text-accent">Bevor es auf ImmoScout landet.</span></h1>
+      <div class="label">Exklusiver Investoren-Zugang</div>
+      <h1>Dein nächstes Flip-Objekt.<br /><span class="text-accent">Bevor es jemand anderes sieht.</span></h1>
       <p class="inv-hero__sub">
-        Off-Market Fix-&amp;-Flip-Objekte in Leipzig. Energieklasse E–H mit iSFP-Potenzial.
-        Kuratiert, vorgeprüft, mit detaillierter Sanierungs-Kalkulation. Nur für verifizierte Investoren.
+        Off-Market Sanierungsobjekte in Leipzig. Kuratiert, vorgeprüft, mit Renditepotenzial.
+        Exklusiver Zugang für verifizierte Investoren.
       </p>
       <div class="inv-hero__buttons">
         <a href="#investor-form" class="btn btn-primary">Investoren-Zugang anfragen &rarr;</a>
@@ -31,14 +31,14 @@ import Layout from '../layouts/Layout.astro';
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </div>
           <h3>Off-Market Zugang</h3>
-          <p>Objekte, bevor sie auf ImmoScout landen. Direktzugang zu Messie-, Erbschafts- und Insolvenz-Objekten — die attraktivsten Einstiegspreise entstehen hier.</p>
+          <p>Objekte bevor sie auf ImmoScout landen. Direkter Zugang zu Verkäufern über unser Netzwerk.</p>
         </div>
         <div class="benefit-card">
           <div class="benefit-card__icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           </div>
           <h3>Kuratierte Objekte</h3>
-          <p>Vorgeprüft, mit GEG-Sanierungs&shy;potenzial, kalkulierbar. Energieklasse und iSFP-Status immer dabei. Wir filtern — du entscheidest.</p>
+          <p>Vorgeprüft, mit Renditepotenzial, kalkulierbar. Inkl. GEG-Status und Sanierungskalkulation. Wir filtern — du entscheidest.</p>
         </div>
         <div class="benefit-card">
           <div class="benefit-card__icon">
@@ -72,11 +72,11 @@ import Layout from '../layouts/Layout.astro';
         <ul class="inv-form-split__checks">
           <li>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Regelmäßig neue Off-Market Objekte mit GEG-Potenzial
+            Täglich neue Off-Market Deals
           </li>
           <li>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Detaillierte iSFP-Sanierungs-Kalkulationen
+            Detaillierte Sanierungs-Kalkulationen
           </li>
           <li>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -100,6 +100,15 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <div class="form-row">
             <div class="form-group">
+              <label for="inv-typ">Ich bin... *</label>
+              <select id="inv-typ" name="investor_typ" required>
+                <option value="">Bitte wählen...</option>
+                <option value="selbst">Handwerker / saniere selbst</option>
+                <option value="teils">Mache teils selbst, teils Fremdvergabe</option>
+                <option value="fremdvergabe">Investor / lasse komplett sanieren</option>
+              </select>
+            </div>
+            <div class="form-group">
               <label for="inv-erfahrung">Erfahrungslevel *</label>
               <select id="inv-erfahrung" name="erfahrung" required>
                 <option value="">Bitte wählen...</option>
@@ -108,17 +117,17 @@ import Layout from '../layouts/Layout.astro';
                 <option value="3+">3+ Deals</option>
               </select>
             </div>
-            <div class="form-group">
-              <label for="inv-gewerk">Gewerk (optional)</label>
-              <select id="inv-gewerk" name="gewerk">
-                <option value="">Keins / nicht relevant</option>
-                <option value="maler">Maler</option>
-                <option value="elektriker">Elektriker</option>
-                <option value="shk">SHK (Sanitär/Heizung)</option>
-                <option value="trockenbau">Trockenbau</option>
-                <option value="fliesenleger">Fliesenleger</option>
-              </select>
-            </div>
+          </div>
+          <div class="form-group">
+            <label for="inv-gewerk">Gewerk (optional)</label>
+            <select id="inv-gewerk" name="gewerk">
+              <option value="">Keins / nicht relevant</option>
+              <option value="maler">Maler</option>
+              <option value="elektriker">Elektriker</option>
+              <option value="shk">SHK (Sanitär/Heizung)</option>
+              <option value="trockenbau">Trockenbau</option>
+              <option value="fliesenleger">Fliesenleger</option>
+            </select>
           </div>
           <button type="submit" class="btn btn-primary inv-form__submit">Zugang anfragen &rarr;</button>
         </form>
