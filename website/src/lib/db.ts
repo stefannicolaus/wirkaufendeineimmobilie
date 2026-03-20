@@ -53,7 +53,7 @@ export function insertRegistration(data: Record<string, unknown>) {
 
 const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || '';
 const BREVO_API_KEY = process.env.BREVO_API_KEY || '';
-const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || 'joachim.kleinke@icloud.com';
+const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || 'office@wirkaufendeineimmobilie.de';
 
 function notifyN8N(data: Record<string, unknown>) {
   // N8N webhook (if configured)
@@ -97,7 +97,7 @@ function sendBrevoEmail(opts: { to: string; subject: string; text: string }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      sender: { name: 'wirkaufendeineimmobilie.de', email: 'noreply@build-upstream.com' },
+      sender: { name: 'Joachim Kleinke — wirkaufendeineimmobilie.de', email: 'office@wirkaufendeineimmobilie.de' },
       to: [{ email: opts.to }],
       subject: opts.subject,
       textContent: opts.text,
