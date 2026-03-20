@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   adapter: node({ mode: 'standalone' }),
-  site: 'https://wirkaufendeineimmobilie.build-upstream.com',
+  site: 'https://wirkaufendeineimmobilie.de',
   security: { checkOrigin: false },
   integrations: [
     sitemap({
