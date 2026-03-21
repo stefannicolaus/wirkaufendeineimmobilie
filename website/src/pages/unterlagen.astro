@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import FormPrivacyHint from '../components/FormPrivacyHint.astro';
 export const prerender = false;
 ---
 <Layout
@@ -84,6 +85,7 @@ export const prerender = false;
         <button type="submit" class="btn btn-primary wiz-btn-next">
           Unterlagen hochladen starten &rarr;
         </button>
+        <FormPrivacyHint />
       </form>
     </div>
   </div>
