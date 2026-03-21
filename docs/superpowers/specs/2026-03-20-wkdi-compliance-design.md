@@ -52,11 +52,14 @@ Die Plattform sammelt personenbezogene Daten ueber 7 Formulare (Bewertungsanfrag
 **Datei:** `src/pages/impressum.astro`
 
 Aenderungen:
-- Erlaubnisbehoerde eintragen: "Bezirksamt Spandau von Berlin, Abt Personal und Wirtschaft — Wirtschaftsamt"
-- Geschaeftszeichen eintragen: "Wi 13"
+- Erlaubnisbehoerde eintragen mit vollstaendiger Adresse (§5 Abs. 1 Nr. 3 DDG Pflicht):
+  "Bezirksamt Spandau von Berlin, Abt. Personal und Wirtschaft — Wirtschaftsamt, Carl-Schurz-Str. 8, 13597 Berlin"
+- Geschaeftszeichen WEGLASSEN — internes Aktenzeichen, keine Pflichtangabe nach DDG
+- Registriernummer WEGLASSEN — existiert nicht fuer §34c, nur bei HR/VR/PR-Eintrag Pflicht
 - Berufshaftpflichtversicherung-Sektion komplett entfernen (nicht vorhanden, keine Pflicht fuer §34c-Makler)
 - DL-InfoV Sektion entfernen (Berufshaftpflicht war der einzige Inhalt)
 - Zustaendige IHK bleibt (Leipzig ist korrekt fuer den Geschaeftsort)
+- Quellen: §5 DDG, IHK Rhein-Neckar Merkblatt, e-recht24 Impressum-Makler
 
 ### 1.2 Datenschutzerklaerung neuschreiben
 
