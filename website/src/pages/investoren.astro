@@ -180,53 +180,35 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     justify-content: center;
   }
 
-  /* BENEFITS — Dark Grid with Hover Glow (ANF Framework) */
+  /* BENEFITS — Light cards */
   .inv-benefits {
-    background: var(--color-primary);
+    background: var(--color-bg-card);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
     padding-block: var(--section-gap);
   }
 
   .inv-benefits__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(255,255,255,0.07);
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.08);
+    gap: var(--space-5);
   }
 
   .benefit-card {
-    background: rgba(15, 23, 42, 0.95);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     padding: var(--space-8);
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-    position: relative;
-    overflow: hidden;
-    transition: background 0.3s ease;
-    cursor: default;
-  }
-
-  .benefit-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(59, 130, 246, 0.1),
-      transparent 40%
-    );
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  .benefit-card:hover::before {
-    opacity: 1;
+    transition: box-shadow var(--duration-normal) var(--ease-default),
+                transform var(--duration-normal) var(--ease-default);
   }
 
   .benefit-card:hover {
-    background: rgba(30, 41, 59, 0.98);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
   }
 
   .benefit-card__icon {
@@ -235,35 +217,30 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.10);
-    color: #94A3B8;
+    background: var(--color-accent-light);
+    border: 1px solid var(--color-border);
+    color: var(--color-accent);
     border-radius: var(--radius-md);
-    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    transition: background var(--duration-normal) var(--ease-default),
+                color var(--duration-normal) var(--ease-default);
   }
 
   .benefit-card:hover .benefit-card__icon {
-    background: rgba(59, 130, 246, 0.15);
-    border-color: rgba(59, 130, 246, 0.3);
-    color: #60A5FA;
+    background: var(--color-accent);
+    color: white;
+    border-color: transparent;
   }
 
   .benefit-card h3 {
-    color: #E2E8F0;
-    transition: color 0.3s ease;
-  }
-
-  .benefit-card:hover h3 {
-    color: #F8FAFC;
+    color: var(--color-text);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
   }
 
   .benefit-card p {
-    color: #64748B;
-    transition: color 0.3s ease;
-  }
-
-  .benefit-card:hover p {
-    color: #94A3B8;
+    color: var(--color-text-mid);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
   }
 
   @media (max-width: 768px) {
