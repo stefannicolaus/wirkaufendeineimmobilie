@@ -55,6 +55,24 @@ const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || '';
 const BREVO_API_KEY = process.env.BREVO_API_KEY || '';
 const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || 'office@wirkaufendeineimmobilie.de';
 
+// Brevo Double Opt-In (DOI) template ID — erstellt in Brevo unter
+// "Transactional > Templates". Das Template enthält den Bestätigungslink
+// {{ doubleoptin }} den Brevo automatisch einfügt.
+const BREVO_DOI_TEMPLATE_ID = Number(process.env.BREVO_DOI_TEMPLATE_ID) || 0;
+
+// Brevo-Listen-IDs pro Registrierungstyp — angelegt in Brevo unter
+// "Contacts > Lists". Jeder Typ bekommt eine eigene Liste für
+// saubere Segmentierung.
+const BREVO_LIST_IDS: Record<string, number> = {
+  investor: Number(process.env.BREVO_LIST_ID_INVESTOR) || 0,
+  makler: Number(process.env.BREVO_LIST_ID_MAKLER) || 0,
+  tippgeber: Number(process.env.BREVO_LIST_ID_TIPPGEBER) || 0,
+};
+
+// URL auf die Brevo nach Klick auf den Bestätigungslink weiterleitet
+const BREVO_DOI_REDIRECT_URL = process.env.BREVO_DOI_REDIRECT_URL
+  || 'https://wirkaufendeineimmobilie.de/danke?typ=doi-bestaetigt';
+
 function notifyN8N(data: Record<string, unknown>) {
   // N8N webhook (if configured)
   if (N8N_WEBHOOK_URL) {
@@ -78,15 +96,65 @@ function notifyN8N(data: Record<string, unknown>) {
       text: `Neue ${typ}-Registrierung auf wirkaufendeineimmobilie.de\n\nName: ${name}\nE-Mail: ${email}\nTelefon: ${data.telefon || 'nicht angegeben'}\nTyp: ${typ}\n${data.investor_typ ? 'Investor-Typ: ' + data.investor_typ + '\n' : ''}${data.erfahrung ? 'Erfahrung: ' + data.erfahrung + '\n' : ''}${data.maklerbuero ? 'Maklerbüro: ' + data.maklerbuero + '\n' : ''}${data.tippgeber_typ ? 'Tippgeber-Typ: ' + data.tippgeber_typ + '\n' : ''}${data.tippgeber_plz ? 'PLZ: ' + data.tippgeber_plz + '\n' : ''}${data.plz ? 'PLZ: ' + data.plz + '\n' : ''}\nZeitpunkt: ${new Date().toISOString()}\n\n— wirkaufendeineimmobilie.de`,
     });
 
-    // Confirm to registrant (only for investor, makler, tippgeber — not bewertung/lead-magnet)
+    // Double Opt-In für investor, makler, tippgeber — Brevo sendet eine
+    // Bestätigungsmail mit Klick-Link. Der Kontakt wird erst nach
+    // Bestätigung als aktiv markiert (DSGVO-konform).
+    // Für bewertung und lead-magnet wird KEIN DOI gesendet — das sind
+    // einmalige vorvertragliche Maßnahmen bzw. Einmal-Downloads.
     if (email && ['investor', 'makler', 'tippgeber'].includes(typ)) {
-      sendBrevoEmail({
-        to: email,
-        subject: 'Deine Registrierung bei wirkaufendeineimmobilie.de',
-        text: `Hallo ${name},\n\nvielen Dank für deine Registrierung bei wirkaufendeineimmobilie.de!\n\nWir haben deine Daten erhalten und melden uns innerhalb von 48 Stunden bei dir.\n\nBei Fragen erreichst du uns unter:\nTel: 0341 — 800 900 0\n\nViele Grüße\nJoachim Kleinke\nwirkaufendeineimmobilie.de\n\n---\nDu möchtest keine E-Mails mehr erhalten? Schreib uns an datenschutz@wirkaufendeineimmobilie.de`,
-      });
+      const listId = BREVO_LIST_IDS[typ];
+      if (BREVO_DOI_TEMPLATE_ID && listId) {
+        triggerBrevoDoubleOptIn({
+          email,
+          name,
+          typ,
+          listId,
+          templateId: BREVO_DOI_TEMPLATE_ID,
+          redirectUrl: BREVO_DOI_REDIRECT_URL,
+        });
+      } else {
+        // Fallback: Direkte Bestätigungsmail wenn DOI noch nicht konfiguriert
+        sendBrevoEmail({
+          to: email,
+          subject: 'Deine Registrierung bei wirkaufendeineimmobilie.de',
+          text: `Hallo ${name},\n\nvielen Dank für deine Registrierung bei wirkaufendeineimmobilie.de!\n\nWir haben deine Daten erhalten und melden uns innerhalb von 48 Stunden bei dir.\n\nBei Fragen erreichst du uns unter:\nTel: 0341 — 800 900 0\n\nViele Grüße\nJoachim Kleinke\nwirkaufendeineimmobilie.de\n\n---\nDu möchtest keine E-Mails mehr erhalten? Schreib uns an datenschutz@wirkaufendeineimmobilie.de`,
+        });
+      }
     }
   }
+}
+
+// Brevo Double Opt-In — erstellt einen Kontakt mit Bestätigungsmail.
+// Der Kontakt wird erst aktiv nachdem der Empfänger auf den Link in
+// der Bestätigungsmail klickt.
+// API-Dokumentation: https://developers.brevo.com/reference/createdoicontact
+function triggerBrevoDoubleOptIn(opts: {
+  email: string;
+  name: string;
+  typ: string;
+  listId: number;
+  templateId: number;
+  redirectUrl: string;
+}) {
+  fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
+    method: 'POST',
+    headers: {
+      'api-key': BREVO_API_KEY,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: opts.email,
+      attributes: {
+        VORNAME: opts.name,
+        TYP: opts.typ,
+      },
+      includeListIds: [opts.listId],
+      templateId: opts.templateId,
+      redirectionUrl: opts.redirectUrl,
+    }),
+  }).catch(() => {
+    // Silent fail — DOI trigger is fire-and-forget
+  });
 }
 
 function sendBrevoEmail(opts: { to: string; subject: string; text: string }) {
