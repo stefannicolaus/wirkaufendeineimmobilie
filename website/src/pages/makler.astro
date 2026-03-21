@@ -45,7 +45,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   </section>
 
   <!-- PAIN POINTS -->
-  <section class="section" id="painpoints">
+  <section class="section painpoints-dark" id="painpoints">
     <div class="container">
       <div class="makler-section-header">
         <div class="label">Das kennen Sie</div>
@@ -116,7 +116,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   </section>
 
   <!-- WELCHE OBJEKTE -->
-  <section class="section">
+  <section class="section objects-dark">
     <div class="container">
       <div class="makler-section-header">
         <div class="label">Welche Objekte wir abnehmen</div>
@@ -177,6 +177,17 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- CTA GLOW -->
+  <section class="makler-cta-glow-section">
+    <div class="makler-cta-glow__glow" aria-hidden="true"></div>
+    <div class="container makler-cta-glow__inner">
+      <p class="makler-cta-glow__eyebrow">Vertraglich abgesicherter Provisionsanspruch</p>
+      <h2 class="makler-cta-glow__heading">Problemobjekte rein — Provision raus.</h2>
+      <p class="makler-cta-glow__sub">Einmal anmelden. Wir prüfen, koordinieren, schließen ab — Sie bekommen Ihre Provision.</p>
+      <a href="#makler-form" class="makler-cta-glow__btn">Jetzt Kooperationspartner werden &rarr;</a>
     </div>
   </section>
 
@@ -290,20 +301,57 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     margin-bottom: var(--space-12);
   }
 
-  /* PAIN GRID */
+  /* PAIN GRID — Dark Hover Grid */
+  .painpoints-dark {
+    background: var(--color-primary);
+  }
+  .painpoints-dark .makler-section-header {
+    color: white;
+  }
+  .painpoints-dark .makler-section-header h2 {
+    color: white;
+  }
+  .painpoints-dark .makler-section-header p {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .painpoints-dark .label {
+    color: var(--color-accent);
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.25);
+  }
   .pain-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
   }
   .pain-card {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    background: #0f172a;
     padding: var(--space-8);
-    background: var(--color-bg-card);
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+  .pain-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(59, 130, 246, 0.12),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .pain-card:hover::before {
+    opacity: 1;
   }
   .pain-card__number {
     font-size: var(--text-sm);
@@ -314,11 +362,11 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   .pain-card__title {
     font-size: var(--text-lg);
     font-weight: var(--weight-bold);
-    color: var(--color-text);
+    color: white;
   }
   .pain-card__desc {
     font-size: var(--text-sm);
-    color: var(--color-text-mid);
+    color: rgba(255, 255, 255, 0.6);
     line-height: var(--leading-relaxed);
   }
 
@@ -363,29 +411,66 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   .solution-list--good li { color: #14532d; }
   .solution-list--good li::before { content: '✓'; position: absolute; left: 0; color: #22c55e; font-weight: 700; }
 
-  /* OBJECTS GRID */
+  /* OBJECTS GRID — Dark Hover Grid */
+  .objects-dark {
+    background: var(--color-primary);
+  }
+  .objects-dark .makler-section-header h2 {
+    color: white;
+  }
+  .objects-dark .makler-section-header {
+    color: white;
+  }
+  .objects-dark .makler-section-header p {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .objects-dark .label {
+    color: var(--color-accent);
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.25);
+  }
   .objects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-5);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
   }
   .object-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    background: #0f172a;
     padding: var(--space-6);
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+  .object-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(59, 130, 246, 0.12),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .object-card:hover::before {
+    opacity: 1;
   }
   .object-card h3 {
     font-size: var(--text-base);
     font-weight: var(--weight-bold);
-    color: var(--color-text);
+    color: white;
   }
   .object-card p {
     font-size: var(--text-sm);
-    color: var(--color-text-mid);
+    color: rgba(255, 255, 255, 0.6);
     line-height: var(--leading-relaxed);
   }
 
@@ -476,6 +561,75 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   .trust-card__name { font-weight: var(--weight-bold); font-size: var(--text-base); color: var(--color-text); }
   .trust-card__role { font-size: var(--text-sm); color: var(--color-accent); font-weight: var(--weight-semibold); }
 
+  /* CTA GLOW */
+  .makler-cta-glow-section {
+    position: relative;
+    background: var(--color-primary);
+    padding-block: var(--space-20);
+    overflow: hidden;
+  }
+  .makler-cta-glow__glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .makler-cta-glow__inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  .makler-cta-glow__eyebrow {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0;
+  }
+  .makler-cta-glow__heading {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: var(--weight-extrabold);
+    color: white;
+    line-height: var(--leading-tight);
+    max-width: 640px;
+    margin: 0;
+  }
+  .makler-cta-glow__sub {
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 560px;
+    margin: 0;
+  }
+  .makler-cta-glow__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: white;
+    background: var(--color-accent);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: all var(--duration-fast) ease;
+    margin-top: var(--space-2);
+    box-shadow: 0 0 32px rgba(59, 130, 246, 0.5);
+  }
+  .makler-cta-glow__btn:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 0 48px rgba(59, 130, 246, 0.65);
+  }
+
   @media (max-width: 768px) {
     .makler-stats__grid { grid-template-columns: 1fr 1fr; }
     .pain-grid { grid-template-columns: 1fr; }
@@ -490,6 +644,17 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
 </style>
 
 <script>
+  // Mouse-tracking glow for dark grid cards
+  [...document.querySelectorAll('.pain-card'), ...document.querySelectorAll('.object-card')].forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = (card as HTMLElement).getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      (card as HTMLElement).style.setProperty('--mouse-x', `${x}%`);
+      (card as HTMLElement).style.setProperty('--mouse-y', `${y}%`);
+    });
+  });
+
   const form = document.getElementById('makler-reg-form') as HTMLFormElement;
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
