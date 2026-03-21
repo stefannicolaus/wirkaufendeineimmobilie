@@ -1,10 +1,10 @@
 # Risikoanalyse nach §5 GwG
 
-**Unternehmen:** brown2green (Arbeitstitel)
+**Unternehmen:** Kleinke Real Estate / wirkaufendeineimmobilie.de
 **Erlaubnisinhaber:** Joachim Kleinke, §34c GewO
 **GwG-Beauftragter:** Joachim Kleinke (freiwillig benannt, bei <10 Mitarbeitern keine gesetzliche Pflicht)
 **Erstellt am:** 15.03.2026
-**Version:** 1.0
+**Version:** 1.1
 **Betrachtungszeitraum:** 12 Monate
 **Naechste planmaessige Ueberpruefung:** 15.03.2027
 
@@ -12,7 +12,7 @@
 
 ## 1. Unternehmen und Geschaeftsmodell
 
-brown2green ist eine digitale Plattform zur Vermittlung von Immobilientransaktionen im geschlossenen Angebotsverfahren. Die Taetigkeit faellt unter §2 Abs. 1 Nr. 14 GwG (Immobilienmakler).
+wirkaufendeineimmobilie.de (Kleinke Real Estate) ist eine digitale Plattform zur Vermittlung von Immobilientransaktionen im geschlossenen Angebotsverfahren. Die Taetigkeit faellt unter §2 Abs. 1 Nr. 14 GwG (Immobilienmakler).
 
 **Geschaeftsgegenstand:**
 - Vermittlung von 1-2 Zimmer Eigentumswohnungen, sanierungsbeduerftig
@@ -194,6 +194,6 @@ Zugangsregistrierung muss vor Aufnahme des Geschaeftsbetriebs erfolgen.
 
 ---
 
-*Erstellt am 15.03.2026 — Version 1.0*
+*Erstellt am 15.03.2026 — Version 1.1 (20.03.2026: Firmenname aktualisiert)*
 *Naechste Ueberpruefung: 15.03.2027*
 *Verantwortlich: Joachim Kleinke*
