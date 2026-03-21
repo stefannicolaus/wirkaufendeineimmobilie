@@ -347,73 +347,47 @@ import Layout from '../layouts/Layout.astro';
     margin-top: var(--space-10);
   }
 
-  /* ANGEBOTSVERFAHREN — Dark Hover Grid */
+  /* ANGEBOTSVERFAHREN — Light cards */
   .sfh-av-section {
     padding-block: var(--section-gap);
-    background: var(--color-primary);
+    background: var(--color-bg-card);
+    border-top: 1px solid var(--color-border);
   }
 
   .sfh-av-section h2 {
     text-align: center;
     margin-bottom: var(--space-4);
-    color: white;
-  }
-
-  .sfh-av-section .label {
-    color: var(--color-accent);
-    background: rgba(59, 130, 246, 0.12);
-    border-color: rgba(59, 130, 246, 0.25);
   }
 
   .sfh-av__intro {
     text-align: center;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--color-text-mid);
     margin-bottom: var(--space-10);
     max-width: var(--container-narrow);
     margin-inline: auto;
   }
 
-  .sfh-av__intro strong {
-    color: rgba(255, 255, 255, 0.9);
-  }
-
   .sfh-av-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+    gap: var(--space-5);
   }
 
   .sfh-av-point {
     display: flex;
     gap: var(--space-4);
     align-items: flex-start;
-    background: #0f172a;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     padding: var(--space-6);
-    cursor: default;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.2s ease;
+    transition: box-shadow var(--duration-normal) var(--ease-default),
+                transform var(--duration-normal) var(--ease-default);
   }
 
-  .sfh-av-point::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(59, 130, 246, 0.12),
-      transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .sfh-av-point:hover::before {
-    opacity: 1;
+  .sfh-av-point:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
   }
 
   .sfh-av-point__icon {
@@ -423,21 +397,21 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(59, 130, 246, 0.12);
+    background: var(--color-accent-light);
     color: var(--color-accent);
     border-radius: var(--radius-sm);
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    border: 1px solid var(--color-border);
   }
 
   .sfh-av-point h3 {
     font-size: var(--text-lg);
     font-weight: var(--weight-semibold);
     line-height: var(--leading-snug);
-    color: white;
+    color: var(--color-text);
   }
 
   .sfh-av-point p {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--color-text-mid);
     font-size: var(--text-sm);
     margin-top: var(--space-1);
   }
@@ -585,14 +559,4 @@ import Layout from '../layouts/Layout.astro';
   );
   timelineItems.forEach((item) => observer.observe(item));
 
-  // Dark grid mouse-tracking glow
-  document.querySelectorAll('.sfh-av-point').forEach((card) => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = (card as HTMLElement).getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      (card as HTMLElement).style.setProperty('--mouse-x', `${x}%`);
-      (card as HTMLElement).style.setProperty('--mouse-y', `${y}%`);
-    });
-  });
 </script>

@@ -270,7 +270,9 @@ import Layout from '../layouts/Layout.astro';
 
   /* STATS */
   .makler-stats {
-    background: var(--color-primary);
+    background: var(--color-bg-card);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
     padding-block: var(--space-10);
   }
   .makler-stats__grid {
@@ -282,11 +284,11 @@ import Layout from '../layouts/Layout.astro';
   .makler-stat__value {
     font-size: var(--text-2xl);
     font-weight: var(--weight-bold);
-    color: #fff;
+    color: var(--color-accent);
   }
   .makler-stat__label {
     font-size: var(--text-sm);
-    color: rgba(255,255,255,0.55);
+    color: var(--color-text-mid);
     margin-top: var(--space-1);
   }
 
