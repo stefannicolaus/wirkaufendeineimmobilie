@@ -1,6 +1,6 @@
 ---
 ---
-<header class="nav">
+<header class="nav" id="floating-nav">
   <div class="nav__inner container">
     <a href="/" class="nav__logo" aria-label="wirkaufendeineimmobilie.de — Startseite">
       <span class="logo-text">wirkaufen<span class="logo-accent">deine</span>immobilie</span>
@@ -43,19 +43,45 @@
 
 <style>
   .nav {
-    position: sticky;
-    top: 0;
-    z-index: var(--z-nav);
-    background: var(--color-bg-card);
-    border-bottom: 1px solid var(--color-border);
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 1200px;
+    z-index: var(--z-nav, 100);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 16px;
+    box-shadow:
+      0 2px 8px rgba(15, 23, 42, 0.06),
+      0 8px 32px rgba(15, 23, 42, 0.08);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.35s ease;
+  }
+
+  .nav.nav--hidden {
+    transform: translateX(-50%) translateY(calc(-100% - 24px));
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .nav.nav--scrolled {
+    box-shadow:
+      0 4px 16px rgba(15, 23, 42, 0.10),
+      0 16px 48px rgba(15, 23, 42, 0.12);
   }
 
   .nav__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
+    height: 60px;
     gap: var(--space-6);
+    padding-inline: var(--space-5);
   }
 
   .nav__logo {
@@ -64,10 +90,10 @@
   }
 
   .logo-text {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     color: var(--color-primary);
-    letter-spacing: var(--tracking-tight);
+    letter-spacing: var(--tracking-tight, -0.02em);
   }
 
   .logo-accent {
@@ -76,7 +102,7 @@
 
   .nav__links {
     display: flex;
-    gap: var(--space-6);
+    gap: var(--space-5);
   }
 
   .nav__links a {
@@ -84,7 +110,7 @@
     font-weight: var(--weight-medium);
     color: var(--color-text-mid);
     text-decoration: none;
-    transition: color var(--duration-fast) var(--ease-default);
+    transition: color var(--duration-fast, 150ms) ease;
     white-space: nowrap;
     min-height: 44px;
     display: inline-flex;
@@ -111,11 +137,11 @@
     font-weight: var(--weight-semibold);
     color: var(--color-accent);
     background: var(--color-accent-light);
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-full, 9999px);
     text-decoration: none;
     white-space: nowrap;
-    transition: background var(--duration-fast) var(--ease-default);
-    min-height: 44px;
+    transition: background var(--duration-fast, 150ms) ease;
+    min-height: 36px;
   }
 
   .nav__phone:hover {
@@ -132,19 +158,19 @@
     font-weight: var(--weight-bold);
     color: var(--color-text-on-accent);
     background: var(--color-accent);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-sm, 6px);
     text-decoration: none;
     white-space: nowrap;
-    transition: all var(--duration-fast) var(--ease-default);
-    min-height: 44px;
-    box-shadow: var(--shadow-sm);
+    transition: all var(--duration-fast, 150ms) ease;
+    min-height: 36px;
+    box-shadow: 0 1px 4px rgba(59, 130, 246, 0.3);
   }
 
   .nav__cta:hover {
     background: var(--color-accent-hover);
     color: var(--color-text-on-accent);
     transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
   }
 
   .nav__burger {
@@ -166,8 +192,7 @@
     height: 2px;
     background: var(--color-text);
     border-radius: 2px;
-    transition: transform var(--duration-normal) var(--ease-default),
-                opacity var(--duration-normal) var(--ease-default);
+    transition: transform 0.25s ease, opacity 0.25s ease;
   }
 
   .nav__burger[aria-expanded="true"] span:nth-child(1) {
@@ -184,9 +209,8 @@
     display: none;
     flex-direction: column;
     gap: var(--space-4);
-    padding: var(--space-6) var(--container-padding);
+    padding: var(--space-6) var(--space-5);
     border-top: 1px solid var(--color-border);
-    background: var(--color-bg-card);
   }
 
   .nav__mobile[aria-hidden="false"] {
@@ -214,9 +238,8 @@
     text-align: center;
   }
 
-  @media (max-width: 768px) {
-    .nav__links,
-    .nav__actions {
+  @media (max-width: 900px) {
+    .nav__links {
       display: none;
     }
 
@@ -224,9 +247,53 @@
       display: flex;
     }
   }
+
+  @media (max-width: 768px) {
+    .nav {
+      width: calc(100% - 24px);
+      top: 8px;
+      border-radius: 12px;
+    }
+
+    .nav__actions {
+      display: none;
+    }
+  }
 </style>
 
 <script>
+  // Floating navbar — hide on scroll down, reveal on scroll up
+  const nav = document.getElementById('floating-nav');
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  function updateNav() {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > 80) {
+      nav?.classList.add('nav--scrolled');
+    } else {
+      nav?.classList.remove('nav--scrolled');
+    }
+
+    if (currentScrollY > lastScrollY && currentScrollY > 120) {
+      nav?.classList.add('nav--hidden');
+    } else {
+      nav?.classList.remove('nav--hidden');
+    }
+
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateNav);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Mobile burger
   const burger = document.getElementById('nav-burger');
   const mobile = document.getElementById('nav-mobile');
 
