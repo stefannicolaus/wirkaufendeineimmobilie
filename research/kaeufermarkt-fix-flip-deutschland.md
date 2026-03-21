@@ -18,6 +18,49 @@
 - Gesamter dt. Immobilien-Investmentmarkt 2024: **34,9 Mrd. EUR** (JLL), davon Wohnen ca. 30%
 - Anteil sanierungsbeduerftige Wohnungen am Wohnungsmarkt: geschaetzt 15-25%
 - Fix & Flip Anteil an Wohnimmobilientransaktionen: geschaetzt **2-5%** (Expertenmeinung, keine harten Daten)
+
+### Marktgroesse Deutschland — Detailrechnung (Stand 2026-03-20)
+
+**Basis-Daten (BBSR/Gutachterausschuesse):**
+- 2022: 866.000 Immobilientransaktionen gesamt
+- 2023: 733.000 (-15%, Krisenjahr)
+- 2024: Erholung, wieder steigend
+
+**Sanierungsbeduerftiger Anteil am Markt:**
+- 42% aller Wohnimmobilien am Markt Klasse E-H (ImmoScout24/Sprengnetter 2024)
+- 52% aller Einfamilienhaeuser in F/G/H (immowelt 2025)
+- Trend steigend: 2020 waren es nur 28%
+
+**Fix&Flip-Provisionsmarkt (WKDI-adressierbar):**
+
+| Szenario | F&F-Anteil | Deals/Jahr DE | Ø Dealvolumen | Gesamtvolumen | WKDI-Provision (3,75%) |
+|----------|-----------|---------------|---------------|---------------|----------------------|
+| Konservativ | 2% | 14.660 | 150.000 EUR | 2,2 Mrd EUR | 82 Mio EUR |
+| Realistisch | 3,5% | 25.655 | 150.000 EUR | 3,8 Mrd EUR | 144 Mio EUR |
+| Optimistisch | 5% | 36.650 | 150.000 EUR | 5,5 Mrd EUR | 206 Mio EUR |
+
+**WKDI Revenue-Ziel im Marktkontext:**
+- Ziel: 10.000 EUR/Monat pro Partner = 20.000 EUR/Monat = 240.000 EUR/Jahr
+- Bei konservativem Deal-Mix (60% Makler-Split, Ø 2.240 EUR/Deal netto): ~10 Deals/Monat = 120 Deals/Jahr
+- Benoetigter Marktanteil: 0,3-0,8% (je nach Szenario) — realistisch erreichbar
+- Break-Even deutlich niedriger: ~1 Deal/Monat deckt Fixkosten
+
+**Konservativer Deal-Mix (viel Makler-Beteiligung):**
+
+| Deal-Typ | Anteil | Provision brutto | Abzuege | Netto/Deal |
+|----------|--------|-----------------|---------|-----------|
+| Mit Makler (Split) | 60% | ~3.035 EUR | -50% Makler | ~1.500 EUR |
+| Ohne Makler (Direkt) | 30% | ~3.035 EUR | — | ~3.035 EUR |
+| Premium (110k+) | 10% | ~4.285 EUR | — | ~4.285 EUR |
+| **Gewichteter Durchschnitt** | | | | **~2.240 EUR** |
+
+**Wachstumstreiber:**
+- Zwangsversteigerungen: 13.445 (2024, +10%), Trend ~+8%/Jahr
+- Energieeffizienz-Spread waechst → mehr Flip-Potenzial
+- Communities wachsen (Oliver Fischer, Flipper Immo, immocation)
+- Foerderprogramm "Jung kauft Alt" seit Sept. 2024
+
+**Quellen:** BBSR Immobilienmarktbericht 2023/2024, ImmoScout24/GEWOS Analyse 2024, immowelt Energieeffizienz-Report 2025, Sprengnetter Sanierungszustand 2024
 - **Geschaetztes Volumen Fix & Flip DE: 500 Mio. - 2 Mrd. EUR/Jahr** (breite Spanne mangels Daten)
 
 ### Anzahl aktive Fix & Flip Investoren
