@@ -31,7 +31,7 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- WER KANN TIPPGEBER WERDEN -->
-  <section class="section" id="wer">
+  <section class="section tipp-wer-section" id="wer">
     <div class="container">
       <div class="tipp-section-header">
         <div class="label">Für wen ist das?</div>
@@ -171,6 +171,17 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
+  <!-- CTA GLOW -->
+  <section class="tipp-cta-glow-section">
+    <div class="tipp-cta-glow__glow" aria-hidden="true"></div>
+    <div class="container tipp-cta-glow__inner">
+      <p class="tipp-cta-glow__eyebrow">Kein Vorwissen nötig</p>
+      <h2 class="tipp-cta-glow__heading">Ein Tipp. Echter Lohn.</h2>
+      <p class="tipp-cta-glow__sub">Melde uns den Kontakt — wir machen den Rest. Dein Provisionsanspruch ist schriftlich abgesichert.</p>
+      <a href="#tippgeber-form" class="tipp-cta-glow__btn">Jetzt anmelden &rarr;</a>
+    </div>
+  </section>
+
   <!-- REGISTRATION FORM — 2-Column Split -->
   <section class="tipp-form-section bg-alt" id="tippgeber-form">
     <div class="container tipp-form-split">
@@ -298,42 +309,69 @@ import Layout from '../layouts/Layout.astro';
     margin-bottom: var(--space-12);
   }
 
-  /* WER-GRID */
+  /* WER-GRID — Dark Hover Grid */
+  .tipp-wer-section {
+    background: var(--color-primary);
+  }
+  .tipp-wer-section .tipp-section-header h2 {
+    color: white;
+  }
+  .tipp-wer-section .tipp-section-header p {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .tipp-wer-section .label {
+    color: var(--color-accent);
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.25);
+  }
   .tipp-wer-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-5);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
   }
 
   .tipp-wer-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    background: #0f172a;
     padding: var(--space-6);
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow var(--duration-normal) var(--ease-default),
-                transform var(--duration-normal) var(--ease-default);
+    position: relative;
+    overflow: hidden;
+    cursor: default;
   }
 
-  .tipp-wer-card:hover {
-    box-shadow:
-      0 4px 8px rgba(15, 23, 42, 0.04),
-      0 8px 24px rgba(15, 23, 42, 0.1),
-      0 16px 48px rgba(15, 23, 42, 0.06);
-    transform: translateY(-2px);
+  .tipp-wer-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(59, 130, 246, 0.12),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .tipp-wer-card:hover::before {
+    opacity: 1;
   }
 
   .tipp-wer-card--highlight {
-    border-color: var(--color-accent);
-    background: var(--color-accent-light);
+    background: rgba(59, 130, 246, 0.15);
   }
 
-  .tipp-wer-card--highlight .tipp-wer-card__icon {
-    background: var(--color-accent);
-    color: var(--color-text-on-accent);
+  .tipp-wer-card--highlight::before {
+    background: radial-gradient(
+      350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(59, 130, 246, 0.2),
+      transparent 60%
+    );
   }
 
   .tipp-wer-card__icon {
@@ -342,33 +380,36 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-accent-light);
+    background: rgba(59, 130, 246, 0.15);
     color: var(--color-accent);
     border-radius: var(--radius-md);
     flex-shrink: 0;
+    border: 1px solid rgba(59, 130, 246, 0.2);
     transition: background var(--duration-normal) var(--ease-default),
                 color var(--duration-normal) var(--ease-default);
   }
 
   .tipp-wer-card:hover .tipp-wer-card__icon {
     background: var(--color-accent);
-    color: var(--color-text-on-accent);
+    color: white;
+    border-color: transparent;
   }
 
-  .tipp-wer-card--highlight:hover .tipp-wer-card__icon {
-    background: var(--color-accent-hover);
-    color: var(--color-text-on-accent);
+  .tipp-wer-card--highlight .tipp-wer-card__icon {
+    background: var(--color-accent);
+    color: white;
+    border-color: transparent;
   }
 
   .tipp-wer-card h3 {
     font-size: var(--text-base);
     font-weight: var(--weight-bold);
-    color: var(--color-text);
+    color: white;
   }
 
   .tipp-wer-card p {
     font-size: var(--text-sm);
-    color: var(--color-text-mid);
+    color: rgba(255, 255, 255, 0.6);
     line-height: var(--leading-relaxed);
   }
 
@@ -568,6 +609,75 @@ import Layout from '../layouts/Layout.astro';
     margin-top: var(--space-2);
   }
 
+  /* CTA GLOW */
+  .tipp-cta-glow-section {
+    position: relative;
+    background: var(--color-primary);
+    padding-block: var(--space-20);
+    overflow: hidden;
+  }
+  .tipp-cta-glow__glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .tipp-cta-glow__inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  .tipp-cta-glow__eyebrow {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0;
+  }
+  .tipp-cta-glow__heading {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: var(--weight-extrabold);
+    color: white;
+    line-height: var(--leading-tight);
+    max-width: 640px;
+    margin: 0;
+  }
+  .tipp-cta-glow__sub {
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 560px;
+    margin: 0;
+  }
+  .tipp-cta-glow__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: white;
+    background: var(--color-accent);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: all var(--duration-fast) ease;
+    margin-top: var(--space-2);
+    box-shadow: 0 0 32px rgba(59, 130, 246, 0.5);
+  }
+  .tipp-cta-glow__btn:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 0 48px rgba(59, 130, 246, 0.65);
+  }
+
   /* RESPONSIVE */
   @media (max-width: 900px) {
     .tipp-wer-grid {
@@ -601,6 +711,17 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
+  // Mouse-tracking glow for dark grid cards
+  document.querySelectorAll('.tipp-wer-card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = (card as HTMLElement).getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      (card as HTMLElement).style.setProperty('--mouse-x', `${x}%`);
+      (card as HTMLElement).style.setProperty('--mouse-y', `${y}%`);
+    });
+  });
+
   const form = document.getElementById('tippgeber-reg-form') as HTMLFormElement;
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
