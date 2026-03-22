@@ -1305,7 +1305,7 @@ function calcResult(s: QuizState) {
   const regel70 = kp <= (vp * 0.70 - san);
   const speku = s.exit_strategie === 'langfrist';
   let score: 'A' | 'B' | 'C' | 'D' = roi >= 20 && regel70 ? 'A' : roi >= 12 ? 'B' : roi >= 5 ? 'C' : 'D';
-  const labelMap: Record<string, string> = { A: 'Sehr gutes Deal', B: 'Solides Potential', C: 'Grenzwertig', D: 'Überdenken' };
+  const labelMap: Record<string, string> = { A: 'Sehr guter Deal', B: 'Solides Potential', C: 'Grenzwertig', D: 'Überdenken' };
   const label = labelMap[score];
   return { kp, san, m2, grunderwerb, notar, prov_kauf, nk, beg, san_netto, gesamt, qm_preis, vp, prov_vk, brutto, netto, roi, regel70, speku, score, label };
 }

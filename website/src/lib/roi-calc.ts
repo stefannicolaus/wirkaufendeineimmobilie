@@ -80,7 +80,7 @@ export function calcRoi(input: RoiInput): RoiResult {
   let deal_score: 'A' | 'B' | 'C' | 'D';
   let deal_score_label: string;
   if (roi_pct >= 20 && regel_70_check) {
-    deal_score = 'A'; deal_score_label = 'Sehr gutes Deal';
+    deal_score = 'A'; deal_score_label = 'Sehr guter Deal';
   } else if (roi_pct >= 12) {
     deal_score = 'B'; deal_score_label = 'Solides Potential';
   } else if (roi_pct >= 5) {
