@@ -14,7 +14,7 @@ New page `/kapitalanleger-rechner` — a 5-step wizard for Buy & Hold investors 
 
 ## Architecture
 
-**Approach:** 3 new files, zero changes to existing files.
+**Approach:** 3 new files. No logic changes to existing files; nav link additions only.
 
 ```
 src/lib/kapitalanleger-calc.ts         ← Types + calculation logic
@@ -22,10 +22,10 @@ src/pages/kapitalanleger-rechner.astro  ← 5-step wizard UI
 src/pages/api/kapitalanleger-report.ts  ← Email gate → PDF → Brevo
 ```
 
-**Additions only (no modifications):**
+**Nav additions only (no logic changes):**
 - `investoren.astro` + `roi-rechner.astro`: add "Kapitalanleger" nav link
 
-**DB:** New `leads_kapitalanleger` table (same schema pattern as `registrations`).
+**DB:** New `leads_kapitalanleger` table with domain-specific columns (not reusing `registrations`). Requires new `insertKapitalanlegerLead()` function and new `CREATE TABLE` block in `db.ts`.
 
 ---
 
@@ -35,24 +35,24 @@ src/pages/api/kapitalanleger-report.ts  ← Email gate → PDF → Brevo
 | Input | Type | Notes |
 |-------|------|-------|
 | Kaufpreis | number (€) | |
-| Baujahr | number (year) | Determines AfA rate |
+| Baujahr der Fertigstellung | number (year) | Label must say "Fertigstellung" — §7 rate based on completion year, not construction start |
 | Wohnfläche | number (m²) | |
 | Kaltmiete/Monat | number (€) | |
 | Hausgeld/Monat | number (€) | |
 
 ### Step 2 — Finanzierung
-| Input | Type | Notes |
-|-------|------|-------|
-| Darlehensbetrag | number (€) | |
-| Zinssatz | number (%) | Annual |
-| Tilgung | number (%) | Annual |
+| Input | Type | Validation | Notes |
+|-------|------|-----------|-------|
+| Darlehensbetrag | number (€) | max = Kaufpreis (warn if LTV > 100%) | |
+| Zinssatz | number (%) | min=0, max=15 | Annual |
+| Tilgung | number (%) | min=0, max=10 | Annual |
 
 ### Step 3 — Steuer & Parameter
-| Input | Type | Default | Notes |
-|-------|------|---------|-------|
-| Grenzsteuersatz | number (%) | — | User's marginal tax rate |
-| Haltedauer | number (Jahre) | 10 | |
-| Gebäudeanteil | number (%) | 80 | BFH IX R 12/21: not a legal standard, must be adjustable |
+| Input | Type | Default | Validation | Notes |
+|-------|------|---------|-----------|-------|
+| Grenzsteuersatz | number (%) | no default (intentional — force user to enter actual rate) | min=0, max=45 | German marginal rates: 0–42% + Reichensteuer 45% |
+| Haltedauer | number (Jahre) | 10 | min=1, max=30 | |
+| Gebäudeanteil | number (%) | 80 | min=50, max=95 | BFH IX R 12/21: not a legal standard, must be adjustable |
 
 **Erweiterte Parameter (collapsible, closed by default):**
 | Input | Default | Notes |
@@ -80,7 +80,7 @@ AfA Steuerersparnis/J    [value] €
 3 gated KPIs shown below — blurred values + blurred formulas:
 - NPV 10 Jahre
 - NPV 20 Jahre
-- Brutto-Rendite
+- Brutto-Rendite (intentionally gated even though trivially calculable — consistent gate UX)
 
 CTA below: "Vollanalyse freischalten →"
 
@@ -104,17 +104,22 @@ const jahresAfA = kaufpreis * (gebaeudeanteil / 100) * rate;
 ### §21 EStG — Werbungskosten & Steuer
 ```typescript
 const zinsen = darlehen * (zinssatz / 100);           // Jahreszinsen
-const nichtUmlagefaehig = hausgeld * 12 * 0.30;       // 30% pauschal
+// NOTE: 30% pauschal = non-allocatable portion of Hausgeld for TAX purposes only
+// Full Hausgeld is still a real cash outflow (deducted separately in cashflow below)
+const nichtUmlagefaehig = hausgeld * 12 * 0.30;
 const werbungskosten = zinsen + nichtUmlagefaehig + jahresAfA;
 
 const bruttoMieteJahr = kaltmiete * 12 * (1 - leerstand / 100);
 const zuVersteuern = bruttoMieteJahr - werbungskosten;
 const einkommensteuer = Math.max(0, zuVersteuern) * (grenzsteuersatz / 100);
+// zuVersteuern can be negative (steuerliche Verluste) — einkommensteuer floors at 0
 ```
 
 ### Netto-Cashflow nach Steuer
 ```typescript
+// kapitaldienstJahr = actual cash out for loan service (Zinsen + Tilgung)
 const kapitaldienstJahr = darlehen * ((zinssatz + tilgung) / 100);
+// hausgeld * 12 = full Hausgeld cash outflow (different from the 30% used in §21 above)
 const nettoJahr = bruttoMieteJahr - kapitaldienstJahr - hausgeld * 12 - einkommensteuer;
 const nettoMonat = nettoJahr / 12;
 ```
@@ -131,18 +136,29 @@ const bruttoRendite = (kaltmiete * 12) / kaufpreis * 100;
 
 ### DCF NPV
 ```typescript
+// Grow only the revenue side (Miete); fixed costs (Kapitaldienst, Hausgeld) stay constant
+// This is still a simplification (Hausgeld/Verwaltung could also grow), but more accurate
+// than growing the entire nettoJahr. Disclaimer in PDF.
 let npv = 0;
 for (let t = 1; t <= haltedauer; t++) {
-  const cf = nettoJahr * Math.pow(1 + mietsteigerung / 100, t - 1);
-  npv += cf / Math.pow(1 + diskontRate / 100, t);
+  const mieteT = bruttoMieteJahr * Math.pow(1 + mietsteigerung / 100, t - 1);
+  const zuVersteuernT = mieteT - werbungskosten; // werbungskosten fixed
+  const steuernT = Math.max(0, zuVersteuernT) * (grenzsteuersatz / 100);
+  const cfT = mieteT - kapitaldienstJahr - hausgeld * 12 - steuernT;
+  npv += cfT / Math.pow(1 + diskontRate / 100, t);
 }
-// Terminal Value: Kaufpreisfaktor as exit multiple proxy
+// Terminal Value: exit at same Kaufpreisfaktor on grown rent
 const exitMiete = kaltmiete * 12 * Math.pow(1 + mietsteigerung / 100, haltedauer);
 const tv = exitMiete * faktor;
 npv += tv / Math.pow(1 + diskontRate / 100, haltedauer);
+
+// NPV calculated for both haltedauer=10 and haltedauer=20 regardless of user input
+// (preview always shows both; PDF shows whichever matches user's Haltedauer + the other)
 ```
 
 **Note:** WEG-Rücklagen not deducted (BFH IX R 19/24, 14.01.2025: only deductible when WEG spends funds). Disclaimer shown in PDF.
+
+**Simplification note:** NPV loop uses fixed `zinsen = darlehen * zinssatz` (non-amortizing). The Tilgungsplan in the PDF uses correct amortizing Zinsen (restschuld × zinssatz, declining). The two produce slightly different annual cashflow numbers — this is intentional. NPV is a planning approximation; Tilgungsplan is the accurate year-by-year schedule. Both are labeled accordingly in the PDF.
 
 ---
 
@@ -194,9 +210,26 @@ CREATE TABLE IF NOT EXISTS leads_kapitalanleger (
 
 ---
 
+## PDF Content — Tilgungsplan
+
+Columns (year-by-year, 1 row per Jahr up to Haltedauer):
+
+| Jahr | Restschuld (€) | Zinsen (€) | Tilgung (€) | Jahres-Cashflow netto (€) |
+|------|---------------|-----------|------------|--------------------------|
+
+Formula per row:
+```typescript
+// Year t:
+zinsenT = restschuld * (zinssatz / 100)
+tilgungT = darlehen * (tilgung / 100)          // constant annual repayment
+restschuld -= tilgungT
+cashflowT = mieteT - zinsenT - tilgungT - hausgeld*12 - steuernT
+```
+
+---
+
 ## Out of Scope
 
-- Tilgungsplan year-by-year table (in PDF only, not in UI preview)
 - GEG-Förderung (BEG) — not relevant for Buy & Hold scenario
 - 70%-Regel — Fix & Flip only
 - Spekulationssteuer — covered implicitly by Haltedauer ≥10J note in PDF
