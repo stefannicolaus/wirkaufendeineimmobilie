@@ -88,6 +88,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
             <img src="/images/wkdi-seller-stressed.jpg" alt="Eigentümer mit Sorgen vor dem Verkauf" loading="lazy" />
             <span class="card__photo-label">Vorher</span>
           </div>
+          <div class="card__photos-arrow" aria-hidden="true">›</div>
           <div class="card__photo">
             <img src="/images/wkdi-seller-happy.jpg" alt="Erleichterter Eigentümer nach dem Verkauf" loading="lazy" />
             <span class="card__photo-label">Nachher</span>
@@ -642,6 +643,29 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     gap: 2px;
     height: 210px;
     flex-shrink: 0;
+    position: relative;
+  }
+
+  .card__photos-arrow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1;
+    padding-left: 2px;
   }
 
   .card__photo {
