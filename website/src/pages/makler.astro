@@ -8,7 +8,10 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
 >
 
   <!-- HERO -->
-  <section class="section makler-hero">
+  <section class="section makler-hero makler-hero--bg">
+    <div class="makler-hero__bg-img" aria-hidden="true">
+      <img src="/images/wkdi-makler-hero.jpg" alt="" />
+    </div>
     <div class="container makler-hero__inner">
       <div class="label">Für Immobilienmakler — Kooperation</div>
       <h1>Ihre Problemobjekte.<br /><span class="text-accent">Unser Spezialgebiet.</span></h1>
@@ -251,6 +254,10 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     padding-top: var(--space-20);
     padding-bottom: var(--space-16);
   }
+  .makler-hero--bg { position: relative; overflow: hidden; }
+  .makler-hero__bg-img { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .makler-hero__bg-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.15; filter: grayscale(20%); }
+  .makler-hero--bg .makler-hero__inner { position: relative; z-index: 1; }
   .makler-hero__inner {
     display: flex;
     flex-direction: column;

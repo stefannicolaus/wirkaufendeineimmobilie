@@ -8,7 +8,10 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
 >
 
   <!-- HERO -->
-  <section class="section tipp-hero">
+  <section class="section tipp-hero tipp-hero--bg">
+    <div class="tipp-hero__bg-img" aria-hidden="true">
+      <img src="/images/wkdi-tippgeber-hero.jpg" alt="" />
+    </div>
     <div class="container tipp-hero__inner">
       <div class="label">Tippgeber werden</div>
       <h1>Verdiene echtes Zusatzeinkommen —<br /><span class="text-accent">für einen guten Tipp.</span></h1>
@@ -260,6 +263,10 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     padding-top: var(--space-20);
     padding-bottom: var(--space-16);
   }
+  .tipp-hero--bg { position: relative; overflow: hidden; }
+  .tipp-hero__bg-img { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .tipp-hero__bg-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; opacity: 0.15; filter: grayscale(20%); }
+  .tipp-hero--bg .tipp-hero__inner { position: relative; z-index: 1; }
 
   .tipp-hero__inner {
     display: flex;
