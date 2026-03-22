@@ -2,531 +2,1584 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout
-  title="ROI-Rechner — Fix & Flip Rendite berechnen | wirkaufendeineimmobilie.de"
-  description="Fix & Flip Rechner mit echten Leipziger Marktdaten. Berechne Rendite, Kosten und Gewinn für dein nächstes Sanierungsobjekt."
+  title="ROI-Rechner — Deal-Analyse in 4 Schritten | wirkaufendeineimmobilie.de"
+  description="Berechne Rendite, Förderung und Gewinn für dein nächstes Sanierungsobjekt in Leipzig — mit echten Marktdaten. Kostenlos, sofort per E-Mail."
 >
 
   <!-- HERO -->
-  <section class="section roi-hero">
-    <div class="container roi-hero__inner">
-      <h1>Was bringt dein nächster Flip?<br /><span class="text-accent">Rechne es durch.</span></h1>
-      <p class="roi-hero__sub">Fix &amp; Flip Rechner mit echten Leipziger Marktdaten — Rendite, Kosten und Gewinn auf einen Blick.</p>
+  <section class="quiz-hero">
+    <div class="quiz-hero__bg" aria-hidden="true">
+      <img src="/images/wkdi-roi-quiz-hero.jpg" alt="" />
+    </div>
+    <div class="container quiz-hero__inner">
+      <h1>Was bringt dein nächster Deal?</h1>
+      <p class="quiz-hero__sub">Berechne Rendite, Förderung und Gewinn — mit echten Leipziger Marktdaten.</p>
     </div>
   </section>
 
-  <!-- CALCULATOR — 2 Column Split -->
-  <section class="roi-calc-section">
+  <!-- PROGRESS -->
+  <div class="quiz-progress-wrap" id="quiz-progress">
     <div class="container">
-      <div class="roi-calc__grid">
-
-        <!-- INPUTS — white card -->
-        <div class="roi-inputs-card">
-          <h3>Deine Zahlen</h3>
-
-          <div class="roi-input-group">
-            <label for="stadtteil">Stadtteil</label>
-            <select id="stadtteil">
-              <option value="volkmarsdorf">Volkmarsdorf</option>
-              <option value="neustadt">Neustadt-Neuschönefeld</option>
-              <option value="plagwitz">Plagwitz</option>
-              <option value="lindenau">Lindenau</option>
-              <option value="reudnitz">Reudnitz-Thonberg</option>
-            </select>
-          </div>
-
-          <div class="roi-input-group">
-            <label for="kaufpreis">Kaufpreis (&euro;)</label>
-            <input type="number" id="kaufpreis" value="65000" min="0" step="1000" />
-          </div>
-
-          <div class="roi-input-group">
-            <label for="wohnflaeche">Wohnfläche (m&sup2;)</label>
-            <input type="number" id="wohnflaeche" value="45" min="1" step="1" />
-          </div>
-
-          <div class="roi-input-group">
-            <label for="sanierungskosten">Sanierungskosten (&euro;)</label>
-            <input type="number" id="sanierungskosten" value="35000" min="0" step="1000" />
-          </div>
-
-          <div class="roi-input-group roi-input-group--toggle">
-            <label class="toggle-label">
-              <input type="checkbox" id="eigenleistung-toggle" />
-              <span class="toggle-switch"></span>
-              Eigenleistung einrechnen
-            </label>
-          </div>
-
-          <div class="roi-input-group" id="gewerk-group" style="display:none;">
-            <label for="gewerk">Gewerk</label>
-            <select id="gewerk">
-              <option value="maler">Maler</option>
-              <option value="elektriker">Elektriker</option>
-              <option value="shk">SHK (Sanitär/Heizung)</option>
-              <option value="trockenbau">Trockenbau</option>
-              <option value="fliesenleger">Fliesenleger</option>
-            </select>
-          </div>
-
-          <!-- Nebenkosten-Info-Box — Stitch Pattern -->
-          <div class="roi-nk-info">
-            <div class="roi-nk-info__header">
-              <svg class="roi-nk-info__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              <h4>Nebenkosten (automatisch)</h4>
-            </div>
-            <div class="roi-nk-row"><span>Grunderwerbsteuer (3,5%)</span><span id="nk-grunderwerb">0 &euro;</span></div>
-            <div class="roi-nk-row"><span>Notar + Grundbuch (2%)</span><span id="nk-notar">0 &euro;</span></div>
-            <div class="roi-nk-row"><span>Maklerprovision Kauf (5%)</span><span id="nk-provision">0 &euro;</span></div>
-          </div>
-        </div>
-
-        <!-- RESULTS — dark card with inline PDF CTA -->
-        <div class="roi-results-card">
-          <h3>Dein Ergebnis</h3>
-
-          <div class="roi-result-rows">
-            <div class="roi-result-row">
-              <span>Gesamtinvestition</span>
-              <span class="roi-result-val" id="res-invest">0 &euro;</span>
-            </div>
-            <div class="roi-result-row">
-              <span>Erwarteter Verkaufspreis</span>
-              <span class="roi-result-val" id="res-verkauf">0 &euro;</span>
-            </div>
-            <div class="roi-result-divider"></div>
-            <div class="roi-result-row">
-              <span>Brutto-Gewinn</span>
-              <span class="roi-result-val" id="res-brutto">0 &euro;</span>
-            </div>
-            <div class="roi-result-row" id="row-eigenleistung" style="display:none;">
-              <span>Eigenleistungs-Ersparnis</span>
-              <span class="roi-result-val roi-result-val--green" id="res-eigenleistung">0 &euro;</span>
-            </div>
-            <div class="roi-result-row">
-              <span>Vermittlungsprovision (5%)</span>
-              <span class="roi-result-val" id="res-provision">0 &euro;</span>
-            </div>
-            <div class="roi-result-divider"></div>
-            <div class="roi-result-row roi-result-row--big">
-              <span>Netto-Gewinn</span>
-              <span class="roi-result-val roi-result-val--accent" id="res-netto">0 &euro;</span>
-            </div>
-            <div class="roi-result-row roi-result-row--big">
-              <span>ROI auf Eigenkapital</span>
-              <span class="roi-result-val roi-result-val--accent" id="res-roi">0%</span>
-            </div>
-          </div>
-
-          <!-- PDF CTA inline in dark card -->
-          <div class="roi-pdf-inline">
-            <p class="roi-pdf-inline__title">Ergebnis als PDF speichern</p>
-            <form class="roi-pdf-inline__form" id="pdf-form">
-              <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required aria-label="E-Mail für PDF" />
-              <button type="submit" class="btn btn-primary">PDF &rarr;</button>
-            </form>
-            <p class="roi-pdf-inline__disclaimer">Kostenlos und unverbindlich. Kein Spam.</p>
-          </div>
-        </div>
-
+      <div class="quiz-progress">
+        <button class="quiz-step-dot" data-step="1" aria-label="Schritt 1: Objekt-Typ">
+          <span class="quiz-step-dot__num">1</span>
+          <span class="quiz-step-dot__label">Objekt-Typ</span>
+        </button>
+        <div class="quiz-step-connector"></div>
+        <button class="quiz-step-dot" data-step="2" aria-label="Schritt 2: Lage & Strategie">
+          <span class="quiz-step-dot__num">2</span>
+          <span class="quiz-step-dot__label">Lage &amp; Strategie</span>
+        </button>
+        <div class="quiz-step-connector"></div>
+        <button class="quiz-step-dot" data-step="3" aria-label="Schritt 3: Zahlen">
+          <span class="quiz-step-dot__num">3</span>
+          <span class="quiz-step-dot__label">Zahlen</span>
+        </button>
+        <div class="quiz-step-connector"></div>
+        <button class="quiz-step-dot" data-step="4" aria-label="Schritt 4: Ergebnis">
+          <span class="quiz-step-dot__num">4</span>
+          <span class="quiz-step-dot__label">Ergebnis</span>
+        </button>
       </div>
+    </div>
+  </div>
+
+  <!-- QUIZ WRAPPER -->
+  <section class="quiz-section">
+    <div class="container">
+
+      <!-- STEP 1: Objekt-Typ -->
+      <div class="quiz-step" id="step-1">
+        <div class="quiz-step__header">
+          <h2>Welchen Objekt-Typ willst du kalkulieren?</h2>
+          <p class="quiz-step__hint">Wähle das passende Szenario — beeinflusst BEG-Förderung und Deal Score.</p>
+        </div>
+        <div class="scenario-grid">
+
+          <button class="scenario-card" data-value="messie" aria-label="Messie / Verwahrlost">
+            <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-messie.jpg')"></div>
+            <div class="scenario-card__glow"></div>
+            <div class="scenario-card__content">
+              <svg class="scenario-card__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              <h3>Messie / Verwahrlost</h3>
+            </div>
+          </button>
+
+          <button class="scenario-card" data-value="erbengemeinschaft" aria-label="Erbengemeinschaft">
+            <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-erbengemeinschaft.jpg')"></div>
+            <div class="scenario-card__glow"></div>
+            <div class="scenario-card__content">
+              <svg class="scenario-card__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <h3>Erbengemeinschaft</h3>
+            </div>
+          </button>
+
+          <button class="scenario-card" data-value="geg" aria-label="GEG-Problemfall">
+            <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-geg.jpg')"></div>
+            <div class="scenario-card__glow"></div>
+            <div class="scenario-card__content">
+              <span class="badge-beg">40% BEG-Förderung</span>
+              <svg class="scenario-card__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <h3>GEG-Problemfall</h3>
+            </div>
+          </button>
+
+          <button class="scenario-card" data-value="insolvenz" aria-label="Insolvenz / Zwangslage">
+            <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-insolvenz.jpg')"></div>
+            <div class="scenario-card__glow"></div>
+            <div class="scenario-card__content">
+              <svg class="scenario-card__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <h3>Insolvenz / Zwangslage</h3>
+            </div>
+          </button>
+
+          <button class="scenario-card" data-value="standard" aria-label="Kapitalanlage">
+            <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-kapitalanleger.jpg')"></div>
+            <div class="scenario-card__glow"></div>
+            <div class="scenario-card__content">
+              <svg class="scenario-card__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <h3>Kapitalanlage</h3>
+            </div>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- STEP 2: Lage & Strategie -->
+      <div class="quiz-step" id="step-2" hidden>
+        <div class="quiz-step__header">
+          <h2>Lage &amp; Exit-Strategie</h2>
+          <p class="quiz-step__hint">Der Stadtteil bestimmt den Verkaufspreis, die Strategie die Steuer.</p>
+        </div>
+        <div class="step2-grid">
+
+          <!-- Left: Stadtteil -->
+          <div class="step2-col">
+            <label class="field-label" for="stadtteil-select">Stadtteil</label>
+            <div class="select-wrap">
+              <select id="stadtteil-select" class="styled-select">
+                <option value="plagwitz">Plagwitz (3.200 €/m²)</option>
+                <option value="suedvorstadt">Südvorstadt (3.100 €/m²)</option>
+                <option value="gohlis">Gohlis (2.800 €/m²)</option>
+                <option value="lindenau" selected>Lindenau (2.600 €/m²)</option>
+                <option value="reudnitz">Reudnitz (2.400 €/m²)</option>
+                <option value="neustadt">Neustadt (2.300 €/m²)</option>
+                <option value="volkmarsdorf">Volkmarsdorf (2.000 €/m²)</option>
+                <option value="sellerhausen">Sellerhausen (1.900 €/m²)</option>
+              </select>
+              <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+
+          <!-- Right: Exit-Strategie -->
+          <div class="step2-col">
+            <span class="field-label">Exit-Strategie</span>
+            <div class="exit-cards">
+              <button class="exit-card" data-value="flip" aria-label="Flip 6 bis 18 Monate">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                <span class="exit-card__title">Flip</span>
+                <span class="exit-card__sub">6–18 Monate</span>
+              </button>
+              <button class="exit-card" data-value="langfrist" aria-label="Langfrist 10 plus Jahre">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <span class="exit-card__title">Langfrist</span>
+                <span class="exit-card__sub">10+ Jahre</span>
+              </button>
+            </div>
+            <p class="exit-hint">Langfrist = steuerfrei nach 10 Jahren Haltezeit</p>
+          </div>
+
+        </div>
+        <div class="quiz-nav">
+          <button class="btn btn-back" id="step2-back">← Zurück</button>
+          <button class="btn btn-primary" id="step2-next">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Zahlen -->
+      <div class="quiz-step" id="step-3" hidden>
+        <div class="quiz-step__header">
+          <h2>Deine Zahlen</h2>
+          <p class="quiz-step__hint">Ziehe die Regler — das Ergebnis wird live berechnet.</p>
+        </div>
+        <div class="sliders-wrap">
+
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <label class="field-label" for="slider-kaufpreis">Kaufpreis</label>
+              <span class="slider-val" id="val-kaufpreis">80.000 €</span>
+            </div>
+            <input type="range" id="slider-kaufpreis" class="styled-slider" min="20000" max="300000" step="5000" value="80000" />
+            <div class="slider-ends"><span>20.000 €</span><span>300.000 €</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <label class="field-label" for="slider-wohnflaeche">Wohnfläche</label>
+              <span class="slider-val" id="val-wohnflaeche">60 m²</span>
+            </div>
+            <input type="range" id="slider-wohnflaeche" class="styled-slider" min="20" max="200" step="5" value="60" />
+            <div class="slider-ends"><span>20 m²</span><span>200 m²</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <label class="field-label" for="slider-sanierung">Sanierungskosten</label>
+              <span class="slider-val" id="val-sanierung">40.000 €</span>
+            </div>
+            <input type="range" id="slider-sanierung" class="styled-slider" min="5000" max="200000" step="5000" value="40000" />
+            <div class="slider-ends"><span>5.000 €</span><span>200.000 €</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <label class="field-label" for="slider-eigenkapital">Eigenkapital-Anteil</label>
+              <span class="slider-val" id="val-eigenkapital">30 %</span>
+            </div>
+            <input type="range" id="slider-eigenkapital" class="styled-slider" min="10" max="100" step="5" value="30" />
+            <div class="slider-ends"><span>10 %</span><span>100 %</span></div>
+          </div>
+
+          <!-- Live preview -->
+          <div class="nk-preview" id="nk-preview">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>Nebenkosten: <strong id="nk-total">—</strong></span>
+            <span class="nk-breakdown" id="nk-breakdown"></span>
+          </div>
+
+        </div>
+        <div class="quiz-nav">
+          <button class="btn btn-back" id="step3-back">← Zurück</button>
+          <button class="btn btn-primary" id="step3-next">Ergebnis berechnen →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Ergebnis -->
+      <div class="quiz-step" id="step-4" hidden>
+        <div class="quiz-step__header">
+          <h2>Dein Deal-Ergebnis</h2>
+          <p class="quiz-step__hint">Gib deine E-Mail ein, um die vollständige Analyse freizuschalten.</p>
+        </div>
+        <div class="result-grid">
+
+          <!-- Left: Dashboard (blurred initially) -->
+          <div class="result-dashboard-wrap" id="result-dashboard-wrap">
+            <div class="result-blur-overlay" id="result-blur-overlay">
+              <div class="result-blur-overlay__inner">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <p>Ergebnis nach E-Mail sichtbar</p>
+              </div>
+            </div>
+            <div class="result-dashboard" id="result-dashboard">
+
+              <!-- Deal Score -->
+              <div class="deal-score-wrap">
+                <div class="deal-score-circle" id="deal-score-circle">
+                  <span class="deal-score-letter" id="deal-score-letter">—</span>
+                </div>
+                <span class="deal-score-label" id="deal-score-label">Wird berechnet…</span>
+              </div>
+
+              <!-- Waterfall Bars -->
+              <div class="waterfall">
+                <div class="waterfall-row">
+                  <span class="waterfall-label">Kaufpreis</span>
+                  <div class="waterfall-bar-wrap">
+                    <div class="waterfall-bar waterfall-bar--kp" id="wf-kp"></div>
+                  </div>
+                  <span class="waterfall-val" id="wf-val-kp">—</span>
+                </div>
+                <div class="waterfall-row">
+                  <span class="waterfall-label">Nebenkosten</span>
+                  <div class="waterfall-bar-wrap">
+                    <div class="waterfall-bar waterfall-bar--nk" id="wf-nk"></div>
+                  </div>
+                  <span class="waterfall-val" id="wf-val-nk">—</span>
+                </div>
+                <div class="waterfall-row">
+                  <span class="waterfall-label">Sanierungskosten</span>
+                  <div class="waterfall-bar-wrap">
+                    <div class="waterfall-bar waterfall-bar--san" id="wf-san"></div>
+                  </div>
+                  <span class="waterfall-val" id="wf-val-san">—</span>
+                </div>
+                <div class="waterfall-row waterfall-row--total">
+                  <span class="waterfall-label">Gesamtinvestition</span>
+                  <div class="waterfall-bar-wrap">
+                    <div class="waterfall-bar waterfall-bar--total" id="wf-total"></div>
+                  </div>
+                  <span class="waterfall-val waterfall-val--bold" id="wf-val-total">—</span>
+                </div>
+                <div class="waterfall-row">
+                  <span class="waterfall-label">Netto-Gewinn</span>
+                  <div class="waterfall-bar-wrap">
+                    <div class="waterfall-bar" id="wf-netto"></div>
+                  </div>
+                  <span class="waterfall-val waterfall-val--netto" id="wf-val-netto">—</span>
+                </div>
+              </div>
+
+              <!-- Traffic Lights -->
+              <div class="traffic-lights">
+                <div class="tl-item">
+                  <div class="tl-icon" id="tl-roi-icon"></div>
+                  <div class="tl-text">
+                    <span class="tl-label">ROI</span>
+                    <span class="tl-val" id="tl-roi-val">—</span>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-icon" id="tl-regel70-icon"></div>
+                  <div class="tl-text">
+                    <span class="tl-label">70%-Regel</span>
+                    <span class="tl-val" id="tl-regel70-val">—</span>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-icon" id="tl-speku-icon"></div>
+                  <div class="tl-text">
+                    <span class="tl-label">Spekulationssteuer</span>
+                    <span class="tl-val" id="tl-speku-val">—</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right: Email Gate -->
+          <div class="email-gate-card">
+            <!-- PDF Mockup -->
+            <div class="pdf-mockup" aria-hidden="true">
+              <div class="pdf-mockup__inner">
+                <div class="pdf-mockup__logo">WKDI</div>
+                <div class="pdf-mockup__title">Deal-Analyse</div>
+                <div class="pdf-mockup__sub">Leipzig · Persönlich erstellt</div>
+                <div class="pdf-mockup__lines">
+                  <div class="pdf-mockup__line" style="width:80%"></div>
+                  <div class="pdf-mockup__line" style="width:60%"></div>
+                  <div class="pdf-mockup__line" style="width:70%"></div>
+                  <div class="pdf-mockup__line" style="width:45%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form -->
+            <form class="email-gate-form" id="email-gate-form" novalidate>
+              <h3 class="email-gate-form__title">Analyse freischalten</h3>
+              <div class="form-field">
+                <label class="field-label" for="gate-vorname">Vorname</label>
+                <input type="text" id="gate-vorname" name="vorname" placeholder="Max" required autocomplete="given-name" />
+              </div>
+              <div class="form-field">
+                <label class="field-label" for="gate-email">E-Mail</label>
+                <input type="email" id="gate-email" name="email" placeholder="max@beispiel.de" required autocomplete="email" />
+              </div>
+              <button type="submit" class="btn btn-primary email-gate-btn" id="email-gate-btn">
+                Analyse jetzt erhalten →
+              </button>
+              <p class="email-gate-disclaimer">Kostenlos · Keine Weitergabe · Sofort per E-Mail</p>
+              <p class="email-gate-error" id="email-gate-error" hidden></p>
+            </form>
+          </div>
+
+        </div>
+        <div class="quiz-nav quiz-nav--step4">
+          <button class="btn btn-back" id="step4-back">← Zurück zu den Zahlen</button>
+        </div>
+      </div>
+
     </div>
   </section>
 
 </Layout>
 
 <style>
-  /* HERO */
-  .roi-hero {
-    text-align: center;
-    padding-top: var(--space-20);
-    padding-bottom: var(--space-12);
-  }
+/* ─────────────────────────────
+   HERO
+───────────────────────────── */
+.quiz-hero {
+  position: relative;
+  padding-top: var(--space-20);
+  padding-bottom: var(--space-14);
+  text-align: center;
+  overflow: hidden;
+  background: var(--color-bg-dark);
+}
 
-  .roi-hero__inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-4);
-  }
+.quiz-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
 
-  .roi-hero__sub {
-    font-size: var(--text-lg);
-    color: var(--color-text-mid);
-    max-width: 640px;
-  }
+.quiz-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+}
 
-  /* CALCULATOR SECTION */
-  .roi-calc-section {
-    padding-block: var(--section-gap);
-  }
+.quiz-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
 
-  .roi-calc__grid {
-    display: grid;
+.quiz-hero__inner h1 {
+  color: var(--color-text-on-dark);
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+}
+
+.quiz-hero__sub {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  max-width: 560px;
+}
+
+/* ─────────────────────────────
+   PROGRESS
+───────────────────────────── */
+.quiz-progress-wrap {
+  background: var(--color-bg-dark);
+  border-bottom: 1px solid var(--color-border);
+  padding-block: var(--space-4);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.quiz-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.quiz-step-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+
+.quiz-step-dot.is-active {
+  opacity: 1;
+}
+
+.quiz-step-dot.is-done {
+  opacity: 0.7;
+}
+
+.quiz-step-dot__num {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-muted);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.quiz-step-dot.is-active .quiz-step-dot__num {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.quiz-step-dot.is-done .quiz-step-dot__num {
+  background: rgba(37,99,235,0.15);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.quiz-step-dot__label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.quiz-step-dot.is-active .quiz-step-dot__label {
+  color: var(--color-text);
+}
+
+.quiz-step-connector {
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: var(--color-border);
+  margin-bottom: 18px;
+}
+
+/* ─────────────────────────────
+   QUIZ SECTION + STEPS
+───────────────────────────── */
+.quiz-section {
+  padding-block: var(--space-12) var(--space-20);
+}
+
+.quiz-step__header {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.quiz-step__header h2 {
+  font-size: clamp(var(--text-2xl), 3vw, var(--text-3xl));
+  margin-bottom: var(--space-2);
+}
+
+.quiz-step__hint {
+  color: var(--color-text-mid);
+  font-size: var(--text-base);
+}
+
+/* ─────────────────────────────
+   STEP 1 — SCENARIO CARDS
+───────────────────────────── */
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.scenario-card {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(15, 23, 42, 0.95);
+  border: 2px solid var(--color-border);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+  text-align: center;
+}
+
+.scenario-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(37, 99, 235, 0.5);
+  box-shadow:
+    0 4px 16px rgba(37, 99, 235, 0.15),
+    0 8px 32px rgba(15, 23, 42, 0.3);
+}
+
+.scenario-card.selected {
+  border-color: var(--color-accent);
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.2),
+    0 8px 32px rgba(37, 99, 235, 0.25),
+    0 16px 48px rgba(15, 23, 42, 0.3);
+}
+
+.scenario-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  transition: opacity 0.35s;
+}
+
+.scenario-card:hover .scenario-card__bg,
+.scenario-card.selected .scenario-card__bg {
+  opacity: 0.55;
+}
+
+.scenario-card__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59,130,246,0.08), transparent 40%);
+  z-index: 1;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.scenario-card:hover .scenario-card__glow {
+  opacity: 1;
+}
+
+.scenario-card__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-4);
+}
+
+.scenario-card__icon {
+  color: var(--color-text-on-dark);
+  opacity: 0.8;
+}
+
+.scenario-card__content h3 {
+  color: var(--color-text-on-dark);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  margin: 0;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.badge-beg {
+  background: var(--color-accent);
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+/* ─────────────────────────────
+   STEP 2 — LAGE & STRATEGIE
+───────────────────────────── */
+.step2-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  max-width: 780px;
+  margin: 0 auto var(--space-10);
+}
+
+.step2-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.field-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-mid);
+  display: block;
+}
+
+.select-wrap {
+  position: relative;
+}
+
+.styled-select {
+  width: 100%;
+  appearance: none;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-10) var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.styled-select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.select-arrow {
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-text-muted);
+}
+
+.exit-cards {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.exit-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-3);
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  min-height: 120px;
+  justify-content: center;
+}
+
+.exit-card:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+  background: rgba(37, 99, 235, 0.04);
+}
+
+.exit-card.selected {
+  border-color: var(--color-accent);
+  background: rgba(37, 99, 235, 0.07);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.exit-card svg {
+  color: var(--color-text-mid);
+  transition: color 0.2s;
+}
+
+.exit-card.selected svg {
+  color: var(--color-accent);
+}
+
+.exit-card__title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+}
+
+.exit-card__sub {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.exit-hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+/* ─────────────────────────────
+   STEP 3 — SLIDERS
+───────────────────────────── */
+.sliders-wrap {
+  max-width: 620px;
+  margin: 0 auto var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.slider-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider-val {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.styled-slider {
+  width: 100%;
+  height: 6px;
+  appearance: none;
+  background: var(--color-border-strong);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  outline: none;
+}
+
+.styled-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4), 0 1px 3px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.styled-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.5), 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.styled-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+  cursor: pointer;
+}
+
+.slider-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.nk-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(37, 99, 235, 0.06);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-mid);
+  flex-wrap: wrap;
+}
+
+.nk-breakdown {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  margin-left: auto;
+}
+
+/* ─────────────────────────────
+   STEP 4 — RESULT
+───────────────────────────── */
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Dashboard wrap with blur */
+.result-dashboard-wrap {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.result-blur-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xl);
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+.result-blur-overlay.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.result-blur-overlay__inner {
+  text-align: center;
+  color: var(--color-text-on-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.result-blur-overlay__inner svg {
+  opacity: 0.7;
+}
+
+.result-blur-overlay__inner p {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  opacity: 0.8;
+  margin: 0;
+}
+
+.result-dashboard {
+  background: var(--color-bg-dark);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: clamp(20px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  filter: blur(12px);
+  transition: filter 0.5s;
+}
+
+.result-dashboard.is-revealed {
+  filter: none;
+}
+
+/* Deal Score */
+.deal-score-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.deal-score-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid currentColor;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--color-accent);
+  transition: color 0.4s, background 0.4s, border-color 0.4s;
+}
+
+.deal-score-circle.score-A { color: #16a34a; background: rgba(22,163,74,0.1); border-color: #16a34a; }
+.deal-score-circle.score-B { color: var(--color-accent); background: rgba(37,99,235,0.1); border-color: var(--color-accent); }
+.deal-score-circle.score-C { color: #d97706; background: rgba(217,119,6,0.1); border-color: #d97706; }
+.deal-score-circle.score-D { color: #dc2626; background: rgba(220,38,38,0.1); border-color: #dc2626; }
+
+.deal-score-letter {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-extrabold);
+  color: inherit;
+  line-height: 1;
+}
+
+.deal-score-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-on-dark);
+  text-align: center;
+}
+
+/* Waterfall Bars */
+.waterfall {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.waterfall-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 80px;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.waterfall-row--total {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.waterfall-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.waterfall-bar-wrap {
+  height: 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.waterfall-bar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  width: 0%;
+  transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.waterfall-bar--kp { background: rgba(255,255,255,0.35); }
+.waterfall-bar--nk { background: rgba(217,119,6,0.7); }
+.waterfall-bar--san { background: rgba(37,99,235,0.6); }
+.waterfall-bar--total { background: rgba(255,255,255,0.6); }
+
+.waterfall-val {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.waterfall-val--bold {
+  font-weight: var(--weight-bold);
+  color: var(--color-text-on-dark);
+  font-size: var(--text-sm);
+}
+
+.waterfall-val--netto {
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+}
+
+/* Traffic Lights */
+.traffic-lights {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.tl-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.03);
+}
+
+.tl-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: var(--weight-bold);
+  background: rgba(255,255,255,0.08);
+}
+
+.tl-icon.green { background: rgba(22,163,74,0.2); color: #16a34a; }
+.tl-icon.amber { background: rgba(217,119,6,0.2); color: #d97706; }
+.tl-icon.red { background: rgba(220,38,38,0.2); color: #dc2626; }
+
+.tl-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tl-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.tl-val {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-on-dark);
+}
+
+/* ─────────────────────────────
+   EMAIL GATE CARD
+───────────────────────────── */
+.email-gate-card {
+  background: var(--color-bg-dark);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: clamp(20px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  box-shadow:
+    0 4px 16px rgba(15, 23, 42, 0.2),
+    0 8px 32px rgba(15, 23, 42, 0.15);
+}
+
+/* PDF Mockup */
+.pdf-mockup {
+  perspective: 800px;
+}
+
+.pdf-mockup__inner {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #0f172a 100%);
+  border: 1px solid rgba(37,99,235,0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  transform: rotate(-2deg) translateY(-4px);
+  box-shadow:
+    0 8px 24px rgba(0,0,0,0.4),
+    0 2px 8px rgba(37,99,235,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.pdf-mockup__logo {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+}
+
+.pdf-mockup__title {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-on-dark);
+}
+
+.pdf-mockup__sub {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.pdf-mockup__lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.pdf-mockup__line {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: rgba(255,255,255,0.1);
+}
+
+/* Gate Form */
+.email-gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.email-gate-form__title {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-on-dark);
+  margin: 0;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.form-field input {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  color: var(--color-text-on-dark);
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.form-field input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-field input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+}
+
+.email-gate-btn {
+  width: 100%;
+  position: relative;
+}
+
+.email-gate-btn.is-loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.email-gate-disclaimer {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0;
+}
+
+.email-gate-error {
+  font-size: var(--text-sm);
+  color: #f87171;
+  text-align: center;
+  margin: 0;
+}
+
+/* ─────────────────────────────
+   NAV BUTTONS
+───────────────────────────── */
+.quiz-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 780px;
+  margin: 0 auto;
+  gap: var(--space-4);
+}
+
+.quiz-nav--step4 {
+  max-width: 900px;
+  justify-content: flex-start;
+  margin-top: var(--space-6);
+}
+
+.btn-back {
+  background: none;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-mid);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  min-height: 44px;
+}
+
+.btn-back:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ─────────────────────────────
+   RESPONSIVE
+───────────────────────────── */
+@media (max-width: 768px) {
+  .scenario-grid {
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-8);
-    align-items: start;
   }
 
-  /* INPUTS CARD — white */
-  .roi-inputs-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    padding: clamp(24px, 3vw, 40px);
-    display: flex;
+  .step2-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .result-dashboard-wrap {
+    order: 2;
+  }
+
+  .email-gate-card {
+    order: 1;
+  }
+
+  .waterfall-row {
+    grid-template-columns: 90px 1fr 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scenario-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .exit-cards {
     flex-direction: column;
-    gap: var(--space-5);
-    box-shadow:
-      0 4px 8px rgba(15, 23, 42, 0.04),
-      0 8px 24px rgba(15, 23, 42, 0.1),
-      0 16px 48px rgba(15, 23, 42, 0.06);
   }
 
-  .roi-inputs-card h3 {
-    margin-bottom: var(--space-2);
+  .quiz-step-dot__label {
+    display: none;
   }
-
-  .roi-input-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .roi-input-group label {
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-    color: var(--color-text-mid);
-  }
-
-  .roi-input-group input[type="number"],
-  .roi-input-group select {
-    width: 100%;
-  }
-
-  /* TOGGLE */
-  .roi-input-group--toggle {
-    flex-direction: row;
-  }
-
-  .toggle-label {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    cursor: pointer;
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-    color: var(--color-text);
-    min-height: 44px;
-  }
-
-  .toggle-label input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  .toggle-switch {
-    position: relative;
-    width: 44px;
-    height: 24px;
-    background: var(--color-border-strong);
-    border-radius: var(--radius-full);
-    transition: background var(--duration-normal) var(--ease-default);
-    flex-shrink: 0;
-  }
-
-  .toggle-switch::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 20px;
-    height: 20px;
-    background: white;
-    border-radius: 50%;
-    transition: transform var(--duration-normal) var(--ease-default);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .toggle-label input:checked + .toggle-switch {
-    background: var(--color-accent);
-  }
-
-  .toggle-label input:checked + .toggle-switch::after {
-    transform: translateX(20px);
-  }
-
-  .toggle-label input:focus-visible + .toggle-switch {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
-  /* NEBENKOSTEN INFO — Stitch style: accent bg + border + icon */
-  .roi-nk-info {
-    background: rgba(59, 130, 246, 0.05);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .roi-nk-info__header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    margin-bottom: var(--space-1);
-  }
-
-  .roi-nk-info__icon {
-    flex-shrink: 0;
-  }
-
-  .roi-nk-info h4 {
-    font-size: var(--text-sm);
-    color: var(--color-accent);
-  }
-
-  .roi-nk-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: var(--text-sm);
-    color: var(--color-text-mid);
-  }
-
-  .roi-nk-row span:last-child {
-    font-variant-numeric: tabular-nums;
-  }
-
-  /* RESULTS CARD — dark */
-  .roi-results-card {
-    background: var(--color-bg-dark);
-    color: var(--color-text-on-dark);
-    border-radius: var(--radius-xl);
-    padding: clamp(24px, 3vw, 40px);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-    box-shadow:
-      0 4px 8px rgba(15, 23, 42, 0.15),
-      0 8px 24px rgba(15, 23, 42, 0.25),
-      0 16px 48px rgba(15, 23, 42, 0.15);
-    position: sticky;
-    top: var(--space-8);
-  }
-
-  .roi-results-card h3 {
-    color: var(--color-text-on-dark);
-  }
-
-  .roi-result-rows {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .roi-result-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-  }
-
-  .roi-result-row--big {
-    font-size: var(--text-lg);
-    font-weight: var(--weight-bold);
-    color: var(--color-text-on-dark);
-  }
-
-  .roi-result-val {
-    font-weight: var(--weight-semibold);
-    color: var(--color-text-on-dark);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .roi-result-val--accent {
-    color: var(--color-accent);
-    font-weight: var(--weight-extrabold);
-    font-size: var(--text-xl);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .roi-result-val--green {
-    color: var(--color-success);
-  }
-
-  .roi-result-divider {
-    height: 1px;
-    background: var(--color-primary-muted);
-    margin-block: var(--space-1);
-  }
-
-  /* PDF CTA — inline inside dark card, glass effect */
-  .roi-pdf-inline {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-lg);
-    padding: var(--space-5);
-    margin-top: var(--space-2);
-  }
-
-  .roi-pdf-inline__title {
-    font-size: var(--text-sm);
-    font-weight: var(--weight-semibold);
-    color: var(--color-text-on-dark);
-    margin-bottom: var(--space-3);
-  }
-
-  .roi-pdf-inline__form {
-    display: flex;
-    gap: var(--space-2);
-  }
-
-  .roi-pdf-inline__form input {
-    flex: 1;
-    min-width: 0;
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.15);
-    color: var(--color-text-on-dark);
-  }
-
-  .roi-pdf-inline__form input::placeholder {
-    color: var(--color-text-muted);
-  }
-
-  .roi-pdf-inline__disclaimer {
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    margin-top: var(--space-2);
-  }
-
-  @media (max-width: 768px) {
-    .roi-calc__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .roi-results-card {
-      position: static;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .roi-pdf-inline__form {
-      flex-direction: column;
-    }
-  }
+}
 </style>
 
 <script>
-  const stadtteilData: Record<string, { unsaniert: number; saniert: number }> = {
-    volkmarsdorf: { unsaniert: 1500, saniert: 3300 },
-    neustadt: { unsaniert: 1400, saniert: 3000 },
-    plagwitz: { unsaniert: 2200, saniert: 4200 },
-    lindenau: { unsaniert: 1800, saniert: 3500 },
-    reudnitz: { unsaniert: 1600, saniert: 3200 },
-  };
+// ─────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────
+interface QuizState {
+  objekt_typ: string;
+  stadtteil: string;
+  kaufpreis: number;
+  wohnflaeche: number;
+  sanierungskosten: number;
+  exit_strategie: string;
+  eigenkapital_pct: number;
+}
 
-  const eigenleistungData: Record<string, number> = {
-    maler: 10000,
-    elektriker: 12000,
-    shk: 15000,
-    trockenbau: 8000,
-    fliesenleger: 7000,
-  };
+const state: QuizState = {
+  objekt_typ: '',
+  stadtteil: 'lindenau',
+  kaufpreis: 80000,
+  wohnflaeche: 60,
+  sanierungskosten: 40000,
+  exit_strategie: '',
+  eigenkapital_pct: 30,
+};
 
-  const fmt = (n: number) => n.toLocaleString('de-DE') + ' \u20AC';
+let currentStep = 1;
 
-  function calc() {
-    const kaufpreis = Number((document.getElementById('kaufpreis') as HTMLInputElement).value) || 0;
-    const qm = Number((document.getElementById('wohnflaeche') as HTMLInputElement).value) || 0;
-    const stadtteil = (document.getElementById('stadtteil') as HTMLSelectElement).value;
-    const sanKosten = Number((document.getElementById('sanierungskosten') as HTMLInputElement).value) || 0;
-    const eigenToggle = (document.getElementById('eigenleistung-toggle') as HTMLInputElement).checked;
-    const gewerk = (document.getElementById('gewerk') as HTMLSelectElement).value;
+// ─────────────────────────────────────────
+//  CALC
+// ─────────────────────────────────────────
+const MARKT: Record<string, number> = {
+  plagwitz: 3200, suedvorstadt: 3100, gohlis: 2800, lindenau: 2600,
+  reudnitz: 2400, neustadt: 2300, volkmarsdorf: 2000, sellerhausen: 1900,
+};
 
-    const sd = stadtteilData[stadtteil] || stadtteilData.volkmarsdorf;
+function calcResult(s: QuizState) {
+  const kp = s.kaufpreis, san = s.sanierungskosten, m2 = s.wohnflaeche;
+  const grunderwerb = kp * 0.035, notar = kp * 0.02, prov_kauf = kp * 0.0238;
+  const nk = grunderwerb + notar + prov_kauf;
+  const beg = s.objekt_typ === 'geg' ? san * 0.40 : 0;
+  const san_netto = san - beg;
+  const gesamt = kp + nk + san_netto;
+  const qm_preis = MARKT[s.stadtteil] ?? 2400;
+  const vp = m2 * qm_preis;
+  const prov_vk = vp * 0.0357;
+  const brutto = vp - gesamt;
+  const netto = brutto - prov_vk;
+  const roi = gesamt > 0 ? (netto / gesamt * 100) : 0;
+  const regel70 = kp <= (vp * 0.70 - san);
+  const speku = s.exit_strategie === 'langfrist';
+  let score: 'A' | 'B' | 'C' | 'D' = roi >= 20 && regel70 ? 'A' : roi >= 12 ? 'B' : roi >= 5 ? 'C' : 'D';
+  const labelMap: Record<string, string> = { A: 'Sehr gutes Deal', B: 'Solides Potential', C: 'Grenzwertig', D: 'Überdenken' };
+  const label = labelMap[score];
+  return { kp, san, m2, grunderwerb, notar, prov_kauf, nk, beg, san_netto, gesamt, qm_preis, vp, prov_vk, brutto, netto, roi, regel70, speku, score, label };
+}
 
-    // Nebenkosten
-    const grunderwerb = kaufpreis * 0.035;
-    const notar = kaufpreis * 0.02;
-    const provisionKauf = kaufpreis * 0.05;
-    const nebenkosten = grunderwerb + notar + provisionKauf;
+// ─────────────────────────────────────────
+//  FORMATTERS
+// ─────────────────────────────────────────
+const fmtEur = (n: number) => n.toLocaleString('de-DE', { maximumFractionDigits: 0 }) + ' €';
+const fmtPct = (n: number) => n.toFixed(1) + ' %';
 
-    // Eigenleistung
-    const eigenleistung = eigenToggle ? (eigenleistungData[gewerk] || 0) : 0;
-    const effektiveSanKosten = Math.max(0, sanKosten - eigenleistung);
+// ─────────────────────────────────────────
+//  PROGRESS INDICATOR
+// ─────────────────────────────────────────
+function updateProgress(step: number) {
+  document.querySelectorAll<HTMLElement>('.quiz-step-dot').forEach((dot) => {
+    const dotStep = Number(dot.dataset.step);
+    dot.classList.remove('is-active', 'is-done');
+    if (dotStep === step) dot.classList.add('is-active');
+    else if (dotStep < step) dot.classList.add('is-done');
+  });
+}
 
-    // Totals
-    const gesamtInvest = kaufpreis + effektiveSanKosten + nebenkosten;
-    const verkaufspreis = qm * sd.saniert;
-    const bruttoGewinn = verkaufspreis - gesamtInvest;
-    const provisionVerkauf = verkaufspreis * 0.05;
-    const nettoGewinn = bruttoGewinn - provisionVerkauf;
-    const roi = gesamtInvest > 0 ? ((nettoGewinn / gesamtInvest) * 100) : 0;
+// ─────────────────────────────────────────
+//  STEP NAVIGATION
+// ─────────────────────────────────────────
+function showStep(n: number) {
+  [1, 2, 3, 4].forEach((s) => {
+    const el = document.getElementById(`step-${s}`);
+    if (el) el.hidden = s !== n;
+  });
+  currentStep = n;
+  updateProgress(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-    // Display nebenkosten
-    document.getElementById('nk-grunderwerb')!.textContent = fmt(grunderwerb);
-    document.getElementById('nk-notar')!.textContent = fmt(notar);
-    document.getElementById('nk-provision')!.textContent = fmt(provisionKauf);
+// ─────────────────────────────────────────
+//  STEP 1 — SCENARIO CARDS
+// ─────────────────────────────────────────
+document.querySelectorAll<HTMLElement>('.scenario-card').forEach((card) => {
+  // Mouse tracking glow
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+    card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+  });
 
-    // Display results
-    document.getElementById('res-invest')!.textContent = fmt(gesamtInvest);
-    document.getElementById('res-verkauf')!.textContent = fmt(verkaufspreis);
-    document.getElementById('res-brutto')!.textContent = fmt(bruttoGewinn);
-    document.getElementById('res-provision')!.textContent = fmt(provisionVerkauf);
-    document.getElementById('res-netto')!.textContent = fmt(nettoGewinn);
-    document.getElementById('res-roi')!.textContent = roi.toFixed(1) + '%';
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.scenario-card').forEach((c) => c.classList.remove('selected'));
+    card.classList.add('selected');
+    state.objekt_typ = card.dataset.value ?? '';
+    setTimeout(() => showStep(2), 300);
+  });
+});
 
-    // Eigenleistung row
-    const eigenRow = document.getElementById('row-eigenleistung')!;
-    if (eigenToggle) {
-      eigenRow.style.display = 'flex';
-      document.getElementById('res-eigenleistung')!.textContent = fmt(eigenleistung);
-    } else {
-      eigenRow.style.display = 'none';
-    }
+// ─────────────────────────────────────────
+//  STEP 2 — LAGE & STRATEGIE
+// ─────────────────────────────────────────
+const stadtteilSelect = document.getElementById('stadtteil-select') as HTMLSelectElement;
+stadtteilSelect?.addEventListener('change', () => {
+  state.stadtteil = stadtteilSelect.value;
+});
+
+document.querySelectorAll<HTMLElement>('.exit-card').forEach((card) => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.exit-card').forEach((c) => c.classList.remove('selected'));
+    card.classList.add('selected');
+    state.exit_strategie = card.dataset.value ?? '';
+  });
+});
+
+document.getElementById('step2-back')?.addEventListener('click', () => showStep(1));
+
+document.getElementById('step2-next')?.addEventListener('click', () => {
+  if (!state.exit_strategie) {
+    // Auto-select flip if nothing chosen
+    const flipCard = document.querySelector('.exit-card[data-value="flip"]') as HTMLElement;
+    flipCard?.classList.add('selected');
+    state.exit_strategie = 'flip';
+  }
+  state.stadtteil = stadtteilSelect?.value ?? 'lindenau';
+  showStep(3);
+});
+
+// ─────────────────────────────────────────
+//  STEP 3 — SLIDERS
+// ─────────────────────────────────────────
+function calcPreview() {
+  const kp = state.kaufpreis;
+  const grunderwerb = kp * 0.035;
+  const notar = kp * 0.02;
+  const prov = kp * 0.0238;
+  const total = grunderwerb + notar + prov;
+  const el = document.getElementById('nk-total');
+  if (el) el.textContent = fmtEur(total);
+  const breakdown = document.getElementById('nk-breakdown');
+  if (breakdown) {
+    breakdown.textContent = `Grunderwerb ${fmtEur(grunderwerb)} · Notar ${fmtEur(notar)} · Provision ${fmtEur(prov)}`;
+  }
+}
+
+function bindSlider(id: string, valId: string, key: keyof QuizState, formatter: (n: number) => string) {
+  const slider = document.getElementById(id) as HTMLInputElement;
+  const display = document.getElementById(valId);
+  if (!slider || !display) return;
+  slider.addEventListener('input', () => {
+    const v = Number(slider.value);
+    (state as any)[key] = v;
+    display.textContent = formatter(v);
+    calcPreview();
+  });
+}
+
+bindSlider('slider-kaufpreis', 'val-kaufpreis', 'kaufpreis', (n) => n.toLocaleString('de-DE') + ' €');
+bindSlider('slider-wohnflaeche', 'val-wohnflaeche', 'wohnflaeche', (n) => n + ' m²');
+bindSlider('slider-sanierung', 'val-sanierung', 'sanierungskosten', (n) => n.toLocaleString('de-DE') + ' €');
+bindSlider('slider-eigenkapital', 'val-eigenkapital', 'eigenkapital_pct', (n) => n + ' %');
+
+document.getElementById('step3-back')?.addEventListener('click', () => showStep(2));
+
+document.getElementById('step3-next')?.addEventListener('click', () => {
+  showStep(4);
+  renderResult();
+});
+
+// ─────────────────────────────────────────
+//  STEP 4 — RENDER RESULT
+// ─────────────────────────────────────────
+function renderResult() {
+  const r = calcResult(state);
+
+  // Deal Score
+  const circle = document.getElementById('deal-score-circle');
+  const letter = document.getElementById('deal-score-letter');
+  const scoreLabel = document.getElementById('deal-score-label');
+  if (circle && letter && scoreLabel) {
+    circle.className = 'deal-score-circle score-' + r.score;
+    letter.textContent = r.score;
+    scoreLabel.textContent = r.label;
   }
 
-  // Bind events
-  ['kaufpreis', 'wohnflaeche', 'stadtteil', 'sanierungskosten', 'gewerk'].forEach((id) => {
-    document.getElementById(id)?.addEventListener('input', calc);
-    document.getElementById(id)?.addEventListener('change', calc);
-  });
-
-  const eigenToggle = document.getElementById('eigenleistung-toggle') as HTMLInputElement;
-  const gewerkGroup = document.getElementById('gewerk-group')!;
-  eigenToggle?.addEventListener('change', () => {
-    gewerkGroup.style.display = eigenToggle.checked ? 'flex' : 'none';
-    calc();
-  });
-
-  // Initial calc
-  calc();
-
-  // PDF form
-  const pdfForm = document.getElementById('pdf-form') as HTMLFormElement;
-  pdfForm?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new FormData(pdfForm);
-    formData.append('typ', 'flipstart');
-    const btn = pdfForm.querySelector('button') as HTMLButtonElement;
-    btn.textContent = 'Wird gesendet...';
-    btn.disabled = true;
-
-    try {
-      const res = await fetch('/api/lead-magnet', { method: 'POST', body: formData });
-      if (res.ok) {
-        window.location.href = '/danke?typ=blueprint&tool=flipstart';
-      } else {
-        btn.textContent = 'Fehler — erneut versuchen';
-        btn.disabled = false;
-      }
-    } catch {
-      btn.textContent = 'Fehler — erneut versuchen';
-      btn.disabled = false;
+  // Waterfall bars — normalize to percentage of gesamt (max)
+  const maxVal = Math.max(r.gesamt, r.vp) || 1;
+  function setBar(barId: string, valId: string, val: number, color?: string) {
+    const bar = document.getElementById(barId) as HTMLElement;
+    const valEl = document.getElementById(valId);
+    if (bar) {
+      bar.style.width = Math.max(2, (Math.abs(val) / maxVal) * 100) + '%';
+      if (color) bar.style.background = color;
     }
+    if (valEl) valEl.textContent = fmtEur(val);
+  }
+
+  setBar('wf-kp', 'wf-val-kp', r.kp);
+  setBar('wf-nk', 'wf-val-nk', r.nk);
+  setBar('wf-san', 'wf-val-san', r.san_netto);
+  setBar('wf-total', 'wf-val-total', r.gesamt);
+
+  const nettoBar = document.getElementById('wf-netto');
+  const nettoVal = document.getElementById('wf-val-netto');
+  if (nettoBar) {
+    nettoBar.style.width = Math.max(2, (Math.abs(r.netto) / maxVal) * 100) + '%';
+    nettoBar.style.background = r.netto >= 0 ? '#16a34a' : '#dc2626';
+  }
+  if (nettoVal) {
+    nettoVal.textContent = fmtEur(r.netto);
+    nettoVal.style.color = r.netto >= 0 ? '#4ade80' : '#f87171';
+  }
+
+  // Traffic Lights
+  function setTL(iconId: string, valId: string, level: 'green' | 'amber' | 'red', text: string) {
+    const icon = document.getElementById(iconId);
+    const val = document.getElementById(valId);
+    if (icon) {
+      icon.className = 'tl-icon ' + level;
+      icon.textContent = level === 'green' ? '✓' : level === 'amber' ? '!' : '✗';
+    }
+    if (val) val.textContent = text;
+  }
+
+  const roiLevel = r.roi >= 12 ? 'green' : r.roi >= 5 ? 'amber' : 'red';
+  setTL('tl-roi-icon', 'tl-roi-val', roiLevel, fmtPct(r.roi));
+
+  setTL('tl-regel70-icon', 'tl-regel70-val', r.regel70 ? 'green' : 'red',
+    r.regel70 ? 'Eingehalten' : 'Überschritten');
+
+  setTL('tl-speku-icon', 'tl-speku-val', r.speku ? 'green' : 'amber',
+    r.speku ? 'Steuerfrei' : 'Zu versteuern');
+}
+
+// ─────────────────────────────────────────
+//  EMAIL GATE FORM
+// ─────────────────────────────────────────
+const emailForm = document.getElementById('email-gate-form') as HTMLFormElement;
+const emailBtn = document.getElementById('email-gate-btn') as HTMLButtonElement;
+const emailError = document.getElementById('email-gate-error') as HTMLElement;
+
+emailForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  emailError.hidden = true;
+
+  const vorname = (document.getElementById('gate-vorname') as HTMLInputElement)?.value?.trim();
+  const email = (document.getElementById('gate-email') as HTMLInputElement)?.value?.trim();
+
+  if (!vorname || !email) {
+    emailError.textContent = 'Bitte Vorname und E-Mail angeben.';
+    emailError.hidden = false;
+    return;
+  }
+
+  // Show loading
+  emailBtn.textContent = 'Wird gesendet…';
+  emailBtn.classList.add('is-loading');
+
+  // Unlock immediately (optimistic)
+  unlockResult();
+
+  try {
+    const body = {
+      vorname,
+      email,
+      objekt_typ: state.objekt_typ,
+      stadtteil: state.stadtteil,
+      kaufpreis: state.kaufpreis,
+      wohnflaeche: state.wohnflaeche,
+      sanierungskosten: state.sanierungskosten,
+      exit_strategie: state.exit_strategie,
+      eigenkapital_pct: state.eigenkapital_pct,
+    };
+
+    const res = await fetch('/api/roi-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+    if (res.ok) {
+      emailBtn.textContent = '✓ Analyse gesendet';
+    } else {
+      emailBtn.textContent = 'Analyse erhalten';
+      // Result still unlocked
+    }
+  } catch {
+    emailBtn.textContent = 'Analyse erhalten';
+    // Still unlocked — user has their result
+  }
+
+  emailBtn.classList.remove('is-loading');
+});
+
+function unlockResult() {
+  const overlay = document.getElementById('result-blur-overlay');
+  const dashboard = document.getElementById('result-dashboard');
+  overlay?.classList.add('is-hidden');
+  dashboard?.classList.add('is-revealed');
+}
+
+// ─────────────────────────────────────────
+//  STEP 4 BACK
+// ─────────────────────────────────────────
+document.getElementById('step4-back')?.addEventListener('click', () => showStep(3));
+
+// ─────────────────────────────────────────
+//  PROGRESS BUTTONS (clickable for done steps)
+// ─────────────────────────────────────────
+document.querySelectorAll<HTMLElement>('.quiz-step-dot').forEach((dot) => {
+  dot.addEventListener('click', () => {
+    const targetStep = Number(dot.dataset.step);
+    if (targetStep < currentStep) showStep(targetStep);
   });
+});
+
+// ─────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────
+calcPreview();
+updateProgress(1);
 </script>
