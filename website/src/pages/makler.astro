@@ -8,19 +8,21 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
 >
 
   <!-- HERO -->
-  <section class="section makler-hero makler-hero--bg">
-    <div class="makler-hero__bg-img" aria-hidden="true">
-      <img src="/images/wkdi-makler-hero.jpg" alt="" />
-    </div>
-    <div class="container makler-hero__inner">
-      <div class="label">Für Immobilienmakler — Kooperation</div>
-      <h1>Ihre Problemobjekte.<br /><span class="text-accent">Unser Spezialgebiet.</span></h1>
-      <p class="makler-hero__sub">
-        Problemobjekte fressen Zeit und Nerven. Messie, Erbschaft, Sanierungsstau — Stundenlohn geht gegen Null. Wir haben die Käufer die genau das suchen. Machen Sie Ihre Problemobjekte zu Geld. Vertraglich abgesicherter Provisionsanspruch, null Mehraufwand.
-      </p>
-      <div class="makler-hero__buttons">
-        <a href="#makler-form" class="btn btn-primary">Jetzt bewerben &rarr;</a>
-        <a href="#painpoints" class="btn btn-outline">Warum das funktioniert &darr;</a>
+  <section class="section makler-hero">
+    <div class="container makler-hero__split">
+      <div class="makler-hero__text">
+        <div class="label">Für Immobilienmakler — Kooperation</div>
+        <h1>Ihre Problemobjekte.<br /><span class="text-accent">Unser Spezialgebiet.</span></h1>
+        <p class="makler-hero__sub">
+          Problemobjekte fressen Zeit und Nerven. Messie, Erbschaft, Sanierungsstau — Stundenlohn geht gegen Null. Wir haben die Käufer die genau das suchen. Machen Sie Ihre Problemobjekte zu Geld. Vertraglich abgesicherter Provisionsanspruch, null Mehraufwand.
+        </p>
+        <div class="makler-hero__buttons">
+          <a href="#makler-form" class="btn btn-primary">Jetzt bewerben &rarr;</a>
+          <a href="#painpoints" class="btn btn-outline">Warum das funktioniert &darr;</a>
+        </div>
+      </div>
+      <div class="makler-hero__img" aria-hidden="true">
+        <img src="/images/wkdi-makler-hero.jpg" alt="Makler-Kooperation" />
       </div>
     </div>
   </section>
@@ -250,31 +252,46 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
 <style>
   /* HERO */
   .makler-hero {
-    text-align: center;
     padding-top: var(--space-20);
     padding-bottom: var(--space-16);
   }
-  .makler-hero--bg { position: relative; overflow: hidden; }
-  .makler-hero__bg-img { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-  .makler-hero__bg-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.15; filter: grayscale(20%); }
-  .makler-hero--bg .makler-hero__inner { position: relative; z-index: 1; }
-  .makler-hero__inner {
+  .makler-hero__split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+  .makler-hero__text {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: var(--space-6);
   }
   .makler-hero__sub {
     font-size: var(--text-lg);
     color: var(--color-text-mid);
-    max-width: 640px;
-    text-align: center;
+    max-width: 520px;
   }
   .makler-hero__buttons {
     display: flex;
     gap: var(--space-4);
     flex-wrap: wrap;
-    justify-content: center;
+  }
+  .makler-hero__img {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.12);
+    aspect-ratio: 4/3;
+  }
+  .makler-hero__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .makler-hero__split { grid-template-columns: 1fr; }
+    .makler-hero__img { order: -1; aspect-ratio: 16/9; }
   }
 
   /* STATS */
