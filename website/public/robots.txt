@@ -27,4 +27,4 @@ Disallow: /
 User-agent: Bytespider
 Disallow: /
 
-Sitemap: https://wirkaufendeineimmobilie.build-upstream.com/sitemap-index.xml
+Sitemap: https://wirkaufendeineimmobilie.de/sitemap-index.xml
