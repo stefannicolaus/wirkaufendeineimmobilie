@@ -13,7 +13,8 @@ export async function sendTransactionalEmail(opts: {
   attachments?: BrevoAttachment[];
   replyTo?: string;
 }) {
-  const apiKey = import.meta.env.BREVO_API_KEY;
+  // use process.env for SSR runtime (import.meta.env is replaced at build time by Vite)
+  const apiKey = process.env.BREVO_API_KEY || import.meta.env.BREVO_API_KEY;
   if (!apiKey) throw new Error('BREVO_API_KEY not configured');
 
   const body = {
