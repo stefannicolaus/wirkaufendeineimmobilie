@@ -61,8 +61,10 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Launch Puppeteer to convert HTML → PDF
     let pdfBase64: string;
+    const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
     const browser = await puppeteer.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu'],
+      executablePath: executablePath || undefined,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
       headless: true,
     });
     try {
