@@ -315,6 +315,63 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     </div>
   </section>
 
+  <!-- ROI RECHNER TEASER -->
+  <section class="section roi-teaser-section">
+    <div class="container roi-teaser__inner">
+      <!-- Left: Copy -->
+      <div class="roi-teaser__copy">
+        <p class="roi-teaser__eyebrow">Für Investoren</p>
+        <h2 class="roi-teaser__heading">Lohnt sich der Deal?<br /><span class="text-accent">Rechne es durch.</span></h2>
+        <p class="roi-teaser__body">Fix &amp; Flip Kalkulation mit echten Leipziger Marktdaten. Rendite, Nebenkosten, 70%-Regel und BEG-Förderung — in 3 Minuten. Am Ende erhältst du deine persönliche Deal-Analyse als PDF.</p>
+        <ul class="roi-teaser__benefits">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Echte Marktpreise — 8 Stadtteile Leipzig
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Deal Score A–D mit 70%-Regel-Check
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            BEG-Förderung bei GEG-Objekten berücksichtigt
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Persönliche Analyse als PDF — kostenlos per E-Mail
+          </li>
+        </ul>
+        <a href="/roi-rechner" class="btn btn-primary roi-teaser__cta">Jetzt Rendite berechnen &rarr;</a>
+      </div>
+      <!-- Right: PDF Mockup Card -->
+      <div class="roi-teaser__visual" aria-hidden="true">
+        <div class="roi-mockup-wrap">
+          <div class="roi-mockup-card">
+            <div class="roi-mockup-bg">
+              <img src="/images/wkdi-roi-teaser-preview.jpg" alt="" loading="lazy" />
+            </div>
+            <div class="roi-mockup-content">
+              <div class="roi-mockup-badge">VERTRAULICH</div>
+              <div class="roi-mockup-ref">Ref-Nr. WKDI-20240321-4892</div>
+              <div class="roi-mockup-title">Deal-Analyse</div>
+              <div class="roi-mockup-subtitle">Fix &amp; Flip Kalkulation · Leipzig</div>
+              <div class="roi-mockup-score">
+                <div class="roi-mockup-score-circle">A</div>
+                <div class="roi-mockup-score-label">Sehr gutes Deal<br /><span>ROI 24 % · 70%-Regel ✓</span></div>
+              </div>
+              <div class="roi-mockup-bars">
+                <div class="roi-mockup-bar roi-mockup-bar--1"><span class="roi-mockup-bar-label">Kaufpreis</span><div class="roi-mockup-bar-fill" style="width:55%"></div></div>
+                <div class="roi-mockup-bar roi-mockup-bar--2"><span class="roi-mockup-bar-label">Sanierung</span><div class="roi-mockup-bar-fill" style="width:30%"></div></div>
+                <div class="roi-mockup-bar roi-mockup-bar--3"><span class="roi-mockup-bar-label">Gewinn</span><div class="roi-mockup-bar-fill roi-mockup-bar-fill--green" style="width:24%"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="roi-mockup-shadow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA WITH GLOW -->
   <section class="cta-glow-section">
     <div class="cta-glow__glow" aria-hidden="true"></div>
@@ -1226,6 +1283,239 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     box-shadow:
       0 0 0 1px rgba(255,255,255,0.15),
       0 8px 40px rgba(59, 130, 246, 0.55);
+  }
+
+  /* ── ROI TEASER SECTION ── */
+  .roi-teaser-section {
+    padding-block: var(--section-gap);
+    background: var(--color-bg);
+  }
+
+  .roi-teaser__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(48px, 6vw, 96px);
+    align-items: center;
+  }
+
+  .roi-teaser__eyebrow {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-3);
+  }
+
+  .roi-teaser__heading {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: var(--weight-extrabold);
+    line-height: 1.15;
+    margin-bottom: var(--space-5);
+  }
+
+  .roi-teaser__body {
+    font-size: var(--text-base);
+    color: var(--color-text-mid);
+    line-height: 1.7;
+    margin-bottom: var(--space-6);
+    max-width: 520px;
+  }
+
+  .roi-teaser__benefits {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+  }
+
+  .roi-teaser__benefits li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-mid);
+  }
+
+  .roi-teaser__benefits svg {
+    flex-shrink: 0;
+  }
+
+  .roi-teaser__cta {
+    display: inline-flex;
+  }
+
+  /* PDF Mockup Visual */
+  .roi-teaser__visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .roi-mockup-wrap {
+    position: relative;
+    width: 320px;
+    perspective: 800px;
+  }
+
+  .roi-mockup-card {
+    background: linear-gradient(160deg, #0f2a4a 0%, #0a1628 60%, #061020 100%);
+    border-radius: 16px;
+    padding: 32px 28px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.3),
+      0 8px 24px rgba(0,0,0,0.4),
+      0 24px 64px rgba(0,0,0,0.35),
+      0 0 0 1px rgba(255,255,255,0.04);
+    transform: rotate(-2deg) rotateY(3deg);
+    position: relative;
+    overflow: hidden;
+    color: white;
+  }
+
+  .roi-mockup-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .roi-mockup-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.10;
+    filter: grayscale(60%);
+  }
+
+  .roi-mockup-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .roi-mockup-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.4);
+    color: #f87171;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  .roi-mockup-ref {
+    font-size: 9px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+
+  .roi-mockup-title {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .roi-mockup-subtitle {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 20px;
+  }
+
+  .roi-mockup-score {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+  }
+
+  .roi-mockup-score-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 900;
+    flex-shrink: 0;
+    box-shadow: 0 2px 12px rgba(22, 163, 74, 0.4);
+  }
+
+  .roi-mockup-score-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.4;
+  }
+
+  .roi-mockup-score-label span {
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .roi-mockup-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .roi-mockup-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .roi-mockup-bar-label {
+    font-size: 9px;
+    color: rgba(255,255,255,0.4);
+    width: 52px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .roi-mockup-bar-fill {
+    height: 6px;
+    background: rgba(59, 130, 246, 0.5);
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .roi-mockup-bar-fill--green {
+    background: rgba(22, 163, 74, 0.7);
+  }
+
+  .roi-mockup-shadow {
+    position: absolute;
+    bottom: -30px;
+    left: 10%;
+    right: 10%;
+    height: 40px;
+    background: rgba(0,0,0,0.3);
+    filter: blur(20px);
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  @media (max-width: 900px) {
+    .roi-teaser__inner {
+      grid-template-columns: 1fr;
+    }
+    .roi-teaser__visual {
+      display: none;
+    }
   }
 </style>
 
