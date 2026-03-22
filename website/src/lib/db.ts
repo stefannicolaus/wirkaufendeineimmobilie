@@ -31,9 +31,16 @@ db.exec(`
     lead_magnet_typ TEXT,
     lead_magnet_data TEXT,
     source TEXT DEFAULT 'website',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    sequence_day3_sent DATETIME,
+    sequence_day7_sent DATETIME
   );
+  CREATE TABLE IF NOT EXISTS _migrations (id TEXT PRIMARY KEY);
 `);
+
+// Add sequence columns to existing DBs (idempotent)
+try { db.exec(`ALTER TABLE registrations ADD COLUMN sequence_day3_sent DATETIME`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN sequence_day7_sent DATETIME`); } catch {}
 
 export function insertRegistration(data: Record<string, unknown>) {
   const columns = Object.keys(data);
