@@ -233,11 +233,31 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
+      <!-- CALC OVERLAY: 10s progress between step 3 and step 4 -->
+      <div id="calc-overlay" hidden>
+        <div class="calc-overlay__inner">
+          <div class="calc-overlay__icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3 class="calc-overlay__title">Dein Deal wird analysiert…</h3>
+          <div class="calc-progress-track">
+            <div class="calc-progress-fill" id="calc-progress-fill"></div>
+          </div>
+          <p class="calc-progress-pct" id="calc-progress-pct">0 %</p>
+          <ul class="calc-steps-list" id="calc-steps-list">
+            <li class="calc-step-item" data-at="0">Marktwerte Leipzig werden geladen…</li>
+            <li class="calc-step-item" data-at="25">Sanierungskosten werden bewertet…</li>
+            <li class="calc-step-item" data-at="55">Deal Score wird berechnet…</li>
+            <li class="calc-step-item" data-at="82">PDF-Bericht wird vorbereitet…</li>
+          </ul>
+        </div>
+      </div>
+
       <!-- STEP 4: Ergebnis -->
       <div class="quiz-step" id="step-4" hidden>
         <div class="quiz-step__header">
           <h2>Dein Deal-Ergebnis</h2>
-          <p class="quiz-step__hint">Gib deine E-Mail ein, um die vollständige Analyse freizuschalten.</p>
+          <p class="quiz-step__hint">Gib deine E-Mail ein, und wir senden dir umgehend die vollständige Analyse zu.</p>
         </div>
         <div class="result-grid">
 
@@ -881,6 +901,86 @@ import Layout from '../layouts/Layout.astro';
   margin: 0 auto;
 }
 
+/* ── Calc overlay ── */
+#calc-overlay {
+  padding: var(--space-20) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+.calc-overlay__inner {
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+}
+.calc-overlay__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-primary-bg, rgba(37,99,235,0.1));
+  margin: 0 auto var(--space-6);
+  color: var(--color-primary, #2563eb);
+  animation: calcSpin 1.5s linear infinite;
+}
+@keyframes calcSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.calc-overlay__title {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  margin: 0 0 var(--space-6);
+}
+.calc-progress-track {
+  height: 8px;
+  background: var(--color-border);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: var(--space-3);
+}
+.calc-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-primary, #2563eb), var(--color-accent, #0ea5e9));
+  border-radius: 99px;
+  transition: width 0.1s linear;
+}
+.calc-progress-pct {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--weight-semibold);
+  margin: 0 0 var(--space-8);
+}
+.calc-steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  text-align: left;
+}
+.calc-step-item {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.4s, transform 0.4s, color 0.3s, background 0.3s;
+}
+.calc-step-item.is-active {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--color-text);
+  background: var(--color-primary-bg, rgba(37,99,235,0.06));
+}
+
 /* Dashboard wrap with blur */
 .result-dashboard-wrap {
   position: relative;
@@ -892,8 +992,7 @@ import Layout from '../layouts/Layout.astro';
   position: absolute;
   inset: 0;
   z-index: 10;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -930,11 +1029,13 @@ import Layout from '../layouts/Layout.astro';
   background: var(--color-bg-dark);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
+  /* Lighter inner glow so content is visible even when blurred */
+  box-shadow: inset 0 0 60px rgba(255,255,255,0.03);
   padding: clamp(20px, 3vw, 36px);
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  filter: blur(12px);
+  filter: blur(8px);
   transition: filter 0.5s;
 }
 
@@ -1482,9 +1583,47 @@ bindSlider('slider-eigenkapital', 'val-eigenkapital', 'eigenkapital_pct', (n) =>
 document.getElementById('step3-back')?.addEventListener('click', () => showStep(2));
 
 document.getElementById('step3-next')?.addEventListener('click', () => {
-  showStep(4);
-  renderResult();
+  showCalcOverlay(() => {
+    showStep(4);
+    renderResult();
+  });
 });
+
+function showCalcOverlay(onComplete: () => void) {
+  const overlay = document.getElementById('calc-overlay') as HTMLElement | null;
+  if (!overlay) { onComplete(); return; }
+
+  // Hide all steps, show overlay
+  [1, 2, 3, 4].forEach((s) => {
+    const el = document.getElementById(`step-${s}`);
+    if (el) el.hidden = true;
+  });
+  overlay.hidden = false;
+  overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  const fill = document.getElementById('calc-progress-fill') as HTMLElement | null;
+  const pctEl = document.getElementById('calc-progress-pct') as HTMLElement | null;
+  const items = overlay.querySelectorAll<HTMLElement>('.calc-step-item');
+
+  const DURATION = 10_000;
+  const start = performance.now();
+
+  function tick(now: number) {
+    const pct = Math.min(100, ((now - start) / DURATION) * 100);
+    if (fill) fill.style.width = pct.toFixed(1) + '%';
+    if (pctEl) pctEl.textContent = Math.floor(pct) + ' %';
+    items.forEach((item) => {
+      if (pct >= Number(item.dataset.at)) item.classList.add('is-active');
+    });
+    if (pct < 100) {
+      requestAnimationFrame(tick);
+    } else {
+      overlay.hidden = true;
+      onComplete();
+    }
+  }
+  requestAnimationFrame(tick);
+}
 
 // ─────────────────────────────────────────
 //  STEP 4 — RENDER RESULT
