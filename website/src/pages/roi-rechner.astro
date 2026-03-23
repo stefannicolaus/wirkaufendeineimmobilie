@@ -266,7 +266,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="result-dashboard-wrap" id="result-dashboard-wrap">
             <div class="result-blur-overlay" id="result-blur-overlay">
               <div class="result-blur-overlay__inner">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 <p>Ergebnis nach E-Mail sichtbar</p>
               </div>
             </div>
@@ -347,6 +347,15 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
 
+          <!-- Joachim annotation bubble -->
+          <div class="joachim-bubble">
+            <div class="joachim-bubble__avatar" aria-hidden="true">J</div>
+            <div class="joachim-bubble__body">
+              <p class="joachim-bubble__quote">„Drei Zeilen — und ich weiß sofort ob der Deal läuft oder nicht."</p>
+              <p class="joachim-bubble__name">Joachim K. &middot; Leipzig</p>
+            </div>
+          </div>
+
           <!-- Right: Email Gate -->
           <div class="email-gate-card">
             <!-- PDF Mockup -->
@@ -355,18 +364,34 @@ import Layout from '../layouts/Layout.astro';
                 <div class="pdf-mockup__logo">WKDI</div>
                 <div class="pdf-mockup__title">Deal-Analyse</div>
                 <div class="pdf-mockup__sub">Leipzig · Persönlich erstellt</div>
-                <div class="pdf-mockup__lines">
-                  <div class="pdf-mockup__line" style="width:80%"></div>
-                  <div class="pdf-mockup__line" style="width:60%"></div>
-                  <div class="pdf-mockup__line" style="width:70%"></div>
-                  <div class="pdf-mockup__line" style="width:45%"></div>
+                <div class="pdf-mockup__rows">
+                  <div class="pdf-mockup__row">
+                    <span class="pdf-mockup__row-label">Deal Score</span>
+                    <span class="pdf-mockup__row-val pdf-mockup__row-val--accent">A</span>
+                  </div>
+                  <div class="pdf-mockup__row">
+                    <span class="pdf-mockup__row-label">Netto-Gewinn</span>
+                    <span class="pdf-mockup__row-val pdf-mockup__row-val--blur">██████ €</span>
+                  </div>
+                  <div class="pdf-mockup__row">
+                    <span class="pdf-mockup__row-label">ROI</span>
+                    <span class="pdf-mockup__row-val pdf-mockup__row-val--blur">██%</span>
+                  </div>
+                  <div class="pdf-mockup__row">
+                    <span class="pdf-mockup__row-label">70%-Regel</span>
+                    <span class="pdf-mockup__row-val pdf-mockup__row-val--green">✓ Erfüllt</span>
+                  </div>
+                  <div class="pdf-mockup__row">
+                    <span class="pdf-mockup__row-label">Marktvergleich</span>
+                    <span class="pdf-mockup__row-val pdf-mockup__row-val--blur">⬆ +██%</span>
+                  </div>
                 </div>
               </div>
             </div>
 
             <!-- Form -->
             <form class="email-gate-form" id="email-gate-form" novalidate>
-              <h3 class="email-gate-form__title">Analyse freischalten</h3>
+              <h3 class="email-gate-form__title">Wohin schicke ich sie?</h3>
               <div class="form-field">
                 <label class="field-label" for="gate-vorname">Vorname</label>
                 <input type="text" id="gate-vorname" name="vorname" placeholder="Max" required autocomplete="given-name" />
@@ -378,7 +403,7 @@ import Layout from '../layouts/Layout.astro';
               <button type="submit" class="btn btn-primary email-gate-btn" id="email-gate-btn">
                 Analyse jetzt erhalten →
               </button>
-              <p class="email-gate-disclaimer">Kostenlos · Keine Weitergabe · Sofort per E-Mail</p>
+              <p class="email-gate-disclaimer">Direkt ins Postfach. Einmalig.</p>
               <p class="email-gate-error" id="email-gate-error" hidden></p>
             </form>
           </div>
@@ -1005,7 +1030,8 @@ import Layout from '../layouts/Layout.astro';
   position: absolute;
   inset: 0;
   z-index: 10;
-  background: rgba(15, 23, 42, 0.35);
+  background: rgba(15, 23, 42, 0.18);
+  backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1048,7 +1074,7 @@ import Layout from '../layouts/Layout.astro';
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  filter: blur(8px);
+  filter: blur(4px);
   transition: filter 0.5s;
 }
 
@@ -1226,6 +1252,68 @@ import Layout from '../layouts/Layout.astro';
     0 8px 32px rgba(15, 23, 42, 0.15);
 }
 
+/* Joachim bubble */
+.joachim-bubble {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(15,23,42,0.08));
+  position: relative;
+  margin-top: var(--space-3);
+}
+
+.joachim-bubble::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 20px;
+  width: 14px;
+  height: 14px;
+  background: var(--color-bg-card);
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+  transform: rotate(45deg);
+}
+
+.joachim-bubble__avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.joachim-bubble__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.joachim-bubble__quote {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.joachim-bubble__name {
+  font-size: var(--text-xs);
+  color: var(--color-text-mid);
+  font-weight: var(--weight-medium);
+  margin: 0;
+}
+
 /* PDF Mockup */
 .pdf-mockup {
   perspective: 800px;
@@ -1264,17 +1352,47 @@ import Layout from '../layouts/Layout.astro';
   color: var(--color-text-muted);
 }
 
-.pdf-mockup__lines {
+.pdf-mockup__rows {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  margin-top: var(--space-2);
+  margin-top: var(--space-3);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: var(--space-3);
 }
 
-.pdf-mockup__line {
-  height: 6px;
-  border-radius: var(--radius-full);
-  background: rgba(255,255,255,0.1);
+.pdf-mockup__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+
+.pdf-mockup__row-label {
+  color: rgba(255,255,255,0.45);
+  font-weight: var(--weight-medium);
+}
+
+.pdf-mockup__row-val {
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+  color: rgba(255,255,255,0.9);
+}
+
+.pdf-mockup__row-val--blur {
+  filter: blur(4px);
+  color: rgba(255,255,255,0.7);
+  user-select: none;
+}
+
+.pdf-mockup__row-val--accent {
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+}
+
+.pdf-mockup__row-val--green {
+  color: #4ade80;
 }
 
 /* Gate Form */
