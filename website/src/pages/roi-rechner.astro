@@ -262,7 +262,8 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <div class="result-grid">
 
-          <!-- Left: Dashboard (blurred initially) -->
+          <!-- Left column: Dashboard + Joachim bubble -->
+          <div class="result-left-col">
           <div class="result-dashboard-wrap" id="result-dashboard-wrap">
             <div class="result-blur-overlay" id="result-blur-overlay">
               <div class="result-blur-overlay__inner">
@@ -355,6 +356,7 @@ import Layout from '../layouts/Layout.astro';
               <p class="joachim-bubble__name">Joachim K. &middot; Leipzig</p>
             </div>
           </div>
+          </div><!-- /result-left-col -->
 
           <!-- Right: Email Gate -->
           <div class="email-gate-card">
@@ -1019,6 +1021,13 @@ import Layout from '../layouts/Layout.astro';
   background: var(--color-primary-bg, rgba(37,99,235,0.06));
 }
 
+/* Left column: dashboard + bubble stacked */
+.result-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
 /* Dashboard wrap with blur */
 .result-dashboard-wrap {
   position: relative;
@@ -1263,7 +1272,6 @@ import Layout from '../layouts/Layout.astro';
   padding: var(--space-4);
   box-shadow: var(--shadow-md, 0 4px 12px rgba(15,23,42,0.08));
   position: relative;
-  margin-top: var(--space-3);
 }
 
 .joachim-bubble::before {
