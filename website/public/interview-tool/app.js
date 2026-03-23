@@ -115,23 +115,48 @@ function bindStartscreenEvents() {
   });
 }
 
-// === INTERVIEW FLOW ===
+// === INTERVIEW FLOW (Accordion) ===
 function renderInterview() {
   const interview = getInterview(state.activeInterviewId);
   if (!interview) { navigate('startscreen'); return ''; }
   const topic = getTopicById(interview.thema);
-  const allQuestions = topic.sections.flatMap(s =>
-    s.questions.map(q => ({ ...q, sectionTitle: s.title }))
-  );
-  const total = allQuestions.length;
-  const current = state.activeQuestionIndex;
-  const question = allQuestions[current];
-  const isLast = current === total - 1;
-  const progressPct = Math.round(((current + 1) / total) * 100);
 
-  const haBadge = question.hiddenAgenda
-    ? `<span class="ha-badge ha-badge--${question.hiddenAgenda.toLowerCase()}" title="Produktvalidierung">${question.hiddenAgenda}</span>`
-    : '';
+  const totalQuestions = topic.sections.flatMap(s => s.questions).length;
+  const answeredCount = Object.values(interview.antworten).filter(v => v && v.trim()).length;
+  const progressPct = totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
+
+  const sectionsHtml = topic.sections.map((section, sIdx) => {
+    const questionsHtml = section.questions.map(q => {
+      const haBadge = q.hiddenAgenda
+        ? `<span class="ha-badge ha-badge--${q.hiddenAgenda.toLowerCase()}" title="Produktvalidierung">${q.hiddenAgenda}</span>`
+        : '';
+      return `
+        <div class="accordion-question">
+          <label class="accordion-question__label">
+            ${q.text}
+            ${haBadge}
+          </label>
+          <textarea
+            class="answer-field"
+            data-question-id="${q.id}"
+            placeholder="Notizen..."
+            rows="3"
+          >${interview.antworten[q.id] || ''}</textarea>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="accordion-section accordion-section--open" data-section-idx="${sIdx}">
+        <button class="accordion-section__header" type="button">
+          <span class="accordion-section__title">${section.title}</span>
+          <span class="accordion-section__count">${section.questions.length} Fragen</span>
+          <span class="accordion-section__chevron">▾</span>
+        </button>
+        <div class="accordion-section__body">
+          ${questionsHtml}
+        </div>
+      </div>`;
+  }).join('');
 
   return `
     <header class="header">
@@ -143,72 +168,42 @@ function renderInterview() {
     <div class="progress-bar">
       <div class="progress-bar__fill" style="width: ${progressPct}%"></div>
     </div>
-    <p class="progress-label">${current + 1} / ${total} Fragen</p>
+    <p class="progress-label">${answeredCount} / ${totalQuestions} Fragen beantwortet</p>
 
     <main class="interview-view">
-      <p class="question-section-label">${question.sectionTitle}</p>
-      <h2 class="question-text">
-        ${question.text}
-        ${haBadge}
-      </h2>
-
-      <textarea
-        class="answer-field"
-        id="answer-field"
-        placeholder="Notizen..."
-        rows="6"
-      >${interview.antworten[question.id] || ''}</textarea>
-
-      <div class="question-nav">
-        ${current > 0
-          ? `<button class="btn btn--ghost" onclick="prevQuestion()">← Zurück</button>`
-          : '<div></div>'
-        }
-        ${isLast
-          ? `<button class="btn btn--primary" onclick="navigate('evaluierung')">Zum Abschluss →</button>`
-          : `<button class="btn btn--primary" onclick="nextQuestion()">Weiter →</button>`
-        }
+      <div class="accordion">
+        ${sectionsHtml}
+      </div>
+      <div class="interview-footer">
+        <button class="btn btn--primary" onclick="navigate('evaluierung')">Zum Abschluss →</button>
       </div>
     </main>
   `;
 }
 
-function saveCurrentAnswer() {
-  const field = document.getElementById('answer-field');
-  if (!field || !state.activeInterviewId) return;
-  const interview = getInterview(state.activeInterviewId);
-  if (!interview) return;
-  const topic = getTopicById(interview.thema);
-  const allQuestions = topic.sections.flatMap(s => s.questions);
-  const question = allQuestions[state.activeQuestionIndex];
-  if (!question) return;
-  updateAnswer(state.activeInterviewId, question.id, field.value);
+function saveAnswer(questionId, value) {
+  if (!state.activeInterviewId) return;
+  updateAnswer(state.activeInterviewId, questionId, value);
   const indicator = document.getElementById('autosave-indicator');
   if (indicator) indicator.textContent = 'Gespeichert ✓';
 }
 
-window.nextQuestion = function() {
-  const interview = getInterview(state.activeInterviewId);
-  if (!interview) return;
-  const topic = getTopicById(interview.thema);
-  const total = topic.sections.flatMap(s => s.questions).length;
-  saveCurrentAnswer();
-  if (state.activeQuestionIndex < total - 1) {
-    state.activeQuestionIndex++;
-    render();
-  }
-};
-
-window.prevQuestion = function() {
-  saveCurrentAnswer();
-  if (state.activeQuestionIndex > 0) {
-    state.activeQuestionIndex--;
-    render();
-  }
-};
-
 function bindInterviewEvents() {
-  document.getElementById('answer-field')?.addEventListener('input', debounce(saveCurrentAnswer, 800));
+  const debouncedSave = debounce((qId, val) => saveAnswer(qId, val), 800);
+
+  document.querySelectorAll('.answer-field[data-question-id]').forEach(textarea => {
+    textarea.addEventListener('input', () => {
+      const indicator = document.getElementById('autosave-indicator');
+      if (indicator) indicator.textContent = 'Speichert...';
+      debouncedSave(textarea.dataset.questionId, textarea.value);
+    });
+  });
+
+  document.querySelectorAll('.accordion-section__header').forEach(header => {
+    header.addEventListener('click', () => {
+      header.closest('.accordion-section').classList.toggle('accordion-section--open');
+    });
+  });
 }
 
 // === EVALUIERUNG ===
@@ -262,7 +257,7 @@ function renderEvaluierung() {
       </div>
 
       <div class="eval-actions">
-        <button class="btn btn--ghost" onclick="navigate('interview', { activeInterviewId: appState().activeInterviewId, activeQuestionIndex: appState().activeQuestionIndex || 0 })">← Nochmal nachschauen</button>
+        <button class="btn btn--ghost" onclick="navigate('interview', { activeInterviewId: appState().activeInterviewId })">← Nochmal nachschauen</button>
         <button class="btn btn--primary btn--confirm" id="btn-abschliessen">
           Interview abschließen ✓
         </button>
