@@ -406,14 +406,20 @@ function bindEvents() {
 }
 
 // === BOOT ===
-document.addEventListener('DOMContentLoaded', () => {
+// app.js is loaded dynamically — DOMContentLoaded may have already fired
+function boot() {
   const params = new URLSearchParams(location.search);
   const viewParam = params.get('view');
   if (viewParam && ['startscreen', 'archive'].includes(viewParam)) {
     state.view = viewParam;
   }
   render();
-});
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
+}
 
 window.navigate = navigate;
 window.appState = () => state;
