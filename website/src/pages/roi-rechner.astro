@@ -12,8 +12,9 @@ import Layout from '../layouts/Layout.astro';
       <img src="/images/wkdi-roi-quiz-hero.jpg" alt="" />
     </div>
     <div class="container quiz-hero__inner">
-      <h1>Was bringt dein nächster Deal?</h1>
-      <p class="quiz-hero__sub">Berechne Rendite, Förderung und Gewinn — mit echten Leipziger Marktdaten.</p>
+      <p class="quiz-hero__tag">Für Eigentümer mit schwierigen Immobilien</p>
+      <h1>Was bekommst du für deine Immobilie — trotz des Zustands?</h1>
+      <p class="quiz-hero__sub">Messie-Wohnung, Erbschaft im Streit, GEG-Sanierungspflicht, Zwangslage — kein Problem. Gib 3 Zahlen ein und sieh sofort, was beim Verkauf realistisch für dich rausspringt.</p>
     </div>
   </section>
 
@@ -435,6 +436,15 @@ import Layout from '../layouts/Layout.astro';
 .quiz-hero__inner h1 {
   color: var(--color-text-on-dark);
   font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+}
+
+.quiz-hero__tag {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary, #2563eb);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
 }
 
 .quiz-hero__sub {

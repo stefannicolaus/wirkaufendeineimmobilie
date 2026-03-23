@@ -12,8 +12,9 @@ import Layout from '../layouts/Layout.astro';
       <img src="/images/wkdi-roi-quiz-hero.jpg" alt="" />
     </div>
     <div class="container quiz-hero__inner">
-      <h1>Was bringt dein Mietobjekt wirklich?</h1>
-      <p class="quiz-hero__sub">Berechne Cashflow nach Steuer, AfA-Vorteil und DCF-Rendite — in 5 Schritten.</p>
+      <p class="quiz-hero__tag">Für Buy-&amp;-Hold-Investoren</p>
+      <h1>Rechnet sich das Objekt wirklich — nach Steuer, AfA und Kredit?</h1>
+      <p class="quiz-hero__sub">Du kaufst, vermietest und hältst langfristig. Gib deine Zahlen ein und sieh sofort: monatlicher Cashflow nach Steuer, AfA-Vorteil und was das Objekt in 10 Jahren wert ist.</p>
     </div>
   </section>
 
@@ -332,6 +333,15 @@ import Layout from '../layouts/Layout.astro';
 .quiz-hero__inner h1 {
   color: var(--color-text-on-dark);
   font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+}
+
+.quiz-hero__tag {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary, #2563eb);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
 }
 
 .quiz-hero__sub {
