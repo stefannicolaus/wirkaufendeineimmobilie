@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>WKDI Interview Tool</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">Lädt...</div>
+  <script>
+    const AUTH_KEY = 'wkdi_tool_auth';
+    const USERS = { 'joachim': 'joachim2026', 'stefan': 'stefan2026' };
+    const storedUser = localStorage.getItem(AUTH_KEY + '_user');
+    const storedPass = localStorage.getItem(AUTH_KEY + '_pass');
+    if (!storedUser || USERS[storedUser] !== storedPass) {
+      document.getElementById('app').innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100dvh;gap:12px;padding:24px;">
+          <h2 style="font-family:system-ui;font-size:20px;color:#1a3a2a;margin-bottom:4px;">WKDI Interview Tool</h2>
+          <input id="usr" type="text" placeholder="Benutzername" autocomplete="username"
+            style="padding:14px;font-size:16px;border:2px solid #e2e8e0;border-radius:12px;width:100%;max-width:320px;">
+          <input id="pw" type="password" placeholder="Passwort" autocomplete="current-password"
+            style="padding:14px;font-size:16px;border:2px solid #e2e8e0;border-radius:12px;width:100%;max-width:320px;">
+          <button onclick="checkPw()"
+            style="padding:14px 28px;background:#2d6a4f;color:white;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;width:100%;max-width:320px;">
+            Einloggen
+          </button>
+          <p id="pw-err" style="color:#f4a261;font-size:14px;font-family:system-ui;min-height:20px;"></p>
+        </div>`;
+      window.checkPw = () => {
+        const usr = document.getElementById('usr').value.trim().toLowerCase();
+        const pw = document.getElementById('pw').value;
+        if (USERS[usr] && USERS[usr] === pw) {
+          localStorage.setItem(AUTH_KEY + '_user', usr);
+          localStorage.setItem(AUTH_KEY + '_pass', pw);
+          location.reload();
+        } else {
+          document.getElementById('pw-err').textContent = 'Falscher Benutzername oder Passwort';
+        }
+      };
+      document.getElementById('pw').addEventListener('keydown', e => { if (e.key === 'Enter') window.checkPw(); });
+      document.getElementById('usr').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('pw').focus(); });
+    } else {
+      // Auth OK — load app
+      const s = document.createElement('script');
+      s.type = 'module';
+      s.src = 'app.js';
+      document.body.appendChild(s);
+    }
+  </script>
+</body>
+</html>
