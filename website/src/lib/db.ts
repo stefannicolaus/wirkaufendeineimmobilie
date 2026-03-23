@@ -42,6 +42,33 @@ db.exec(`
 try { db.exec(`ALTER TABLE registrations ADD COLUMN sequence_day3_sent DATETIME`); } catch {}
 try { db.exec(`ALTER TABLE registrations ADD COLUMN sequence_day7_sent DATETIME`); } catch {}
 
+db.exec(`
+  CREATE TABLE IF NOT EXISTS leads_kapitalanleger (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ref_nr TEXT NOT NULL,
+    vorname TEXT NOT NULL,
+    email TEXT NOT NULL,
+    kaufpreis INTEGER,
+    baujahr INTEGER,
+    wohnflaeche REAL,
+    kaltmiete INTEGER,
+    hausgeld INTEGER,
+    darlehen INTEGER,
+    zinssatz REAL,
+    tilgung REAL,
+    grenzsteuersatz REAL,
+    haltedauer INTEGER,
+    gebaeudeanteil REAL,
+    netto_cashflow_monat REAL,
+    kaufpreisfaktor REAL,
+    afa_jahr REAL,
+    npv_10j REAL,
+    npv_20j REAL,
+    brutto_rendite REAL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+`);
+
 export function insertRegistration(data: Record<string, unknown>) {
   const columns = Object.keys(data);
   const placeholders = columns.map(() => '?').join(', ');
@@ -180,6 +207,16 @@ function sendBrevoEmail(opts: { to: string; subject: string; text: string }) {
   }).catch(() => {
     // Silent fail — notification is not critical
   });
+}
+
+export function insertKapitalanlegerLead(data: Record<string, unknown>) {
+  const columns = Object.keys(data);
+  const placeholders = columns.map(() => '?').join(', ');
+  const values = columns.map(k => data[k] ?? null);
+  const stmt = db.prepare(
+    `INSERT INTO leads_kapitalanleger (${columns.join(', ')}) VALUES (${placeholders})`
+  );
+  return stmt.run(...values);
 }
 
 export default db;
