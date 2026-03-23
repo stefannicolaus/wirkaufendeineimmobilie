@@ -146,7 +146,7 @@ function renderInterview() {
     }).join('');
 
     return `
-      <div class="accordion-section accordion-section--open" data-section-idx="${sIdx}">
+      <div class="accordion-section" data-section-idx="${sIdx}">
         <button class="accordion-section__header" type="button">
           <span class="accordion-section__title">${section.title}</span>
           <span class="accordion-section__count">${section.questions.length} Fragen</span>
