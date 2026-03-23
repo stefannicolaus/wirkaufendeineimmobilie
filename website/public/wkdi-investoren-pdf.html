@@ -334,6 +334,8 @@
       width: fit-content;
       letter-spacing: 0.02em;
     }
+    .reg-contact-row { display: flex; align-items: center; gap: 16px; }
+    .reg-contact-portrait { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; object-position: center top; flex-shrink: 0; border: 2px solid #3B82F6; }
     .reg-contact { font-size: 12px; color: #94a3b8; }
     .reg-contact strong { color: #cbd5e1; }
   </style>
@@ -693,7 +695,10 @@
         <div class="reg-cta__btn">Jetzt registrieren →</div>
       </div>
 
-      <p class="reg-contact"><strong>Joachim Kleinke</strong> · § 34c Maklererlaubnis · 35+ Jahre Leipzig · joachim@wirkaufendeineimmobilie.de</p>
+      <div class="reg-contact-row">
+        <img src="/images/joachim-kleinke-portrait.jpg" alt="Joachim Kleinke" class="reg-contact-portrait" />
+        <p class="reg-contact"><strong>Joachim Kleinke</strong> · § 34c Maklererlaubnis · 35+ Jahre Leipzig<br>office@wirkaufendeineimmobilie.de</p>
+      </div>
     </div>
     <div class="page-footer">
       <div class="page-footer__brand">wirkaufen<span>deine</span>immobilie</div>

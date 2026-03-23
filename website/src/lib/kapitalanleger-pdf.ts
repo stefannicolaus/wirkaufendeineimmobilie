@@ -9,8 +9,9 @@ export function generateKapitalanlegerPdfHtml(opts: {
   vorname: string;
   refNr: string;
   datum: string;
+  portraitB64?: string;
 }): string {
-  const { input, result, tilgungsplan, vorname, refNr, datum } = opts;
+  const { input, result, tilgungsplan, vorname, refNr, datum, portraitB64 } = opts;
   const afaRatePct = (result.afaRate * 100).toFixed(1);
 
   const tilgungsRows = tilgungsplan.map(row => `
@@ -111,6 +112,14 @@ export function generateKapitalanlegerPdfHtml(opts: {
     </tbody>
   </table>
 
+  <div style="display:flex;align-items:center;gap:16px;background:#f8f8f8;border:1px solid #e8e8e8;border-radius:6px;padding:16px 20px;margin-top:24px;margin-bottom:0;">
+    ${portraitB64 ? `<img src="${portraitB64}" alt="Joachim Kleinke" style="width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;border:2px solid #1a7a4a;" />` : ''}
+    <div>
+      <div style="font-size:13px;font-weight:700;color:#1a1a1a;">Joachim Kleinke</div>
+      <div style="font-size:11px;color:#666;margin-top:2px;">§ 34c Maklererlaubnis · 35+ Jahre Leipzig</div>
+      <div style="font-size:11px;color:#666;margin-top:1px;">office@wirkaufendeineimmobilie.de · 0341 — 800 900 0</div>
+    </div>
+  </div>
   <div class="disclaimer">
     <strong>Hinweise:</strong> Diese Analyse dient der Orientierung und ersetzt keine Steuerberatung.
     AfA-Rate basiert auf dem Fertigstellungsjahr (§7 Abs. 4 EStG). Gebäudeanteil ${input.gebaeudeanteil}% — kein gesetzlicher Standard

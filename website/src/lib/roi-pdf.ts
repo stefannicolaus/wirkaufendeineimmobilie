@@ -28,8 +28,9 @@ export function generatePdfHtml(opts: {
   email: string;
   refNr: string;
   datum: string;
+  portraitB64?: string;
 }): string {
-  const { input, result, vorname, refNr, datum } = opts;
+  const { input, result, vorname, refNr, datum, portraitB64 } = opts;
   const scoreColor = { A: '#16a34a', B: '#2563eb', C: '#d97706', D: '#dc2626' }[result.deal_score];
   const stadtLabel = STADTTEIL_LABELS[input.stadtteil] ?? input.stadtteil;
   const objektLabel = OBJEKT_LABELS[input.objekt_typ] ?? input.objekt_typ;
@@ -314,11 +315,12 @@ export function generatePdfHtml(opts: {
     </li>
   </ol>
   <div class="cta-box">
+    ${portraitB64 ? `<img src="${portraitB64}" alt="Joachim Kleinke" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;border:2px solid #2563eb;" />` : ''}
     <div class="cta-info">
       <h4>Joachim Kleinke</h4>
       <p>Immobilienvermittler · § 34c Maklererlaubnis · 35+ Jahre Leipzig</p>
       <span class="phone">0341 — 800 900 0</span>
-      <p style="margin-top:4px;font-size:12px;color:#94a3b8;">joachim@wirkaufendeineimmobilie.de · Kein Callcenter — ich selbst.</p>
+      <p style="margin-top:4px;font-size:12px;color:#94a3b8;">office@wirkaufendeineimmobilie.de · Kein Callcenter — ich selbst.</p>
     </div>
     <a href="https://wirkaufendeineimmobilie.de" class="cta-btn">Jetzt Gespräch vereinbaren →</a>
   </div>

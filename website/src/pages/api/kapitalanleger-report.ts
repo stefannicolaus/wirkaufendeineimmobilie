@@ -1,10 +1,20 @@
 import type { APIRoute } from 'astro';
 import puppeteer from 'puppeteer';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import { fileURLToPath } from 'url';
 import { calcKapitalanleger, buildTilgungsplan, formatEur } from '../../lib/kapitalanleger-calc';
 import type { KapitalanlegerInput } from '../../lib/kapitalanleger-calc';
 import { generateKapitalanlegerPdfHtml } from '../../lib/kapitalanleger-pdf';
 import { sendTransactionalEmail } from '../../lib/brevo';
 import { insertKapitalanlegerLead } from '../../lib/db';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const portraitPath = join(__dirname, '../../../../public/images/joachim-kleinke-portrait.jpg');
+let portraitB64 = '';
+try {
+  portraitB64 = `data:image/jpeg;base64,${readFileSync(portraitPath).toString('base64')}`;
+} catch { /* portrait optional */ }
 
 export const prerender = false;
 
@@ -65,7 +75,7 @@ export const POST: APIRoute = async ({ request }) => {
       day: '2-digit', month: '2-digit', year: 'numeric',
     });
 
-    const html = generateKapitalanlegerPdfHtml({ input, result, tilgungsplan, vorname, refNr, datum });
+    const html = generateKapitalanlegerPdfHtml({ input, result, tilgungsplan, vorname, refNr, datum, portraitB64 });
 
     // Puppeteer → PDF
     let pdfBase64: string;

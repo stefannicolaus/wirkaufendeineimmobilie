@@ -1,10 +1,20 @@
 import type { APIRoute } from 'astro';
 import puppeteer from 'puppeteer';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import { fileURLToPath } from 'url';
 import { calcRoi, formatEur } from '../../lib/roi-calc';
 import type { RoiInput } from '../../lib/roi-calc';
 import { generatePdfHtml } from '../../lib/roi-pdf';
 import { sendTransactionalEmail } from '../../lib/brevo';
 import { insertRegistration } from '../../lib/db';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const portraitPath = join(__dirname, '../../../../public/images/joachim-kleinke-portrait.jpg');
+let portraitB64 = '';
+try {
+  portraitB64 = `data:image/jpeg;base64,${readFileSync(portraitPath).toString('base64')}`;
+} catch { /* portrait optional */ }
 
 export const prerender = false;
 
@@ -57,7 +67,7 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     // Generate PDF HTML
-    const html = generatePdfHtml({ input, result, vorname, email, refNr, datum });
+    const html = generatePdfHtml({ input, result, vorname, email, refNr, datum, portraitB64 });
 
     // Launch Puppeteer to convert HTML → PDF
     let pdfBase64: string;
