@@ -179,7 +179,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="quiz-step" id="step-3" hidden>
         <div class="quiz-step__header">
           <h2>Deine Zahlen</h2>
-          <p class="quiz-step__hint">Ziehe die Regler — das Ergebnis wird live berechnet.</p>
+          <p class="quiz-step__hint">Gib deine Zahlen ein und klicke auf „Ergebnis berechnen".</p>
         </div>
         <div class="sliders-wrap">
 
@@ -903,11 +903,14 @@ import Layout from '../layouts/Layout.astro';
 
 /* ── Calc overlay ── */
 #calc-overlay {
+  /* display controlled via [hidden] attr — do NOT set display here */
   padding: var(--space-20) var(--space-4);
-  display: flex;
   align-items: center;
   justify-content: center;
   min-height: 400px;
+}
+#calc-overlay:not([hidden]) {
+  display: flex;
 }
 .calc-overlay__inner {
   max-width: 440px;
@@ -1599,7 +1602,11 @@ function showCalcOverlay(onComplete: () => void) {
     if (el) el.hidden = true;
   });
   overlay.hidden = false;
-  overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  // Scroll to quiz section top so overlay is in view
+  const quizSection = document.querySelector('.quiz-section') as HTMLElement | null;
+  if (quizSection) {
+    quizSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
   const fill = document.getElementById('calc-progress-fill') as HTMLElement | null;
   const pctEl = document.getElementById('calc-progress-pct') as HTMLElement | null;
