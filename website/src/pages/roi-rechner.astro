@@ -1797,10 +1797,21 @@ document.querySelectorAll<HTMLElement>('.scenario-card').forEach((card) => {
 // ─────────────────────────────────────────
 //  STEP 2 — LAGE & STRATEGIE
 // ─────────────────────────────────────────
+// Soziale Erhaltungssatzungen (Milieuschutz) Leipzig — Stand 02/2025
+// Quelle: Stadt Leipzig, https://www.leipzig.de/bauen-und-wohnen/stadterneuerung-in-leipzig/soziale-erhaltungssatzungen/die-gebiete
+// Gebiete: Alt-Lindenau (2020), Lindenau (2020), Am Lene-Voigt-Park / Reudnitz-Thonberg+Anger-Crottendorf (2020),
+//          Eisenbahnstraße / Neustadt-Neuschönefeld+Volkmarsdorf+Sellerhausen-Stünz (2020),
+//          Connewitz (2020), Eutritzsch (2020), Plagwitz/Kleinzschocher (2022), Leutzsch (2022),
+//          Schönefeld westlicher Bereich (02/2025)
 const MS_DISTRICTS = new Set([
-  'eutritzsch', 'schoenefeld-abtnaundorf', 'neustadt-neuschoenef', 'volkmarsdorf',
-  'reudnitz-thonberg', 'connewitz', 'plagwitz', 'kleinzschocher',
-  'lindenau', 'alt-lindenau', 'leutzsch',
+  'eutritzsch',
+  'neustadt-neuschoenef', 'volkmarsdorf', 'sellerhausen-stuenz',
+  'reudnitz-thonberg', 'anger-crottendorf',
+  'connewitz',
+  'plagwitz', 'kleinzschocher',
+  'lindenau', 'alt-lindenau',
+  'leutzsch',
+  'schoenefeld-abtnaundorf',
 ]);
 
 const stadtteilSelect = document.getElementById('stadtteil-select') as HTMLSelectElement;
