@@ -159,6 +159,18 @@
     .inv-cover__footer-value { font-size: 13px; font-weight: 600; color: #e2e8f0; }
     .inv-divider { width: 1px; height: 36px; background: #1e293b; }
 
+    /* ── PAGE 1.5 — WER WIR SIND ── */
+    .about-inv-page { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(1123px - 80px); }
+    .about-inv__portrait { overflow: hidden; }
+    .about-inv__portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .about-inv__content { padding: 56px 48px; display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+    .about-inv__creds { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .about-inv__cred { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #334155; line-height: 1.55; }
+    .about-inv__cred::before { content: '✓'; color: #3B82F6; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .about-inv__quote { border-left: 3px solid #3B82F6; padding-left: 20px; }
+    .about-inv__quote p { font-size: 14px; color: #1e293b; line-height: 1.65; font-style: italic; }
+    .about-inv__quote-author { font-size: 11px; color: #94a3b8; margin-top: 8px; }
+
     /* ── PAGE 2 — WARUM JETZT ── */
     .why-page { padding: 56px 48px; display: flex; flex-direction: column; gap: 44px; }
     .why-header { display: flex; flex-direction: column; gap: 12px; }
@@ -378,8 +390,38 @@
     </div>
   </div>
 
+  <!-- PAGE 1.5 — WER WIR SIND -->
+  <div class="page-label">Seite 2 — Wer wir sind</div>
+  <div class="page">
+    <div class="page-header">
+      <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
+      <div class="page-header__chapter">Wer wir sind</div>
+    </div>
+    <div class="about-inv-page">
+      <div class="about-inv__portrait">
+        <img src="/images/joachim-kleinke-portrait.jpg" alt="Joachim Kleinke" />
+      </div>
+      <div class="about-inv__content">
+        <div class="section-eyebrow">Ihr direkter Ansprechpartner</div>
+        <h2 class="section-title">35 Jahre Leipzig.<br />Dein Draht zu<br />Off-Market-Deals.</h2>
+        <p class="body-text">Joachim Kleinke vermittelt seit über 35 Jahren Immobilien in Leipzig — spezialisiert auf Objekte, die der klassische Markt nicht verarbeiten kann. Messie-Wohnungen, Erbengemeinschaften, Insolvenzfälle, energetischer Sanierungsbedarf. Genau das ist sein Markt. Und deiner.</p>
+        <ul class="about-inv__creds">
+          <li class="about-inv__cred">§ 34c Maklererlaubnis — langjährig aktiv</li>
+          <li class="about-inv__cred">200+ verifizierte Investoren &amp; Käufer im Netzwerk</li>
+          <li class="about-inv__cred">Spezialisiert auf Fix &amp; Flip, GEG-Upgrade, Langfrist-Vermietung</li>
+          <li class="about-inv__cred">Direktzugang zu Off-Market-Objekten vor ImmoScout</li>
+          <li class="about-inv__cred">Kein Callcenter — du erreichst Joachim direkt</li>
+        </ul>
+        <div class="about-inv__quote">
+          <p>„Ich kenne die Käufer und ich kenne die Objekte — bevor sie öffentlich werden. Das ist der einzige Vorteil, der im Investoren-Markt wirklich zählt."</p>
+          <div class="about-inv__quote-author">Joachim Kleinke · office@wirkaufendeineimmobilie.de · 0341 — 800 900 0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- PAGE 2 — WARUM JETZT -->
-  <div class="page-label">Seite 2 — Warum Leipzig, warum jetzt</div>
+  <div class="page-label">Seite 3 — Warum Leipzig, warum jetzt</div>
   <div class="page">
     <div class="page-header">
       <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
@@ -442,7 +484,7 @@
   </div>
 
   <!-- PAGE 3 — OBJEKT-TYPEN -->
-  <div class="page-label">Seite 3 — Objekt-Typen</div>
+  <div class="page-label">Seite 4 — Objekt-Typen</div>
   <div class="page">
     <div class="page-header">
       <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
@@ -521,7 +563,7 @@
   </div>
 
   <!-- PAGE 4 — RENDITE-KALKULATION -->
-  <div class="page-label">Seite 4 — Beispiel-Renditekalkulation</div>
+  <div class="page-label">Seite 5 — Beispiel-Renditekalkulation</div>
   <div class="page roi-page">
     <div class="page-header">
       <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
@@ -588,7 +630,7 @@
   </div>
 
   <!-- PAGE 5 — PROZESS -->
-  <div class="page-label">Seite 5 — Der Prozess</div>
+  <div class="page-label">Seite 6 — Der Prozess</div>
   <div class="page">
     <div class="page-header">
       <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
@@ -661,7 +703,7 @@
   </div>
 
   <!-- PAGE 6 — REGISTRIERUNG -->
-  <div class="page-label">Seite 6 — Registrierung</div>
+  <div class="page-label">Seite 7 — Registrierung</div>
   <div class="page reg-page">
     <div class="page-header">
       <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>

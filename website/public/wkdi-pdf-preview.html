@@ -546,6 +546,50 @@
       color: #94a3b8;
     }
 
+    /* ── PAGE 5 — WARUM WIR (VERKÄUFER) ── */
+    .warum-page { padding: 56px 48px; display: flex; flex-direction: column; gap: 36px; }
+    .warum-intro { display: flex; flex-direction: column; gap: 12px; max-width: 560px; }
+    .vergleich-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .vergleich-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .vergleich-card--highlight { border-color: #3B82F6; box-shadow: 0 0 0 2px rgba(59,130,246,0.12); }
+    .vergleich-card__head {
+      padding: 14px 18px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+    }
+    .vergleich-card--highlight .vergleich-card__head { background: #eff6ff; color: #3B82F6; border-color: #bfdbfe; }
+    .vergleich-card__body { padding: 20px 18px; display: flex; flex-direction: column; gap: 10px; }
+    .vergleich-row { display: flex; flex-direction: column; gap: 2px; }
+    .vergleich-row__label { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; }
+    .vergleich-row__value { font-size: 13px; font-weight: 600; color: #1e293b; }
+    .vergleich-row__value--bad { color: #dc2626; }
+    .vergleich-row__value--ok { color: #d97706; }
+    .vergleich-row__value--good { color: #16a34a; }
+    .warum-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .warum-fact {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .warum-fact__eyebrow { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; }
+    .warum-fact__stat { font-size: 28px; font-weight: 700; color: #0F172A; line-height: 1; }
+    .warum-fact__stat span { font-size: 13px; font-weight: 400; color: #64748b; }
+    .warum-fact__desc { font-size: 12px; color: #64748b; line-height: 1.55; }
+    .warum-note { font-size: 11px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 16px; }
+
     /* ── PAGE 6 — NÄCHSTE SCHRITTE ── */
     .cta-page {
       display: flex;
@@ -859,55 +903,103 @@
     </div>
   </div>
 
-  <!-- PAGE 5 — MARKT + GRUNDRISSE -->
-  <div class="page-label">Seite 5 — Marktübersicht Leipzig + Grundrisse</div>
+  <!-- PAGE 5 — WARUM WIR -->
+  <div class="page-label">Seite 5 — Warum wir der richtige Weg sind</div>
   <div class="page">
     <div class="page-header">
       <div class="page-header__logo">wirkaufen<span>deine</span>immobilie</div>
-      <div class="page-header__chapter">Markt &amp; Objekt</div>
+      <div class="page-header__chapter">Warum wir</div>
     </div>
-    <div class="market-page">
-      <div class="market__header">
-        <div class="section-eyebrow">Marktdaten Leipzig 2026</div>
-        <h2 class="section-title">Der Markt für<br />Sanierungsobjekte.</h2>
+    <div class="warum-page">
+
+      <div class="warum-intro">
+        <div class="section-eyebrow">Der Unterschied, der zählt</div>
+        <h2 class="section-title">Dein fairer Preis.<br />Auch so.</h2>
+        <p class="body-text">Sanierungsbedürftige Wohnungen erzielen auf dem freien Markt 20–35 % weniger — weil normale Käufer keine Bankfinanzierung bekommen. Unsere Investoren brauchen keine Bank. Und zahlen trotzdem fair.</p>
       </div>
 
-      <div class="market-stats">
-        <div class="market-stat">
-          <div class="market-stat__value">3.200 €</div>
-          <div class="market-stat__label">Ø €/m² saniert (Plagwitz, Südvorstadt)</div>
-        </div>
-        <div class="market-stat">
-          <div class="market-stat__value">−30%</div>
-          <div class="market-stat__label">Abschlag sanierungsbedürftig</div>
-        </div>
-        <div class="market-stat">
-          <div class="market-stat__value">GEG 2026</div>
-          <div class="market-stat__label">Banken restriktiv bei Kl. E–H</div>
-        </div>
-      </div>
-
-      <div class="grundrisse-section">
-        <div class="grundrisse-label">Typische Objekte in unserem Portfolio</div>
-        <div class="grundrisse-grid">
-          <div class="grundriss-card">
-            <img class="grundriss-card__img" src="/images/wkdi-grundriss-1zimmer.png" alt="1-Zimmer Grundriss" />
-            <div class="grundriss-card__label">
-              <span class="grundriss-card__name">1-Zimmer Wohnung</span>
-              <span class="grundriss-card__size">ca. 35 m²</span>
+      <div class="vergleich-grid">
+        <div class="vergleich-card">
+          <div class="vergleich-card__head">Klassischer Makler</div>
+          <div class="vergleich-card__body">
+            <div class="vergleich-row">
+              <div class="vergleich-row__label">Dauer bis Verkauf</div>
+              <div class="vergleich-row__value vergleich-row__value--bad">6–18 Monate</div>
             </div>
-          </div>
-          <div class="grundriss-card">
-            <img class="grundriss-card__img" src="/images/wkdi-grundriss-2zimmer.png" alt="2-Zimmer Grundriss" />
-            <div class="grundriss-card__label">
-              <span class="grundriss-card__name">2-Zimmer Wohnung</span>
-              <span class="grundriss-card__size">ca. 58 m²</span>
+            <div class="vergleich-row">
+              <div class="vergleich-row__label">Kosten für dich</div>
+              <div class="vergleich-row__value vergleich-row__value--bad">Provision + ggf. Renovierung</div>
+            </div>
+            <div class="vergleich-row">
+              <div class="vergleich-row__label">Käufer-Absagen</div>
+              <div class="vergleich-row__value vergleich-row__value--bad">Häufig — Finanzierung platzt</div>
+            </div>
+            <div class="vergleich-row">
+              <div class="vergleich-row__label">Diskretion</div>
+              <div class="vergleich-row__value vergleich-row__value--bad">ImmoScout, öffentlich</div>
             </div>
           </div>
         </div>
+
+        <div class="vergleich-card">
+          <div class="vergleich-card__head">Direktverkauf privat</div>
+          <div class="vergleich-card__body">
+            <div class="vergleich-row">
+              <div class="vergleich-row__label">Dauer bis Verkauf</div>
+              <div class="vergleich-row__value vergleich-row__value--ok">Unkalkulierbar</div>
+            </div>
+            <div class="vergleich-row">
+              <div class="vergleich-row__label">Kosten für dich</div>
+              <div class="vergleich-row__value vergleich-row__value--ok">Eigenaufwand hoch</div>
+            </div>
+            <div class="vergleich-row">
+              <div class="vergleich-row__label">Käufer-Absagen</div>
+              <div class="vergleich-row__value vergleich-row__value--ok">Häufig, kein Netzwerk</div>
+            </div>
+            <div class="vergleich-row">
+              <div class="vergleich-row__label">Diskretion</div>
+              <div class="vergleich-row__value vergleich-row__value--ok">Eingeschränkt</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="vergleich-card vergleich-card--highlight">
+          <div class="vergleich-card__head">Unser Weg</div>
+          <div class="vergleich-card__body">
+            <div class="vergleich-row">
+              <div class="vergleich-row__label">Dauer bis Erstbewertung</div>
+              <div class="vergleich-row__value vergleich-row__value--good">48 Stunden</div>
+            </div>
+            <div class="vergleich-row">
+              <div class="vergleich-row__label">Kosten für dich</div>
+              <div class="vergleich-row__value vergleich-row__value--good">0 € — kostenlos</div>
+            </div>
+            <div class="vergleich-row">
+              <div class="vergleich-row__label">Käufer-Absagen</div>
+              <div class="vergleich-row__value vergleich-row__value--good">Selten — Profi-Käufer, kein Bankbedarf</div>
+            </div>
+            <div class="vergleich-row">
+              <div class="vergleich-row__label">Diskretion</div>
+              <div class="vergleich-row__value vergleich-row__value--good">100 % — kein ImmoScout</div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <p class="body-text" style="font-size:12px; color:#94a3b8;">Hinweis: Grundrisse sind exemplarisch. Ihr Objekt wird individuell bewertet und Interessenten im Detail präsentiert.</p>
+      <div class="warum-facts">
+        <div class="warum-fact">
+          <div class="warum-fact__eyebrow">Unser Netzwerk</div>
+          <div class="warum-fact__stat">200+ <span>geprüfte Käufer</span></div>
+          <div class="warum-fact__desc">Profi-Investoren, Kapitalanleger und Eigennutzer mit Handwerk — alle kaufbereit, bonitätsgeprüft, ohne Finanzierungsvorbehalt.</div>
+        </div>
+        <div class="warum-fact">
+          <div class="warum-fact__eyebrow">Markt Leipzig 2026</div>
+          <div class="warum-fact__stat">−30 % <span>Abschlag on-market</span></div>
+          <div class="warum-fact__desc">So viel verlieren Verkäufer im Schnitt, wenn Käufer keine Bankfinanzierung bekommen. Im Angebotsverfahren entfällt dieser Nachteil.</div>
+        </div>
+      </div>
+
+      <p class="warum-note">Alle Angaben basieren auf aktuellen Marktdaten Leipzig 2026. Individuelle Ergebnisse hängen von Lage, Zustand und Käuferinteresse ab. Erstbewertung kostenlos und unverbindlich.</p>
     </div>
   </div>
 
