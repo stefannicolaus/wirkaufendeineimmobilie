@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>WKDI Interview Tool</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">Lädt...</div>
+  <script>
+    // Simple app-level password gate — remembered in LocalStorage per device
+    const PASS_KEY = 'wkdi_tool_auth';
+    const CORRECT = 'wkdi2026'; // Change before sending to Joachim
+    if (localStorage.getItem(PASS_KEY) !== CORRECT) {
+      document.getElementById('app').innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100dvh;gap:16px;padding:24px;">
+          <h2 style="font-family:system-ui;font-size:20px;color:#1a3a2a;">WKDI Interview Tool</h2>
+          <input id="pw" type="password" placeholder="Passwort" autofocus
+            style="padding:14px;font-size:16px;border:2px solid #e2e8e0;border-radius:12px;width:100%;max-width:320px;">
+          <button onclick="checkPw()"
+            style="padding:14px 28px;background:#2d6a4f;color:white;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;width:100%;max-width:320px;">
+            Einloggen
+          </button>
+          <p id="pw-err" style="color:#f4a261;font-size:14px;font-family:system-ui;"></p>
+        </div>`;
+      window.checkPw = () => {
+        const val = document.getElementById('pw').value;
+        if (val === CORRECT) {
+          localStorage.setItem(PASS_KEY, CORRECT);
+          location.reload();
+        } else {
+          document.getElementById('pw-err').textContent = 'Falsches Passwort';
+        }
+      };
+      document.getElementById('pw').addEventListener('keydown', e => {
+        if (e.key === 'Enter') window.checkPw();
+      });
+    } else {
+      // Auth OK — load app
+      const s = document.createElement('script');
+      s.type = 'module';
+      s.src = 'app.js';
+      document.body.appendChild(s);
+    }
+  </script>
+</body>
+</html>

@@ -3,6 +3,7 @@ node_modules/
 dist/
 .astro/
 data/submissions/
+website/data/interviews/
 *.log
 .env
 .env.*
