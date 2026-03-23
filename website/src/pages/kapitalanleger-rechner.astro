@@ -1,0 +1,878 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Kapitalanleger-Rechner — Buy &amp; Hold Analyse | wirkaufendeineimmobilie.de"
+  description="AfA §7 EStG, Cashflow nach Steuer §21 EStG, DCF NPV und Tilgungsplan für Leipzig Mietobjekte — kostenlos, Ergebnisse sofort per E-Mail."
+>
+
+  <!-- HERO -->
+  <section class="quiz-hero">
+    <div class="quiz-hero__bg" aria-hidden="true">
+      <img src="/images/wkdi-roi-quiz-hero.jpg" alt="" />
+    </div>
+    <div class="container quiz-hero__inner">
+      <h1>Was bringt dein Mietobjekt wirklich?</h1>
+      <p class="quiz-hero__sub">Berechne Cashflow nach Steuer, AfA-Vorteil und DCF-Rendite — in 5 Schritten.</p>
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <div class="quiz-progress-wrap" id="quiz-progress">
+    <div class="container">
+      <div class="quiz-progress">
+        <button class="quiz-step-dot" data-step="1" aria-label="Schritt 1: Objekt">
+          <span class="quiz-step-dot__num">1</span>
+          <span class="quiz-step-dot__label">Objekt</span>
+        </button>
+        <div class="quiz-step-connector"></div>
+        <button class="quiz-step-dot" data-step="2" aria-label="Schritt 2: Finanzierung">
+          <span class="quiz-step-dot__num">2</span>
+          <span class="quiz-step-dot__label">Finanzierung</span>
+        </button>
+        <div class="quiz-step-connector"></div>
+        <button class="quiz-step-dot" data-step="3" aria-label="Schritt 3: Steuer">
+          <span class="quiz-step-dot__num">3</span>
+          <span class="quiz-step-dot__label">Steuer</span>
+        </button>
+        <div class="quiz-step-connector"></div>
+        <button class="quiz-step-dot" data-step="4" aria-label="Schritt 4: Vorschau">
+          <span class="quiz-step-dot__num">4</span>
+          <span class="quiz-step-dot__label">Vorschau</span>
+        </button>
+        <div class="quiz-step-connector"></div>
+        <button class="quiz-step-dot" data-step="5" aria-label="Schritt 5: Analyse">
+          <span class="quiz-step-dot__num">5</span>
+          <span class="quiz-step-dot__label">Analyse</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ WRAPPER -->
+  <section class="quiz-section">
+    <div class="container">
+
+      <!-- STEP 1: Objekt -->
+      <div class="quiz-step" id="step-1">
+        <div class="quiz-step__header">
+          <h2>Objekt-Daten</h2>
+          <p class="quiz-step__hint">Grundlage für AfA-Berechnung und Cashflow.</p>
+        </div>
+        <div class="input-grid">
+          <div class="input-group">
+            <label class="field-label" for="kaufpreis">Kaufpreis</label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">€</span>
+              <input type="number" id="kaufpreis" name="kaufpreis" min="50000" max="5000000" step="1000" placeholder="250000" required />
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="field-label" for="baujahr">Baujahr der Fertigstellung
+              <span class="field-hint">Bestimmt den AfA-Satz §7 EStG (≤1924: 2,5% · 1925–2022: 2% · ≥2023: 3%)</span>
+            </label>
+            <input type="number" id="baujahr" name="baujahr" min="1800" max="2025" step="1" placeholder="1975" required />
+          </div>
+          <div class="input-group">
+            <label class="field-label" for="wohnflaeche">Wohnfläche</label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">m²</span>
+              <input type="number" id="wohnflaeche" name="wohnflaeche" min="20" max="500" step="1" placeholder="70" required />
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="field-label" for="kaltmiete">Kaltmiete/Monat</label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">€</span>
+              <input type="number" id="kaltmiete" name="kaltmiete" min="100" max="10000" step="10" placeholder="800" required />
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="field-label" for="hausgeld">Hausgeld/Monat</label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">€</span>
+              <input type="number" id="hausgeld" name="hausgeld" min="0" max="2000" step="10" placeholder="200" required />
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary quiz-next-btn" data-next="2">Weiter →</button>
+      </div>
+
+      <!-- STEP 2: Finanzierung -->
+      <div class="quiz-step" id="step-2" hidden>
+        <div class="quiz-step__header">
+          <h2>Finanzierung</h2>
+          <p class="quiz-step__hint">Darlehen und Konditionen für die Cashflow-Berechnung.</p>
+        </div>
+        <div class="input-grid">
+          <div class="input-group">
+            <label class="field-label" for="darlehen">Darlehensbetrag</label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">€</span>
+              <input type="number" id="darlehen" name="darlehen" min="0" max="5000000" step="1000" placeholder="200000" required />
+            </div>
+            <p class="field-warning" id="ltv-warning" hidden>⚠️ Darlehen über Kaufpreis — bitte prüfen</p>
+          </div>
+          <div class="input-group">
+            <label class="field-label" for="zinssatz">Zinssatz p.a.</label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">%</span>
+              <input type="number" id="zinssatz" name="zinssatz" min="0" max="15" step="0.1" placeholder="3.5" required />
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="field-label" for="tilgung">Tilgung p.a.</label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">%</span>
+              <input type="number" id="tilgung" name="tilgung" min="0" max="10" step="0.1" placeholder="2.0" required />
+            </div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn btn-ghost quiz-back-btn" data-back="1">← Zurück</button>
+          <button class="btn btn-primary quiz-next-btn" data-next="3">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Steuer & Parameter -->
+      <div class="quiz-step" id="step-3" hidden>
+        <div class="quiz-step__header">
+          <h2>Steuer &amp; Parameter</h2>
+        </div>
+        <div class="input-grid">
+          <div class="input-group">
+            <label class="field-label" for="grenzsteuersatz">Grenzsteuersatz
+              <span class="field-hint">Dein persönlicher Steuersatz (0–45%). Kein Standardwert — bitte selbst eintragen.</span>
+            </label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">%</span>
+              <input type="number" id="grenzsteuersatz" name="grenzsteuersatz" min="0" max="45" step="1" placeholder="42" required />
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="field-label" for="haltedauer">Geplante Haltedauer</label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">J</span>
+              <input type="number" id="haltedauer" name="haltedauer" min="1" max="30" step="1" value="10" required />
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="field-label" for="gebaeudeanteil">Gebäudeanteil
+              <span class="field-hint">Anteil Gebäude am Kaufpreis für AfA. Standard: 80% — mit Steuerberater abstimmen (BFH IX R 12/21).</span>
+            </label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">%</span>
+              <input type="number" id="gebaeudeanteil" name="gebaeudeanteil" min="50" max="95" step="1" value="80" required />
+            </div>
+          </div>
+        </div>
+
+        <details class="advanced-params">
+          <summary>Erweiterte Parameter (DCF-Defaults)</summary>
+          <div class="input-grid" style="margin-top:12px;">
+            <div class="input-group">
+              <label class="field-label" for="diskontRate">Diskontrate</label>
+              <div class="input-prefix-wrap">
+                <span class="input-prefix">%</span>
+                <input type="number" id="diskontRate" name="diskontRate" min="1" max="15" step="0.5" value="5" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label class="field-label" for="mietsteigerung">Mietsteigerung p.a.</label>
+              <div class="input-prefix-wrap">
+                <span class="input-prefix">%</span>
+                <input type="number" id="mietsteigerung" name="mietsteigerung" min="0" max="10" step="0.5" value="2" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label class="field-label" for="leerstand">Leerstandsrisiko</label>
+              <div class="input-prefix-wrap">
+                <span class="input-prefix">%</span>
+                <input type="number" id="leerstand" name="leerstand" min="0" max="20" step="0.5" value="3" />
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <div class="step-nav">
+          <button class="btn btn-ghost quiz-back-btn" data-back="2">← Zurück</button>
+          <button class="btn btn-primary" id="calc-btn">Berechnen →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Vorschau -->
+      <div class="quiz-step" id="step-4" hidden>
+        <div class="quiz-step__header">
+          <h2>Deine Analyse</h2>
+        </div>
+
+        <!-- 3 OPEN KPIs -->
+        <div class="result-open-grid">
+          <div class="result-kpi-card">
+            <div class="result-kpi-card__label">Kaufpreisfaktor</div>
+            <div class="result-kpi-card__value" id="res-faktor">—</div>
+            <div class="result-kpi-card__formula" id="res-faktor-formula"></div>
+            <div class="result-kpi-card__comment" id="res-faktor-comment"></div>
+          </div>
+          <div class="result-kpi-card">
+            <div class="result-kpi-card__label">Cashflow/Monat netto</div>
+            <div class="result-kpi-card__value" id="res-cashflow">—</div>
+            <div class="result-kpi-card__formula" id="res-cashflow-formula"></div>
+            <div class="result-kpi-card__comment" id="res-cashflow-comment"></div>
+          </div>
+          <div class="result-kpi-card">
+            <div class="result-kpi-card__label">AfA Steuerersparnis/Jahr</div>
+            <div class="result-kpi-card__value" id="res-afa">—</div>
+            <div class="result-kpi-card__formula" id="res-afa-formula"></div>
+            <div class="result-kpi-card__comment" id="res-afa-comment"></div>
+          </div>
+        </div>
+
+        <!-- 3 GATED KPIs (blurred) -->
+        <div class="result-gated-grid">
+          <div class="result-kpi-card result-kpi-card--gated">
+            <div class="result-kpi-card__label">NPV 10 Jahre</div>
+            <div class="result-kpi-card__value">██████</div>
+            <div class="result-kpi-card__formula">DCF · Diskontrate · Mietsteigerung</div>
+          </div>
+          <div class="result-kpi-card result-kpi-card--gated">
+            <div class="result-kpi-card__label">NPV 20 Jahre</div>
+            <div class="result-kpi-card__value">██████</div>
+            <div class="result-kpi-card__formula">Exit-Faktor · Terminal Value</div>
+          </div>
+          <div class="result-kpi-card result-kpi-card--gated">
+            <div class="result-kpi-card__label">Brutto-Rendite</div>
+            <div class="result-kpi-card__value">██%</div>
+            <div class="result-kpi-card__formula">Jahreskaltmiete ÷ Kaufpreis</div>
+          </div>
+        </div>
+
+        <div class="gate-cta">
+          <p class="gate-cta__text">NPV, Rendite und vollständiger Tilgungsplan warten auf dich.</p>
+          <button class="btn btn-primary" id="show-gate-btn">Vollanalyse freischalten →</button>
+        </div>
+
+        <div class="step-nav" style="margin-top:16px;">
+          <button class="btn btn-ghost quiz-back-btn" data-back="3">← Zahlen ändern</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: Email Gate -->
+      <div class="quiz-step" id="step-5" hidden>
+        <div class="quiz-step__header">
+          <h2>Vollanalyse freischalten</h2>
+          <p class="quiz-step__hint">Kostenlos — wir schicken das PDF sofort per E-Mail.</p>
+        </div>
+        <form class="email-gate-form" id="email-gate-form" novalidate>
+          <div class="field-group">
+            <label class="field-label" for="gate-vorname">Vorname</label>
+            <input type="text" id="gate-vorname" name="vorname" placeholder="Max" required autocomplete="given-name" />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="gate-email">E-Mail</label>
+            <input type="email" id="gate-email" name="email" placeholder="max@beispiel.de" required autocomplete="email" />
+          </div>
+          <button type="submit" class="btn btn-primary email-gate-btn" id="email-gate-btn">
+            PDF jetzt per E-Mail erhalten
+          </button>
+          <p class="email-gate-disclaimer">Kostenlos · Keine Weitergabe · Sofort per E-Mail</p>
+          <p class="email-gate-error" id="email-gate-error" hidden></p>
+        </form>
+        <div class="step-nav" style="margin-top:12px;">
+          <button class="btn btn-ghost quiz-back-btn" data-back="4">← Zurück</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+/* ─────────────────────────────
+   HERO
+───────────────────────────── */
+.quiz-hero {
+  position: relative;
+  padding-top: var(--space-20);
+  padding-bottom: var(--space-14);
+  text-align: center;
+  overflow: hidden;
+  background: var(--color-bg-dark);
+}
+
+.quiz-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.quiz-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+}
+
+.quiz-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.quiz-hero__inner h1 {
+  color: var(--color-text-on-dark);
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+}
+
+.quiz-hero__sub {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  max-width: 560px;
+}
+
+/* ─────────────────────────────
+   PROGRESS
+───────────────────────────── */
+.quiz-progress-wrap {
+  background: var(--color-bg-dark);
+  border-bottom: 1px solid var(--color-border);
+  padding-block: var(--space-4);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.quiz-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.quiz-step-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+
+.quiz-step-dot.is-active {
+  opacity: 1;
+}
+
+.quiz-step-dot.is-done {
+  opacity: 0.7;
+}
+
+.quiz-step-dot__num {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-muted);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.quiz-step-dot.is-active .quiz-step-dot__num {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.quiz-step-dot.is-done .quiz-step-dot__num {
+  background: rgba(37,99,235,0.15);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.quiz-step-dot__label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.quiz-step-dot.is-active .quiz-step-dot__label {
+  color: var(--color-text);
+}
+
+.quiz-step-connector {
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: var(--color-border);
+  margin-bottom: 18px;
+}
+
+/* ─────────────────────────────
+   QUIZ SECTION + STEPS
+───────────────────────────── */
+.quiz-section {
+  padding-block: var(--space-12) var(--space-20);
+}
+
+.quiz-step__header {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.quiz-step__header h2 {
+  font-size: clamp(var(--text-2xl), 3vw, var(--text-3xl));
+  margin-bottom: var(--space-2);
+}
+
+.quiz-step__hint {
+  color: var(--color-text-mid);
+  font-size: var(--text-base);
+}
+
+/* ─── INPUT FORMS ─── */
+.input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input-prefix-wrap {
+  position: relative;
+}
+
+.input-prefix {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.input-prefix-wrap input {
+  padding-left: 32px;
+}
+
+.input-group input {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+
+.input-group input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.field-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+}
+
+.field-hint {
+  display: block;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.field-warning {
+  font-size: 11px;
+  color: #b91c1c;
+  margin-top: 4px;
+}
+
+/* ─── ADVANCED PARAMS ─── */
+.advanced-params {
+  margin-top: 16px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.advanced-params summary {
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  padding: 8px 0;
+}
+
+/* ─── STEP NAV ─── */
+.step-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 620px;
+  margin: var(--space-6) auto 0;
+  gap: var(--space-4);
+}
+
+/* ─── KPI RESULT CARDS ─── */
+.result-open-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.result-gated-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.result-kpi-card {
+  background: var(--color-surface-2, var(--color-bg-card));
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.result-kpi-card__label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
+}
+
+.result-kpi-card__value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 4px;
+}
+
+.result-kpi-card__formula {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.result-kpi-card__comment {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.result-kpi-card--gated {
+  filter: blur(5px);
+  user-select: none;
+  pointer-events: none;
+  opacity: .6;
+}
+
+.result-kpi-card--gated .result-kpi-card__value {
+  color: var(--color-text-muted);
+}
+
+/* ─── GATE CTA ─── */
+.gate-cta {
+  background: var(--color-surface-2, var(--color-bg-card));
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 12px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gate-cta__text {
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+/* ─── EMAIL GATE FORM (Step 5) ─── */
+.email-gate-form {
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.field-group input {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.field-group input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+}
+
+.field-group input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.email-gate-btn {
+  width: 100%;
+}
+
+.email-gate-btn.is-loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.email-gate-disclaimer {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0;
+}
+
+.email-gate-error {
+  font-size: var(--text-sm);
+  color: #f87171;
+  text-align: center;
+  margin: 0;
+}
+
+.email-gate-success {
+  text-align: center;
+  padding: var(--space-6);
+  color: var(--color-text);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 640px) {
+  .input-grid { grid-template-columns: 1fr; }
+  .result-open-grid, .result-gated-grid { grid-template-columns: 1fr; }
+  .quiz-step-dot__label { display: none; }
+}
+</style>
+
+<script>
+  // State
+  let formData: Record<string, string> = {};
+
+  // Step navigation
+  function showStep(n: number) {
+    document.querySelectorAll('.quiz-step').forEach((el: Element) => {
+      (el as HTMLElement).hidden = true;
+    });
+    const stepEl = document.getElementById(`step-${n}`);
+    if (stepEl) stepEl.hidden = false;
+    document.querySelectorAll('.quiz-step-dot').forEach((dot: Element) => {
+      const s = Number((dot as HTMLElement).dataset.step);
+      dot.classList.toggle('is-active', s === n);
+      dot.classList.toggle('is-done', s < n);
+    });
+    const progress = document.getElementById('quiz-progress');
+    if (progress) {
+      window.scrollTo({ top: progress.offsetTop - 20, behavior: 'smooth' });
+    }
+  }
+
+  // Initialize step 1 as active
+  showStep(1);
+
+  // Next/Back buttons
+  document.querySelectorAll('.quiz-next-btn').forEach((btn: Element) => {
+    btn.addEventListener('click', () => {
+      const next = Number((btn as HTMLElement).dataset.next);
+      const stepEl = (btn as HTMLElement).closest('.quiz-step');
+      if (stepEl) {
+        stepEl.querySelectorAll('input[name]').forEach((inp: Element) => {
+          const input = inp as HTMLInputElement;
+          if (input.value !== '') formData[input.name] = input.value;
+        });
+      }
+      showStep(next);
+    });
+  });
+
+  document.querySelectorAll('.quiz-back-btn').forEach((btn: Element) => {
+    btn.addEventListener('click', () => showStep(Number((btn as HTMLElement).dataset.back)));
+  });
+
+  // LTV warning
+  const darlehenInput = document.getElementById('darlehen') as HTMLInputElement | null;
+  const ltvWarning = document.getElementById('ltv-warning');
+  darlehenInput?.addEventListener('input', () => {
+    const kp = Number(formData.kaufpreis || 0);
+    const dl = Number(darlehenInput!.value || 0);
+    if (ltvWarning) ltvWarning.hidden = !(kp > 0 && dl > kp);
+  });
+
+  // Currency formatter
+  const fmt = (n: number) =>
+    new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
+
+  // Calc button → client-side preview → step 4
+  document.getElementById('calc-btn')?.addEventListener('click', () => {
+    // Collect step 3 inputs
+    const stepEl = document.getElementById('step-3');
+    if (stepEl) {
+      stepEl.querySelectorAll('input[name]').forEach((inp: Element) => {
+        const input = inp as HTMLInputElement;
+        if (input.value !== '') formData[input.name] = input.value;
+      });
+    }
+
+    const kp = Number(formData.kaufpreis);
+    const bj = Number(formData.baujahr);
+    const km = Number(formData.kaltmiete);
+    const hg = Number(formData.hausgeld);
+    const dl = Number(formData.darlehen);
+    const zs = Number(formData.zinssatz);
+    const tl = Number(formData.tilgung);
+    const gst = Number(formData.grenzsteuersatz);
+    const ga = Number(formData.gebaeudeanteil || 80);
+    const ls = Number(formData.leerstand || 3);
+
+    // AfA rate §7 EStG
+    const afaRate = bj <= 1924 ? 0.025 : bj >= 2023 ? 0.03 : 0.02;
+    const jahresAfA = kp * (ga / 100) * afaRate;
+
+    // §21 EStG
+    const zinsen = dl * (zs / 100);
+    const nichtUmlagefaehig = hg * 12 * 0.30;
+    const werbungskosten = zinsen + nichtUmlagefaehig + jahresAfA;
+    const bruttoMieteJahr = km * 12 * (1 - ls / 100);
+    const zuVersteuern = bruttoMieteJahr - werbungskosten;
+    const einkommensteuer = Math.max(0, zuVersteuern) * (gst / 100);
+
+    // Cashflow
+    const kapitaldienstJahr = dl * ((zs + tl) / 100);
+    const nettoJahr = bruttoMieteJahr - kapitaldienstJahr - hg * 12 - einkommensteuer;
+    const nettoMonat = nettoJahr / 12;
+
+    // Kaufpreisfaktor
+    const faktor = kp / (km * 12);
+
+    // Fill KPI cards
+    const faktorEl = document.getElementById('res-faktor');
+    const faktorFormulaEl = document.getElementById('res-faktor-formula');
+    const faktorCommentEl = document.getElementById('res-faktor-comment');
+    if (faktorEl) faktorEl.textContent = faktor.toFixed(1) + '×';
+    if (faktorFormulaEl) faktorFormulaEl.textContent = `${fmt(kp)} ÷ (${fmt(km)} × 12)`;
+    if (faktorCommentEl) faktorCommentEl.textContent =
+      faktor < 20 ? 'Günstiger Einstieg (Leipzig: 20–28×)' :
+      faktor <= 28 ? 'Solides Leipzig-Niveau (20–28×)' : 'Hohes Preisniveau — Rendite prüfen';
+
+    const cashflowEl = document.getElementById('res-cashflow');
+    const cashflowFormulaEl = document.getElementById('res-cashflow-formula');
+    const cashflowCommentEl = document.getElementById('res-cashflow-comment');
+    if (cashflowEl) {
+      cashflowEl.textContent = fmt(nettoMonat) + '/Mo';
+      cashflowEl.style.color = nettoMonat >= 0 ? 'var(--color-success, #1a7a4a)' : '#b91c1c';
+    }
+    if (cashflowFormulaEl) cashflowFormulaEl.textContent = 'nach Zinsen, Tilgung, Hausgeld, Steuer';
+    if (cashflowCommentEl) cashflowCommentEl.textContent =
+      nettoMonat >= 0 ? 'Positiver Cashflow ab Tag 1' : 'Negativer Cashflow — Wertsteigerung kalkulieren';
+
+    const afaEl = document.getElementById('res-afa');
+    const afaFormulaEl = document.getElementById('res-afa-formula');
+    const afaCommentEl = document.getElementById('res-afa-comment');
+    if (afaEl) afaEl.textContent = fmt(jahresAfA) + '/J';
+    if (afaFormulaEl) afaFormulaEl.textContent = `${fmt(kp)} × ${ga}% × ${(afaRate * 100).toFixed(1)}%`;
+    if (afaCommentEl) afaCommentEl.textContent = `§7 EStG · Baujahr ${bj}`;
+
+    showStep(4);
+  });
+
+  // Show gate on CTA click
+  document.getElementById('show-gate-btn')?.addEventListener('click', () => showStep(5));
+
+  // Email gate submit
+  const emailForm = document.getElementById('email-gate-form') as HTMLFormElement | null;
+  const emailBtn = document.getElementById('email-gate-btn') as HTMLButtonElement | null;
+  const emailError = document.getElementById('email-gate-error');
+
+  emailForm?.addEventListener('submit', async (e: Event) => {
+    e.preventDefault();
+    if (emailError) emailError.hidden = true;
+    if (emailBtn) {
+      emailBtn.classList.add('is-loading');
+      emailBtn.disabled = true;
+    }
+
+    const vorname = (document.getElementById('gate-vorname') as HTMLInputElement)?.value.trim() ?? '';
+    const email = (document.getElementById('gate-email') as HTMLInputElement)?.value.trim() ?? '';
+
+    try {
+      const res = await fetch('/api/kapitalanleger-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, vorname, email }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || 'Fehler beim Verarbeiten');
+
+      if (emailForm) {
+        emailForm.innerHTML = `
+          <div class="email-gate-success">
+            <p>✓ Analyse wird gerade erstellt und an <strong>${email}</strong> geschickt.</p>
+            <p style="color:var(--color-text-muted);font-size:13px;margin-top:8px;">Bitte kurz warten — dauert ca. 30 Sekunden.</p>
+          </div>`;
+      }
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Etwas ist schiefgelaufen. Bitte erneut versuchen.';
+      if (emailError) {
+        emailError.textContent = message;
+        emailError.hidden = false;
+      }
+      if (emailBtn) {
+        emailBtn.classList.remove('is-loading');
+        emailBtn.disabled = false;
+      }
+    }
+  });
+</script>
