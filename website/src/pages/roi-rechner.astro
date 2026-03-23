@@ -139,90 +139,97 @@ import Layout from '../layouts/Layout.astro';
             <div class="select-wrap">
               <select id="stadtteil-select" class="styled-select">
                 <optgroup label="Mitte">
-                  <option value="zentrum">Zentrum (4.200 €/m²)</option>
-                  <option value="zentrum-ost">Zentrum-Ost (3.800 €/m²)</option>
-                  <option value="zentrum-suedost">Zentrum-Südost (3.600 €/m²)</option>
-                  <option value="zentrum-sued">Zentrum-Süd (3.700 €/m²)</option>
-                  <option value="zentrum-west">Zentrum-West (3.900 €/m²)</option>
-                  <option value="zentrum-nordwest">Zentrum-Nordwest (3.700 €/m²)</option>
-                  <option value="zentrum-nord">Zentrum-Nord (3.500 €/m²)</option>
+                  <option value="zentrum">Zentrum (3.900 €/m²)</option>
+                  <option value="zentrum-ost">Zentrum-Ost (3.400 €/m²)</option>
+                  <option value="zentrum-suedost">Zentrum-Südost (3.200 €/m²)</option>
+                  <option value="zentrum-sued">Zentrum-Süd (3.300 €/m²)</option>
+                  <option value="zentrum-west">Zentrum-West (3.500 €/m²)</option>
+                  <option value="zentrum-nordwest">Zentrum-Nordwest (3.200 €/m²)</option>
+                  <option value="zentrum-nord">Zentrum-Nord (3.000 €/m²)</option>
                 </optgroup>
                 <optgroup label="Nord">
-                  <option value="gohlis-sued">Gohlis-Süd (3.000 €/m²)</option>
-                  <option value="gohlis-mitte">Gohlis-Mitte (2.800 €/m²)</option>
-                  <option value="gohlis-nord">Gohlis-Nord (2.600 €/m²)</option>
-                  <option value="eutritzsch">Eutritzsch (2.400 €/m²)</option>
-                  <option value="seehausen">Seehausen (1.800 €/m²)</option>
-                  <option value="wiederitzsch">Wiederitzsch (2.000 €/m²)</option>
+                  <option value="gohlis-sued">Gohlis-Süd (2.700 €/m²)</option>
+                  <option value="gohlis-mitte">Gohlis-Mitte (2.400 €/m²)</option>
+                  <option value="gohlis-nord">Gohlis-Nord (2.100 €/m²)</option>
+                  <option value="eutritzsch">⚠ Eutritzsch — MS (2.050 €/m²)</option>
+                  <option value="seehausen">Seehausen (1.650 €/m²)</option>
+                  <option value="wiederitzsch">Wiederitzsch (1.850 €/m²)</option>
                 </optgroup>
                 <optgroup label="Nordost">
-                  <option value="schoenefeld-abtnaundorf">Schönefeld-Abtnaundorf (2.100 €/m²)</option>
-                  <option value="schoenefeld-ost">Schönefeld-Ost (2.000 €/m²)</option>
-                  <option value="mockau-sued">Mockau-Süd (2.100 €/m²)</option>
-                  <option value="mockau-nord">Mockau-Nord (1.900 €/m²)</option>
-                  <option value="thekla">Thekla (1.800 €/m²)</option>
-                  <option value="plaussig-portitz">Plaußig-Portitz (1.700 €/m²)</option>
+                  <option value="schoenefeld-abtnaundorf">⚠ Schönefeld-Abtnaundorf — MS (2.050 €/m²)</option>
+                  <option value="schoenefeld-ost">Schönefeld-Ost (1.950 €/m²)</option>
+                  <option value="mockau-sued">Mockau-Süd (2.050 €/m²)</option>
+                  <option value="mockau-nord">Mockau-Nord (1.850 €/m²)</option>
+                  <option value="thekla">Thekla (1.700 €/m²)</option>
+                  <option value="plaussig-portitz">Plaußig-Portitz (1.550 €/m²)</option>
                 </optgroup>
                 <optgroup label="Ost">
-                  <option value="neustadt-neuschoenef" selected>Neustadt-Neuschönefeld (2.300 €/m²)</option>
-                  <option value="volkmarsdorf">Volkmarsdorf (2.000 €/m²)</option>
-                  <option value="anger-crottendorf">Anger-Crottendorf (2.200 €/m²)</option>
-                  <option value="sellerhausen-stuenz">Sellerhausen-Stünz (1.900 €/m²)</option>
-                  <option value="paunsdorf">Paunsdorf (1.800 €/m²)</option>
-                  <option value="heiterblick">Heiterblick (2.000 €/m²)</option>
-                  <option value="moelkau">Mölkau (2.100 €/m²)</option>
-                  <option value="engelsdorf">Engelsdorf (2.000 €/m²)</option>
-                  <option value="baalsdorf">Baalsdorf (1.900 €/m²)</option>
-                  <option value="althen-kleinpoesna">Althen-Kleinpösna (1.800 €/m²)</option>
+                  <option value="neustadt-neuschoenef" selected>⚠ Neustadt-Neuschönefeld — MS (2.050 €/m²)</option>
+                  <option value="volkmarsdorf">⚠ Volkmarsdorf — MS (1.900 €/m²)</option>
+                  <option value="anger-crottendorf">Anger-Crottendorf (1.950 €/m²)</option>
+                  <option value="sellerhausen-stuenz">Sellerhausen-Stünz (1.750 €/m²)</option>
+                  <option value="paunsdorf">Paunsdorf (1.650 €/m²)</option>
+                  <option value="heiterblick">Heiterblick (1.850 €/m²)</option>
+                  <option value="moelkau">Mölkau (1.950 €/m²)</option>
+                  <option value="engelsdorf">Engelsdorf (1.850 €/m²)</option>
+                  <option value="baalsdorf">Baalsdorf (1.700 €/m²)</option>
+                  <option value="althen-kleinpoesna">Althen-Kleinpösna (1.600 €/m²)</option>
                 </optgroup>
                 <optgroup label="Südost">
-                  <option value="reudnitz-thonberg">Reudnitz-Thonberg (2.500 €/m²)</option>
-                  <option value="stoetteritz">Stötteritz (2.600 €/m²)</option>
-                  <option value="probstheida">Probstheida (2.200 €/m²)</option>
-                  <option value="meusdorf">Meusdorf (2.000 €/m²)</option>
-                  <option value="liebertwolkwitz">Liebertwolkwitz (1.900 €/m²)</option>
-                  <option value="holzhausen">Holzhausen (1.800 €/m²)</option>
+                  <option value="reudnitz-thonberg">⚠ Reudnitz-Thonberg — MS (2.350 €/m²)</option>
+                  <option value="stoetteritz">Stötteritz (2.200 €/m²)</option>
+                  <option value="probstheida">Probstheida (1.950 €/m²)</option>
+                  <option value="meusdorf">Meusdorf (1.800 €/m²)</option>
+                  <option value="liebertwolkwitz">Liebertwolkwitz (1.700 €/m²)</option>
+                  <option value="holzhausen">Holzhausen (1.600 €/m²)</option>
                 </optgroup>
                 <optgroup label="Süd">
-                  <option value="suedvorstadt">Südvorstadt (3.200 €/m²)</option>
-                  <option value="connewitz">Connewitz (3.100 €/m²)</option>
-                  <option value="marienbrunn">Marienbrunn (2.300 €/m²)</option>
-                  <option value="loessnig">Lößnig (2.100 €/m²)</option>
-                  <option value="doelitz-doesen">Dölitz-Dösen (2.000 €/m²)</option>
+                  <option value="suedvorstadt">Südvorstadt (3.100 €/m²)</option>
+                  <option value="connewitz">⚠ Connewitz — MS (2.900 €/m²)</option>
+                  <option value="marienbrunn">Marienbrunn (2.200 €/m²)</option>
+                  <option value="loessnig">Lößnig (1.950 €/m²)</option>
+                  <option value="doelitz-doesen">Dölitz-Dösen (1.850 €/m²)</option>
                 </optgroup>
                 <optgroup label="Südwest">
-                  <option value="schleussig">Schleußig (3.400 €/m²)</option>
-                  <option value="plagwitz">Plagwitz (3.200 €/m²)</option>
-                  <option value="kleinzschocher">Kleinzschocher (2.200 €/m²)</option>
-                  <option value="grosszschocher">Großzschocher (2.000 €/m²)</option>
-                  <option value="knautnaundorf">Knautnaundorf (1.700 €/m²)</option>
-                  <option value="knauthain">Knauthain-Knautkleeberg (1.800 €/m²)</option>
+                  <option value="schleussig">Schleußig (3.300 €/m²)</option>
+                  <option value="plagwitz">⚠ Plagwitz — MS (2.900 €/m²)</option>
+                  <option value="kleinzschocher">⚠ Kleinzschocher — MS (1.950 €/m²)</option>
+                  <option value="grosszschocher">Großzschocher (1.800 €/m²)</option>
+                  <option value="knautnaundorf">Knautnaundorf (1.550 €/m²)</option>
+                  <option value="knauthain">Knauthain-Knautkleeberg (1.650 €/m²)</option>
                 </optgroup>
                 <optgroup label="West">
-                  <option value="schoenau">Schönau (1.600 €/m²)</option>
-                  <option value="gruenau-ost">Grünau-Ost (1.500 €/m²)</option>
-                  <option value="gruenau-nord">Grünau-Nord (1.400 €/m²)</option>
-                  <option value="gruenau-mitte">Grünau-Mitte (1.500 €/m²)</option>
-                  <option value="gruenau-siedlung">Grünau-Siedlung (1.400 €/m²)</option>
-                  <option value="lausen-gruenau">Lausen-Grünau (1.600 €/m²)</option>
-                  <option value="miltitz">Miltitz (1.700 €/m²)</option>
+                  <option value="schoenau">Schönau (1.500 €/m²)</option>
+                  <option value="gruenau-ost">Grünau-Ost (1.400 €/m²)</option>
+                  <option value="gruenau-nord">Grünau-Nord (1.300 €/m²)</option>
+                  <option value="gruenau-mitte">Grünau-Mitte (1.400 €/m²)</option>
+                  <option value="gruenau-siedlung">Grünau-Siedlung (1.300 €/m²)</option>
+                  <option value="lausen-gruenau">Lausen-Grünau (1.500 €/m²)</option>
+                  <option value="miltitz">Miltitz (1.600 €/m²)</option>
                 </optgroup>
                 <optgroup label="Alt-West">
-                  <option value="lindenau">Lindenau (2.700 €/m²)</option>
-                  <option value="alt-lindenau">Alt-Lindenau (2.500 €/m²)</option>
-                  <option value="neu-lindenau">Neu-Lindenau (2.300 €/m²)</option>
-                  <option value="leutzsch">Leutzsch (2.600 €/m²)</option>
-                  <option value="boehlitz-ehrenberg">Böhlitz-Ehrenberg (2.200 €/m²)</option>
-                  <option value="burghausen">Burghausen-Rückmarsdorf (1.900 €/m²)</option>
+                  <option value="lindenau">⚠ Lindenau — MS (2.500 €/m²)</option>
+                  <option value="alt-lindenau">⚠ Alt-Lindenau — MS (2.300 €/m²)</option>
+                  <option value="neu-lindenau">Neu-Lindenau (2.100 €/m²)</option>
+                  <option value="leutzsch">⚠ Leutzsch — MS (2.400 €/m²)</option>
+                  <option value="boehlitz-ehrenberg">Böhlitz-Ehrenberg (2.000 €/m²)</option>
+                  <option value="burghausen">Burghausen-Rückmarsdorf (1.750 €/m²)</option>
                 </optgroup>
                 <optgroup label="Nordwest">
-                  <option value="moeckern">Möckern (2.400 €/m²)</option>
-                  <option value="wahren">Wahren (2.200 €/m²)</option>
-                  <option value="luetzschena">Lützschena-Stahmeln (1.900 €/m²)</option>
-                  <option value="lindenthal">Lindenthal (2.000 €/m²)</option>
+                  <option value="moeckern">Möckern (2.200 €/m²)</option>
+                  <option value="wahren">Wahren (2.000 €/m²)</option>
+                  <option value="luetzschena">Lützschena-Stahmeln (1.750 €/m²)</option>
+                  <option value="lindenthal">Lindenthal (1.850 €/m²)</option>
                 </optgroup>
               </select>
               <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div id="milieuschutz-warning" class="ms-warning" hidden>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <div>
+                <strong>Milieuschutz-Gebiet</strong>
+                <p>Umwandlung Miete → ETW und Luxussanierung eingeschränkt. Aufteiler-Strategie vorab mit Anwalt prüfen.</p>
+              </div>
             </div>
           </div>
 
@@ -848,6 +855,34 @@ import Layout from '../layouts/Layout.astro';
   transform: translateY(-50%);
   pointer-events: none;
   color: var(--color-text-muted);
+}
+
+.ms-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 8px;
+  color: #fbbf24;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.ms-warning svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #fbbf24;
+}
+.ms-warning strong {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 2px;
+}
+.ms-warning p {
+  margin: 0;
+  color: rgba(251, 191, 36, 0.8);
 }
 
 .exit-cards {
@@ -1656,36 +1691,36 @@ let currentStep = 1;
 //  CALC
 // ─────────────────────────────────────────
 const MARKT: Record<string, number> = {
-  // Mitte
-  'zentrum': 4200, 'zentrum-ost': 3800, 'zentrum-suedost': 3600,
-  'zentrum-sued': 3700, 'zentrum-west': 3900, 'zentrum-nordwest': 3700, 'zentrum-nord': 3500,
-  // Nord
-  'gohlis-sued': 3000, 'gohlis-mitte': 2800, 'gohlis-nord': 2600,
-  'eutritzsch': 2400, 'seehausen': 1800, 'wiederitzsch': 2000,
-  // Nordost
-  'schoenefeld-abtnaundorf': 2100, 'schoenefeld-ost': 2000,
-  'mockau-sued': 2100, 'mockau-nord': 1900, 'thekla': 1800, 'plaussig-portitz': 1700,
-  // Ost
-  'neustadt-neuschoenef': 2300, 'volkmarsdorf': 2000, 'anger-crottendorf': 2200,
-  'sellerhausen-stuenz': 1900, 'paunsdorf': 1800, 'heiterblick': 2000,
-  'moelkau': 2100, 'engelsdorf': 2000, 'baalsdorf': 1900, 'althen-kleinpoesna': 1800,
-  // Südost
-  'reudnitz-thonberg': 2500, 'stoetteritz': 2600, 'probstheida': 2200,
-  'meusdorf': 2000, 'liebertwolkwitz': 1900, 'holzhausen': 1800,
-  // Süd
-  'suedvorstadt': 3200, 'connewitz': 3100, 'marienbrunn': 2300,
-  'loessnig': 2100, 'doelitz-doesen': 2000,
-  // Südwest
-  'schleussig': 3400, 'plagwitz': 3200, 'kleinzschocher': 2200,
-  'grosszschocher': 2000, 'knautnaundorf': 1700, 'knauthain': 1800,
-  // West
-  'schoenau': 1600, 'gruenau-ost': 1500, 'gruenau-nord': 1400,
-  'gruenau-mitte': 1500, 'gruenau-siedlung': 1400, 'lausen-gruenau': 1600, 'miltitz': 1700,
-  // Alt-West
-  'lindenau': 2700, 'alt-lindenau': 2500, 'neu-lindenau': 2300,
-  'leutzsch': 2600, 'boehlitz-ehrenberg': 2200, 'burghausen': 1900,
-  // Nordwest
-  'moeckern': 2400, 'wahren': 2200, 'luetzschena': 1900, 'lindenthal': 2000,
+  // Mitte (Homeday ~2.650 €/m²)
+  'zentrum': 3900, 'zentrum-ost': 3400, 'zentrum-suedost': 3200,
+  'zentrum-sued': 3300, 'zentrum-west': 3500, 'zentrum-nordwest': 3200, 'zentrum-nord': 3000,
+  // Nord (Homeday ~2.150 €/m²)
+  'gohlis-sued': 2700, 'gohlis-mitte': 2400, 'gohlis-nord': 2100,
+  'eutritzsch': 2050, 'seehausen': 1650, 'wiederitzsch': 1850,
+  // Nordost (Homeday ~2.250 €/m²)
+  'schoenefeld-abtnaundorf': 2050, 'schoenefeld-ost': 1950,
+  'mockau-sued': 2050, 'mockau-nord': 1850, 'thekla': 1700, 'plaussig-portitz': 1550,
+  // Ost (Homeday ~1.900 €/m²)
+  'neustadt-neuschoenef': 2050, 'volkmarsdorf': 1900, 'anger-crottendorf': 1950,
+  'sellerhausen-stuenz': 1750, 'paunsdorf': 1650, 'heiterblick': 1850,
+  'moelkau': 1950, 'engelsdorf': 1850, 'baalsdorf': 1700, 'althen-kleinpoesna': 1600,
+  // Südost (Homeday ~1.950 €/m²)
+  'reudnitz-thonberg': 2350, 'stoetteritz': 2200, 'probstheida': 1950,
+  'meusdorf': 1800, 'liebertwolkwitz': 1700, 'holzhausen': 1600,
+  // Süd (Homeday ~2.350 €/m²)
+  'suedvorstadt': 3100, 'connewitz': 2900, 'marienbrunn': 2200,
+  'loessnig': 1950, 'doelitz-doesen': 1850,
+  // Südwest (Homeday ~1.850 €/m²)
+  'schleussig': 3300, 'plagwitz': 2900, 'kleinzschocher': 1950,
+  'grosszschocher': 1800, 'knautnaundorf': 1550, 'knauthain': 1650,
+  // West (Homeday ~1.350 €/m²)
+  'schoenau': 1500, 'gruenau-ost': 1400, 'gruenau-nord': 1300,
+  'gruenau-mitte': 1400, 'gruenau-siedlung': 1300, 'lausen-gruenau': 1500, 'miltitz': 1600,
+  // Alt-West (Homeday ~1.850 €/m²)
+  'lindenau': 2500, 'alt-lindenau': 2300, 'neu-lindenau': 2100,
+  'leutzsch': 2400, 'boehlitz-ehrenberg': 2000, 'burghausen': 1750,
+  // Nordwest (Homeday ~1.900 €/m²)
+  'moeckern': 2200, 'wahren': 2000, 'luetzschena': 1750, 'lindenthal': 1850,
 };
 
 function calcResult(s: QuizState) {
@@ -1762,10 +1797,26 @@ document.querySelectorAll<HTMLElement>('.scenario-card').forEach((card) => {
 // ─────────────────────────────────────────
 //  STEP 2 — LAGE & STRATEGIE
 // ─────────────────────────────────────────
+const MS_DISTRICTS = new Set([
+  'eutritzsch', 'schoenefeld-abtnaundorf', 'neustadt-neuschoenef', 'volkmarsdorf',
+  'reudnitz-thonberg', 'connewitz', 'plagwitz', 'kleinzschocher',
+  'lindenau', 'alt-lindenau', 'leutzsch',
+]);
+
 const stadtteilSelect = document.getElementById('stadtteil-select') as HTMLSelectElement;
+const msWarning = document.getElementById('milieuschutz-warning') as HTMLElement;
+
+function updateMsWarning(val: string) {
+  if (msWarning) msWarning.hidden = !MS_DISTRICTS.has(val);
+}
+
 stadtteilSelect?.addEventListener('change', () => {
   state.stadtteil = stadtteilSelect.value;
+  updateMsWarning(stadtteilSelect.value);
 });
+
+// Check initial value
+updateMsWarning(stadtteilSelect?.value ?? '');
 
 document.querySelectorAll<HTMLElement>('.exit-card').forEach((card) => {
   card.addEventListener('click', () => {
