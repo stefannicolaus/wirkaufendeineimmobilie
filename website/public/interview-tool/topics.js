@@ -1206,3 +1206,15 @@ export const TOPICS = [
   }
 
 ];
+
+export function getTopicById(id) {
+  return TOPICS.find(t => t.id === id) || null;
+}
+
+export function getAllQuestions(topic) {
+  return topic.sections.flatMap(s => s.questions);
+}
+
+export function countQuestions(topic) {
+  return getAllQuestions(topic).length;
+}
