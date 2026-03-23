@@ -160,10 +160,12 @@
     .inv-divider { width: 1px; height: 36px; background: #1e293b; }
 
     /* ── PAGE 1.5 — WER WIR SIND ── */
-    .about-inv-page { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(1123px - 80px); }
-    .about-inv__portrait { overflow: hidden; }
+    .about-inv-page { display: flex; flex-direction: column; padding: 56px 64px; gap: 40px; }
+    .about-inv__header { display: flex; align-items: center; gap: 36px; }
+    .about-inv__portrait { flex-shrink: 0; width: 160px; height: 160px; border-radius: 50%; overflow: hidden; border: 3px solid #3B82F6; }
     .about-inv__portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-    .about-inv__content { padding: 56px 48px; display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+    .about-inv__header-text { display: flex; flex-direction: column; gap: 6px; }
+    .about-inv__content { display: flex; flex-direction: column; gap: 28px; }
     .about-inv__creds { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .about-inv__cred { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #334155; line-height: 1.55; }
     .about-inv__cred::before { content: '✓'; color: #3B82F6; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
@@ -398,12 +400,16 @@
       <div class="page-header__chapter">Wer wir sind</div>
     </div>
     <div class="about-inv-page">
-      <div class="about-inv__portrait">
-        <img src="/images/joachim-kleinke-portrait.jpg" alt="Joachim Kleinke" />
+      <div class="about-inv__header">
+        <div class="about-inv__portrait">
+          <img src="/images/joachim-kleinke-portrait.jpg" alt="Joachim Kleinke" />
+        </div>
+        <div class="about-inv__header-text">
+          <div class="section-eyebrow">Ihr direkter Ansprechpartner</div>
+          <h2 class="section-title" style="font-size:32px;">35 Jahre Leipzig.<br />Dein Draht zu Off-Market-Deals.</h2>
+        </div>
       </div>
       <div class="about-inv__content">
-        <div class="section-eyebrow">Ihr direkter Ansprechpartner</div>
-        <h2 class="section-title">35 Jahre Leipzig.<br />Dein Draht zu<br />Off-Market-Deals.</h2>
         <p class="body-text">Joachim Kleinke vermittelt seit über 35 Jahren Immobilien in Leipzig — spezialisiert auf Objekte, die der klassische Markt nicht verarbeiten kann. Messie-Wohnungen, Erbengemeinschaften, Insolvenzfälle, energetischer Sanierungsbedarf. Genau das ist sein Markt. Und deiner.</p>
         <ul class="about-inv__creds">
           <li class="about-inv__cred">§ 34c Maklererlaubnis — langjährig aktiv</li>
