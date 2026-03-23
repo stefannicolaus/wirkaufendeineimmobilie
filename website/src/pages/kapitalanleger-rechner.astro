@@ -272,6 +272,12 @@ import Layout from '../layouts/Layout.astro';
             <label class="field-label" for="gate-email">E-Mail</label>
             <input type="email" id="gate-email" name="email" placeholder="max@beispiel.de" required autocomplete="email" />
           </div>
+          <div class="field-group">
+            <label class="consent-label">
+              <input type="checkbox" id="dsgvo-consent" name="dsgvo_consent" required />
+              <span>Ich stimme der <a href="/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a> zu und bin damit einverstanden, dass meine Daten zur Erstellung der Analyse verwendet werden.</span>
+            </label>
+          </div>
           <button type="submit" class="btn btn-primary email-gate-btn" id="email-gate-btn">
             PDF jetzt per E-Mail erhalten
           </button>
@@ -690,6 +696,24 @@ import Layout from '../layouts/Layout.astro';
   color: var(--color-text);
 }
 
+.consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  line-height: 1.5;
+}
+.consent-label input[type="checkbox"] {
+  margin-top: 2px;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-accent);
+}
+.consent-label a { color: var(--color-accent); }
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 640px) {
   .input-grid { grid-template-columns: 1fr; }
@@ -777,6 +801,16 @@ import Layout from '../layouts/Layout.astro';
     const ga = Number(formData.gebaeudeanteil || 80);
     const ls = Number(formData.leerstand || 3);
 
+    // Validate required numeric inputs
+    if (!kp || !bj || !km || !dl || isNaN(kp) || isNaN(bj) || isNaN(km) || isNaN(hg) || isNaN(dl) || isNaN(zs) || isNaN(tl) || isNaN(gst)) {
+      alert('Bitte alle Pflichtfelder ausfüllen (Kaufpreis, Baujahr, Kaltmiete, Hausgeld, Darlehensdaten, Grenzsteuersatz).');
+      return;
+    }
+    if (km === 0) {
+      alert('Kaltmiete darf nicht 0 sein.');
+      return;
+    }
+
     // AfA rate §7 EStG
     const afaRate = bj <= 1924 ? 0.025 : bj >= 2023 ? 0.03 : 0.02;
     const jahresAfA = kp * (ga / 100) * afaRate;
@@ -847,6 +881,19 @@ import Layout from '../layouts/Layout.astro';
     const vorname = (document.getElementById('gate-vorname') as HTMLInputElement)?.value.trim() ?? '';
     const email = (document.getElementById('gate-email') as HTMLInputElement)?.value.trim() ?? '';
 
+    const consentCheckbox = document.getElementById('dsgvo-consent');
+    if (!(consentCheckbox as HTMLInputElement)?.checked) {
+      if (emailError) {
+        emailError.textContent = 'Bitte stimmen Sie der Datenschutzerklärung zu.';
+        emailError.hidden = false;
+      }
+      if (emailBtn) {
+        emailBtn.classList.remove('is-loading');
+        emailBtn.disabled = false;
+      }
+      return;
+    }
+
     try {
       const res = await fetch('/api/kapitalanleger-report', {
         method: 'POST',
@@ -857,11 +904,21 @@ import Layout from '../layouts/Layout.astro';
       if (!data.success) throw new Error(data.error || 'Fehler beim Verarbeiten');
 
       if (emailForm) {
-        emailForm.innerHTML = `
-          <div class="email-gate-success">
-            <p>✓ Analyse wird gerade erstellt und an <strong>${email}</strong> geschickt.</p>
-            <p style="color:var(--color-text-muted);font-size:13px;margin-top:8px;">Bitte kurz warten — dauert ca. 30 Sekunden.</p>
-          </div>`;
+        const successDiv = document.createElement('div');
+        successDiv.className = 'email-gate-success';
+        const p1 = document.createElement('p');
+        p1.innerHTML = '✓ Analyse wird gerade erstellt und an ';
+        const strong = document.createElement('strong');
+        strong.textContent = email;
+        p1.appendChild(strong);
+        p1.appendChild(document.createTextNode(' geschickt.'));
+        const p2 = document.createElement('p');
+        p2.textContent = 'Bitte kurz warten — dauert ca. 30 Sekunden.';
+        p2.style.cssText = 'color:var(--color-text-muted);font-size:13px;margin-top:8px;';
+        successDiv.appendChild(p1);
+        successDiv.appendChild(p2);
+        emailForm.innerHTML = '';
+        emailForm.appendChild(successDiv);
       }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Etwas ist schiefgelaufen. Bitte erneut versuchen.';
