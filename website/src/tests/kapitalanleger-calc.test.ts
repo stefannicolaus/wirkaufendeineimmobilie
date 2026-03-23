@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { calcKapitalanleger, buildTilgungsplan } from '../lib/kapitalanleger-calc';
+import { calcKapitalanleger, buildTilgungsplan, formatEur } from '../lib/kapitalanleger-calc';
 
 // Reference scenario:
 // kaufpreis=200000, baujahr=1975, wohnflaeche=70, kaltmiete=800, hausgeld=200
@@ -113,5 +113,18 @@ describe('Tilgungsplan', () => {
   it('zinsenT decreases as restschuld decreases', () => {
     const plan = buildTilgungsplan(BASE);
     expect(plan[1].zinsen).toBeLessThan(plan[0].zinsen);
+  });
+});
+
+describe('Edge cases', () => {
+  it('darlehen=0 (no loan): no crash, zero zinsen', () => {
+    const r = calcKapitalanleger({ ...BASE, darlehen: 0 });
+    expect(r.zinsen).toBe(0);
+    expect(r.kapitaldienstJahr).toBe(0);
+  });
+
+  it('formatEur formats correctly', () => {
+    expect(formatEur(1234)).toContain('1.234');
+    expect(formatEur(1234)).toContain('€');
   });
 });

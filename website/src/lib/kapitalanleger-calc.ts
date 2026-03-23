@@ -3,7 +3,7 @@
 export interface KapitalanlegerInput {
   kaufpreis: number;
   baujahr: number;
-  wohnflaeche: number;
+  wohnflaeche: number;         // stored in DB; not used in calculations
   kaltmiete: number;         // €/Monat
   hausgeld: number;          // €/Monat
   darlehen: number;          // €
@@ -76,6 +76,7 @@ function computeNpv(
   mietsteigerung: number,
   darlehen: number,
   tilgung: number,
+  leerstand: number,
 ): number {
   let npv = 0;
   for (let t = 1; t <= haltedauer; t++) {
@@ -86,7 +87,8 @@ function computeNpv(
     npv += cfT / Math.pow(1 + diskontRate / 100, t);
   }
   // Terminal Value: exit price (rent-based valuation) minus restschuld at exit
-  const exitMiete = kaltmiete * 12 * Math.pow(1 + mietsteigerung / 100, haltedauer);
+  // Apply same Leerstand discount to TV as to annual cashflows
+  const exitMiete = kaltmiete * 12 * (1 - leerstand / 100) * Math.pow(1 + mietsteigerung / 100, haltedauer);
   const exitPrice = exitMiete * kaufpreisfaktor;
   const tilgungBetrag = darlehen * (tilgung / 100);
   const restschuld = Math.max(0, darlehen - haltedauer * tilgungBetrag);
@@ -95,6 +97,10 @@ function computeNpv(
   return Math.round(npv);
 }
 
+/**
+ * Requires: kaufpreis > 0, kaltmiete > 0
+ * kaufpreisfaktor and bruttoRendite return Infinity if kaltmiete=0 or kaufpreis=0 respectively.
+ */
 export function calcKapitalanleger(input: KapitalanlegerInput): KapitalanlegerResult {
   const {
     kaufpreis, baujahr, kaltmiete, hausgeld,
@@ -134,12 +140,12 @@ export function calcKapitalanleger(input: KapitalanlegerInput): KapitalanlegerRe
   const npv10j = computeNpv(
     bruttoMieteJahr, werbungskosten, kapitaldienstJahr, hausgeldJahr,
     grenzsteuersatz, kaufpreisfaktor, kaltmiete, 10, diskontRate, mietsteigerung,
-    darlehen, tilgung,
+    darlehen, tilgung, leerstand,
   );
   const npv20j = computeNpv(
     bruttoMieteJahr, werbungskosten, kapitaldienstJahr, hausgeldJahr,
     grenzsteuersatz, kaufpreisfaktor, kaltmiete, 20, diskontRate, mietsteigerung,
-    darlehen, tilgung,
+    darlehen, tilgung, leerstand,
   );
 
   return {
