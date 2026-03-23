@@ -6,7 +6,7 @@ const OBJEKT_LABELS: Record<string, string> = {
   messie: 'Messie-Objekt / Entrümpelungsbedarf',
   erbengemeinschaft: 'Erbengemeinschaft',
   insolvenz: 'Insolvenzverfahren',
-  geg: 'GEG-Sanierungsstau (Energieklasse E–H)',
+  geg: 'Energetische Sanierung – Energieklasse E–H (gemäß Gebäudeenergiegesetz / GEG)',
   standard: 'Sanierungsobjekt (Standard)',
 };
 
@@ -215,7 +215,7 @@ export function generatePdfHtml(opts: {
   ${result.beg_foerderung > 0 ? `
   <div class="card card-highlight" style="margin-bottom:24px;">
     <div class="card-label">BEG-Förderung erkannt</div>
-    <div class="card-value">GEG-Sanierungsobjekt — bis zu ${formatEur(result.beg_foerderung)} Förderung (40% auf Sanierungskosten inkl. iSFP-Bonus)</div>
+    <div class="card-value">Energetisch sanierungsbedürftiges Objekt (gemäß GEG) — bis zu ${formatEur(result.beg_foerderung)} BEG-Förderung (40% auf Sanierungskosten inkl. iSFP-Bonus)</div>
   </div>` : ''}
   <div class="page-footer">
     <div class="page-footer-logo">wirkaufen<span>deine</span>immobilie</div>
