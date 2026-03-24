@@ -1,6 +1,6 @@
 // website/public/interview-tool/app.js
 import { TOPICS, getTopicById } from './topics.js';
-import { getAllInterviews, createInterview, getInterview, updateAnswer, completeInterview } from './storage.js';
+import { getAllInterviews, createInterview, getInterview, updateAnswer, completeInterview, deleteInterview } from './storage.js';
 import { downloadJSON } from './export.js';
 
 // --- Helpers ---
@@ -51,9 +51,12 @@ function renderStartscreen() {
   return `
     <header class="header">
       <h1 class="header__title">WKDI Interview Tool</h1>
-      <button class="btn btn--ghost" onclick="navigate('archive')">
-        Meine Interviews ${interviews.length > 0 ? `<span class="badge">${interviews.length}</span>` : ''}
-      </button>
+      <div class="header__actions">
+        <button class="btn btn--ghost" onclick="navigate('archive')">
+          Interviews ${interviews.length > 0 ? `<span class="badge">${interviews.length}</span>` : ''}
+        </button>
+        <button class="btn btn--ghost btn--sm btn--logout" onclick="logout()">Logout</button>
+      </div>
     </header>
 
     <main class="startscreen">
@@ -329,7 +332,10 @@ function renderArchive() {
             <div class="archive-item__meta">
               <span class="badge ${statusClass}">${statusLabel}</span>
               <span class="archive-item__score">${score}</span>
-              <button class="btn btn--ghost btn--sm" data-export-id="${iv.id}">↓ JSON</button>
+              <div class="archive-item__actions">
+                <button class="btn btn--ghost btn--sm" data-export-id="${iv.id}">↓ JSON</button>
+                <button class="btn btn--danger btn--sm" data-delete-id="${iv.id}">🗑</button>
+              </div>
             </div>
           </div>
         `;
@@ -337,8 +343,9 @@ function renderArchive() {
 
   return `
     <header class="header">
-      <button class="btn btn--ghost" onclick="navigate('startscreen')">← Neues Interview</button>
+      <button class="btn btn--ghost btn--sm" onclick="navigate('startscreen')">← Neu</button>
       <h1 class="header__title">Meine Interviews</h1>
+      <button class="btn btn--ghost btn--sm btn--logout" onclick="logout()">Logout</button>
     </header>
 
     <div class="archive-filters">
@@ -366,9 +373,17 @@ function bindArchiveEvents() {
     state.filterStatus = e.target.value;
     render();
   });
+  document.querySelectorAll('[data-delete-id]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      if (!confirm('Interview wirklich löschen? Das kann nicht rückgängig gemacht werden.')) return;
+      deleteInterview(btn.dataset.deleteId);
+      render();
+    });
+  });
   document.querySelectorAll('.archive-item').forEach(item => {
     item.addEventListener('click', e => {
-      if (e.target.closest('[data-export-id]')) return;
+      if (e.target.closest('[data-export-id]') || e.target.closest('[data-delete-id]')) return;
       const id = item.dataset.interviewId;
       const interview = getInterview(id);
       if (!interview) return;
@@ -418,3 +433,8 @@ if (document.readyState === 'loading') {
 
 window.navigate = navigate;
 window.appState = () => state;
+window.logout = () => {
+  localStorage.removeItem('wkdi_tool_auth_user');
+  localStorage.removeItem('wkdi_tool_auth_pass');
+  location.reload();
+};

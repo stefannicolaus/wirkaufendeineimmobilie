@@ -58,6 +58,13 @@ export function updateAnswer(interviewId, frageId, text) {
   saveInterview(interview);
 }
 
+export function deleteInterview(id) {
+  const all = getAllInterviews().filter(i => i.id !== id);
+  localStorage.setItem(LS_KEY, JSON.stringify(all));
+  const queue = getQueue().filter(i => i.id !== id);
+  localStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
+}
+
 export function completeInterview(interviewId, evaluierung) {
   const interview = getInterview(interviewId);
   if (!interview) return;

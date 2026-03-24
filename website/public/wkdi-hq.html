@@ -197,6 +197,75 @@ body { font-family: var(--font-sans); background: var(--sand-50); color: var(--f
 .tool-frame-wrap { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--sand-200); background: white; }
 .tool-frame-wrap iframe { display: block; width: 100%; height: calc(100vh - 160px); border: none; }
 
+/* ── MOBILE ── */
+@media (max-width: 767px) {
+  /* Header */
+  .hq-header { padding: 10px 16px; }
+  .hq-logo { font-size: 16px; }
+  .hq-user { display: none; }
+
+  /* Body: stack nav above main */
+  .hq-body { flex-direction: column; }
+
+  /* Sidebar → horizontal scroll strip */
+  .hq-nav {
+    width: 100%;
+    height: auto;
+    position: static;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 8px 12px;
+    gap: 6px;
+    border-right: none;
+    border-bottom: 1px solid var(--sand-200);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .hq-nav::-webkit-scrollbar { display: none; }
+  .nav-label { display: none; }
+  .nav-item {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    border-left: none;
+    border-radius: 20px;
+    border: 1.5px solid var(--sand-200);
+    font-size: 13px;
+    white-space: nowrap;
+    min-height: 44px;
+  }
+  .nav-item.active {
+    border-color: var(--forest-700);
+    background: var(--forest-50);
+  }
+  .nav-badge { margin-left: 6px; }
+
+  /* Main */
+  .hq-main { padding: 16px; }
+
+  /* Score bar */
+  .score-bar { flex-direction: column; gap: 8px; }
+  .score-num { font-size: 36px; }
+
+  /* Stats grid */
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Tables: force scroll */
+  .card .log-table, .card .kw-table { font-size: 12px; }
+  .card > .card-body { overflow-x: auto; }
+  table { min-width: 500px; }
+
+  /* Tool iframe */
+  .tool-frame-wrap iframe { height: calc(100vh - 120px); }
+
+  /* Tools grid */
+  .tools-grid { grid-template-columns: 1fr; }
+
+  /* Sections */
+  .section > h2 { font-size: 20px; }
+}
+
 /* ── KEYWORD TABLE ── */
 .kw-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .kw-table th { text-align: left; font-size: 11px; font-weight: 600; color: var(--sand-700); text-transform: uppercase; letter-spacing: .05em; padding: 10px 16px; border-bottom: 1px solid var(--sand-200); background: var(--paper); }
@@ -367,6 +436,7 @@ body { font-family: var(--font-sans); background: var(--sand-50); color: var(--f
 
         <div class="card">
           <div class="card-header"><h3>Letzte Audits</h3></div>
+          <div style="overflow-x:auto;">
           <table class="log-table">
             <thead><tr><th>Datum</th><th>Score</th><th>Wer</th><th>Notiz</th></tr></thead>
             <tbody>
@@ -374,6 +444,7 @@ body { font-family: var(--font-sans); background: var(--sand-50); color: var(--f
               <tr><td class="log-date">16.03.2026</td><td><strong>6.2</strong>/10</td><td>NEXUS SEO</td><td>Erster vollständiger Audit, Sitemap + OG + noindex umgesetzt</td></tr>
             </tbody>
           </table>
+          </div>
         </div>
       </div>
 
@@ -705,6 +776,7 @@ body { font-family: var(--font-sans); background: var(--sand-50); color: var(--f
         <p class="section-subtitle">Was wurde wann gemacht — vollständige Historie</p>
 
         <div class="card">
+          <div style="overflow-x:auto;">
           <table class="log-table">
             <thead>
               <tr>
@@ -747,6 +819,7 @@ body { font-family: var(--font-sans); background: var(--sand-50); color: var(--f
               </tr>
             </tbody>
           </table>
+          </div>
         </div>
       </div>
 
