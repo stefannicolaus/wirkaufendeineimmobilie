@@ -61,9 +61,9 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
 
   <!-- PAIN POINTS -->
   <!-- DESIGN GEÄNDERT: Dunkel → Hell, Pain-Cards hellrot hinterlegt, schwarze Schrift -->
-  <section class="section painpoints-light" id="painpoints">
+  <section class="section painpoints-dark" id="painpoints">
     <div class="container">
-      <div class="makler-section-header">
+      <div class="makler-section-header makler-section-header--center">
         <div class="label">Das kennen Sie</div>
         <!-- GEÄNDERT: "Kleine, sanierungsbedürftige 1-2-Zimmer-Wohnungen" → "Sanierungsbedürftige Wohnungen" -->
         <h2>Warum diese Objekte<br />Ihren Stundensatz ruinieren.</h2>
@@ -368,9 +368,30 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     margin-bottom: var(--space-12);
   }
 
-  /* PAIN GRID — HELL (war dunkel) */
-  .painpoints-light {
-    background: var(--color-bg-alt);
+  /* PAIN GRID — Dunkel mit hellen Karten */
+  .painpoints-dark {
+    background: var(--color-primary);
+  }
+  .painpoints-dark .makler-section-header {
+    color: white;
+  }
+  .painpoints-dark .makler-section-header h2 {
+    color: white;
+  }
+  .painpoints-dark .makler-section-header p {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .painpoints-dark .label {
+    color: var(--color-accent);
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.25);
+  }
+  .makler-section-header--center {
+    text-align: center;
+  }
+  .makler-section-header--center p {
+    max-width: 600px;
+    margin-inline: auto;
   }
   .pain-grid {
     display: grid;
@@ -378,8 +399,8 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     gap: var(--space-5);
   }
   .pain-card {
-    background: #fff5f5;
-    border: 1px solid #fecaca;
+    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--radius-lg);
     padding: var(--space-8);
     display: flex;
