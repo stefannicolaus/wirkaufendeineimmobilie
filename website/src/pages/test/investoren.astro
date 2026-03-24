@@ -22,7 +22,7 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     <div class="container inv-hero__inner">
       <div class="label">Exklusiver Investoren-Zugang</div>
       <!-- GEÄNDERT: "bevor es jemand anderes sieht" → "bevor es dir jemand anderes wegschnappt" -->
-      <h1>Dein nächstes Flip-Objekt.<br /><span class="text-accent">Bevor es dir jemand anderes wegschnappt.</span></h1>
+      <h1>Dein nächstes Fix-&amp;-Flip-Objekt.<br /><span class="text-accent">Bevor es dir jemand anderes wegschnappt.</span></h1>
       <!-- GEÄNDERT: "Kuratiert" → "Geprüft" -->
       <p class="inv-hero__sub">
         Off-Market Sanierungsobjekte in Leipzig. Geprüft, renditestark, mit Potenzial.
@@ -73,7 +73,7 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     <div class="container inv-cta-glow__inner">
       <p class="inv-cta-glow__eyebrow">Exklusiver Investoren-Zugang</p>
       <!-- GEÄNDERT: "wegschnappt" + "kuratiert" weg + "keine Makler-Provision" gestrichen -->
-      <h2 class="inv-cta-glow__heading">Dein nächstes Fix-&amp;-Flip.<br />Bevor es dir jemand anderes wegschnappt.</h2>
+      <h2 class="inv-cta-glow__heading">Dein nächstes Fix-&amp;-Flip-Objekt.<br />Bevor es dir jemand anderes wegschnappt.</h2>
       <p class="inv-cta-glow__sub">Off-Market Objekte, vorgeprüft und renditestark. Diskretes Angebotsverfahren — kein Stress.</p>
       <a href="#investor-form" class="inv-cta-glow__btn">Investoren-Zugang anfragen &rarr;</a>
     </div>
@@ -84,14 +84,16 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     <div class="container roi-teaser">
       <h2>Was bringt dein nächster Flip?</h2>
       <p class="text-mid">Rechne es durch — mit echten Leipziger Marktdaten.</p>
-      <a href="/roi-rechner" class="btn btn-dark" style="margin-top: var(--space-6);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="12" y1="10" x2="14" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="12" y1="14" x2="14" y2="14"/><line x1="16" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/><line x1="12" y1="18" x2="16" y2="18"/></svg>
-        ROI-Rechner öffnen &rarr;
-      </a>
-      <a href="/kapitalanleger-rechner" class="btn btn-dark" style="margin-top: var(--space-4);">
-        Kapitalanleger-Rechner →
-        <span style="display:block;font-size:0.75em;opacity:0.75;margin-top:2px;">AfA · Cashflow nach Steuer · DCF NPV</span>
-      </a>
+      <div style="display:flex;gap:var(--space-4);align-items:center;justify-content:center;flex-wrap:wrap;margin-top:var(--space-6);">
+        <a href="/roi-rechner" class="btn btn-dark">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="12" y1="10" x2="14" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="12" y1="14" x2="14" y2="14"/><line x1="16" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/><line x1="12" y1="18" x2="16" y2="18"/></svg>
+          ROI-Rechner öffnen &rarr;
+        </a>
+        <a href="/kapitalanleger-rechner" class="btn btn-dark">
+          Kapitalanleger-Rechner →
+          <span style="display:block;font-size:0.75em;opacity:0.75;margin-top:2px;">AfA · Cashflow nach Steuer · DCF NPV</span>
+        </a>
+      </div>
     </div>
   </section>
 
