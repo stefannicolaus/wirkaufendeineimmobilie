@@ -293,6 +293,14 @@ const breadcrumbLd = JSON.stringify({
         </div>
       )}
       <div class="st-link-group">
+        <h4>Als Eigentümer in {data.name}?</h4>
+        <div class="st-pills">
+          <a href={`/immobilien-verkaufen/${data.slug}`} class="st-pill">
+            Immobilie in {data.name} verkaufen &rarr;
+          </a>
+        </div>
+      </div>
+      <div class="st-link-group">
         <h4>Weitere Seiten</h4>
         <div class="st-pills">
           <a href="/roi-rechner" class="st-pill">ROI-Rechner</a>
