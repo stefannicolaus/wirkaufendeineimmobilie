@@ -76,3 +76,88 @@ describe('SZENARIEN', () => {
     });
   });
 });
+
+import { STADTTEILE, getBySlug, groupByBezirk, BEZIRK_ORDER } from '../data/stadtteile-verkaufen';
+
+describe('STADTTEILE data integrity', () => {
+  it('hat 56 Einträge (Immowelt-Preisdaten, Stand März 2026)', () => {
+    // Leipzig hat 63 Stadtteile — Immowelt-Daten decken 56 ab.
+    // Stefan kann fehlende Einträge ergänzen; dann diesen Wert anpassen.
+    expect(STADTTEILE).toHaveLength(56);
+  });
+
+  it('alle slugs sind eindeutig', () => {
+    const slugs = STADTTEILE.map(st => st.slug);
+    expect(new Set(slugs).size).toBe(56);
+  });
+
+  it('alle preise sind positive Ganzzahlen', () => {
+    STADTTEILE.forEach(st => {
+      expect(st.preis).toBeGreaterThan(0);
+      expect(Number.isInteger(st.preis)).toBe(true);
+    });
+  });
+
+  it('genau 11 Stadtteile haben milieuschutz=true', () => {
+    const ms = STADTTEILE.filter(st => st.milieuschutz);
+    expect(ms).toHaveLength(11);
+  });
+
+  it('alle milieuschutz-slugs stimmen mit dem bekannten Set überein', () => {
+    const expected = new Set([
+      'eutritzsch', 'schoenefeld-abtnaundorf', 'neustadt-neuschoenef',
+      'volkmarsdorf', 'reudnitz-thonberg', 'connewitz', 'plagwitz',
+      'kleinzschocher', 'lindenau', 'alt-lindenau', 'leutzsch',
+    ]);
+    const actual = new Set(STADTTEILE.filter(st => st.milieuschutz).map(st => st.slug));
+    expect(actual).toEqual(expected);
+  });
+
+  it('alle nachbarn-slugs existieren in der Datei', () => {
+    const allSlugs = new Set(STADTTEILE.map(st => st.slug));
+    STADTTEILE.forEach(st => {
+      st.nachbarn.forEach(n => {
+        expect(allSlugs.has(n), `${st.slug} hat ungültigen Nachbar-Slug: ${n}`).toBe(true);
+      });
+    });
+  });
+
+  it('alle bezirk-Werte sind gültige BezirkName-Werte', () => {
+    const valid = new Set(['Zentrum', 'Nord', 'Ost', 'West', 'Süd', 'Stadtrand']);
+    STADTTEILE.forEach(st => {
+      expect(valid.has(st.bezirk), `${st.slug} hat ungültigen Bezirk: ${st.bezirk}`).toBe(true);
+    });
+  });
+
+  it('alle objekttyp-Werte sind gültig', () => {
+    const valid = new Set(['altbau', 'gruenderzeit', 'plattenbau', 'mischbebauung']);
+    STADTTEILE.forEach(st => {
+      expect(valid.has(st.objekttyp), `${st.slug} hat ungültigen Typ: ${st.objekttyp}`).toBe(true);
+    });
+  });
+});
+
+describe('groupByBezirk', () => {
+  it('gibt alle 6 Bezirke zurück', () => {
+    const groups = groupByBezirk();
+    expect(Object.keys(groups)).toHaveLength(BEZIRK_ORDER.length);
+  });
+
+  it('Summe aller Gruppen = 56', () => {
+    const groups = groupByBezirk();
+    const total = Object.values(groups).reduce((sum, arr) => sum + arr.length, 0);
+    expect(total).toBe(56);
+  });
+});
+
+describe('getBySlug', () => {
+  it('findet Connewitz', () => {
+    const st = getBySlug('connewitz');
+    expect(st?.name).toBe('Connewitz');
+    expect(st?.preis).toBe(2669);
+  });
+
+  it('gibt undefined für unbekannten Slug', () => {
+    expect(getBySlug('nichtvorhanden')).toBeUndefined();
+  });
+});
