@@ -55,6 +55,7 @@ try { db.exec(`ALTER TABLE registrations ADD COLUMN stellplatz INTEGER`); } catc
 try { db.exec(`ALTER TABLE registrations ADD COLUMN vermietet INTEGER`); } catch {}
 try { db.exec(`ALTER TABLE registrations ADD COLUMN etage TEXT`); } catch {}
 try { db.exec(`ALTER TABLE registrations ADD COLUMN objekt_step_done INTEGER DEFAULT 0`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN pain_freitext TEXT`); } catch {}
 
 // DOI tracking columns
 try { db.exec(`ALTER TABLE registrations ADD COLUMN doi_confirmed INTEGER DEFAULT 0`); } catch {}
