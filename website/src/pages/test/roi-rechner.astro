@@ -1,0 +1,2224 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="[TEST] ROI-Rechner — Deal-Analyse in 4 Schritten | wirkaufendeineimmobilie.de"
+  description="Berechne Rendite, Förderung und Gewinn für dein nächstes Sanierungsobjekt in Leipzig — mit echten Marktdaten. Kostenlos, sofort per E-Mail."
+>
+
+  <!-- TEST BANNER -->
+  <div class="test-banner">
+    ⚠️ TESTSEITE — Video 5 Joachim-Feedback eingearbeitet — noch nicht live
+    &nbsp;|&nbsp; <a href="/roi-rechner" style="color:inherit;text-decoration:underline">← Original ansehen</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="quiz-hero">
+    <div class="quiz-hero__bg" aria-hidden="true">
+      <img src="/images/wkdi-roi-quiz-hero.webp" alt="" />
+    </div>
+    <div class="container quiz-hero__inner">
+      <p class="quiz-hero__tag">Für Eigentümer mit schwierigen Immobilien</p>
+      <h1>Was bekommst du für deine Immobilie — trotz des Zustands?</h1>
+      <p class="quiz-hero__sub">Messie-Wohnung, Erbschaft im Streit, Energetische Sanierungspflicht (gemäß GEG), Zwangslage — kein Problem. Gib 3 Zahlen ein und sieh sofort, was beim Verkauf realistisch für dich rausspringt.</p>
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <div class="quiz-progress-wrap" id="quiz-progress">
+    <div class="container">
+      <div class="quiz-progress">
+        <button class="quiz-step-dot" data-step="1" aria-label="Schritt 1: Objekt-Typ">
+          <span class="quiz-step-dot__num">1</span>
+          <span class="quiz-step-dot__label">Objekt-Typ</span>
+        </button>
+        <div class="quiz-step-connector"></div>
+        <button class="quiz-step-dot" data-step="2" aria-label="Schritt 2: Lage & Strategie">
+          <span class="quiz-step-dot__num">2</span>
+          <span class="quiz-step-dot__label">Lage &amp; Strategie</span>
+        </button>
+        <div class="quiz-step-connector"></div>
+        <button class="quiz-step-dot" data-step="3" aria-label="Schritt 3: Zahlen">
+          <span class="quiz-step-dot__num">3</span>
+          <span class="quiz-step-dot__label">Zahlen</span>
+        </button>
+        <div class="quiz-step-connector"></div>
+        <button class="quiz-step-dot" data-step="4" aria-label="Schritt 4: Ergebnis">
+          <span class="quiz-step-dot__num">4</span>
+          <span class="quiz-step-dot__label">Ergebnis</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ WRAPPER -->
+  <section class="quiz-section">
+    <div class="container">
+
+      <!-- STEP 1: Objekt-Typ -->
+      <div class="quiz-step" id="step-1">
+        <div class="quiz-step__header">
+          <h2>Welchen Objekt-Typ willst du kalkulieren?</h2>
+          <!-- GEÄNDERT: BEG und Deal Score ausgeschrieben -->
+          <p class="quiz-step__hint">Wähle das passende Szenario — es beeinflusst die staatliche Bundesförderung (BEG) und die Einschätzung deines erzielbaren Verkaufspreises.</p>
+        </div>
+        <div class="scenario-grid">
+
+          <button class="scenario-card" data-value="messie" aria-label="Messie / Verwahrlost">
+            <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-messie.jpg')"></div>
+            <div class="scenario-card__glow"></div>
+            <div class="scenario-card__content">
+              <div class="scenario-card__top">
+                <svg class="scenario-card__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                <h3>Messie / Verwahrlost</h3>
+              </div>
+              <p class="scenario-card__desc">Der Rechner kalkuliert den realistischen Kaufpreisabschlag durch den Zustand und zeigt, welchen Erlös du trotzdem erzielen kannst.</p>
+              <span class="scenario-card__benefit">Erlös trotz Problemzustand sichtbar machen</span>
+            </div>
+          </button>
+
+          <button class="scenario-card" data-value="erbengemeinschaft" aria-label="Erbengemeinschaft">
+            <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-erbengemeinschaft.jpg')"></div>
+            <div class="scenario-card__glow"></div>
+            <div class="scenario-card__content">
+              <div class="scenario-card__top">
+                <svg class="scenario-card__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <h3>Erbengemeinschaft</h3>
+              </div>
+              <p class="scenario-card__desc">Der Rechner liefert einen objektiven Marktwert — unabhängig von Erben-Emotionen. Zahlen statt Streit als Grundlage für die Einigung.</p>
+              <span class="scenario-card__benefit">Neutrale Zahl für alle Beteiligten</span>
+            </div>
+          </button>
+
+          <button class="scenario-card" data-value="geg" aria-label="Energetischer Sanierungsbedarf (gemäß GEG)">
+            <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-geg.jpg')"></div>
+            <div class="scenario-card__glow"></div>
+            <div class="scenario-card__content">
+              <div class="scenario-card__top">
+                <svg class="scenario-card__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                <h3>Energetische Sanierung (gemäß GEG)</h3>
+              </div>
+              <!-- GEÄNDERT: BEG ausgeschrieben -->
+              <p class="scenario-card__desc">Der Rechner zieht die 40 % staatliche Bundesförderung (BEG) automatisch in die Kalkulation ein und zeigt, was für Käufer nach Förderung noch übrig bleibt.</p>
+              <span class="scenario-card__benefit badge-beg">40 % Bundesförderung fließt in die Kalkulation</span>
+            </div>
+          </button>
+
+          <button class="scenario-card" data-value="insolvenz" aria-label="Insolvenz / Zwangslage">
+            <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-insolvenz.jpg')"></div>
+            <div class="scenario-card__glow"></div>
+            <div class="scenario-card__content">
+              <div class="scenario-card__top">
+                <svg class="scenario-card__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <h3>Insolvenz / Zwangslage</h3>
+              </div>
+              <p class="scenario-card__desc">Der Rechner stellt Zwangsversteigerungswert und diskret vermittelten Verkaufspreis gegenüber — damit du siehst, wie viel du durch uns mehr holst.</p>
+              <span class="scenario-card__benefit">Vergleich: Zwangsversteigerung vs. diskreter Verkauf</span>
+            </div>
+          </button>
+
+          <button class="scenario-card" data-value="standard" aria-label="Kapitalanlage">
+            <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-kapitalanleger.jpg')"></div>
+            <div class="scenario-card__glow"></div>
+            <div class="scenario-card__content">
+              <div class="scenario-card__top">
+                <svg class="scenario-card__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <h3>Kapitalanlage mit Renovierungsdruck</h3>
+              </div>
+              <p class="scenario-card__desc">Fix &amp; Flip oder Halten? Der Rechner vergleicht beide Exit-Strategien mit echten Sanierungskosten und Marktpreisen — Entscheidung auf Zahlenbasis.</p>
+              <span class="scenario-card__benefit">Fix &amp; Flip vs. Halten — direkt vergleichbar</span>
+            </div>
+          </button>
+
+          <!-- NEU: Scheidungsfall -->
+          <button class="scenario-card" data-value="scheidung" aria-label="Scheidung / Trennung">
+            <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-erbengemeinschaft.jpg')"></div>
+            <div class="scenario-card__glow"></div>
+            <div class="scenario-card__content">
+              <div class="scenario-card__top">
+                <svg class="scenario-card__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <h3>Scheidung / Trennung</h3>
+              </div>
+              <p class="scenario-card__desc">Bei Scheidung muss oft schnell verkauft werden — Emotionen auf beiden Seiten, Einigung nötig. Der Rechner liefert eine neutrale Zahl als Gesprächsgrundlage und zeigt den realistischen Nettoerlös nach Aufteilung.</p>
+              <span class="scenario-card__benefit">Neutrale Bewertung für beide Parteien</span>
+            </div>
+          </button>
+
+          <!-- NEU: Ortswechsel / Umzug -->
+          <button class="scenario-card" data-value="ortswechsel" aria-label="Verkauf wegen Umzug">
+            <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-insolvenz.jpg')"></div>
+            <div class="scenario-card__glow"></div>
+            <div class="scenario-card__content">
+              <div class="scenario-card__top">
+                <svg class="scenario-card__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <h3>Verkauf wegen Ortswechsel</h3>
+              </div>
+              <p class="scenario-card__desc">Du lebst bereits woanders — die Wohnung in Leipzig steht leer oder ist vermietet. Der Rechner zeigt, was dir ein schneller, unkomplizierter Verkauf trotz Entfernung einbringt.</p>
+              <span class="scenario-card__benefit">Schnell abwickeln — ohne Aufwand vor Ort</span>
+            </div>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- STEP 2: Lage & Strategie -->
+      <div class="quiz-step" id="step-2" hidden>
+        <div class="quiz-step__header">
+          <h2>Lage &amp; Exit-Strategie</h2>
+          <p class="quiz-step__hint">Der Stadtteil bestimmt den Verkaufspreis, die Strategie die Steuer.</p>
+        </div>
+        <div class="step2-grid">
+
+          <!-- Left: Stadtteil -->
+          <div class="step2-col">
+            <label class="field-label" for="stadtteil-select">Stadtteil</label>
+            <div class="select-wrap">
+              <select id="stadtteil-select" class="styled-select">
+                <optgroup label="Mitte">
+                  <option value="zentrum">Zentrum (3.900 €/m²)</option>
+                  <option value="zentrum-ost">Zentrum-Ost (3.400 €/m²)</option>
+                  <option value="zentrum-suedost">Zentrum-Südost (3.200 €/m²)</option>
+                  <option value="zentrum-sued">Zentrum-Süd (3.300 €/m²)</option>
+                  <option value="zentrum-west">Zentrum-West (3.500 €/m²)</option>
+                  <option value="zentrum-nordwest">Zentrum-Nordwest (3.200 €/m²)</option>
+                  <option value="zentrum-nord">Zentrum-Nord (3.000 €/m²)</option>
+                </optgroup>
+                <optgroup label="Nord">
+                  <option value="gohlis-sued">Gohlis-Süd (2.700 €/m²)</option>
+                  <option value="gohlis-mitte">Gohlis-Mitte (2.400 €/m²)</option>
+                  <option value="gohlis-nord">Gohlis-Nord (2.100 €/m²)</option>
+                  <option value="eutritzsch">⚠ Eutritzsch — MS (2.050 €/m²)</option>
+                  <option value="seehausen">Seehausen (1.650 €/m²)</option>
+                  <option value="wiederitzsch">Wiederitzsch (1.850 €/m²)</option>
+                </optgroup>
+                <optgroup label="Nordost">
+                  <option value="schoenefeld-abtnaundorf">⚠ Schönefeld-Abtnaundorf — MS (2.050 €/m²)</option>
+                  <option value="schoenefeld-ost">Schönefeld-Ost (1.950 €/m²)</option>
+                  <option value="mockau-sued">Mockau-Süd (2.050 €/m²)</option>
+                  <option value="mockau-nord">Mockau-Nord (1.850 €/m²)</option>
+                  <option value="thekla">Thekla (1.700 €/m²)</option>
+                  <option value="plaussig-portitz">Plaußig-Portitz (1.550 €/m²)</option>
+                </optgroup>
+                <optgroup label="Ost">
+                  <option value="neustadt-neuschoenef" selected>⚠ Neustadt-Neuschönefeld — MS (2.050 €/m²)</option>
+                  <option value="volkmarsdorf">⚠ Volkmarsdorf — MS (1.900 €/m²)</option>
+                  <option value="anger-crottendorf">Anger-Crottendorf (1.950 €/m²)</option>
+                  <option value="sellerhausen-stuenz">Sellerhausen-Stünz (1.750 €/m²)</option>
+                  <option value="paunsdorf">Paunsdorf (1.650 €/m²)</option>
+                  <option value="heiterblick">Heiterblick (1.850 €/m²)</option>
+                  <option value="moelkau">Mölkau (1.950 €/m²)</option>
+                  <option value="engelsdorf">Engelsdorf (1.850 €/m²)</option>
+                  <option value="baalsdorf">Baalsdorf (1.700 €/m²)</option>
+                  <option value="althen-kleinpoesna">Althen-Kleinpösna (1.600 €/m²)</option>
+                </optgroup>
+                <optgroup label="Südost">
+                  <option value="reudnitz-thonberg">⚠ Reudnitz-Thonberg — MS (2.350 €/m²)</option>
+                  <option value="stoetteritz">Stötteritz (2.200 €/m²)</option>
+                  <option value="probstheida">Probstheida (1.950 €/m²)</option>
+                  <option value="meusdorf">Meusdorf (1.800 €/m²)</option>
+                  <option value="liebertwolkwitz">Liebertwolkwitz (1.700 €/m²)</option>
+                  <option value="holzhausen">Holzhausen (1.600 €/m²)</option>
+                </optgroup>
+                <optgroup label="Süd">
+                  <option value="suedvorstadt">Südvorstadt (3.100 €/m²)</option>
+                  <option value="connewitz">⚠ Connewitz — MS (2.900 €/m²)</option>
+                  <option value="marienbrunn">Marienbrunn (2.200 €/m²)</option>
+                  <option value="loessnig">Lößnig (1.950 €/m²)</option>
+                  <option value="doelitz-doesen">Dölitz-Dösen (1.850 €/m²)</option>
+                </optgroup>
+                <optgroup label="Südwest">
+                  <option value="schleussig">Schleußig (3.300 €/m²)</option>
+                  <option value="plagwitz">⚠ Plagwitz — MS (2.900 €/m²)</option>
+                  <option value="kleinzschocher">⚠ Kleinzschocher — MS (1.950 €/m²)</option>
+                  <option value="grosszschocher">Großzschocher (1.800 €/m²)</option>
+                  <option value="knautnaundorf">Knautnaundorf (1.550 €/m²)</option>
+                  <option value="knauthain">Knauthain-Knautkleeberg (1.650 €/m²)</option>
+                </optgroup>
+                <optgroup label="West">
+                  <option value="schoenau">Schönau (1.500 €/m²)</option>
+                  <option value="gruenau-ost">Grünau-Ost (1.400 €/m²)</option>
+                  <option value="gruenau-nord">Grünau-Nord (1.300 €/m²)</option>
+                  <option value="gruenau-mitte">Grünau-Mitte (1.400 €/m²)</option>
+                  <option value="gruenau-siedlung">Grünau-Siedlung (1.300 €/m²)</option>
+                  <option value="lausen-gruenau">Lausen-Grünau (1.500 €/m²)</option>
+                  <option value="miltitz">Miltitz (1.600 €/m²)</option>
+                </optgroup>
+                <optgroup label="Alt-West">
+                  <option value="lindenau">⚠ Lindenau — MS (2.500 €/m²)</option>
+                  <option value="alt-lindenau">⚠ Alt-Lindenau — MS (2.300 €/m²)</option>
+                  <option value="neu-lindenau">Neu-Lindenau (2.100 €/m²)</option>
+                  <option value="leutzsch">⚠ Leutzsch — MS (2.400 €/m²)</option>
+                  <option value="boehlitz-ehrenberg">Böhlitz-Ehrenberg (2.000 €/m²)</option>
+                  <option value="burghausen">Burghausen-Rückmarsdorf (1.750 €/m²)</option>
+                </optgroup>
+                <optgroup label="Nordwest">
+                  <option value="moeckern">Möckern (2.200 €/m²)</option>
+                  <option value="wahren">Wahren (2.000 €/m²)</option>
+                  <option value="luetzschena">Lützschena-Stahmeln (1.750 €/m²)</option>
+                  <option value="lindenthal">Lindenthal (1.850 €/m²)</option>
+                </optgroup>
+              </select>
+              <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div id="milieuschutz-warning" class="ms-warning" hidden>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <div>
+                <strong>Milieuschutz-Gebiet</strong>
+                <p>Umwandlung Miete → ETW und Luxussanierung eingeschränkt. Aufteiler-Strategie vorab mit Anwalt prüfen.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Exit-Strategie -->
+          <div class="step2-col">
+            <span class="field-label">Exit-Strategie</span>
+            <div class="exit-cards">
+              <button class="exit-card" data-value="flip" aria-label="Flip 6 bis 18 Monate">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                <span class="exit-card__title">Flip</span>
+                <span class="exit-card__sub">6–18 Monate</span>
+              </button>
+              <button class="exit-card" data-value="langfrist" aria-label="Langfrist 10 plus Jahre">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <span class="exit-card__title">Langfrist</span>
+                <span class="exit-card__sub">10+ Jahre</span>
+              </button>
+            </div>
+            <p class="exit-hint">Langfrist = steuerfrei nach 10 Jahren Haltezeit</p>
+          </div>
+
+        </div>
+        <div class="quiz-nav">
+          <button class="btn btn-back" id="step2-back">← Zurück</button>
+          <button class="btn btn-primary" id="step2-next">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Zahlen -->
+      <div class="quiz-step" id="step-3" hidden>
+        <div class="quiz-step__header">
+          <h2>Deine Zahlen</h2>
+          <p class="quiz-step__hint">Gib deine Zahlen ein und klicke auf „Ergebnis berechnen".</p>
+        </div>
+        <div class="sliders-wrap">
+
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <label class="field-label" for="slider-kaufpreis">Kaufpreis</label>
+              <span class="slider-val" id="val-kaufpreis">80.000 €</span>
+            </div>
+            <input type="range" id="slider-kaufpreis" class="styled-slider" min="20000" max="300000" step="5000" value="80000" />
+            <div class="slider-ends"><span>20.000 €</span><span>300.000 €</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <label class="field-label" for="slider-wohnflaeche">Wohnfläche</label>
+              <span class="slider-val" id="val-wohnflaeche">60 m²</span>
+            </div>
+            <input type="range" id="slider-wohnflaeche" class="styled-slider" min="20" max="200" step="5" value="60" />
+            <div class="slider-ends"><span>20 m²</span><span>200 m²</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <label class="field-label" for="slider-sanierung">Sanierungskosten</label>
+              <span class="slider-val" id="val-sanierung">40.000 €</span>
+            </div>
+            <input type="range" id="slider-sanierung" class="styled-slider" min="5000" max="200000" step="5000" value="40000" />
+            <div class="slider-ends"><span>5.000 €</span><span>200.000 €</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <label class="field-label" for="slider-eigenkapital">Eigenkapital-Anteil</label>
+              <span class="slider-val" id="val-eigenkapital">30 %</span>
+            </div>
+            <input type="range" id="slider-eigenkapital" class="styled-slider" min="10" max="100" step="5" value="30" />
+            <div class="slider-ends"><span>10 %</span><span>100 %</span></div>
+          </div>
+
+          <!-- Live preview -->
+          <div class="nk-preview" id="nk-preview">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>Nebenkosten: <strong id="nk-total">—</strong></span>
+            <span class="nk-breakdown" id="nk-breakdown"></span>
+          </div>
+
+        </div>
+        <div class="quiz-nav">
+          <button class="btn btn-back" id="step3-back">← Zurück</button>
+          <button class="btn btn-primary" id="step3-next">Ergebnis berechnen →</button>
+        </div>
+      </div>
+
+      <!-- CALC OVERLAY: 10s progress between step 3 and step 4 -->
+      <div id="calc-overlay" hidden>
+        <div class="calc-overlay__inner">
+          <div class="calc-overlay__icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3 class="calc-overlay__title">Dein Deal wird analysiert…</h3>
+          <div class="calc-progress-track">
+            <div class="calc-progress-fill" id="calc-progress-fill"></div>
+          </div>
+          <p class="calc-progress-pct" id="calc-progress-pct">0 %</p>
+          <ul class="calc-steps-list" id="calc-steps-list">
+            <li class="calc-step-item" data-at="0">Marktwerte Leipzig werden geladen…</li>
+            <li class="calc-step-item" data-at="25">Sanierungskosten werden bewertet…</li>
+            <li class="calc-step-item" data-at="55">Deal Score wird berechnet…</li>
+            <li class="calc-step-item" data-at="82">PDF-Bericht wird vorbereitet…</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- STEP 4: Ergebnis -->
+      <div class="quiz-step" id="step-4" hidden>
+        <div class="quiz-step__header">
+          <h2>Dein Deal-Ergebnis</h2>
+          <p class="quiz-step__hint">Gib deine E-Mail ein, und wir senden dir umgehend die vollständige Analyse zu.</p>
+        </div>
+        <div class="result-grid">
+
+          <!-- Left column: Dashboard + Joachim bubble -->
+          <div class="result-left-col">
+          <div class="result-dashboard-wrap" id="result-dashboard-wrap">
+            <div class="result-blur-overlay" id="result-blur-overlay">
+              <div class="result-blur-overlay__inner">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <p>Ergebnis nach E-Mail sichtbar</p>
+              </div>
+            </div>
+            <div class="result-dashboard" id="result-dashboard">
+
+              <!-- Deal Score -->
+              <div class="deal-score-wrap">
+                <div class="deal-score-circle" id="deal-score-circle">
+                  <span class="deal-score-letter" id="deal-score-letter">—</span>
+                </div>
+                <span class="deal-score-label" id="deal-score-label">Wird berechnet…</span>
+              </div>
+
+              <!-- Waterfall Bars -->
+              <div class="waterfall">
+                <div class="waterfall-row">
+                  <span class="waterfall-label">Kaufpreis</span>
+                  <div class="waterfall-bar-wrap">
+                    <div class="waterfall-bar waterfall-bar--kp" id="wf-kp"></div>
+                  </div>
+                  <span class="waterfall-val" id="wf-val-kp">—</span>
+                </div>
+                <div class="waterfall-row">
+                  <span class="waterfall-label">Nebenkosten</span>
+                  <div class="waterfall-bar-wrap">
+                    <div class="waterfall-bar waterfall-bar--nk" id="wf-nk"></div>
+                  </div>
+                  <span class="waterfall-val" id="wf-val-nk">—</span>
+                </div>
+                <div class="waterfall-row">
+                  <span class="waterfall-label">Sanierungskosten</span>
+                  <div class="waterfall-bar-wrap">
+                    <div class="waterfall-bar waterfall-bar--san" id="wf-san"></div>
+                  </div>
+                  <span class="waterfall-val" id="wf-val-san">—</span>
+                </div>
+                <div class="waterfall-row waterfall-row--total">
+                  <span class="waterfall-label">Gesamtinvestition</span>
+                  <div class="waterfall-bar-wrap">
+                    <div class="waterfall-bar waterfall-bar--total" id="wf-total"></div>
+                  </div>
+                  <span class="waterfall-val waterfall-val--bold" id="wf-val-total">—</span>
+                </div>
+                <div class="waterfall-row">
+                  <span class="waterfall-label">Netto-Gewinn</span>
+                  <div class="waterfall-bar-wrap">
+                    <div class="waterfall-bar" id="wf-netto"></div>
+                  </div>
+                  <span class="waterfall-val waterfall-val--netto" id="wf-val-netto">—</span>
+                </div>
+              </div>
+
+              <!-- Traffic Lights -->
+              <div class="traffic-lights">
+                <div class="tl-item">
+                  <div class="tl-icon" id="tl-roi-icon"></div>
+                  <div class="tl-text">
+                    <span class="tl-label">ROI</span>
+                    <span class="tl-val" id="tl-roi-val">—</span>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-icon" id="tl-regel70-icon"></div>
+                  <div class="tl-text">
+                    <span class="tl-label">70%-Regel</span>
+                    <span class="tl-val" id="tl-regel70-val">—</span>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-icon" id="tl-speku-icon"></div>
+                  <div class="tl-text">
+                    <span class="tl-label">Spekulationssteuer</span>
+                    <span class="tl-val" id="tl-speku-val">—</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Joachim annotation bubble -->
+          <div class="joachim-bubble">
+            <div class="joachim-bubble__avatar" aria-hidden="true">J</div>
+            <div class="joachim-bubble__body">
+              <p class="joachim-bubble__quote">„Drei Zeilen — und ich weiß sofort ob der Deal läuft oder nicht."</p>
+              <p class="joachim-bubble__name">Joachim K. &middot; Leipzig</p>
+            </div>
+          </div>
+          </div><!-- /result-left-col -->
+
+          <!-- Right: Email Gate -->
+          <div class="email-gate-card">
+            <!-- PDF Mockup -->
+            <div class="pdf-mockup" aria-hidden="true">
+              <div class="pdf-mockup__inner">
+                <div class="pdf-mockup__logo">WKDI</div>
+                <div class="pdf-mockup__title">Deal-Analyse</div>
+                <div class="pdf-mockup__sub">Leipzig · Persönlich erstellt</div>
+                <div class="pdf-mockup__rows">
+                  <div class="pdf-mockup__row">
+                    <span class="pdf-mockup__row-label">Deal Score</span>
+                    <span class="pdf-mockup__row-val pdf-mockup__row-val--accent">A</span>
+                  </div>
+                  <div class="pdf-mockup__row">
+                    <span class="pdf-mockup__row-label">Netto-Gewinn</span>
+                    <span class="pdf-mockup__row-val pdf-mockup__row-val--blur">██████ €</span>
+                  </div>
+                  <div class="pdf-mockup__row">
+                    <span class="pdf-mockup__row-label">ROI</span>
+                    <span class="pdf-mockup__row-val pdf-mockup__row-val--blur">██%</span>
+                  </div>
+                  <div class="pdf-mockup__row">
+                    <span class="pdf-mockup__row-label">70%-Regel</span>
+                    <span class="pdf-mockup__row-val pdf-mockup__row-val--green">✓ Erfüllt</span>
+                  </div>
+                  <div class="pdf-mockup__row">
+                    <span class="pdf-mockup__row-label">Marktvergleich</span>
+                    <span class="pdf-mockup__row-val pdf-mockup__row-val--blur">⬆ +██%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form -->
+            <form class="email-gate-form" id="email-gate-form" novalidate>
+              <h3 class="email-gate-form__title">Wohin schicke ich sie?</h3>
+              <div class="form-field">
+                <label class="field-label" for="gate-vorname">Vorname</label>
+                <input type="text" id="gate-vorname" name="vorname" placeholder="Max" required autocomplete="given-name" />
+              </div>
+              <div class="form-field">
+                <label class="field-label" for="gate-email">E-Mail</label>
+                <input type="email" id="gate-email" name="email" placeholder="max@beispiel.de" required autocomplete="email" />
+              </div>
+              <button type="submit" class="btn btn-primary email-gate-btn" id="email-gate-btn">
+                Analyse jetzt erhalten →
+              </button>
+              <p class="email-gate-disclaimer">Direkt ins Postfach. Einmalig.</p>
+              <p class="email-gate-error" id="email-gate-error" hidden></p>
+            </form>
+          </div>
+
+        </div>
+        <div class="quiz-nav quiz-nav--step4">
+          <button class="btn btn-back" id="step4-back">← Zurück zu den Zahlen</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<!-- DOI PENDING SCREEN — shown after form submit instead of redirect -->
+<div id="doi-pending-screen" style="display:none; max-width:640px; margin:0 auto; padding:var(--space-16) var(--space-6); text-align:center;">
+  <div style="font-size:3rem; margin-bottom:var(--space-4);">✉️</div>
+  <h2 style="margin-bottom:var(--space-4);">Fast fertig — check deine E-Mails</h2>
+  <p style="color:var(--color-text-mid); font-size:var(--text-lg); margin-bottom:var(--space-6);">
+    Wir haben dir gerade eine E-Mail von <strong>office@wirkaufendeineimmobilie.de</strong> geschickt.
+    Klick auf den Bestätigungslink darin — dann erhältst du sofort deine persönliche Deal-Analyse.
+  </p>
+  <div style="background:var(--color-bg-card,#f9f9f9); border:1px solid var(--color-border,#e0e0e0); border-radius:8px; padding:var(--space-6); text-align:left; margin-bottom:var(--space-6);">
+    <p style="font-weight:600; margin-bottom:var(--space-3);">Was dich erwartet:</p>
+    <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:var(--space-2);">
+      <li>✓ Deal-Score für deinen Stadtteil</li>
+      <li>✓ ROI + Eigenkapital-Rendite</li>
+      <li>✓ Break-even Analyse</li>
+      <li>✓ Nächste konkrete Schritte</li>
+    </ul>
+  </div>
+  <p style="font-size:var(--text-sm); color:var(--color-text-muted);">⚠️ Mail nicht da? Schau in deinen Spam-Ordner. Absender: office@wirkaufendeineimmobilie.de</p>
+</div>
+
+<section class="rechner-cross-banner">
+  <div class="rechner-cross-banner__inner">
+    <p class="rechner-cross-banner__label">Auch interessant</p>
+    <h2 class="rechner-cross-banner__heading">Langfrist-Investor statt Flipper?</h2>
+    <p class="rechner-cross-banner__sub">Der Kapitalanleger-Rechner zeigt dir AfA, Cashflow nach Steuer und DCF-Rendite über 10 und 20 Jahre.</p>
+    <a href="/kapitalanleger-rechner" class="rechner-cross-btn">&rarr; Kapitalanleger-Rechner mit AfA &amp; DCF-Rendite</a>
+  </div>
+</section>
+<div class="rechner-spacer-after-banner"></div>
+
+</Layout>
+
+<style>
+/* ─────────────────────────────
+   HERO
+───────────────────────────── */
+.quiz-hero {
+  position: relative;
+  padding-top: var(--space-20);
+  padding-bottom: var(--space-14);
+  text-align: center;
+  overflow: hidden;
+  background: var(--color-bg-dark);
+}
+
+.quiz-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.quiz-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+}
+
+.quiz-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.quiz-hero__inner h1 {
+  color: var(--color-text-on-dark);
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+}
+
+.quiz-hero__tag {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary, #2563eb);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.quiz-hero__sub {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  max-width: 560px;
+}
+
+/* ─────────────────────────────
+   PROGRESS
+───────────────────────────── */
+.quiz-progress-wrap {
+  background: var(--color-bg-dark);
+  border-bottom: 1px solid var(--color-border);
+  padding-block: var(--space-4);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.quiz-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.quiz-step-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+
+.quiz-step-dot.is-active {
+  opacity: 1;
+}
+
+.quiz-step-dot.is-done {
+  opacity: 0.7;
+}
+
+.quiz-step-dot__num {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-muted);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.quiz-step-dot.is-active .quiz-step-dot__num {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.quiz-step-dot.is-done .quiz-step-dot__num {
+  background: rgba(37,99,235,0.15);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.quiz-step-dot__label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.quiz-step-dot.is-active .quiz-step-dot__label {
+  color: var(--color-text);
+}
+
+.quiz-step-connector {
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: var(--color-border);
+  margin-bottom: 18px;
+}
+
+/* ─────────────────────────────
+   QUIZ SECTION + STEPS
+───────────────────────────── */
+.quiz-section {
+  padding-block: var(--space-12) var(--space-20);
+}
+
+.quiz-step__header {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.quiz-step__header h2 {
+  font-size: clamp(var(--text-2xl), 3vw, var(--text-3xl));
+  margin-bottom: var(--space-2);
+}
+
+.quiz-step__hint {
+  color: var(--color-text-mid);
+  font-size: var(--text-base);
+}
+
+/* ─────────────────────────────
+   STEP 1 — SCENARIO CARDS
+───────────────────────────── */
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-4);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Row 1: 3 cards à 2 cols each */
+.scenario-card:nth-child(1) { grid-column: 1 / 3; }
+.scenario-card:nth-child(2) { grid-column: 3 / 5; }
+.scenario-card:nth-child(3) { grid-column: 5 / 7; }
+/* Row 2: 2 cards centered (offset by 1 col each side) */
+.scenario-card:nth-child(4) { grid-column: 1 / 4; }
+.scenario-card:nth-child(5) { grid-column: 4 / 7; }
+
+.scenario-card {
+  position: relative;
+  min-height: 200px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(15, 23, 42, 0.95);
+  border: 2px solid var(--color-border);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+  text-align: left;
+}
+
+.scenario-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(37, 99, 235, 0.5);
+  box-shadow:
+    0 4px 16px rgba(37, 99, 235, 0.15),
+    0 8px 32px rgba(15, 23, 42, 0.3);
+}
+
+.scenario-card.selected {
+  border-color: var(--color-accent);
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.2),
+    0 8px 32px rgba(37, 99, 235, 0.25),
+    0 16px 48px rgba(15, 23, 42, 0.3);
+}
+
+.scenario-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  transition: opacity 0.35s;
+}
+
+.scenario-card:hover .scenario-card__bg,
+.scenario-card.selected .scenario-card__bg {
+  opacity: 0.55;
+}
+
+.scenario-card__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59,130,246,0.08), transparent 40%);
+  z-index: 1;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.scenario-card:hover .scenario-card__glow {
+  opacity: 1;
+}
+
+.scenario-card__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  height: 100%;
+  padding: var(--space-5);
+}
+
+.scenario-card__top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.scenario-card__icon {
+  color: var(--color-text-on-dark);
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+.scenario-card__desc {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
+}
+
+.scenario-card__benefit {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: rgba(99, 179, 255, 0.95);
+  border: 1px solid rgba(99, 179, 255, 0.3);
+  border-radius: 20px;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+
+.scenario-card__content h3 {
+  color: var(--color-text-on-dark);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  margin: 0;
+  text-align: left;
+  line-height: 1.3;
+}
+
+.badge-beg {
+  background: var(--color-accent) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+}
+
+/* ─────────────────────────────
+   STEP 2 — LAGE & STRATEGIE
+───────────────────────────── */
+.step2-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  max-width: 780px;
+  margin: 0 auto var(--space-10);
+}
+
+.step2-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.field-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-mid);
+  display: block;
+}
+
+.select-wrap {
+  position: relative;
+}
+
+.styled-select {
+  width: 100%;
+  appearance: none;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-10) var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.styled-select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.select-arrow {
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-text-muted);
+}
+
+.ms-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 8px;
+  color: #fbbf24;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.ms-warning svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #fbbf24;
+}
+.ms-warning strong {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 2px;
+}
+.ms-warning p {
+  margin: 0;
+  color: rgba(251, 191, 36, 0.8);
+}
+
+.exit-cards {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.exit-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-3);
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  min-height: 120px;
+  justify-content: center;
+}
+
+.exit-card:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+  background: rgba(37, 99, 235, 0.04);
+}
+
+.exit-card.selected {
+  border-color: var(--color-accent);
+  background: rgba(37, 99, 235, 0.07);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.exit-card svg {
+  color: var(--color-text-mid);
+  transition: color 0.2s;
+}
+
+.exit-card.selected svg {
+  color: var(--color-accent);
+}
+
+.exit-card__title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+}
+
+.exit-card__sub {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.exit-hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+/* ─────────────────────────────
+   STEP 3 — SLIDERS
+───────────────────────────── */
+.sliders-wrap {
+  max-width: 620px;
+  margin: 0 auto var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.slider-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider-val {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.styled-slider {
+  width: 100%;
+  height: 6px;
+  appearance: none;
+  background: var(--color-border-strong);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  outline: none;
+}
+
+.styled-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4), 0 1px 3px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.styled-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.5), 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.styled-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+  cursor: pointer;
+}
+
+.slider-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.nk-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(37, 99, 235, 0.06);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-mid);
+  flex-wrap: wrap;
+}
+
+.nk-breakdown {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  margin-left: auto;
+}
+
+/* ─────────────────────────────
+   STEP 4 — RESULT
+───────────────────────────── */
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ── Calc overlay ── */
+#calc-overlay {
+  /* display controlled via [hidden] attr — do NOT set display here */
+  padding: var(--space-20) var(--space-4);
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+#calc-overlay:not([hidden]) {
+  display: flex;
+}
+.calc-overlay__inner {
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+}
+.calc-overlay__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-primary-bg, rgba(37,99,235,0.1));
+  margin: 0 auto var(--space-6);
+  color: var(--color-primary, #2563eb);
+  animation: calcSpin 1.5s linear infinite;
+}
+@keyframes calcSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.calc-overlay__title {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  margin: 0 0 var(--space-6);
+}
+.calc-progress-track {
+  height: 8px;
+  background: var(--color-border);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: var(--space-3);
+}
+.calc-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-primary, #2563eb), var(--color-accent, #0ea5e9));
+  border-radius: 99px;
+  transition: width 0.1s linear;
+}
+.calc-progress-pct {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--weight-semibold);
+  margin: 0 0 var(--space-8);
+}
+.calc-steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  text-align: left;
+}
+.calc-step-item {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.4s, transform 0.4s, color 0.3s, background 0.3s;
+}
+.calc-step-item.is-active {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--color-text);
+  background: var(--color-primary-bg, rgba(37,99,235,0.06));
+}
+
+/* Left column: dashboard + bubble stacked */
+.result-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Dashboard wrap with blur */
+.result-dashboard-wrap {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.result-blur-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgba(15, 23, 42, 0.18);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xl);
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+.result-blur-overlay.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.result-blur-overlay__inner {
+  text-align: center;
+  color: var(--color-text-on-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.result-blur-overlay__inner svg {
+  opacity: 0.7;
+}
+
+.result-blur-overlay__inner p {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  opacity: 0.8;
+  margin: 0;
+}
+
+.result-dashboard {
+  background: var(--color-bg-dark);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  /* Lighter inner glow so content is visible even when blurred */
+  box-shadow: inset 0 0 60px rgba(255,255,255,0.03);
+  padding: clamp(20px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  filter: blur(4px);
+  transition: filter 0.5s;
+}
+
+.result-dashboard.is-revealed {
+  filter: none;
+}
+
+/* Deal Score */
+.deal-score-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.deal-score-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid currentColor;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--color-accent);
+  transition: color 0.4s, background 0.4s, border-color 0.4s;
+}
+
+.deal-score-circle.score-A { color: #16a34a; background: rgba(22,163,74,0.1); border-color: #16a34a; }
+.deal-score-circle.score-B { color: var(--color-accent); background: rgba(37,99,235,0.1); border-color: var(--color-accent); }
+.deal-score-circle.score-C { color: #d97706; background: rgba(217,119,6,0.1); border-color: #d97706; }
+.deal-score-circle.score-D { color: #dc2626; background: rgba(220,38,38,0.1); border-color: #dc2626; }
+
+.deal-score-letter {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-extrabold);
+  color: inherit;
+  line-height: 1;
+}
+
+.deal-score-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-on-dark);
+  text-align: center;
+}
+
+/* Waterfall Bars */
+.waterfall {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.waterfall-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 80px;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.waterfall-row--total {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.waterfall-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.waterfall-bar-wrap {
+  height: 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.waterfall-bar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  width: 0%;
+  transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.waterfall-bar--kp { background: rgba(255,255,255,0.35); }
+.waterfall-bar--nk { background: rgba(217,119,6,0.7); }
+.waterfall-bar--san { background: rgba(37,99,235,0.6); }
+.waterfall-bar--total { background: rgba(255,255,255,0.6); }
+
+.waterfall-val {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.waterfall-val--bold {
+  font-weight: var(--weight-bold);
+  color: var(--color-text-on-dark);
+  font-size: var(--text-sm);
+}
+
+.waterfall-val--netto {
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+}
+
+/* Traffic Lights */
+.traffic-lights {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.tl-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.03);
+}
+
+.tl-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: var(--weight-bold);
+  background: rgba(255,255,255,0.08);
+}
+
+.tl-icon.green { background: rgba(22,163,74,0.2); color: #16a34a; }
+.tl-icon.amber { background: rgba(217,119,6,0.2); color: #d97706; }
+.tl-icon.red { background: rgba(220,38,38,0.2); color: #dc2626; }
+
+.tl-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tl-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.tl-val {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-on-dark);
+}
+
+/* ─────────────────────────────
+   EMAIL GATE CARD
+───────────────────────────── */
+.email-gate-card {
+  background: var(--color-bg-dark);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: clamp(20px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  box-shadow:
+    0 4px 16px rgba(15, 23, 42, 0.2),
+    0 8px 32px rgba(15, 23, 42, 0.15);
+}
+
+/* Joachim bubble */
+.joachim-bubble {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(15,23,42,0.08));
+  position: relative;
+}
+
+.joachim-bubble::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 20px;
+  width: 14px;
+  height: 14px;
+  background: var(--color-bg-card);
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+  transform: rotate(45deg);
+}
+
+.joachim-bubble__avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.joachim-bubble__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.joachim-bubble__quote {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.joachim-bubble__name {
+  font-size: var(--text-xs);
+  color: var(--color-text-mid);
+  font-weight: var(--weight-medium);
+  margin: 0;
+}
+
+/* PDF Mockup */
+.pdf-mockup {
+  perspective: 800px;
+}
+
+.pdf-mockup__inner {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #0f172a 100%);
+  border: 1px solid rgba(37,99,235,0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  transform: rotate(-2deg) translateY(-4px);
+  box-shadow:
+    0 8px 24px rgba(0,0,0,0.4),
+    0 2px 8px rgba(37,99,235,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.pdf-mockup__logo {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+}
+
+.pdf-mockup__title {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-on-dark);
+}
+
+.pdf-mockup__sub {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.pdf-mockup__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: var(--space-3);
+}
+
+.pdf-mockup__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+
+.pdf-mockup__row-label {
+  color: rgba(255,255,255,0.45);
+  font-weight: var(--weight-medium);
+}
+
+.pdf-mockup__row-val {
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+  color: rgba(255,255,255,0.9);
+}
+
+.pdf-mockup__row-val--blur {
+  filter: blur(4px);
+  color: rgba(255,255,255,0.7);
+  user-select: none;
+}
+
+.pdf-mockup__row-val--accent {
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+}
+
+.pdf-mockup__row-val--green {
+  color: #4ade80;
+}
+
+/* Gate Form */
+.email-gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.email-gate-form__title {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-on-dark);
+  margin: 0;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.form-field input {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  color: var(--color-text-on-dark);
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.form-field input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-field input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+}
+
+.email-gate-btn {
+  width: 100%;
+  position: relative;
+}
+
+.email-gate-btn.is-loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.email-gate-disclaimer {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0;
+}
+
+.email-gate-error {
+  font-size: var(--text-sm);
+  color: #f87171;
+  text-align: center;
+  margin: 0;
+}
+
+/* ─────────────────────────────
+   NAV BUTTONS
+───────────────────────────── */
+.quiz-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 780px;
+  margin: 0 auto;
+  gap: var(--space-4);
+}
+
+.quiz-nav--step4 {
+  max-width: 900px;
+  justify-content: flex-start;
+  margin-top: var(--space-6);
+}
+
+.btn-back {
+  background: none;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-mid);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  min-height: 44px;
+}
+
+.btn-back:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ─────────────────────────────
+   RESPONSIVE
+───────────────────────────── */
+@media (max-width: 768px) {
+  .scenario-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .step2-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .result-dashboard-wrap {
+    order: 2;
+  }
+
+  .email-gate-card {
+    order: 1;
+  }
+
+  .waterfall-row {
+    grid-template-columns: 90px 1fr 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scenario-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .exit-cards {
+    flex-direction: column;
+  }
+
+  .quiz-step-dot__label {
+    display: none;
+  }
+}
+.rechner-cross-banner {
+  background: var(--color-bg-dark);
+  padding-block: var(--space-16);
+  margin-top: var(--space-12);
+}
+.rechner-cross-banner__inner {
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+}
+.rechner-cross-banner__label {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #60A5FA;
+  margin: 0;
+}
+.rechner-cross-banner__heading {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: var(--weight-extrabold);
+  color: #F8FAFC;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.rechner-cross-banner__sub {
+  font-size: var(--text-lg);
+  color: #94A3B8;
+  max-width: 540px;
+  line-height: 1.6;
+  margin: 0;
+}
+.rechner-cross-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 40px;
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+  background: #F8FAFC;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.1),
+    0 4px 24px rgba(59, 130, 246, 0.4);
+  margin-top: var(--space-2);
+}
+.rechner-cross-btn:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.2),
+    0 8px 32px rgba(59, 130, 246, 0.5);
+}
+.rechner-spacer-after-banner {
+  background: var(--color-bg);
+  padding-block: var(--space-16);
+}
+</style>
+
+<script>
+// Seite immer ganz oben starten
+if (window.history.scrollRestoration) window.history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
+// ─────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────
+interface QuizState {
+  objekt_typ: string;
+  stadtteil: string;
+  kaufpreis: number;
+  wohnflaeche: number;
+  sanierungskosten: number;
+  exit_strategie: string;
+  eigenkapital_pct: number;
+}
+
+const state: QuizState = {
+  objekt_typ: '',
+  stadtteil: 'neustadt-neuschoenef',
+  kaufpreis: 80000,
+  wohnflaeche: 60,
+  sanierungskosten: 40000,
+  exit_strategie: '',
+  eigenkapital_pct: 30,
+};
+
+let currentStep = 1;
+
+// ─────────────────────────────────────────
+//  CALC
+// ─────────────────────────────────────────
+const MARKT: Record<string, number> = {
+  // Mitte (Homeday ~2.650 €/m²)
+  'zentrum': 3900, 'zentrum-ost': 3400, 'zentrum-suedost': 3200,
+  'zentrum-sued': 3300, 'zentrum-west': 3500, 'zentrum-nordwest': 3200, 'zentrum-nord': 3000,
+  // Nord (Homeday ~2.150 €/m²)
+  'gohlis-sued': 2700, 'gohlis-mitte': 2400, 'gohlis-nord': 2100,
+  'eutritzsch': 2050, 'seehausen': 1650, 'wiederitzsch': 1850,
+  // Nordost (Homeday ~2.250 €/m²)
+  'schoenefeld-abtnaundorf': 2050, 'schoenefeld-ost': 1950,
+  'mockau-sued': 2050, 'mockau-nord': 1850, 'thekla': 1700, 'plaussig-portitz': 1550,
+  // Ost (Homeday ~1.900 €/m²)
+  'neustadt-neuschoenef': 2050, 'volkmarsdorf': 1900, 'anger-crottendorf': 1950,
+  'sellerhausen-stuenz': 1750, 'paunsdorf': 1650, 'heiterblick': 1850,
+  'moelkau': 1950, 'engelsdorf': 1850, 'baalsdorf': 1700, 'althen-kleinpoesna': 1600,
+  // Südost (Homeday ~1.950 €/m²)
+  'reudnitz-thonberg': 2350, 'stoetteritz': 2200, 'probstheida': 1950,
+  'meusdorf': 1800, 'liebertwolkwitz': 1700, 'holzhausen': 1600,
+  // Süd (Homeday ~2.350 €/m²)
+  'suedvorstadt': 3100, 'connewitz': 2900, 'marienbrunn': 2200,
+  'loessnig': 1950, 'doelitz-doesen': 1850,
+  // Südwest (Homeday ~1.850 €/m²)
+  'schleussig': 3300, 'plagwitz': 2900, 'kleinzschocher': 1950,
+  'grosszschocher': 1800, 'knautnaundorf': 1550, 'knauthain': 1650,
+  // West (Homeday ~1.350 €/m²)
+  'schoenau': 1500, 'gruenau-ost': 1400, 'gruenau-nord': 1300,
+  'gruenau-mitte': 1400, 'gruenau-siedlung': 1300, 'lausen-gruenau': 1500, 'miltitz': 1600,
+  // Alt-West (Homeday ~1.850 €/m²)
+  'lindenau': 2500, 'alt-lindenau': 2300, 'neu-lindenau': 2100,
+  'leutzsch': 2400, 'boehlitz-ehrenberg': 2000, 'burghausen': 1750,
+  // Nordwest (Homeday ~1.900 €/m²)
+  'moeckern': 2200, 'wahren': 2000, 'luetzschena': 1750, 'lindenthal': 1850,
+};
+
+function calcResult(s: QuizState) {
+  const kp = s.kaufpreis, san = s.sanierungskosten, m2 = s.wohnflaeche;
+  const grunderwerb = kp * 0.035, notar = kp * 0.02, prov_kauf = kp * 0.0238;
+  const nk = grunderwerb + notar + prov_kauf;
+  const beg = s.objekt_typ === 'geg' ? san * 0.40 : 0;
+  const san_netto = san - beg;
+  const gesamt = kp + nk + san_netto;
+  const qm_preis = MARKT[s.stadtteil] ?? 2400;
+  const vp = m2 * qm_preis;
+  const prov_vk = vp * 0.0357;
+  const brutto = vp - gesamt;
+  const netto = brutto - prov_vk;
+  const roi = gesamt > 0 ? (netto / gesamt * 100) : 0;
+  const regel70 = kp <= (vp * 0.70 - san);
+  const speku = s.exit_strategie === 'langfrist';
+  let score: 'A' | 'B' | 'C' | 'D' = roi >= 20 && regel70 ? 'A' : roi >= 12 ? 'B' : roi >= 5 ? 'C' : 'D';
+  const labelMap: Record<string, string> = { A: 'Sehr guter Deal', B: 'Solides Potential', C: 'Grenzwertig', D: 'Überdenken' };
+  const label = labelMap[score];
+  return { kp, san, m2, grunderwerb, notar, prov_kauf, nk, beg, san_netto, gesamt, qm_preis, vp, prov_vk, brutto, netto, roi, regel70, speku, score, label };
+}
+
+// ─────────────────────────────────────────
+//  FORMATTERS
+// ─────────────────────────────────────────
+const fmtEur = (n: number) => n.toLocaleString('de-DE', { maximumFractionDigits: 0 }) + ' €';
+const fmtPct = (n: number) => n.toFixed(1) + ' %';
+
+// ─────────────────────────────────────────
+//  PROGRESS INDICATOR
+// ─────────────────────────────────────────
+function updateProgress(step: number) {
+  document.querySelectorAll<HTMLElement>('.quiz-step-dot').forEach((dot) => {
+    const dotStep = Number(dot.dataset.step);
+    dot.classList.remove('is-active', 'is-done');
+    if (dotStep === step) dot.classList.add('is-active');
+    else if (dotStep < step) dot.classList.add('is-done');
+  });
+}
+
+// ─────────────────────────────────────────
+//  STEP NAVIGATION
+// ─────────────────────────────────────────
+function showStep(n: number) {
+  [1, 2, 3, 4].forEach((s) => {
+    const el = document.getElementById(`step-${s}`);
+    if (el) el.hidden = s !== n;
+  });
+  currentStep = n;
+  updateProgress(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─────────────────────────────────────────
+//  STEP 1 — SCENARIO CARDS
+// ─────────────────────────────────────────
+document.querySelectorAll<HTMLElement>('.scenario-card').forEach((card) => {
+  // Mouse tracking glow
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+    card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+  });
+
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.scenario-card').forEach((c) => c.classList.remove('selected'));
+    card.classList.add('selected');
+    state.objekt_typ = card.dataset.value ?? '';
+    setTimeout(() => showStep(2), 300);
+  });
+});
+
+// ─────────────────────────────────────────
+//  STEP 2 — LAGE & STRATEGIE
+// ─────────────────────────────────────────
+// Soziale Erhaltungssatzungen (Milieuschutz) Leipzig — Stand 02/2025
+// Quelle: Stadt Leipzig, https://www.leipzig.de/bauen-und-wohnen/stadterneuerung-in-leipzig/soziale-erhaltungssatzungen/die-gebiete
+// Gebiete: Alt-Lindenau (2020), Lindenau (2020), Am Lene-Voigt-Park / Reudnitz-Thonberg+Anger-Crottendorf (2020),
+//          Eisenbahnstraße / Neustadt-Neuschönefeld+Volkmarsdorf+Sellerhausen-Stünz (2020),
+//          Connewitz (2020), Eutritzsch (2020), Plagwitz/Kleinzschocher (2022), Leutzsch (2022),
+//          Schönefeld westlicher Bereich (02/2025)
+const MS_DISTRICTS = new Set([
+  'eutritzsch',
+  'neustadt-neuschoenef', 'volkmarsdorf', 'sellerhausen-stuenz',
+  'reudnitz-thonberg', 'anger-crottendorf',
+  'connewitz',
+  'plagwitz', 'kleinzschocher',
+  'lindenau', 'alt-lindenau',
+  'leutzsch',
+  'schoenefeld-abtnaundorf',
+]);
+
+const stadtteilSelect = document.getElementById('stadtteil-select') as HTMLSelectElement;
+const msWarning = document.getElementById('milieuschutz-warning') as HTMLElement;
+
+function updateMsWarning(val: string) {
+  if (msWarning) msWarning.hidden = !MS_DISTRICTS.has(val);
+}
+
+stadtteilSelect?.addEventListener('change', () => {
+  state.stadtteil = stadtteilSelect.value;
+  updateMsWarning(stadtteilSelect.value);
+});
+
+// Check initial value
+updateMsWarning(stadtteilSelect?.value ?? '');
+
+document.querySelectorAll<HTMLElement>('.exit-card').forEach((card) => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.exit-card').forEach((c) => c.classList.remove('selected'));
+    card.classList.add('selected');
+    state.exit_strategie = card.dataset.value ?? '';
+  });
+});
+
+document.getElementById('step2-back')?.addEventListener('click', () => showStep(1));
+
+document.getElementById('step2-next')?.addEventListener('click', () => {
+  if (!state.exit_strategie) {
+    // Auto-select flip if nothing chosen
+    const flipCard = document.querySelector('.exit-card[data-value="flip"]') as HTMLElement;
+    flipCard?.classList.add('selected');
+    state.exit_strategie = 'flip';
+  }
+  state.stadtteil = stadtteilSelect?.value ?? 'lindenau';
+  showStep(3);
+});
+
+// ─────────────────────────────────────────
+//  STEP 3 — SLIDERS
+// ─────────────────────────────────────────
+function calcPreview() {
+  const kp = state.kaufpreis;
+  const grunderwerb = kp * 0.035;
+  const notar = kp * 0.02;
+  const prov = kp * 0.0238;
+  const total = grunderwerb + notar + prov;
+  const el = document.getElementById('nk-total');
+  if (el) el.textContent = fmtEur(total);
+  const breakdown = document.getElementById('nk-breakdown');
+  if (breakdown) {
+    breakdown.textContent = `Grunderwerb ${fmtEur(grunderwerb)} · Notar ${fmtEur(notar)} · Provision ${fmtEur(prov)}`;
+  }
+}
+
+function bindSlider(id: string, valId: string, key: keyof QuizState, formatter: (n: number) => string) {
+  const slider = document.getElementById(id) as HTMLInputElement;
+  const display = document.getElementById(valId);
+  if (!slider || !display) return;
+  slider.addEventListener('input', () => {
+    const v = Number(slider.value);
+    (state as any)[key] = v;
+    display.textContent = formatter(v);
+    calcPreview();
+  });
+}
+
+bindSlider('slider-kaufpreis', 'val-kaufpreis', 'kaufpreis', (n) => n.toLocaleString('de-DE') + ' €');
+bindSlider('slider-wohnflaeche', 'val-wohnflaeche', 'wohnflaeche', (n) => n + ' m²');
+bindSlider('slider-sanierung', 'val-sanierung', 'sanierungskosten', (n) => n.toLocaleString('de-DE') + ' €');
+bindSlider('slider-eigenkapital', 'val-eigenkapital', 'eigenkapital_pct', (n) => n + ' %');
+
+document.getElementById('step3-back')?.addEventListener('click', () => showStep(2));
+
+document.getElementById('step3-next')?.addEventListener('click', () => {
+  showCalcOverlay(() => {
+    showStep(4);
+    renderResult();
+  });
+});
+
+function showCalcOverlay(onComplete: () => void) {
+  const overlay = document.getElementById('calc-overlay') as HTMLElement | null;
+  if (!overlay) { onComplete(); return; }
+
+  // Hide all steps, show overlay
+  [1, 2, 3, 4].forEach((s) => {
+    const el = document.getElementById(`step-${s}`);
+    if (el) el.hidden = true;
+  });
+  overlay.hidden = false;
+  // Scroll to quiz section top so overlay is in view
+  const quizSection = document.querySelector('.quiz-section') as HTMLElement | null;
+  if (quizSection) {
+    quizSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  const fill = document.getElementById('calc-progress-fill') as HTMLElement | null;
+  const pctEl = document.getElementById('calc-progress-pct') as HTMLElement | null;
+  const items = overlay.querySelectorAll<HTMLElement>('.calc-step-item');
+
+  const DURATION = 10_000;
+  const start = performance.now();
+
+  function tick(now: number) {
+    const pct = Math.min(100, ((now - start) / DURATION) * 100);
+    if (fill) fill.style.width = pct.toFixed(1) + '%';
+    if (pctEl) pctEl.textContent = Math.floor(pct) + ' %';
+    items.forEach((item) => {
+      if (pct >= Number(item.dataset.at)) item.classList.add('is-active');
+    });
+    if (pct < 100) {
+      requestAnimationFrame(tick);
+    } else {
+      overlay.hidden = true;
+      onComplete();
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
+// ─────────────────────────────────────────
+//  STEP 4 — RENDER RESULT
+// ─────────────────────────────────────────
+function renderResult() {
+  const r = calcResult(state);
+
+  // Deal Score
+  const circle = document.getElementById('deal-score-circle');
+  const letter = document.getElementById('deal-score-letter');
+  const scoreLabel = document.getElementById('deal-score-label');
+  if (circle && letter && scoreLabel) {
+    circle.className = 'deal-score-circle score-' + r.score;
+    letter.textContent = r.score;
+    scoreLabel.textContent = r.label;
+  }
+
+  // Waterfall bars — normalize to percentage of gesamt (max)
+  const maxVal = Math.max(r.gesamt, r.vp) || 1;
+  function setBar(barId: string, valId: string, val: number, color?: string) {
+    const bar = document.getElementById(barId) as HTMLElement;
+    const valEl = document.getElementById(valId);
+    if (bar) {
+      bar.style.width = Math.max(2, (Math.abs(val) / maxVal) * 100) + '%';
+      if (color) bar.style.background = color;
+    }
+    if (valEl) valEl.textContent = fmtEur(val);
+  }
+
+  setBar('wf-kp', 'wf-val-kp', r.kp);
+  setBar('wf-nk', 'wf-val-nk', r.nk);
+  setBar('wf-san', 'wf-val-san', r.san_netto);
+  setBar('wf-total', 'wf-val-total', r.gesamt);
+
+  const nettoBar = document.getElementById('wf-netto');
+  const nettoVal = document.getElementById('wf-val-netto');
+  if (nettoBar) {
+    nettoBar.style.width = Math.max(2, (Math.abs(r.netto) / maxVal) * 100) + '%';
+    nettoBar.style.background = r.netto >= 0 ? '#16a34a' : '#dc2626';
+  }
+  if (nettoVal) {
+    nettoVal.textContent = fmtEur(r.netto);
+    nettoVal.style.color = r.netto >= 0 ? '#4ade80' : '#f87171';
+  }
+
+  // Traffic Lights
+  function setTL(iconId: string, valId: string, level: 'green' | 'amber' | 'red', text: string) {
+    const icon = document.getElementById(iconId);
+    const val = document.getElementById(valId);
+    if (icon) {
+      icon.className = 'tl-icon ' + level;
+      icon.textContent = level === 'green' ? '✓' : level === 'amber' ? '!' : '✗';
+    }
+    if (val) val.textContent = text;
+  }
+
+  const roiLevel = r.roi >= 12 ? 'green' : r.roi >= 5 ? 'amber' : 'red';
+  setTL('tl-roi-icon', 'tl-roi-val', roiLevel, fmtPct(r.roi));
+
+  setTL('tl-regel70-icon', 'tl-regel70-val', r.regel70 ? 'green' : 'red',
+    r.regel70 ? 'Eingehalten' : 'Überschritten');
+
+  setTL('tl-speku-icon', 'tl-speku-val', r.speku ? 'green' : 'amber',
+    r.speku ? 'Steuerfrei' : 'Zu versteuern');
+}
+
+// ─────────────────────────────────────────
+//  EMAIL GATE FORM
+// ─────────────────────────────────────────
+const emailForm = document.getElementById('email-gate-form') as HTMLFormElement;
+const emailBtn = document.getElementById('email-gate-btn') as HTMLButtonElement;
+const emailError = document.getElementById('email-gate-error') as HTMLElement;
+
+emailForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  emailError.hidden = true;
+
+  const vorname = (document.getElementById('gate-vorname') as HTMLInputElement)?.value?.trim();
+  const email = (document.getElementById('gate-email') as HTMLInputElement)?.value?.trim();
+
+  if (!vorname || !email) {
+    emailError.textContent = 'Bitte Vorname und E-Mail angeben.';
+    emailError.hidden = false;
+    return;
+  }
+
+  // Show loading
+  emailBtn.textContent = 'Wird gesendet…';
+  emailBtn.classList.add('is-loading');
+
+  // Unlock immediately (optimistic)
+  unlockResult();
+
+  try {
+    const body = {
+      vorname,
+      email,
+      objekt_typ: state.objekt_typ,
+      stadtteil: state.stadtteil,
+      kaufpreis: state.kaufpreis,
+      wohnflaeche: state.wohnflaeche,
+      sanierungskosten: state.sanierungskosten,
+      exit_strategie: state.exit_strategie,
+      eigenkapital_pct: state.eigenkapital_pct,
+    };
+
+    const res = await fetch('/api/roi-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+    if (res.ok) {
+      // Show "Fast fertig" DOI pending screen
+      const quizSection = document.querySelector('.quiz-section') as HTMLElement | null;
+      const progressWrap = document.getElementById('quiz-progress') as HTMLElement | null;
+      if (quizSection) quizSection.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'none';
+      const pending = document.getElementById('doi-pending-screen');
+      if (pending) pending.style.display = 'block';
+      window.scrollTo(0, 0);
+    } else {
+      emailBtn.textContent = 'Analyse erhalten';
+      emailBtn.classList.remove('is-loading');
+      // Result still unlocked
+    }
+  } catch {
+    emailBtn.textContent = 'Analyse erhalten';
+    emailBtn.classList.remove('is-loading');
+    // Still unlocked — user has their result
+  }
+});
+
+function unlockResult() {
+  const overlay = document.getElementById('result-blur-overlay');
+  const dashboard = document.getElementById('result-dashboard');
+  overlay?.classList.add('is-hidden');
+  dashboard?.classList.add('is-revealed');
+}
+
+// ─────────────────────────────────────────
+//  STEP 4 BACK
+// ─────────────────────────────────────────
+document.getElementById('step4-back')?.addEventListener('click', () => showStep(3));
+
+// ─────────────────────────────────────────
+//  PROGRESS BUTTONS (clickable for done steps)
+// ─────────────────────────────────────────
+document.querySelectorAll<HTMLElement>('.quiz-step-dot').forEach((dot) => {
+  dot.addEventListener('click', () => {
+    const targetStep = Number(dot.dataset.step);
+    if (targetStep < currentStep) showStep(targetStep);
+  });
+});
+
+// ─────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────
+calcPreview();
+updateProgress(1);
+</script>
