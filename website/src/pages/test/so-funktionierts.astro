@@ -1,0 +1,573 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="[TEST] So funktioniert's — wirkaufendeineimmobilie.de"
+  description="Testseite — So vermitteln wir deine Immobilie — vom ersten Kontakt bis zum Notartermin. Transparent und fair."
+>
+
+  <!-- TEST BANNER -->
+  <div class="test-banner">
+    ⚠️ TESTSEITE — Video 1 Joachim-Feedback eingearbeitet — noch nicht live
+    &nbsp;|&nbsp; <a href="/so-funktionierts" style="color:inherit;text-decoration:underline">← Original ansehen</a>
+  </div>
+
+  <!-- HERO + CTA above-the-fold -->
+  <section class="section sfh-hero">
+    <div class="container sfh-hero__inner">
+      <h1>So funktioniert's</h1>
+      <p class="sfh-hero__sub">
+        Vom ersten Kontakt bis zum Geld auf deinem Konto — transparent und fair.
+      </p>
+      <div class="sfh-hero__cta">
+        <a href="/#bewertung" class="btn btn-primary">Jetzt Immobilie einreichen &rarr;</a>
+        <a href="/investoren" class="btn btn-outline">Investoren-Zugang &darr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERSPECTIVE TABS -->
+  <section class="sfh-tabs-section bg-alt">
+    <div class="container">
+      <!-- Pill-Container Tab-Switch -->
+      <div class="tab-switch-container" role="tablist">
+        <button role="tab" aria-selected="true" aria-controls="panel-verkaeufer" id="tab-verkaeufer" class="tab-btn tab-btn--active">Verkäufer</button>
+        <button role="tab" aria-selected="false" aria-controls="panel-kaeufer" id="tab-kaeufer" class="tab-btn">Käufer</button>
+      </div>
+
+      <!-- Verkäufer Panel -->
+      <div role="tabpanel" id="panel-verkaeufer" aria-labelledby="tab-verkaeufer" class="tab-panel tab-panel--active">
+        <div class="sfh-timeline">
+          <div class="sfh-timeline__rail" aria-hidden="true"><div class="sfh-timeline__beam"></div></div>
+
+          <!-- SCHRITT 1 — Geändert: Benefits zuerst + Unterlagenprüfung ergänzt -->
+          <div class="sfh-timeline__item">
+            <div class="sfh-timeline__dot">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="sfh-timeline__content">
+              <div class="sfh-timeline__label">Schritt 01</div>
+              <h3>Objekt einreichen</h3>
+              <p>In 2 Minuten. Kein Aufräumen, keine Vorbereitung. Wir bewerten die Substanz und prüfen alle Unterlagen — nicht den Zustand. PLZ + Basisdaten der Eigentumswohnung eingeben.</p>
+            </div>
+          </div>
+
+          <!-- SCHRITT 2 — Geändert: "Investoren" statt "Käufer" -->
+          <div class="sfh-timeline__item">
+            <div class="sfh-timeline__dot">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div class="sfh-timeline__content">
+              <div class="sfh-timeline__label">Schritt 02</div>
+              <h3>Wir starten das Angebotsverfahren</h3>
+              <p>Echte Kaufangebote von bonitätsstarken Investoren — keine Makler-Schätzungen. Jeder gibt ein verdecktes Angebot ab.</p>
+            </div>
+          </div>
+
+          <!-- SCHRITT 3 — Geändert: "Kein Zwang, kein Zeitdruck" entfernt -->
+          <div class="sfh-timeline__item">
+            <div class="sfh-timeline__dot">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="sfh-timeline__content">
+              <div class="sfh-timeline__label">Schritt 03</div>
+              <h3>Du entscheidest</h3>
+              <p>Alle Angebote einsehen. Frei wählen. Wir koordinieren den Notartermin.</p>
+            </div>
+          </div>
+        </div>
+        <div class="panel-cta">
+          <a href="/#bewertung" class="btn btn-primary">Jetzt Objekt einreichen &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Käufer Panel — unverändert -->
+      <div role="tabpanel" id="panel-kaeufer" aria-labelledby="tab-kaeufer" class="tab-panel" hidden>
+        <div class="sfh-timeline">
+          <div class="sfh-timeline__rail" aria-hidden="true"><div class="sfh-timeline__beam"></div></div>
+          <div class="sfh-timeline__item">
+            <div class="sfh-timeline__dot">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sfh-timeline__content">
+              <div class="sfh-timeline__label">Schritt 01</div>
+              <h3>Zugang sichern</h3>
+              <p>Registrieren, verifizieren, Deal-Profil anlegen. Wir prüfen jeden Antrag persönlich.</p>
+            </div>
+          </div>
+          <div class="sfh-timeline__item">
+            <div class="sfh-timeline__dot">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div class="sfh-timeline__content">
+              <div class="sfh-timeline__label">Schritt 02</div>
+              <h3>Objekte prüfen &amp; bieten</h3>
+              <p>Kuratierte Objekte, alle Unterlagen, ein Gebot. Verdeckt — niemand sieht dein Angebot.</p>
+            </div>
+          </div>
+          <div class="sfh-timeline__item">
+            <div class="sfh-timeline__dot">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="sfh-timeline__content">
+              <div class="sfh-timeline__label">Schritt 03</div>
+              <h3>Zuschlag &amp; Sanierung</h3>
+              <p>Notartermin, Schlüssel, lossanieren. Schnelle Abwicklung — wir koordinieren alles bis zum Notar.</p>
+            </div>
+          </div>
+        </div>
+        <div class="panel-cta">
+          <a href="/investoren" class="btn btn-primary">Investoren-Zugang anfragen &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANGEBOTSVERFAHREN ERKLÄRT -->
+  <section class="sfh-av-section">
+    <div class="container">
+      <h2>Das digitale Angebotsverfahren</h2>
+      <!-- GEÄNDERT: "Kein Bieterwettlauf. Kein Zwang." entfernt, neue Formulierung -->
+      <p class="sfh-av__intro">
+        Jeder Investor gibt sein bestes Angebot ab — verdeckt. Der Verkäufer und wirkaufendeineimmobilie sind die Einzigen, die alle Angebote sehen. Der Eigentümer hat die freie Entscheidung.
+      </p>
+      <div class="sfh-av-grid">
+
+        <!-- Geschlossen — GEÄNDERT: "Kein Hochbieten, kein FOMO" entfernt -->
+        <div class="sfh-av-point">
+          <div class="sfh-av-point__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div>
+            <h3>Geschlossen</h3>
+            <p>Niemand sieht andere Gebote.</p>
+          </div>
+        </div>
+
+        <!-- Fair — unverändert -->
+        <div class="sfh-av-point">
+          <div class="sfh-av-point__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <h3>Fair</h3>
+            <p>Ein Gebot pro Käufer. Gleiche Regeln für alle.</p>
+          </div>
+        </div>
+
+        <!-- Transparent — GEÄNDERT: kürzere Formulierung -->
+        <div class="sfh-av-point">
+          <div class="sfh-av-point__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div>
+            <h3>Transparent</h3>
+            <p>Alle Angebote der Investoren werden dem Verkäufer offengelegt.</p>
+          </div>
+        </div>
+
+        <!-- Rechtssicher — GEÄNDERT: "und ist damit rechtssicher und vertrauenswürdig" ergänzt -->
+        <div class="sfh-av-point">
+          <div class="sfh-av-point__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h3>Rechtssicher</h3>
+            <p>Kaufvertrag kommt durch notarielle Beurkundung zustande und ist damit rechtssicher und vertrauenswürdig.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA WITH GLOW — GEÄNDERT: 48h-Text präzisiert -->
+  <section class="sfh-cta-glow-section">
+    <div class="sfh-cta-glow__glow" aria-hidden="true"></div>
+    <div class="container sfh-cta-glow__inner">
+      <p class="sfh-cta-glow__eyebrow">Kostenlos &amp; unverbindlich</p>
+      <h2 class="sfh-cta-glow__heading">Bereit für ein faires Angebot?</h2>
+      <p class="sfh-cta-glow__sub">Reiche deine Immobilie ein — wir melden uns innerhalb von 48 Stunden beim Eigentümer, um nach Prüfung aller Unterlagen sicherzustellen, dass alle Informationen für das Angebotsverfahren vorliegen.</p>
+      <a href="/#bewertung" class="sfh-cta-glow__btn">Jetzt Immobilie einreichen &rarr;</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* TEST BANNER */
+  .test-banner {
+    background: #f59e0b;
+    color: #1c1917;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  /* HERO */
+  .sfh-hero {
+    text-align: center;
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-12);
+  }
+
+  .sfh-hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .sfh-hero__sub {
+    font-size: var(--text-lg);
+    color: var(--color-text-mid);
+    max-width: 640px;
+  }
+
+  .sfh-hero__cta {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: var(--space-4);
+  }
+
+  /* TABS SECTION */
+  .sfh-tabs-section {
+    padding-block: var(--section-gap);
+  }
+
+  .tab-switch-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--space-10);
+    background: rgba(148, 163, 184, 0.15);
+    border-radius: var(--radius-xl);
+    padding: var(--space-1);
+    width: fit-content;
+    margin-inline: auto;
+    gap: var(--space-1);
+  }
+
+  .tab-btn {
+    padding: var(--space-3) var(--space-8);
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    border: none;
+    border-radius: var(--radius-xl);
+    background: transparent;
+    color: var(--color-text-mid);
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-default);
+    min-height: 44px;
+  }
+
+  .tab-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .tab-btn--active {
+    background: var(--color-bg-card);
+    color: var(--color-text);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* TIMELINE */
+  .sfh-timeline {
+    position: relative;
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    padding-left: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+
+  .sfh-timeline__rail {
+    position: absolute;
+    left: 19px;
+    top: 24px;
+    bottom: 24px;
+    width: 2px;
+    background: rgba(148, 163, 184, 0.2);
+    overflow: hidden;
+    border-radius: 2px;
+  }
+
+  .sfh-timeline__beam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent, var(--color-accent), transparent);
+    animation: sfh-beam-slide 3s ease-in-out infinite;
+  }
+
+  @keyframes sfh-beam-slide {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(350%); }
+  }
+
+  .sfh-timeline__item {
+    position: relative;
+    display: flex;
+    gap: var(--space-5);
+    align-items: flex-start;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+  }
+
+  .sfh-timeline__item.animate-hidden {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+
+  .sfh-timeline__item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .sfh-timeline__dot {
+    position: absolute;
+    left: -48px;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+  }
+
+  .sfh-timeline__label {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-1);
+  }
+
+  .sfh-timeline__content h3 {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-xl);
+  }
+
+  .sfh-timeline__content p {
+    color: var(--color-text-mid);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+  }
+
+  .panel-cta {
+    text-align: center;
+    margin-top: var(--space-10);
+  }
+
+  /* ANGEBOTSVERFAHREN */
+  .sfh-av-section {
+    padding-block: var(--section-gap);
+    background: var(--color-bg-card);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .sfh-av-section h2 {
+    text-align: center;
+    margin-bottom: var(--space-4);
+  }
+
+  .sfh-av__intro {
+    text-align: center;
+    color: var(--color-text-mid);
+    margin-bottom: var(--space-10);
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+  }
+
+  .sfh-av-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+  }
+
+  .sfh-av-point {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    transition: box-shadow var(--duration-normal) var(--ease-default),
+                transform var(--duration-normal) var(--ease-default);
+  }
+
+  .sfh-av-point:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .sfh-av-point__icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+  }
+
+  .sfh-av-point h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
+    color: var(--color-text);
+  }
+
+  .sfh-av-point p {
+    color: var(--color-text-mid);
+    font-size: var(--text-sm);
+    margin-top: var(--space-1);
+  }
+
+  @media (max-width: 640px) {
+    .sfh-av-grid { grid-template-columns: 1fr; }
+  }
+
+  /* CTA GLOW */
+  .sfh-cta-glow-section {
+    position: relative;
+    background: var(--color-primary);
+    padding-block: var(--space-20);
+    overflow: hidden;
+  }
+
+  .sfh-cta-glow__glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .sfh-cta-glow__inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .sfh-cta-glow__eyebrow {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0;
+  }
+
+  .sfh-cta-glow__heading {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: var(--weight-extrabold);
+    color: white;
+    line-height: var(--leading-tight);
+    max-width: 640px;
+    margin: 0;
+  }
+
+  .sfh-cta-glow__sub {
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 560px;
+    margin: 0;
+  }
+
+  .sfh-cta-glow__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: white;
+    background: var(--color-accent);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: all var(--duration-fast) ease;
+    margin-top: var(--space-2);
+    box-shadow: 0 0 32px rgba(59, 130, 246, 0.5);
+  }
+
+  .sfh-cta-glow__btn:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 0 48px rgba(59, 130, 246, 0.65);
+  }
+
+  @media (max-width: 640px) {
+    .sfh-timeline { padding-left: 40px; }
+    .sfh-timeline__dot { left: -40px; width: 32px; height: 32px; }
+    .sfh-timeline__dot svg { width: 16px; height: 16px; }
+    .sfh-timeline__rail { left: 15px; }
+  }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => {
+        t.classList.remove('tab-btn--active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('tab-btn--active');
+      tab.setAttribute('aria-selected', 'true');
+
+      const targetId = tab.getAttribute('aria-controls');
+      document.querySelectorAll('.tab-panel').forEach((panel) => {
+        if (panel.id === targetId) {
+          panel.removeAttribute('hidden');
+          panel.classList.add('tab-panel--active');
+        } else {
+          panel.setAttribute('hidden', '');
+          panel.classList.remove('tab-panel--active');
+        }
+      });
+    });
+  });
+
+  const timelineItems = document.querySelectorAll('.sfh-timeline__item');
+  timelineItems.forEach((item) => item.classList.add('animate-hidden'));
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  timelineItems.forEach((item) => observer.observe(item));
+</script>
