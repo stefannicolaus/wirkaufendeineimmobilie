@@ -2,6 +2,8 @@ import type { APIRoute } from 'astro';
 import { insertRegistration } from '../../lib/db';
 import db from '../../lib/db';
 import { sendTransactionalEmail } from '../../lib/brevo';
+import { calcPreisindikation } from '../../lib/preisindikation/calc';
+import { generatePreisindikationPdf } from '../../lib/preisindikation/pdf';
 
 export const prerender = false;
 
@@ -76,7 +78,7 @@ export const PATCH: APIRoute = async ({ request }) => {
 
   const { ref, email, baujahr, wohnflaeche, energieklasse, heizung_baujahr,
           sanierungsstand, was_saniert, zustand, besonderheit, stellplatz,
-          vermietet, etage } = body;
+          vermietet, etage, pain_freitext } = body;
 
   if (!ref && !email) {
     return new Response(JSON.stringify({ success: false, error: 'ref oder email fehlt' }), {
@@ -89,12 +91,12 @@ export const PATCH: APIRoute = async ({ request }) => {
     ? db.prepare(`UPDATE registrations SET
         baujahr=?, wohnflaeche=?, energieklasse=?, heizung_baujahr=?,
         sanierungsstand=?, was_saniert=?, zustand=?, besonderheit=?,
-        stellplatz=?, vermietet=?, etage=?, objekt_step_done=1
+        stellplatz=?, vermietet=?, etage=?, pain_freitext=?, objekt_step_done=1
         WHERE id=?`)
     : db.prepare(`UPDATE registrations SET
         baujahr=?, wohnflaeche=?, energieklasse=?, heizung_baujahr=?,
         sanierungsstand=?, was_saniert=?, zustand=?, besonderheit=?,
-        stellplatz=?, vermietet=?, etage=?, objekt_step_done=1
+        stellplatz=?, vermietet=?, etage=?, pain_freitext=?, objekt_step_done=1
         WHERE email=? AND typ='bewertung' ORDER BY id DESC LIMIT 1`);
 
   stmt.run(
@@ -109,6 +111,7 @@ export const PATCH: APIRoute = async ({ request }) => {
     stellplatz ? 1 : 0,
     vermietet ? 1 : 0,
     etage ?? null,
+    pain_freitext ?? null,
     ref || email,
   );
 
@@ -139,9 +142,49 @@ export const PATCH: APIRoute = async ({ request }) => {
           <tr><td style="padding:6px;font-weight:600">Stellplatz</td><td style="padding:6px">${r.stellplatz ? 'Ja' : 'Nein'}</td></tr>
           <tr><td style="padding:6px;font-weight:600">Vermietet</td><td style="padding:6px">${r.vermietet ? 'Ja' : 'Nein'}</td></tr>
           <tr><td style="padding:6px;font-weight:600">Etage</td><td style="padding:6px">${r.etage || '—'}</td></tr>
+          ${r.pain_freitext ? `<tr><td style="padding:6px;font-weight:600;color:#dc2626">Pain (Freitext)</td><td style="padding:6px;color:#dc2626">${r.pain_freitext}</td></tr>` : ''}
         </table>
       `,
     });
+
+    // Preisindikation berechnen + PDF generieren + an Eigentümer mailen
+    try {
+      const piResult = calcPreisindikation({
+        plz: String(r.plz ?? ''),
+        immobilientyp: String(r.immobilientyp ?? 'etw') as any,
+        wohnflaeche: Number(r.wohnflaeche) || 0,
+        baujahr: Number(r.baujahr) || 1970,
+        energieklasse: r.energieklasse as string | null,
+        zustand: r.zustand as string | null,
+        sanierungsstand: r.sanierungsstand as string | null,
+        vermietet: Boolean(r.vermietet),
+      });
+
+      const nameParts = String(r.name ?? '').split(' ');
+      const vorname = nameParts[0] ?? '';
+      const nachname = nameParts.slice(1).join(' ') || vorname;
+      const datum = new Date().toLocaleDateString('de-DE');
+
+      await generatePreisindikationPdf({
+        vorname,
+        nachname,
+        email: String(r.email ?? ''),
+        plz: String(r.plz ?? ''),
+        immobilientyp: String(r.immobilientyp ?? 'etw'),
+        wohnflaeche: r.wohnflaeche as number | null,
+        baujahr: r.baujahr as number | null,
+        energieklasse: r.energieklasse as string | null,
+        zustand: r.zustand as string | null,
+        sanierungsstand: r.sanierungsstand as string | null,
+        vermietet: Boolean(r.vermietet),
+        etage: r.etage as string | null,
+        stellplatz: Boolean(r.stellplatz),
+        result: piResult,
+        datum,
+      });
+    } catch (err) {
+      console.error('[PDF] Fehler bei PDF-Generierung:', err);
+    }
   }
 
   return new Response(JSON.stringify({ success: true }), {
