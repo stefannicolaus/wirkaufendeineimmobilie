@@ -1,0 +1,357 @@
+---
+export const prerender = true;
+
+import Layout from '../../layouts/Layout.astro';
+import { STADTTEILE, SLUG_MAP } from '../../data/stadtteile-verkaufen';
+import { getObjektTypText, getMilieuschutzText, MILIEUSCHUTZ_FAQ, SZENARIEN } from '../../lib/stadtteile-verkaufen/copy';
+
+export function getStaticPaths() {
+  return STADTTEILE.map(st => ({
+    params: { stadtteil: st.slug },
+    props: { st },
+  }));
+}
+
+const { st } = Astro.props;
+
+const preisFormatted = st.preis.toLocaleString('de-DE');
+const objektTypText = getObjektTypText(st.objekttyp, st.name);
+const milieuschutzText = st.milieuschutz ? getMilieuschutzText(st.name) : null;
+
+const canonicalUrl = `https://wirkaufendeineimmobilie.de/immobilien-verkaufen/${st.slug}`;
+
+// JSON-LD
+const businessId = `${canonicalUrl}#business`;
+
+const jsonLdBusiness = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": businessId,
+  "name": "wirkaufendeineimmobilie.de",
+  "description": `Immobilienankauf in ${st.name} Leipzig — Erbschaft, Messie-Objekt, GEG-Sanierungspflicht`,
+  "url": canonicalUrl,
+  "areaServed": {
+    "@type": "Place",
+    "name": st.name,
+    "containedInPlace": { "@type": "City", "name": "Leipzig" }
+  },
+  "priceRange": "Kostenlose Erstbewertung",
+  "contactPoint": { "@type": "ContactPoint", "contactType": "customer service", "availableLanguage": "German" }
+});
+
+const jsonLdService = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": `${canonicalUrl}#service`,
+  "name": `Immobilienankauf ${st.name}`,
+  "serviceType": "Immobilienankauf",
+  "provider": { "@id": businessId },
+  "areaServed": {
+    "@type": "Place",
+    "name": st.name,
+    "containedInPlace": { "@type": "City", "name": "Leipzig" }
+  },
+  "description": `Wir kaufen Immobilien in ${st.name} im Ist-Zustand. Aktueller Marktpreis: Ø ${preisFormatted} €/m² (Immowelt März 2026).`
+});
+
+const jsonLdBreadcrumb = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://wirkaufendeineimmobilie.de/" },
+    { "@type": "ListItem", "position": 2, "name": "Immobilie verkaufen in Leipzig", "item": "https://wirkaufendeineimmobilie.de/immobilien-verkaufen/" },
+    { "@type": "ListItem", "position": 3, "name": st.name }
+  ]
+});
+
+const jsonLdFaq = st.milieuschutz ? JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": MILIEUSCHUTZ_FAQ.map(item => ({
+    "@type": "Question",
+    "name": item.question(st.name),
+    "acceptedAnswer": { "@type": "Answer", "text": item.answer }
+  }))
+}) : null;
+---
+
+<Layout
+  title={`Immobilie verkaufen in ${st.name} Leipzig — schnell & ohne Makler | wirkaufendeineimmobilie.de`}
+  description={`Wohnung oder Haus in ${st.name} verkaufen? Aktueller Marktpreis: Ø ${preisFormatted} €/m² (Immowelt März 2026). Kostenlose Ersteinschätzung in 48h — auch bei Erbschaft, Messie-Objekt & GEG-Sanierungspflicht.`}
+>
+  <script type="application/ld+json" set:html={jsonLdBusiness} />
+  <script type="application/ld+json" set:html={jsonLdService} />
+  <script type="application/ld+json" set:html={jsonLdBreadcrumb} />
+  {jsonLdFaq && <script type="application/ld+json" set:html={jsonLdFaq} />}
+
+  <!-- BREADCRUMB -->
+  <nav class="iv-breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <a href="/">Home</a>
+      <span class="iv-bc-sep">&rsaquo;</span>
+      <a href="/immobilien-verkaufen/">Immobilie verkaufen in Leipzig</a>
+      <span class="iv-bc-sep">&rsaquo;</span>
+      <span class="iv-bc-current">{st.name}</span>
+    </div>
+  </nav>
+
+  <!-- S1: HERO -->
+  <section class="section iv-hero">
+    <div class="container">
+      <div class="label">{st.bezirk} &middot; Leipzig</div>
+      <h1>Immobilie verkaufen in {st.name}<br />— ohne Makler, ohne Stress.</h1>
+      <p class="iv-hero__sub">
+        Aktueller Marktpreis: Ø <strong>{preisFormatted} €/m²</strong> (Immowelt März 2026).
+        Wir kaufen im Ist-Zustand — auch bei Erbschaft, Sanierungsstau oder schwieriger Eigentümersituation.
+      </p>
+      <form class="iv-form" id="iv-form-hero" data-stadtteil={st.slug}>
+        <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+        <div class="iv-form__row">
+          <input type="text" name="vorname" placeholder="Vorname" required aria-label="Vorname" />
+          <input type="text" name="nachname" placeholder="Nachname" required aria-label="Nachname" />
+        </div>
+        <input type="email" name="email" placeholder="E-Mail-Adresse" required aria-label="E-Mail" />
+        <input type="tel" name="telefon" placeholder="Telefonnummer (optional)" aria-label="Telefon" />
+        <input type="text" name="plz" placeholder="PLZ der Immobilie" pattern="[0-9]{5}" maxlength="5" required aria-label="PLZ" />
+        <button type="submit" class="btn btn-primary iv-form__btn">Kostenlos bewerten &rarr;</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- S2: MARKTDATEN -->
+  <section class="iv-market-section">
+    <div class="container">
+      <h2>Aktueller Immobilienmarkt in {st.name}</h2>
+      <div class={`iv-market-grid ${st.milieuschutz ? 'iv-market-grid--4' : 'iv-market-grid--3'}`}>
+        <div class="iv-market-card iv-market-card--highlight">
+          <span class="iv-market-card__val">Ø {preisFormatted} €/m²</span>
+          <span class="iv-market-card__label">Marktpreis März 2026</span>
+        </div>
+        <div class="iv-market-card">
+          <span class="iv-market-card__val">Immowelt</span>
+          <span class="iv-market-card__label">Quelle Preisatlas</span>
+        </div>
+        {st.milieuschutz && (
+          <div class="iv-market-card iv-market-card--warning">
+            <span class="iv-market-card__val">⚠️ Milieuschutz</span>
+            <span class="iv-market-card__label">§ 172 BauGB</span>
+          </div>
+        )}
+        <div class="iv-market-card">
+          <span class="iv-market-card__val">Gutachterausschuss</span>
+          <span class="iv-market-card__label">Leipzig 2024</span>
+        </div>
+      </div>
+      <p class="iv-source">
+        Quelle: Immowelt Preisatlas, März 2026. Offizielle Transaktionsdaten: Gutachterausschuss Leipzig 2024.
+      </p>
+    </div>
+  </section>
+
+  <!-- S3: OBJEKTTYPEN -->
+  <section class="section iv-objekt-section">
+    <div class="container">
+      <h2>Typische Immobilien in {st.name}</h2>
+      <p class="iv-objekt-text">{objektTypText}</p>
+    </div>
+  </section>
+
+  <!-- S4: MILIEUSCHUTZ (conditional) -->
+  {st.milieuschutz && milieuschutzText && (
+    <section class="iv-milieu-section">
+      <div class="container">
+        <h2>Milieuschutz in {st.name} — was bedeutet das für den Verkauf?</h2>
+        <p class="iv-milieu-text">{milieuschutzText}</p>
+        <div class="iv-faq-list">
+          {MILIEUSCHUTZ_FAQ.map(item => (
+            <details class="iv-faq-item">
+              <summary class="iv-faq-q">{item.question(st.name)}</summary>
+              <p class="iv-faq-a">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- S5: SZENARIEN -->
+  <section class="section iv-szenarien-section">
+    <div class="container">
+      <h2>Warum verkaufen Eigentümer in {st.name}?</h2>
+      <div class="iv-szenarien-grid">
+        {SZENARIEN.map(s => (
+          <div class="iv-szenario-card">
+            <div class="iv-szenario-icon" aria-hidden="true">{s.icon}</div>
+            <h3>{s.titel}</h3>
+            <p>{s.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S6: CTA JOACHIM -->
+  <section class="iv-cta-section">
+    <div class="container iv-cta-inner">
+      <h2>Immobilie in {st.name} bewerten lassen</h2>
+      <form class="iv-form iv-form--cta" id="iv-form-cta" data-stadtteil={st.slug}>
+        <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+        <div class="iv-form__row">
+          <input type="text" name="vorname" placeholder="Vorname" required aria-label="Vorname" />
+          <input type="text" name="nachname" placeholder="Nachname" required aria-label="Nachname" />
+        </div>
+        <input type="email" name="email" placeholder="E-Mail-Adresse" required aria-label="E-Mail" />
+        <input type="tel" name="telefon" placeholder="Telefonnummer (optional)" aria-label="Telefon" />
+        <input type="text" name="plz" placeholder="PLZ der Immobilie" pattern="[0-9]{5}" maxlength="5" required aria-label="PLZ" />
+        <button type="submit" class="btn btn-primary iv-form__btn">Kostenlos bewerten &rarr;</button>
+      </form>
+      <div class="iv-joachim">
+        <img src="/images/joachim-kleinke-portrait.jpg" alt="Joachim Kleinke" class="iv-joachim__img" width="64" height="64" />
+        <div class="iv-joachim__info">
+          <strong>Joachim Kleinke</strong>
+          <span>Immobilienankauf Leipzig</span>
+          <p class="iv-joachim__quote">„Ich melde mich innerhalb der nächsten 48 h bei Ihnen mit einer kostenlosen Ersteinschätzung."</p>
+        </div>
+      </div>
+      <a href="/roi-rechner" class="iv-roi-link">→ ROI-Rechner: Wieviel ist Ihre Immobilie wert?</a>
+    </div>
+  </section>
+
+  <!-- S7: LINKS -->
+  <section class="section iv-links-section bg-alt">
+    <div class="container iv-links">
+      {st.nachbarn.length > 0 && (
+        <div class="iv-link-group">
+          <h4>Nachbar-Stadtteile</h4>
+          <div class="iv-pills">
+            {st.nachbarn.map(slug => (
+              <a href={`/immobilien-verkaufen/${slug}`} class="iv-pill">
+                {SLUG_MAP[slug] || slug}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+      <div class="iv-link-group">
+        <h4>Weitere Seiten</h4>
+        <div class="iv-pills">
+          <a href="/immobilien-verkaufen/" class="iv-pill">Alle Stadtteile Leipzig</a>
+          <a href="/roi-rechner" class="iv-pill">ROI-Rechner</a>
+          <a href="/so-funktionierts" class="iv-pill">So funktioniert's</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* BREADCRUMB */
+  .iv-breadcrumb { padding-block: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); }
+  .iv-breadcrumb a { color: var(--color-text-muted); }
+  .iv-breadcrumb a:hover { color: var(--color-accent); }
+  .iv-bc-sep { margin-inline: var(--space-2); opacity: 0.5; }
+  .iv-bc-current { color: var(--color-text); font-weight: var(--weight-medium); }
+
+  /* HERO */
+  .iv-hero { padding-bottom: var(--space-8); }
+  .iv-hero .container { max-width: 720px; }
+  .iv-hero__sub { font-size: var(--text-lg); color: var(--color-text-mid); margin-top: var(--space-4); margin-bottom: var(--space-8); }
+
+  /* FORM */
+  .iv-form { display: flex; flex-direction: column; gap: var(--space-3); max-width: 520px; }
+  .iv-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+  .iv-form input { padding: var(--space-3) var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: var(--text-base); background: var(--color-bg-card); color: var(--color-text); width: 100%; }
+  .iv-form input:focus { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .iv-form__btn { align-self: flex-start; }
+  @media (max-width: 480px) { .iv-form__row { grid-template-columns: 1fr; } .iv-form__btn { width: 100%; } }
+
+  /* MARKET */
+  .iv-market-section { background: var(--color-bg-alt); padding-block: var(--section-gap); }
+  .iv-market-section h2 { margin-bottom: var(--space-6); }
+  .iv-market-grid { display: grid; gap: var(--space-4); }
+  .iv-market-grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .iv-market-grid--4 { grid-template-columns: repeat(4, 1fr); }
+  .iv-market-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-5); text-align: center; box-shadow: var(--shadow-sm); }
+  .iv-market-card--highlight { background: rgba(59,130,246,0.06); border-color: var(--color-accent); }
+  .iv-market-card--highlight .iv-market-card__val { color: var(--color-accent); }
+  .iv-market-card--warning { background: rgba(234,179,8,0.06); border-color: #ca8a04; }
+  .iv-market-card__val { display: block; font-size: var(--text-2xl); font-weight: var(--weight-extrabold); color: var(--color-text); }
+  .iv-market-card__label { display: block; font-size: var(--text-sm); color: var(--color-text-mid); margin-top: var(--space-1); }
+  .iv-source { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-4); }
+  @media (max-width: 640px) { .iv-market-grid--3, .iv-market-grid--4 { grid-template-columns: repeat(2, 1fr); } }
+
+  /* OBJEKTTYPEN */
+  .iv-objekt-section { background: var(--color-bg); }
+  .iv-objekt-text { font-size: var(--text-lg); line-height: 1.8; color: var(--color-text-mid); max-width: 720px; }
+
+  /* MILIEUSCHUTZ */
+  .iv-milieu-section { background: rgba(234,179,8,0.04); border-top: 1px solid rgba(234,179,8,0.2); border-bottom: 1px solid rgba(234,179,8,0.2); padding-block: var(--section-gap); }
+  .iv-milieu-section h2 { margin-bottom: var(--space-4); }
+  .iv-milieu-text { font-size: var(--text-base); line-height: 1.8; color: var(--color-text-mid); max-width: 720px; margin-bottom: var(--space-6); }
+  .iv-faq-list { display: flex; flex-direction: column; gap: var(--space-3); max-width: 720px; }
+  .iv-faq-item { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); background: var(--color-bg-card); }
+  .iv-faq-q { font-weight: var(--weight-semibold); cursor: pointer; list-style: none; color: var(--color-text); }
+  .iv-faq-q::marker, .iv-faq-q::-webkit-details-marker { display: none; }
+  .iv-faq-q::before { content: '+ '; color: var(--color-accent); }
+  details[open] .iv-faq-q::before { content: '− '; }
+  .iv-faq-a { margin-top: var(--space-3); font-size: var(--text-sm); color: var(--color-text-mid); line-height: 1.7; }
+
+  /* SZENARIEN */
+  .iv-szenarien-section { background: var(--color-bg-alt); }
+  .iv-szenarien-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-top: var(--space-8); }
+  .iv-szenario-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); box-shadow: var(--shadow-sm); }
+  .iv-szenario-icon { font-size: 2rem; }
+  .iv-szenario-card h3 { font-size: var(--text-lg); }
+  .iv-szenario-card p { font-size: var(--text-sm); line-height: 1.7; color: var(--color-text-mid); }
+  @media (max-width: 768px) { .iv-szenarien-grid { grid-template-columns: 1fr; } }
+
+  /* CTA JOACHIM */
+  .iv-cta-section { background: var(--color-bg-dark); color: var(--color-text-on-dark); padding-block: var(--section-gap); }
+  .iv-cta-inner { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); max-width: 600px; }
+  .iv-cta-inner h2 { color: var(--color-text-on-dark); }
+  .iv-form--cta input { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); color: var(--color-text-on-dark); }
+  .iv-form--cta input::placeholder { color: rgba(255,255,255,0.4); }
+  .iv-joachim { display: flex; gap: var(--space-4); align-items: flex-start; }
+  .iv-joachim__img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .iv-joachim__info { display: flex; flex-direction: column; gap: var(--space-1); }
+  .iv-joachim__info strong { color: var(--color-text-on-dark); font-weight: var(--weight-bold); }
+  .iv-joachim__info span { font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
+  .iv-joachim__quote { font-size: var(--text-sm); color: rgba(255,255,255,0.8); line-height: 1.6; font-style: italic; margin-top: var(--space-1); }
+  .iv-roi-link { color: rgba(255,255,255,0.6); font-size: var(--text-sm); text-decoration: none; }
+  .iv-roi-link:hover { color: var(--color-text-on-dark); }
+
+  /* LINKS */
+  .iv-links-section { padding-block: var(--section-gap); }
+  .iv-links { display: flex; flex-direction: column; gap: var(--space-6); }
+  .iv-link-group h4 { margin-bottom: var(--space-3); }
+  .iv-pills { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .iv-pill { display: inline-flex; align-items: center; padding: var(--space-2) var(--space-4); font-size: var(--text-sm); font-weight: var(--weight-medium); color: var(--color-text-mid); background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-full); text-decoration: none; transition: all var(--duration-fast) var(--ease-default); min-height: 44px; }
+  .iv-pill:hover { color: var(--color-accent); border-color: var(--color-accent); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+</style>
+
+<script>
+  function setupForm(formId: string) {
+    const form = document.getElementById(formId) as HTMLFormElement;
+    if (!form) return;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button') as HTMLButtonElement;
+      btn.textContent = 'Wird gesendet...';
+      btn.disabled = true;
+      try {
+        const res = await fetch('/api/bewertung', { method: 'POST', body: new FormData(form) });
+        if (res.ok) {
+          window.location.href = '/danke?typ=verkaeufer';
+        } else {
+          btn.textContent = 'Fehler — erneut versuchen';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Fehler — erneut versuchen';
+        btn.disabled = false;
+      }
+    });
+  }
+  setupForm('iv-form-hero');
+  setupForm('iv-form-cta');
+</script>
