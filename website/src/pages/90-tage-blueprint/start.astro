@@ -515,6 +515,7 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
 
     const formData = new FormData();
     formData.append('typ', 'blueprint');
+    formData.append('from_questionnaire', '1');
     Object.entries(answers).forEach(([k, v]) => formData.append(k, v));
 
     const zielEl = document.querySelector('[name="ziel"]') as HTMLTextAreaElement;

@@ -497,6 +497,7 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
 
     const formData = new FormData();
     formData.append('typ', 'kompass');
+    formData.append('from_questionnaire', '1');
     Object.entries(answers).forEach(([k, v]) => formData.append(k, v));
 
     const situationEl = document.querySelector('[name="situation"]') as HTMLTextAreaElement;

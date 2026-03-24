@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
 ---
 <Layout
   title="Dein persönlicher 90-Tage-Blueprint — Fix & Flip Leipzig"
@@ -38,7 +39,36 @@ import Layout from '../../layouts/Layout.astro';
         </div>
       </div>
 
-      <a href="/90-tage-blueprint/start" class="btn btn-primary ap-hero__cta">Jetzt starten &rarr;</a>
+      <!-- EMAIL GATE -->
+      <div id="email-gate" class="ap-email-gate">
+        <p class="ap-email-gate__label">Wohin sollen wir deinen Blueprint schicken?</p>
+        <form id="gate-form" class="ap-email-gate__form" novalidate>
+          <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+          <input type="hidden" name="typ" value="blueprint" />
+          <div class="ap-gate-row">
+            <input type="text" name="name" placeholder="Dein Vorname" class="ap-gate-input" />
+            <input type="email" name="email" placeholder="Deine E-Mail *" required class="ap-gate-input" />
+          </div>
+          <FormPrivacyHint />
+          <button type="submit" class="btn btn-primary ap-hero__cta">Blueprint anfordern &rarr;</button>
+        </form>
+      </div>
+      <!-- FAST FERTIG SCREEN -->
+      <div id="doi-pending" class="ap-doi-pending" hidden>
+        <div style="font-size:2.5rem; margin-bottom:1rem;">✉️</div>
+        <h3>Fast fertig — check deine E-Mails!</h3>
+        <p>Wir haben dir gerade eine E-Mail von <strong>office@wirkaufendeineimmobilie.de</strong> geschickt. Klick auf den Bestätigungslink — dann erhältst du deinen Blueprint.</p>
+        <div class="ap-doi-benefits">
+          <p><strong>Was dich erwartet:</strong></p>
+          <ul>
+            <li>✓ 90-Tage-Fahrplan für deinen ersten Fix & Flip</li>
+            <li>✓ Kalkulations-Template mit echten Leipziger Zahlen</li>
+            <li>✓ Budgetplanung für dein Eigenkapital</li>
+            <li>✓ Handwerker-Checkliste für Leipzig</li>
+          </ul>
+        </div>
+        <p style="font-size:0.85rem; opacity:0.7;">⚠️ Mail nicht da? Schau in deinen Spam-Ordner.</p>
+      </div>
 
       <div class="ap-includes">
         <p class="text-mid">Dein Blueprint enthält:</p>
@@ -53,6 +83,33 @@ import Layout from '../../layouts/Layout.astro';
     </div>
   </section>
 
+  <script>
+    const form = document.getElementById('gate-form') as HTMLFormElement | null;
+    const gate = document.getElementById('email-gate') as HTMLElement | null;
+    const pending = document.getElementById('doi-pending') as HTMLElement | null;
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailInput = form?.querySelector('[name="email"]') as HTMLInputElement | null;
+      if (!emailInput?.value) { emailInput?.focus(); return; }
+      const checkbox = form?.querySelector('[name="datenschutz_ok"]') as HTMLInputElement | null;
+      if (checkbox && !checkbox.checked) { checkbox.focus(); return; }
+      const btn = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (btn) { btn.textContent = 'Wird gesendet...'; btn.disabled = true; }
+      try {
+        const fd = new FormData(form!);
+        const res = await fetch('/api/lead-magnet', { method: 'POST', body: fd });
+        if (res.ok) {
+          if (gate) gate.hidden = true;
+          if (pending) pending.hidden = false;
+        } else {
+          if (btn) { btn.textContent = 'Fehler — erneut versuchen'; btn.disabled = false; }
+        }
+      } catch {
+        if (btn) { btn.textContent = 'Fehler — erneut versuchen'; btn.disabled = false; }
+      }
+    });
+  </script>
 </Layout>
 
 <style>
@@ -173,4 +230,14 @@ import Layout from '../../layouts/Layout.astro';
     position: absolute;
     left: 0;
   }
+
+  .ap-email-gate { width: 100%; max-width: 560px; margin-top: var(--space-6); }
+  .ap-email-gate__label { font-weight: 600; margin-bottom: 0.75rem; }
+  .ap-email-gate__form { display: flex; flex-direction: column; gap: 0.75rem; }
+  .ap-gate-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .ap-gate-input { flex: 1; min-width: 160px; padding: 0.75rem 1rem; border: 2px solid var(--color-border); border-radius: 8px; font-family: inherit; font-size: 1rem; background: var(--color-bg); color: var(--color-text); min-height: 48px; }
+  .ap-doi-pending { max-width: 560px; padding: 2rem 0; }
+  .ap-doi-pending h3 { margin-bottom: 0.75rem; }
+  .ap-doi-benefits { background: var(--color-bg-card, #f9f9f9); border: 1px solid var(--color-border, #e0e0e0); border-radius: 8px; padding: 1.25rem; text-align: left; margin: 1rem 0; }
+  .ap-doi-benefits ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
 </style>
