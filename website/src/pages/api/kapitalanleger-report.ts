@@ -3,11 +3,11 @@ import puppeteer from 'puppeteer';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
-import { calcKapitalanleger, buildTilgungsplan, formatEur } from '../../lib/kapitalanleger-calc';
+import { calcKapitalanleger, buildTilgungsplan } from '../../lib/kapitalanleger-calc';
 import type { KapitalanlegerInput } from '../../lib/kapitalanleger-calc';
 import { generateKapitalanlegerPdfHtml } from '../../lib/kapitalanleger-pdf';
-import { sendTransactionalEmail } from '../../lib/brevo';
-import { insertKapitalanlegerLead } from '../../lib/db';
+import { insertKapitalanlegerLead, triggerBrevoDoubleOptIn } from '../../lib/db';
+import { generateRefNr, buildDoiRedirectUrl } from '../../lib/ref';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const portraitPath = join(__dirname, '../../../../public/images/joachim-kleinke-portrait.jpg');
@@ -18,12 +18,9 @@ try {
 
 export const prerender = false;
 
-function generateRefNr(): string {
-  const now = new Date();
-  const date = now.toISOString().slice(0, 10).replace(/-/g, '');
-  const rand = Math.floor(1000 + Math.random() * 9000);
-  return `KA-${date}-${rand}`;
-}
+const BREVO_DOI_TEMPLATE_ID = Number(process.env.BREVO_DOI_TEMPLATE_ID) || 0;
+const BREVO_LIST_ID_KAPITALANLEGER = Number(process.env.BREVO_LIST_ID_KAPITALANLEGER) || 0;
+const SITE_BASE_URL = process.env.SITE_URL || 'https://wirkaufendeineimmobilie.de';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -70,7 +67,7 @@ export const POST: APIRoute = async ({ request }) => {
     const result = calcKapitalanleger(input);
     const tilgungsplan = buildTilgungsplan(input);
 
-    const refNr = generateRefNr();
+    const refNr = generateRefNr('KA');
     const datum = new Date().toLocaleDateString('de-DE', {
       day: '2-digit', month: '2-digit', year: 'numeric',
     });
@@ -94,28 +91,7 @@ export const POST: APIRoute = async ({ request }) => {
       await browser.close();
     }
 
-    // Email to user
-    await sendTransactionalEmail({
-      to: { email, name: vorname },
-      subject: `Ihre Kapitalanleger-Analyse — Ref ${refNr}`,
-      htmlContent: `<p>Hallo ${vorname},</p>
-<p>anbei Ihre persönliche Kapitalanleger-Analyse für ein Objekt mit Kaufpreis ${formatEur(input.kaufpreis)} (Ref: <strong>${refNr}</strong>).</p>
-<p>Das PDF enthält: AfA-Berechnung §7 EStG, Cashflow nach Steuer §21 EStG, DCF-Rendite und Tilgungsplan.</p>
-<p>Bei Fragen melden Sie sich gerne: office@wirkaufendeineimmobilie.de</p>
-<br><p>Beste Grüße,<br>Joachim Kleinke</p>`,
-      attachments: [{ content: pdfBase64, name: `Kapitalanleger-Analyse-${refNr}.pdf` }],
-    });
-
-    // Notification to Joachim
-    await sendTransactionalEmail({
-      to: { email: 'office@wirkaufendeineimmobilie.de', name: 'Joachim Kleinke' },
-      subject: `Neuer Kapitalanleger-Lead: ${vorname} — ${refNr}`,
-      htmlContent: `<p>Neuer Kapitalanleger-Rechner Lead: ${vorname} (${email})</p>
-<p>Kaufpreis: ${formatEur(input.kaufpreis)} · Faktor: ${result.kaufpreisfaktor.toFixed(1)}× · Cashflow: ${formatEur(result.nettoMonat)}/Mo</p>
-<p>AfA/J: ${formatEur(result.jahresAfA)} · NPV 10J: ${formatEur(result.npv10j)} · Ref: ${refNr}</p>`,
-    });
-
-    // DB
+    // Store in DB — doi_confirmed=0, pdf_base64 stored for retrieval in confirm-report
     insertKapitalanlegerLead({
       ref_nr: refNr,
       vorname,
@@ -137,10 +113,31 @@ export const POST: APIRoute = async ({ request }) => {
       npv_10j: result.npv10j,
       npv_20j: result.npv20j,
       brutto_rendite: result.bruttoRendite,
+      doi_confirmed: 0,
+      pdf_base64: pdfBase64,
     });
 
+    // Trigger DOI — Brevo sends confirmation email, user clicks → confirm-report
+    if (BREVO_DOI_TEMPLATE_ID && BREVO_LIST_ID_KAPITALANLEGER) {
+      const redirectionUrl = buildDoiRedirectUrl(SITE_BASE_URL, 'confirm-report', refNr);
+      try {
+        await triggerBrevoDoubleOptIn({
+          email,
+          name: vorname,
+          typ: 'kapitalanleger-rechner',
+          listId: BREVO_LIST_ID_KAPITALANLEGER,
+          templateId: BREVO_DOI_TEMPLATE_ID,
+          redirectionUrl,
+        });
+      } catch (doiErr) {
+        console.error('[kapitalanleger-report] DOI trigger failed:', doiErr);
+        // Fail the whole request — user must retry, otherwise they'll never receive the confirmation email
+        throw doiErr;
+      }
+    }
+
     return new Response(
-      JSON.stringify({ success: true, result, refNr }),
+      JSON.stringify({ success: true, status: 'doi_pending', refNr }),
       { status: 200, headers: { 'Content-Type': 'application/json' } },
     );
   } catch (err) {

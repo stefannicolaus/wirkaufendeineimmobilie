@@ -293,6 +293,26 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
+  <!-- DOI PENDING SCREEN -->
+  <div id="doi-pending-screen" style="display:none; max-width:640px; margin:0 auto; padding:var(--space-16) var(--space-6); text-align:center;">
+    <div style="font-size:3rem; margin-bottom:var(--space-4);">✉️</div>
+    <h2 style="margin-bottom:var(--space-4);">Fast fertig — check deine E-Mails</h2>
+    <p style="color:var(--color-text-mid); font-size:var(--text-lg); margin-bottom:var(--space-6);">
+      Wir haben dir gerade eine E-Mail von <strong>office@wirkaufendeineimmobilie.de</strong> geschickt.
+      Klick auf den Bestätigungslink darin — dann erhältst du sofort deine persönliche Kapitalanleger-Analyse.
+    </p>
+    <div style="background:var(--color-bg-card,#f9f9f9); border:1px solid var(--color-border,#e0e0e0); border-radius:8px; padding:var(--space-6); text-align:left; margin-bottom:var(--space-6);">
+      <p style="font-weight:600; margin-bottom:var(--space-3);">Was dich erwartet:</p>
+      <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:var(--space-2);">
+        <li>✓ Netto-Cashflow / Monat</li>
+        <li>✓ AfA-Vorteil / Jahr (§7 EStG)</li>
+        <li>✓ NPV-Szenarien (10J + 20J)</li>
+        <li>✓ Kaufpreisfaktor + Brutto-Rendite</li>
+      </ul>
+    </div>
+    <p style="font-size:var(--text-sm); color:var(--color-text-muted);">⚠️ Mail nicht da? Schau in deinen Spam-Ordner. Absender: office@wirkaufendeineimmobilie.de</p>
+  </div>
+
 </Layout>
 
 <style>
@@ -913,23 +933,14 @@ import Layout from '../layouts/Layout.astro';
       const data = await res.json();
       if (!data.success) throw new Error(data.error || 'Fehler beim Verarbeiten');
 
-      if (emailForm) {
-        const successDiv = document.createElement('div');
-        successDiv.className = 'email-gate-success';
-        const p1 = document.createElement('p');
-        p1.innerHTML = '✓ Analyse wird gerade erstellt und an ';
-        const strong = document.createElement('strong');
-        strong.textContent = email;
-        p1.appendChild(strong);
-        p1.appendChild(document.createTextNode(' geschickt.'));
-        const p2 = document.createElement('p');
-        p2.textContent = 'Bitte kurz warten — dauert ca. 30 Sekunden.';
-        p2.style.cssText = 'color:var(--color-text-muted);font-size:13px;margin-top:8px;';
-        successDiv.appendChild(p1);
-        successDiv.appendChild(p2);
-        emailForm.innerHTML = '';
-        emailForm.appendChild(successDiv);
-      }
+      // DOI pending — hide quiz, show confirmation screen
+      const quizSection = document.querySelector('.quiz-section') as HTMLElement | null;
+      const progressWrap = document.getElementById('quiz-progress') as HTMLElement | null;
+      const doiScreen = document.getElementById('doi-pending-screen') as HTMLElement | null;
+      if (quizSection) quizSection.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'none';
+      if (doiScreen) doiScreen.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Etwas ist schiefgelaufen. Bitte erneut versuchen.';
       if (emailError) {
