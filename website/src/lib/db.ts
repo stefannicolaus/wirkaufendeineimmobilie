@@ -60,9 +60,6 @@ try { db.exec(`ALTER TABLE registrations ADD COLUMN objekt_step_done INTEGER DEF
 try { db.exec(`ALTER TABLE registrations ADD COLUMN doi_confirmed INTEGER DEFAULT 0`); } catch {}
 try { db.exec(`ALTER TABLE registrations ADD COLUMN ref_nr TEXT`); } catch {}
 try { db.exec(`ALTER TABLE registrations ADD COLUMN pdf_base64 TEXT`); } catch {}
-try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN doi_confirmed INTEGER DEFAULT 0`); } catch {}
-try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN ref_nr TEXT`); } catch {}
-try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN pdf_base64 TEXT`); } catch {}
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS leads_kapitalanleger (
@@ -90,6 +87,11 @@ db.exec(`
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 `);
+
+// DOI tracking columns for leads_kapitalanleger (must run after CREATE TABLE)
+try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN doi_confirmed INTEGER DEFAULT 0`); } catch {}
+try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN ref_nr TEXT`); } catch {}
+try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN pdf_base64 TEXT`); } catch {}
 
 export function insertRegistration(data: Record<string, unknown>) {
   const columns = Object.keys(data);
