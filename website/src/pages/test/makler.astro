@@ -145,13 +145,16 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
 
   <!-- WELCHE OBJEKTE -->
   <!-- DESIGN GEÄNDERT: Dunkel → Hell, schwarze Schrift -->
-  <section class="section objects-light">
+  <section class="objects-header">
     <div class="container">
-      <div class="makler-section-header">
+      <div class="makler-section-header makler-section-header--center">
         <div class="label">Welche Objekte wir abnehmen</div>
-        <h2>Alles, was auf Ihrem<br />Schreibtisch blockiert.</h2>
+        <h2>Alles, was auf Ihrem Schreibtisch blockiert.</h2>
       </div>
-
+    </div>
+  </section>
+  <section class="objects-cards">
+    <div class="container">
       <div class="objects-grid">
         <div class="object-card">
           <h3>Messie-Wohnungen</h3>
@@ -182,6 +185,7 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
       </div>
     </div>
   </section>
+  <!-- END objects-cards -->
 
   <!-- TRUST / JOACHIM -->
   <!-- GEÄNDERT: Quote-Text authentischer + "Partnermaklern" ergänzt -->
@@ -476,8 +480,22 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
   .solution-list--good li::before { content: '✓'; position: absolute; left: 0; color: var(--color-accent); font-weight: 700; }
 
   /* OBJECTS GRID — HELL (war dunkel) */
-  .objects-light {
-    background: var(--color-bg);
+  /* OBJECTS — Header dunkelblau, Karten hell */
+  .objects-header {
+    background: var(--color-primary);
+    padding-block: var(--section-gap) var(--space-12);
+  }
+  .objects-header .makler-section-header { margin-bottom: 0; }
+  .objects-header .makler-section-header h2 { color: white; }
+  .objects-header .makler-section-header p { color: rgba(255,255,255,0.65); }
+  .objects-header .label {
+    color: var(--color-accent);
+    background: rgba(59,130,246,0.12);
+    border-color: rgba(59,130,246,0.25);
+  }
+  .objects-cards {
+    background: var(--color-bg-alt);
+    padding-block: var(--space-12) var(--section-gap);
   }
   .objects-grid {
     display: grid;
