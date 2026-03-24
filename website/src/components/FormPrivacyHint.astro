@@ -1,20 +1,16 @@
 ---
 ---
-<p class="form-privacy-hint">
-  Mit dem Absenden stimmst du der Verarbeitung deiner Daten gemäß unserer
-  <a href="/datenschutz">Datenschutzerklärung</a> zu. Wir nutzen deine Angaben
-  um dir eine persönliche Einschätzung zu erstellen und dich zu kontaktieren.
-</p>
+<div class="form-privacy-wrap">
+  <label class="form-privacy-checkbox">
+    <input type="checkbox" name="datenschutz_ok" required />
+    <span>Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu.</span>
+  </label>
+</div>
 
 <style>
-  .form-privacy-hint {
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    line-height: var(--leading-normal);
-    margin-top: var(--space-3);
-  }
-  .form-privacy-hint a {
-    color: var(--color-text-muted);
-    text-decoration: underline;
-  }
+  .form-privacy-wrap { margin-top: var(--space-3); }
+  .form-privacy-checkbox { display: flex; align-items: flex-start; gap: var(--space-2); cursor: pointer; }
+  .form-privacy-checkbox input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: var(--color-accent); cursor: pointer; }
+  .form-privacy-checkbox span { font-size: var(--text-xs); color: var(--color-text-muted); line-height: var(--leading-normal); }
+  .form-privacy-checkbox a { color: var(--color-text-muted); text-decoration: underline; }
 </style>

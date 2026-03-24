@@ -71,6 +71,20 @@ const content: Record<string, { title: string; heading: string; message: string;
     next: 'Wie funktioniert das Verfahren?',
     nextLink: '/so-funktionierts',
   },
+  'doi-fehler': {
+    title: 'Link ungültig',
+    heading: 'Dieser Link ist nicht mehr gültig.',
+    message: 'Der Bestätigungslink wurde bereits verwendet oder ist abgelaufen. Bitte fülle das Formular erneut aus.',
+    next: 'Zurück zur Startseite',
+    nextLink: '/',
+  },
+  'report-versendet': {
+    title: 'Analyse unterwegs',
+    heading: 'Deine Analyse ist unterwegs!',
+    message: 'Wir haben dir gerade eine E-Mail mit deiner persönlichen Analyse geschickt. Prüfe deinen Posteingang — auch den Spam-Ordner. Absender: office@wirkaufendeineimmobilie.de',
+    next: 'Zur Startseite',
+    nextLink: '/',
+  },
 };
 
 const c = content[typ] || content.verkaeufer;
