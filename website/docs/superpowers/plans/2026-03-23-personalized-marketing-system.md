@@ -123,10 +123,13 @@ After the existing `try { db.exec(...) } catch {}` migration block (around line 
 // DOI tracking columns
 try { db.exec(`ALTER TABLE registrations ADD COLUMN doi_confirmed INTEGER DEFAULT 0`); } catch {}
 try { db.exec(`ALTER TABLE registrations ADD COLUMN ref_nr TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN pdf_base64 TEXT`); } catch {}  // for roi-rechner PDF storage
 try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN doi_confirmed INTEGER DEFAULT 0`); } catch {}
 try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN ref_nr TEXT`); } catch {}
 try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN pdf_base64 TEXT`); } catch {}
 ```
+
+**Note on `insertRegistration` and `insertKapitalanlegerLead`:** Both functions in `db.ts` already use dynamic column building from `Object.keys(data)` — they build the INSERT statement at runtime from whatever keys you pass. This means you can freely add `ref_nr`, `doi_confirmed`, `pdf_base64` to the data object without changing the function. Verify this by checking that `insertRegistration` starts with `const columns = Object.keys(data)` (it does, at line 73).
 
 Then add these exported functions before `export default db`:
 
@@ -181,10 +184,18 @@ cd ~/code/wkdi-temp/website && npm run build 2>&1 | tail -20
 
 Expected: build succeeds or only shows unrelated warnings
 
+- [ ] **Step 6b: Add `SITE_URL` to `.env.example`**
+
+Check if `.env.example` exists at the repo root. If it does, add:
+```
+SITE_URL=https://wirkaufendeineimmobilie.de
+```
+If `.env.example` doesn't exist, create it with just this line. This ensures staging/local environments get a correct DOI redirect URL rather than the hardcoded fallback.
+
 - [ ] **Step 7: Commit**
 
 ```bash
-git add src/lib/ref.ts src/lib/db.ts src/tests/ref.test.ts
+git add src/lib/ref.ts src/lib/db.ts src/tests/ref.test.ts .env.example
 git commit -m "feat: extract generateRefNr, add DOI DB columns + lookup helpers, dynamic DOI redirect"
 ```
 
@@ -429,6 +440,13 @@ export const GET: APIRoute = async ({ url }) => {
     ? `Deine Kapitalanleger-Analyse — Ref ${refNr}`
     : `Deine persönliche Deal-Analyse — Ref ${refNr}`;
 
+  // Mark confirmed FIRST — idempotency guard fires on any retry regardless of email outcome
+  if (isKA) {
+    confirmKapitalanlegerByRef(ref);
+  } else {
+    confirmRegistrationByRef(ref);
+  }
+
   try {
     // Send PDF to user
     await sendTransactionalEmail({
@@ -449,14 +467,7 @@ export const GET: APIRoute = async ({ url }) => {
       htmlContent: `<p>DOI bestätigt. Report wurde an ${email} gesendet.</p><p>Ref: ${refNr}</p>`,
     });
   } catch {
-    // email failure must not block the redirect — Joachim can follow up manually
-  }
-
-  // mark confirmed
-  if (isKA) {
-    confirmKapitalanlegerByRef(ref);
-  } else {
-    confirmRegistrationByRef(ref);
+    // email failure must not block the redirect — Joachim can follow up manually via ref in DB
   }
 
   return Response.redirect(new URL('/danke?typ=report-versendet', url.origin), 302);
@@ -681,7 +692,36 @@ Follow the exact same pattern as Task 5 roi-report.ts, with these differences:
 - PDF generation uses `generateKapitalanlegerPdfHtml` (already imported)
 - Return `{ success: true, status: 'doi_pending', refNr }`
 
-Note: `insertKapitalanlegerLead` currently doesn't accept `ref_nr`, `doi_confirmed`, `pdf_base64`. It uses dynamic column names from the `data` object, so just pass them in the object — they'll be inserted into the columns added in Task 1.
+**Complete `insertKapitalanlegerLead` call with all new fields:**
+
+```typescript
+insertKapitalanlegerLead({
+  vorname,
+  email,
+  kaufpreis: Number(kaufpreis),
+  baujahr: Number(baujahr),
+  wohnflaeche: Number(wohnflaeche),
+  kaltmiete: Number(kaltmiete),
+  hausgeld: Number(hausgeld),
+  darlehen: Number(darlehen),
+  zinssatz: Number(zinssatz),
+  tilgung: Number(tilgung),
+  grenzsteuersatz: Number(grenzsteuersatz),
+  haltedauer: Number(haltedauer ?? 10),
+  gebaeudeanteil: Number(gebaeudeanteil ?? 80),
+  netto_cashflow_monat: result.nettoCashflowMonat,
+  kaufpreisfaktor: result.kaufpreisfaktor,
+  afa_jahr: result.jahresAfA,
+  npv_10j: result.npv10j,
+  npv_20j: result.npv20j,
+  brutto_rendite: result.bruttoRendite,
+  ref_nr: refNr,           // NEW — Task 1 column
+  doi_confirmed: 0,        // NEW — Task 1 column
+  pdf_base64: pdfBase64,   // NEW — Task 1 column
+});
+```
+
+`insertKapitalanlegerLead` uses the same dynamic `Object.keys(data)` column building as `insertRegistration` — adding new fields to the object automatically inserts them.
 
 - [ ] **Step 2: Update `src/pages/kapitalanleger-rechner.astro` — show "Fast fertig" screen on success**
 
