@@ -180,26 +180,21 @@ import Layout from '../../layouts/Layout.astro';
     </div>
   </section>
 
-  <!-- LIGHT BRIDGE SECTION -->
-  <section class="sfh-bridge-section">
-    <div class="container sfh-bridge__inner">
-      <p class="sfh-bridge__text">
-        Reiche deine Immobilie ein — wir melden uns innerhalb von 48 Stunden beim Eigentümer, um nach Prüfung aller Unterlagen sicherzustellen, dass alle Informationen für das Angebotsverfahren vorliegen.
-      </p>
-    </div>
-  </section>
-
-  <!-- CTA BANNER — kompakt, kein riesiger blauer Block -->
+  <!-- CTA BANNER — alles drin: Eyebrow + Heading + Body + Button -->
   <section class="sfh-cta-banner">
     <div class="sfh-cta-banner__glow" aria-hidden="true"></div>
     <div class="container sfh-cta-banner__inner">
-      <div class="sfh-cta-banner__left">
-        <p class="sfh-cta-banner__eyebrow">Kostenlos &amp; unverbindlich</p>
-        <h2 class="sfh-cta-banner__heading">Bereit für ein faires Angebot?</h2>
-      </div>
+      <p class="sfh-cta-banner__eyebrow">Kostenlos &amp; unverbindlich</p>
+      <h2 class="sfh-cta-banner__heading">Bereit für ein faires Angebot?</h2>
+      <p class="sfh-cta-banner__body">
+        Reiche deine Immobilie ein — wir melden uns innerhalb von 48 Stunden beim Eigentümer, um nach Prüfung aller Unterlagen sicherzustellen, dass alle Informationen für das Angebotsverfahren vorliegen.
+      </p>
       <a href="/#bewertung" class="sfh-cta-banner__btn">Jetzt Immobilie einreichen &rarr;</a>
     </div>
   </section>
+
+  <!-- HELLER SPACER nach dem Banner -->
+  <div class="sfh-spacer-after-banner"></div>
 
 </Layout>
 
@@ -457,41 +452,22 @@ import Layout from '../../layouts/Layout.astro';
     .sfh-av-grid { grid-template-columns: 1fr; }
   }
 
-  /* LIGHT BRIDGE */
-  .sfh-bridge-section {
-    padding-block: var(--space-12);
-    background: var(--color-bg);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .sfh-bridge__inner {
-    max-width: var(--container-wide, 960px);
-    margin-inline: auto;
-  }
-
-  .sfh-bridge__text {
-    font-size: var(--text-lg);
-    color: var(--color-text-mid);
-    line-height: var(--leading-relaxed);
-    text-align: center;
-  }
-
-  /* CTA BANNER — kompakt, horizontal */
+  /* CTA BANNER — zentriert, gestapelt: Eyebrow + Heading + Body + Button */
   .sfh-cta-banner {
     position: relative;
     background: var(--color-primary);
-    padding-block: var(--space-8);
+    padding-block: var(--space-16);
     overflow: hidden;
   }
 
   .sfh-cta-banner__glow {
     position: absolute;
     top: 50%;
-    left: 30%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    height: 150px;
-    background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+    width: 700px;
+    height: 300px;
+    background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -499,16 +475,12 @@ import Layout from '../../layouts/Layout.astro';
     position: relative;
     z-index: 1;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-6);
-    flex-wrap: wrap;
-  }
-
-  .sfh-cta-banner__left {
-    display: flex;
     flex-direction: column;
-    gap: var(--space-1);
+    align-items: center;
+    text-align: center;
+    gap: var(--space-5);
+    max-width: 640px;
+    margin-inline: auto;
   }
 
   .sfh-cta-banner__eyebrow {
@@ -521,10 +493,17 @@ import Layout from '../../layouts/Layout.astro';
   }
 
   .sfh-cta-banner__heading {
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
     font-weight: var(--weight-extrabold);
     color: white;
     line-height: var(--leading-tight);
+    margin: 0;
+  }
+
+  .sfh-cta-banner__body {
+    font-size: var(--text-base);
+    color: rgba(255, 255, 255, 0.75);
+    line-height: var(--leading-relaxed);
     margin: 0;
   }
 
@@ -542,7 +521,7 @@ import Layout from '../../layouts/Layout.astro';
     white-space: nowrap;
     transition: all var(--duration-fast) ease;
     box-shadow: 0 0 24px rgba(59, 130, 246, 0.5);
-    flex-shrink: 0;
+    margin-top: var(--space-2);
   }
 
   .sfh-cta-banner__btn:hover {
@@ -551,12 +530,10 @@ import Layout from '../../layouts/Layout.astro';
     box-shadow: 0 0 40px rgba(59, 130, 246, 0.65);
   }
 
-  @media (max-width: 640px) {
-    .sfh-cta-banner__inner {
-      flex-direction: column;
-      text-align: center;
-      align-items: center;
-    }
+  /* HELLER SPACER nach Banner */
+  .sfh-spacer-after-banner {
+    background: var(--color-bg);
+    padding-block: var(--space-16);
   }
 
   @media (max-width: 640px) {
