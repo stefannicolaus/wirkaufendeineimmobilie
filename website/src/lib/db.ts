@@ -56,6 +56,14 @@ try { db.exec(`ALTER TABLE registrations ADD COLUMN vermietet INTEGER`); } catch
 try { db.exec(`ALTER TABLE registrations ADD COLUMN etage TEXT`); } catch {}
 try { db.exec(`ALTER TABLE registrations ADD COLUMN objekt_step_done INTEGER DEFAULT 0`); } catch {}
 
+// DOI tracking columns
+try { db.exec(`ALTER TABLE registrations ADD COLUMN doi_confirmed INTEGER DEFAULT 0`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN ref_nr TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN pdf_base64 TEXT`); } catch {}
+try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN doi_confirmed INTEGER DEFAULT 0`); } catch {}
+try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN ref_nr TEXT`); } catch {}
+try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN pdf_base64 TEXT`); } catch {}
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS leads_kapitalanleger (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -158,7 +166,7 @@ function notifyN8N(data: Record<string, unknown>) {
           typ,
           listId,
           templateId: BREVO_DOI_TEMPLATE_ID,
-          redirectUrl: BREVO_DOI_REDIRECT_URL,
+          redirectionUrl: BREVO_DOI_REDIRECT_URL,
         });
       } else {
         // Fallback: Direkte Bestätigungsmail wenn DOI noch nicht konfiguriert
@@ -176,15 +184,15 @@ function notifyN8N(data: Record<string, unknown>) {
 // Der Kontakt wird erst aktiv nachdem der Empfänger auf den Link in
 // der Bestätigungsmail klickt.
 // API-Dokumentation: https://developers.brevo.com/reference/createdoicontact
-function triggerBrevoDoubleOptIn(opts: {
+export async function triggerBrevoDoubleOptIn(opts: {
   email: string;
   name: string;
   typ: string;
   listId: number;
   templateId: number;
-  redirectUrl: string;
-}) {
-  fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
+  redirectionUrl: string;
+}): Promise<void> {
+  await fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
     method: 'POST',
     headers: {
       'api-key': BREVO_API_KEY,
@@ -198,10 +206,8 @@ function triggerBrevoDoubleOptIn(opts: {
       },
       includeListIds: [opts.listId],
       templateId: opts.templateId,
-      redirectionUrl: opts.redirectUrl,
+      redirectionUrl: opts.redirectionUrl,
     }),
-  }).catch(() => {
-    // Silent fail — DOI trigger is fire-and-forget
   });
 }
 
@@ -231,6 +237,22 @@ export function insertKapitalanlegerLead(data: Record<string, unknown>) {
     `INSERT INTO leads_kapitalanleger (${columns.join(', ')}) VALUES (${placeholders})`
   );
   return stmt.run(...values);
+}
+
+export function findRegistrationByRef(refNr: string): Record<string, unknown> | undefined {
+  return db.prepare('SELECT * FROM registrations WHERE ref_nr = ?').get(refNr) as Record<string, unknown> | undefined;
+}
+
+export function confirmRegistrationByRef(refNr: string): void {
+  db.prepare('UPDATE registrations SET doi_confirmed = 1 WHERE ref_nr = ?').run(refNr);
+}
+
+export function findKapitalanlegerByRef(refNr: string): Record<string, unknown> | undefined {
+  return db.prepare('SELECT * FROM leads_kapitalanleger WHERE ref_nr = ?').get(refNr) as Record<string, unknown> | undefined;
+}
+
+export function confirmKapitalanlegerByRef(refNr: string): void {
+  db.prepare('UPDATE leads_kapitalanleger SET doi_confirmed = 1 WHERE ref_nr = ?').run(refNr);
 }
 
 export default db;
