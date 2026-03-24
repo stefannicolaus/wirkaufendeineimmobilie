@@ -833,6 +833,10 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
+  // Seite immer ganz oben starten
+  if (window.history.scrollRestoration) window.history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
   // State
   let formData: Record<string, string> = {};
 
