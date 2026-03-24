@@ -73,7 +73,7 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     <div class="container inv-cta-glow__inner">
       <p class="inv-cta-glow__eyebrow">Exklusiver Investoren-Zugang</p>
       <!-- GEÄNDERT: "wegschnappt" + "kuratiert" weg + "keine Makler-Provision" gestrichen -->
-      <h2 class="inv-cta-glow__heading">Dein nächstes Fix-&amp;-Flip-Objekt.<br />Bevor es dir jemand anderes wegschnappt.</h2>
+      <h2 class="inv-cta-glow__heading">Dein nächstes Fix-&amp;-Flip-Objekt. Bevor es dir jemand anderes wegschnappt.</h2>
       <p class="inv-cta-glow__sub">Off-Market Objekte, vorgeprüft und renditestark. Diskretes Angebotsverfahren — kein Stress.</p>
       <a href="#investor-form" class="inv-cta-glow__btn">Investoren-Zugang anfragen &rarr;</a>
     </div>
@@ -345,6 +345,8 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     flex-direction: column;
     align-items: center;
     gap: var(--space-6);
+    max-width: var(--container-narrow);
+    margin-inline: auto;
   }
 
   .inv-cta-glow__eyebrow {
@@ -361,7 +363,6 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     font-weight: var(--weight-extrabold);
     color: #F8FAFC;
     line-height: 1.15;
-    max-width: 620px;
     margin: 0;
     letter-spacing: -0.02em;
   }
