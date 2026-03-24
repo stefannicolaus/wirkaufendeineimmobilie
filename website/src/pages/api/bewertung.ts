@@ -1,12 +1,18 @@
 import type { APIRoute } from 'astro';
 import { insertRegistration } from '../../lib/db';
+import db from '../../lib/db';
+import { sendTransactionalEmail } from '../../lib/brevo';
 
 export const prerender = false;
 
+const SITE_URL = process.env.SITE_URL || 'https://wirkaufendeineimmobilie.de';
+
+// POST /api/bewertung — Step 1: Kontaktdaten
+// Speichert Lead, schickt Brevo-Mail mit Link zu /unterlagen
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.formData();
 
-  // Honeypot spam check
+  // Honeypot
   if (data.get('website')) {
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
@@ -14,14 +20,129 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  insertRegistration({
+  const email = String(data.get('email') || '');
+  const vorname = String(data.get('vorname') || '');
+  const nachname = String(data.get('nachname') || '');
+  const name = `${vorname} ${nachname}`.trim();
+  const telefon = String(data.get('telefon') || '');
+  const plz = String(data.get('plz') || '');
+
+  const result = insertRegistration({
     typ: 'bewertung',
-    name: data.get('name') || '',
-    email: data.get('email'),
-    telefon: data.get('telefon'),
-    plz: data.get('plz'),
-    immobilientyp: data.get('typ'),
+    name,
+    email,
+    telefon,
+    plz,
+    immobilientyp: data.get('typ') || null,
   });
+
+  const id = result.lastInsertRowid;
+
+  // Brevo-Mail mit Link zu /unterlagen (Step 2)
+  const unterlagenUrl = `${SITE_URL}/unterlagen?email=${encodeURIComponent(email)}&plz=${encodeURIComponent(plz)}&ref=${id}`;
+
+  if (email) {
+    await sendTransactionalEmail({
+      to: { email, name: vorname || name },
+      subject: 'Ihre Erstbewertung — Schritt 2: Objekt-Details eingeben',
+      htmlContent: `
+        <p>Hallo ${vorname || name},</p>
+        <p>vielen Dank für Ihre Anfrage bei wirkaufendeineimmobilie.de.</p>
+        <p>Für Ihre kostenlose Erstbewertung benötigen wir noch ein paar Details zu Ihrer Immobilie. Das dauert etwa 2 Minuten:</p>
+        <p style="margin: 24px 0;">
+          <a href="${unterlagenUrl}" style="background:#2563eb;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;">
+            Jetzt Objekt-Details eingeben →
+          </a>
+        </p>
+        <p style="color:#6b7280;font-size:14px;">
+          Kein Dokument ist Pflicht. Was Sie haben, reicht.<br>
+          Bei Fragen ruft Joachim Kleinke Sie persönlich zurück.
+        </p>
+        <p>Viele Grüße,<br>Joachim Kleinke<br>wirkaufendeineimmobilie.de</p>
+      `,
+    });
+  }
+
+  return new Response(JSON.stringify({ success: true, id }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  });
+};
+
+// PATCH /api/bewertung — Step 2: Objekt-Daten nachreichen
+// Wird von /unterlagen aufgerufen wenn der User die Objekt-Details eingibt
+export const PATCH: APIRoute = async ({ request }) => {
+  const body = await request.json();
+
+  const { ref, email, baujahr, wohnflaeche, energieklasse, heizung_baujahr,
+          sanierungsstand, was_saniert, zustand, besonderheit, stellplatz,
+          vermietet, etage } = body;
+
+  if (!ref && !email) {
+    return new Response(JSON.stringify({ success: false, error: 'ref oder email fehlt' }), {
+      status: 400, headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  // Update per ref (ID) oder email (Fallback)
+  const stmt = ref
+    ? db.prepare(`UPDATE registrations SET
+        baujahr=?, wohnflaeche=?, energieklasse=?, heizung_baujahr=?,
+        sanierungsstand=?, was_saniert=?, zustand=?, besonderheit=?,
+        stellplatz=?, vermietet=?, etage=?, objekt_step_done=1
+        WHERE id=?`)
+    : db.prepare(`UPDATE registrations SET
+        baujahr=?, wohnflaeche=?, energieklasse=?, heizung_baujahr=?,
+        sanierungsstand=?, was_saniert=?, zustand=?, besonderheit=?,
+        stellplatz=?, vermietet=?, etage=?, objekt_step_done=1
+        WHERE email=? AND typ='bewertung' ORDER BY id DESC LIMIT 1`);
+
+  stmt.run(
+    baujahr ?? null,
+    wohnflaeche ?? null,
+    energieklasse ?? null,
+    heizung_baujahr ?? null,
+    sanierungsstand ?? null,
+    was_saniert ? JSON.stringify(was_saniert) : null,
+    zustand ?? null,
+    besonderheit ?? null,
+    stellplatz ? 1 : 0,
+    vermietet ? 1 : 0,
+    etage ?? null,
+    ref || email,
+  );
+
+  // Benachrichtigung an Joachim mit allen Daten
+  const row = ref
+    ? db.prepare(`SELECT * FROM registrations WHERE id=?`).get(ref)
+    : db.prepare(`SELECT * FROM registrations WHERE email=? AND typ='bewertung' ORDER BY id DESC LIMIT 1`).get(email);
+
+  if (row) {
+    const r = row as Record<string, unknown>;
+    await sendTransactionalEmail({
+      to: { email: 'office@wirkaufendeineimmobilie.de', name: 'Joachim Kleinke' },
+      subject: `Bewertung komplett: ${r.name} — PLZ ${r.plz}`,
+      htmlContent: `
+        <h2>Neue vollständige Bewertungsanfrage</h2>
+        <table style="border-collapse:collapse;width:100%">
+          <tr><td style="padding:6px;font-weight:600">Name</td><td style="padding:6px">${r.name}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">E-Mail</td><td style="padding:6px">${r.email}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">Telefon</td><td style="padding:6px">${r.telefon || '—'}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">PLZ</td><td style="padding:6px">${r.plz}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">Baujahr</td><td style="padding:6px">${r.baujahr || '—'}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">Wohnfläche</td><td style="padding:6px">${r.wohnflaeche ? r.wohnflaeche + ' m²' : '—'}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">Energieklasse</td><td style="padding:6px">${r.energieklasse || '—'}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">Sanierungsstand</td><td style="padding:6px">${r.sanierungsstand || '—'}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">Was saniert</td><td style="padding:6px">${r.was_saniert || '—'}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">Zustand</td><td style="padding:6px">${r.zustand || '—'}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">Besonderheit</td><td style="padding:6px">${r.besonderheit || '—'}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">Stellplatz</td><td style="padding:6px">${r.stellplatz ? 'Ja' : 'Nein'}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">Vermietet</td><td style="padding:6px">${r.vermietet ? 'Ja' : 'Nein'}</td></tr>
+          <tr><td style="padding:6px;font-weight:600">Etage</td><td style="padding:6px">${r.etage || '—'}</td></tr>
+        </table>
+      `,
+    });
+  }
 
   return new Response(JSON.stringify({ success: true }), {
     status: 200,

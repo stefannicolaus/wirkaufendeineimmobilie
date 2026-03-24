@@ -42,6 +42,20 @@ db.exec(`
 try { db.exec(`ALTER TABLE registrations ADD COLUMN sequence_day3_sent DATETIME`); } catch {}
 try { db.exec(`ALTER TABLE registrations ADD COLUMN sequence_day7_sent DATETIME`); } catch {}
 
+// Objekt-Daten für Erstbewertung (idempotent)
+try { db.exec(`ALTER TABLE registrations ADD COLUMN baujahr INTEGER`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN wohnflaeche REAL`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN energieklasse TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN heizung_baujahr INTEGER`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN sanierungsstand TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN was_saniert TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN zustand TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN besonderheit TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN stellplatz INTEGER`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN vermietet INTEGER`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN etage TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN objekt_step_done INTEGER DEFAULT 0`); } catch {}
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS leads_kapitalanleger (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
