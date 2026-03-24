@@ -25,7 +25,133 @@ export const prerender = false;
   </ul>
 </div>
 
+<!-- Versteckte Felder für URL-Params (Erstbewertung-Flow) -->
+<input type="hidden" id="hidden-email" value="" />
+<input type="hidden" id="hidden-plz" value="" />
+<input type="hidden" id="hidden-ref" value="" />
+
 <div class="container wiz-container">
+
+  <!-- ═══════════════════════════════════════
+       ERSTBEWERTUNG — OBJEKT-DATEN (nur bei URL-Params)
+  ════════════════════════════════════════ -->
+  <div class="wiz-step hidden" id="step-erstbewertung">
+    <div class="wiz-intro">
+      <div class="label">Schritt 2 von 2</div>
+      <h1>Fast fertig —<br /><span class="text-accent">Ihre Immobilien-Details.</span></h1>
+      <p class="wiz-intro__sub">
+        Je mehr Sie angeben, desto genauer Ihre persönliche Preisindikation.
+      </p>
+      <div class="wiz-reassure">
+        <span>✓ 2 Minuten</span>
+        <span>✓ Kein Feld ist Pflicht</span>
+        <span>✓ PDF kommt per E-Mail</span>
+      </div>
+    </div>
+
+    <div class="wiz-card">
+      <h2 class="wiz-card__title">Ihre Immobilie</h2>
+      <form class="wiz-form" id="form-erstbewertung">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="eb-baujahr">Baujahr</label>
+            <input type="number" id="eb-baujahr" name="baujahr" placeholder="z.B. 1978" min="1800" max="2025" />
+          </div>
+          <div class="form-group">
+            <label for="eb-wohnflaeche">Wohnfläche (m²)</label>
+            <input type="number" id="eb-wohnflaeche" name="wohnflaeche" placeholder="z.B. 82" min="10" max="2000" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="eb-energieklasse">Energieklasse</label>
+          <select id="eb-energieklasse" name="energieklasse">
+            <option value="">— bitte wählen / unbekannt —</option>
+            <option value="A+">A+ (sehr effizient)</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+            <option value="H">H (wenig effizient)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="eb-zustand">Zustand der Immobilie</label>
+          <select id="eb-zustand" name="zustand">
+            <option value="">— bitte wählen —</option>
+            <option value="neuwertig">Neuwertig / wie neu</option>
+            <option value="gut">Gut gepflegt</option>
+            <option value="mittel">Mittelmäßig</option>
+            <option value="renovierungsbeduerftig">Renovierungsbedürftig</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="eb-sanierungsstand">Sanierungsstand</label>
+          <select id="eb-sanierungsstand" name="sanierungsstand">
+            <option value="">— bitte wählen —</option>
+            <option value="vollsaniert">Vollsaniert</option>
+            <option value="teilsaniert">Teilsaniert</option>
+            <option value="kaum-saniert">Kaum saniert</option>
+            <option value="unsaniert">Unsaniert / Originalzustand</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="eb-heizung-baujahr">Heizung Baujahr</label>
+            <input type="number" id="eb-heizung-baujahr" name="heizung_baujahr" placeholder="z.B. 2005" min="1950" max="2025" />
+          </div>
+          <div class="form-group">
+            <label for="eb-etage">Etage (bei ETW)</label>
+            <input type="text" id="eb-etage" name="etage" placeholder="z.B. 3. OG / EG" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+              <input type="checkbox" id="eb-stellplatz" name="stellplatz" style="width:18px;height:18px;" />
+              Stellplatz vorhanden
+            </label>
+          </div>
+          <div class="form-group">
+            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+              <input type="checkbox" id="eb-vermietet" name="vermietet" style="width:18px;height:18px;" />
+              Aktuell vermietet
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="eb-besonderheit">Besonderheiten (optional)</label>
+          <textarea id="eb-besonderheit" name="besonderheit" rows="2" placeholder="z.B. Dachterrasse, Erstbezug nach Sanierung, Erbbaurecht, ..."></textarea>
+        </div>
+
+        <div class="form-group" style="margin-top:32px;border-top:1px solid #e2e8f0;padding-top:32px;">
+          <label for="eb-pain-freitext">Was ist aktuell das größte Problem für Sie? <span style="color:#64748b;font-weight:400;">(optional)</span></label>
+          <textarea id="eb-pain-freitext" name="pain_freitext" rows="4"
+            placeholder="Je mehr Sie uns mitteilen, desto persönlicher kann Joachim auf Ihre Situation eingehen..."></textarea>
+          <p class="form-hint">Joachim liest Ihre Nachricht persönlich vor dem Rückruf.</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary wiz-btn-next" style="width:100%;margin-top:24px;">
+          Preisindikation erstellen &rarr;
+        </button>
+        <FormPrivacyHint />
+      </form>
+      <div id="eb-success" class="hidden" style="text-align:center;padding:48px 24px;">
+        <p style="font-size:32px;margin-bottom:16px;">✓</p>
+        <h3>Danke! Ihre Preisindikation wird erstellt.</h3>
+        <p style="color:#64748b;margin-top:8px;">Sie bekommen Ihr persönliches PDF in Kürze per E-Mail. Joachim ruft Sie in den nächsten 48 Stunden zurück.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- ═══════════════════════════════════════
        SCHRITT 0 — KONTAKT
@@ -45,7 +171,7 @@ export const prerender = false;
     </div>
 
     <div class="wiz-card">
-      <h2 class="wiz-card__title">Kurz vorstellen — damit wir wissen, für wen die Unterlagen sind.</h2>
+      <h2 class="wiz-card__title">Für wen sollen wir die Auswertung erstellen?</h2>
       <form class="wiz-form" id="form-kontakt">
         <div class="form-row form-row--name">
           <div class="form-group">
@@ -62,25 +188,9 @@ export const prerender = false;
           <input type="email" id="k-email" name="email" required placeholder="ihre@email.de" autocomplete="email" />
           <p class="form-hint">Damit wir Ihnen den Link zum Fortführen schicken können.</p>
         </div>
-        <div class="form-row form-row--strasse">
-          <div class="form-group">
-            <label for="k-strasse">Straße *</label>
-            <input type="text" id="k-strasse" name="strasse" required placeholder="Musterstraße" autocomplete="address-line1" />
-          </div>
-          <div class="form-group">
-            <label for="k-hausnummer">Nr. *</label>
-            <input type="text" id="k-hausnummer" name="hausnummer" required placeholder="12" />
-          </div>
-        </div>
-        <div class="form-row form-row--plzort">
-          <div class="form-group">
-            <label for="k-plz">PLZ *</label>
-            <input type="text" id="k-plz" name="plz" required placeholder="04315" autocomplete="postal-code" maxlength="5" />
-          </div>
-          <div class="form-group">
-            <label for="k-ort">Ort *</label>
-            <input type="text" id="k-ort" name="ort" required placeholder="Leipzig" autocomplete="address-level2" />
-          </div>
+        <div class="form-group">
+          <label for="k-plz">PLZ der Immobilie *</label>
+          <input type="text" id="k-plz" name="plz" required placeholder="04315" autocomplete="postal-code" maxlength="5" />
         </div>
         <button type="submit" class="btn btn-primary wiz-btn-next">
           Unterlagen hochladen starten &rarr;
@@ -1264,6 +1374,23 @@ Vielen Dank und freundliche Grüße,
     const nameParam = params.get('name') || '';
     const emailParam = params.get('email') || '';
     const plzParam = params.get('plz') || '';
+    const refParam = params.get('ref') || '';
+
+    // Erstbewertung-Flow: wenn email + (plz oder ref) in URL → Step 0 überspringen
+    if (emailParam && (plzParam || refParam)) {
+      // Werte in versteckte Felder schreiben
+      const hiddenEmail = document.getElementById('hidden-email') as HTMLInputElement;
+      const hiddenPlz = document.getElementById('hidden-plz') as HTMLInputElement;
+      const hiddenRef = document.getElementById('hidden-ref') as HTMLInputElement;
+      if (hiddenEmail) hiddenEmail.value = emailParam;
+      if (hiddenPlz) hiddenPlz.value = plzParam;
+      if (hiddenRef) hiddenRef.value = refParam;
+
+      // Erstbewertung-Schritt anzeigen, alles andere ausblenden
+      document.querySelectorAll('.wiz-step').forEach(el => el.classList.add('hidden'));
+      document.getElementById('step-erstbewertung')?.classList.remove('hidden');
+      return; // nicht weiter initialisieren
+    }
 
     if (nameParam) {
       const parts = nameParam.trim().split(' ');
@@ -1369,6 +1496,47 @@ Vielen Dank und freundliche Grüße,
       const s = parseInt(dot.getAttribute('data-step') || '0');
       if (s > 0) goToStep(s);
     });
+  });
+
+  // ── ERSTBEWERTUNG FORM (Objekt-Daten → PATCH /api/bewertung) ──
+  document.getElementById('form-erstbewertung')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    btn.textContent = 'Wird erstellt…';
+    btn.disabled = true;
+
+    const email = (document.getElementById('hidden-email') as HTMLInputElement).value;
+    const ref = (document.getElementById('hidden-ref') as HTMLInputElement).value;
+
+    const body = {
+      ref: ref ? Number(ref) : undefined,
+      email: ref ? undefined : email,
+      baujahr: Number((document.getElementById('eb-baujahr') as HTMLInputElement).value) || null,
+      wohnflaeche: Number((document.getElementById('eb-wohnflaeche') as HTMLInputElement).value) || null,
+      energieklasse: (document.getElementById('eb-energieklasse') as HTMLSelectElement).value || null,
+      zustand: (document.getElementById('eb-zustand') as HTMLSelectElement).value || null,
+      sanierungsstand: (document.getElementById('eb-sanierungsstand') as HTMLSelectElement).value || null,
+      heizung_baujahr: Number((document.getElementById('eb-heizung-baujahr') as HTMLInputElement).value) || null,
+      etage: (document.getElementById('eb-etage') as HTMLInputElement).value || null,
+      stellplatz: (document.getElementById('eb-stellplatz') as HTMLInputElement).checked,
+      vermietet: (document.getElementById('eb-vermietet') as HTMLInputElement).checked,
+      besonderheit: (document.getElementById('eb-besonderheit') as HTMLTextAreaElement).value || null,
+      pain_freitext: (document.getElementById('eb-pain-freitext') as HTMLTextAreaElement).value || null,
+    };
+
+    try {
+      await fetch('/api/bewertung', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      form.classList.add('hidden');
+      document.getElementById('eb-success')?.classList.remove('hidden');
+    } catch {
+      btn.textContent = 'Preisindikation erstellen →';
+      btn.disabled = false;
+    }
   });
 
   // ── KONTAKT FORM ──
