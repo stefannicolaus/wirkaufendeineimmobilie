@@ -10,9 +10,11 @@
   <div id="app">Lädt...</div>
   <script>
     const AUTH_KEY = 'wkdi_tool_auth';
+    const HQ_KEY = 'wkdi_hq_auth';
     const USERS = { 'joachim': 'joachim2026', 'stefan': 'stefan2026' };
-    const storedUser = localStorage.getItem(AUTH_KEY + '_user');
-    const storedPass = localStorage.getItem(AUTH_KEY + '_pass');
+    // Accept either tool-auth or HQ-auth (same domain, same users)
+    const storedUser = localStorage.getItem(AUTH_KEY + '_user') || localStorage.getItem(HQ_KEY + '_user');
+    const storedPass = localStorage.getItem(AUTH_KEY + '_pass') || localStorage.getItem(HQ_KEY + '_pass');
     if (!storedUser || USERS[storedUser] !== storedPass) {
       document.getElementById('app').innerHTML = `
         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100dvh;gap:12px;padding:24px;">
