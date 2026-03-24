@@ -37,22 +37,31 @@ Besucher je nach Lebenssituation erkennen, durch den richtigen Funnel führen un
 
 ## 3. Opt-in Flow (alle Segmente)
 
+**Regel: Notification an Joachim feuert immer nach DOI-Bestätigung (confirm-time), nicht bei Form-Submit. Grund: keine Benachrichtigungen für unbestätigte Adressen.**
+
+**DSGVO-Pflicht: Alle Email-Gate-Formulare müssen `<FormPrivacyHint />` + Checkbox mit Link zu /datenschutz enthalten.**
+
 ### 3a. Bestehende Lead Magnets (Aktionsplan, Blueprint, Kompass)
 
 ```
-/[lm]/index.astro  →  Email-Gate-Form (Vorname + Email + Checkbox)
+/[lm]/index.astro  →  Email-Gate-Form (Vorname + Email + FormPrivacyHint + Checkbox)
   → POST /api/lead-magnet
   → SQLite: INSERT mit doi_confirmed=false, ref_nr
-  → Brevo: createDoiContact (segment-spezifische Liste + Redirect-URL)
+  → Brevo: createDoiContact(email, liste, redirectionUrl=BASE_URL+'/api/confirm-lead?ref='+ref_nr)
+    ↳ redirectionUrl ist dynamisch pro Submission — KEIN statischer Env-Var
   → Response: { status: 'doi_pending' }
   → Seite: "Fast fertig" — Zwischenscreen (siehe 3c)
 
 Nutzer klickt Bestätigungslink in DOI-Mail
-  → Brevo redirect: /api/confirm-lead?ref=WKDI-YYYYMMDD-XXXX
-  → Endpoint: doi_confirmed=true in SQLite
-  → Notification an Joachim (Brevo transactional)
-  → Brevo Automation: Welcome-Mail startet
-  → Weiterleitung: /danke?typ=doi-bestaetigt&segment=[typ]
+  → Brevo redirect: /api/confirm-lead?ref=WKDI-YYYYMMDD-XXXX (GET)
+  → Endpoint-Logik:
+      ref nicht gefunden → redirect /danke?typ=doi-fehler
+      ref bereits confirmed → redirect /danke?typ=doi-bestaetigt (idempotent, kein Fehler)
+      ref valide, unconfirmed:
+        → doi_confirmed=true in SQLite
+        → Notification an Joachim (Brevo transactional)
+        → Brevo Automation startet automatisch via Listen-Mitgliedschaft
+        → redirect /danke?typ=doi-bestaetigt&segment=[typ]
 
 start.astro (Fragebogen) zugänglich nach DOI-Bestätigung via Link in Welcome-Mail
 ```
@@ -60,22 +69,29 @@ start.astro (Fragebogen) zugänglich nach DOI-Bestätigung via Link in Welcome-M
 ### 3b. Rechner-Lead Magnets (ROI-Rechner, KA-Rechner)
 
 ```
-/roi-rechner  →  Formular (Kalkulations-Daten + Vorname + Email + Checkbox)
+/roi-rechner  →  Formular (Kalkulations-Daten + Vorname + Email + FormPrivacyHint + Checkbox)
   → POST /api/roi-report
   → Kalkulation durchführen
-  → SQLite: INSERT mit doi_confirmed=false, ref_nr, alle Kalkulations-Daten
-  → Brevo: createDoiContact (Liste ROI + Redirect-URL mit ref_nr)
+  → SQLite: INSERT mit doi_confirmed=false, ref_nr (Präfix WKDI-), alle Kalkulations-Daten
+  → Brevo: createDoiContact(email, BREVO_LIST_ID_ROI, redirectionUrl=BASE_URL+'/api/confirm-report?ref='+ref_nr)
+    ↳ redirectionUrl enthält ref_nr dynamisch — so weiß confirm-report welches PDF zu senden ist
   → Seite: "Fast fertig" — Zwischenscreen (siehe 3c)
 
 Nutzer klickt Bestätigungslink in DOI-Mail
-  → Brevo redirect: /api/confirm-report?ref=WKDI-YYYYMMDD-XXXX
-  → Endpoint: SQLite lookup via ref_nr → PDF generieren (Puppeteer) → Brevo versenden
-  → doi_confirmed=true in SQLite
-  → Brevo Automation: Welcome-Sequenz startet
-  → Weiterleitung: /danke?typ=report-versendet
+  → Brevo redirect: /api/confirm-report?ref=WKDI-YYYYMMDD-XXXX (GET)
+  → Endpoint-Logik:
+      ref nicht gefunden → redirect /danke?typ=doi-fehler
+      ref bereits confirmed → redirect /danke?typ=report-versendet (idempotent, kein Doppel-Send)
+      ref valide, unconfirmed:
+        → SQLite lookup via ref_nr → PDF generieren (Puppeteer) → Brevo versenden
+        → doi_confirmed=true in SQLite
+        → Brevo Automation startet automatisch via Listen-Mitgliedschaft
+        → redirect /danke?typ=report-versendet
 ```
 
 **Gleiches Muster für KA-Rechner** mit `ref_nr`-Präfix `KA-`.
+
+**Implementation-Entscheidung PDF-Timing:** Puppeteer-PDF-Generierung dauert 2–8 Sekunden — zu langsam für einen synchronen GET-Handler der dann redirecten muss. Lösung: PDF bereits bei POST (`/api/roi-report`) generieren und als Base64 in SQLite speichern (`pdf_base64 TEXT`). `confirm-report` liest den gespeicherten PDF-Blob aus SQLite und sendet ihn via Brevo — kein zweiter Puppeteer-Aufruf. Spalte `pdf_base64` ebenfalls via idempotentes ALTER TABLE hinzufügen.
 
 ### 3c. "Fast fertig" — Zwischenscreen nach Form-Submit
 
@@ -117,6 +133,7 @@ Was dich erwartet:
 
 **index.astro:** Landing-Page, Joachim analysiert persönlich, 24h Rückmeldung
 **Email-Gate → DOI → start.astro (Fragebogen):**
+- Formular enthält `<FormPrivacyHint />` + Datenschutz-Checkbox (DSGVO-Pflicht)
 1. Einigung mit Partner? (Ja / Nein / In Verhandlung)
 2. Zeitdruck? (Sofort / In 3 Monaten / Kein Druck)
 3. PLZ der Immobilie
@@ -128,6 +145,7 @@ Was dich erwartet:
 
 **index.astro:** Landing-Page, schnell verkaufen ohne Stress
 **Email-Gate → DOI → start.astro (Fragebogen):**
+- Formular enthält `<FormPrivacyHint />` + Datenschutz-Checkbox (DSGVO-Pflicht)
 1. Umzug wann? (Bereits erfolgt / 1–3 Monate / 3–6 Monate)
 2. Immobilie bereits leer? (Ja / Nein, noch bewohnt)
 3. PLZ der Immobilie
@@ -162,19 +180,24 @@ Scenario-Cards bekommen segment-spezifische CTAs statt generischer Footer-Links:
 - `src/pages/scheidung/start.astro`
 - `src/pages/umzug/index.astro`
 - `src/pages/umzug/start.astro`
-- `src/pages/api/confirm-lead.ts` — DOI-Bestätigung für manuelle LMs
-- `src/pages/api/confirm-report.ts` — DOI-Bestätigung + PDF-Versand für Rechner
+- `src/pages/api/confirm-lead.ts` (NEU) — GET-Endpoint, DOI-Bestätigung für manuelle LMs. Logik: ref-not-found → `/danke?typ=doi-fehler`, already-confirmed → `/danke?typ=doi-bestaetigt` (idempotent), valid → confirm + notify + redirect
+- `src/pages/api/confirm-report.ts` (NEU) — GET-Endpoint, DOI-Bestätigung + PDF-Versand für Rechner. Gleiche Fehler-Logik; valid → PDF generieren + senden → `/danke?typ=report-versendet`
 
 ### Geänderte Dateien
-- `src/lib/db.ts` — `doi_confirmed BOOLEAN DEFAULT 0` + `ref_nr TEXT` zu `registrations` + `leads_kapitalanleger`
-- `src/pages/api/lead-magnet.ts` — DOI-Trigger pro Segment, Brevo-Listen-Zuweisung
-- `src/pages/api/roi-report.ts` — Kalkulation speichern ohne sofort PDF senden; DOI triggern
+- `src/lib/db.ts`
+  - `doi_confirmed BOOLEAN DEFAULT 0` + `ref_nr TEXT` zu `registrations` + `leads_kapitalanleger`
+  - Migration via idempotentes `try { ALTER TABLE } catch {}` (bestehendes Pattern — kein `_migrations`-Eintrag)
+  - `triggerBrevoDoubleOptIn`: statisches `redirectUrl`-Feld entfernen, stattdessen `redirectionUrl` als Pflicht-Parameter pro Call. Bestehende `BREVO_DOI_REDIRECT_URL` Env-Var entfernen — war global/statisch, wird ersetzt durch dynamische URL pro Submission (`${SITE_BASE_URL}/api/confirm-lead?ref=${ref_nr}`)
+- `src/pages/api/lead-magnet.ts` — DOI-Trigger pro Segment mit dynamischer redirectionUrl, Brevo-Listen-Zuweisung
+- `src/pages/api/roi-report.ts` — Kalkulation in SQLite speichern (doi_confirmed=false), DOI triggern, kein sofortiger PDF-Versand mehr
 - `src/pages/api/kapitalanleger-report.ts` — gleich wie roi-report
 - `src/pages/aktionsplan-erbengemeinschaft/index.astro` — Email-Gate einfügen
 - `src/pages/90-tage-blueprint/index.astro` — Email-Gate einfügen
 - `src/pages/entscheidungskompass-betreuung/index.astro` — Email-Gate einfügen
 - `src/pages/index.astro` — Contextual CTAs auf Scenario-Cards
 - `src/components/Footer.astro` — Lead Magnet Links entfernen
+- `src/components/FormPrivacyHint.astro` — Checkbox (`<input type="checkbox" required>` + Label mit /datenschutz-Link) in Komponente integrieren, damit alle Call-Sites automatisch DSGVO-konform sind
+- `src/pages/danke.astro` — Neuen Variant `doi-fehler` hinzufügen ("Link ungültig oder bereits verwendet — bitte erneut das Formular ausfüllen")
 
 ### Env-Vars (neu)
 ```
