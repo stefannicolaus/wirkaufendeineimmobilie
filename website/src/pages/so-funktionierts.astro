@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 ---
 <Layout
   title="So funktioniert's — wirkaufendeineimmobilie.de"
-  description="So vermitteln wir deine Immobilie — vom ersten Kontakt bis zum Notartermin. Transparent und fair, für Verkäufer und Käufer."
+  description="So vermitteln wir deine Immobilie — vom ersten Kontakt bis zum Notartermin. Transparent und fair."
 >
 
   <!-- HERO + CTA above-the-fold -->
@@ -33,6 +33,8 @@ import Layout from '../layouts/Layout.astro';
       <div role="tabpanel" id="panel-verkaeufer" aria-labelledby="tab-verkaeufer" class="tab-panel tab-panel--active">
         <div class="sfh-timeline">
           <div class="sfh-timeline__rail" aria-hidden="true"><div class="sfh-timeline__beam"></div></div>
+
+          <!-- SCHRITT 1 -->
           <div class="sfh-timeline__item">
             <div class="sfh-timeline__dot">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -40,9 +42,11 @@ import Layout from '../layouts/Layout.astro';
             <div class="sfh-timeline__content">
               <div class="sfh-timeline__label">Schritt 01</div>
               <h3>Objekt einreichen</h3>
-              <p>PLZ + Basisdaten — 2 Minuten. Kein Aufräumen, keine Vorbereitungen. Wir bewerten die Substanz — nicht den Zustand.</p>
+              <p>In 2 Minuten. Kein Aufräumen, keine Vorbereitung. Wir bewerten die Substanz und prüfen alle Unterlagen — nicht den Zustand. PLZ + Basisdaten der Eigentumswohnung eingeben.</p>
             </div>
           </div>
+
+          <!-- SCHRITT 2 -->
           <div class="sfh-timeline__item">
             <div class="sfh-timeline__dot">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -50,9 +54,11 @@ import Layout from '../layouts/Layout.astro';
             <div class="sfh-timeline__content">
               <div class="sfh-timeline__label">Schritt 02</div>
               <h3>Wir starten das Angebotsverfahren</h3>
-              <p>Nur bonitätsstarke Käufer. Echte Kaufangebote — keine Makler-Schätzungen. Jeder gibt ein verdecktes Angebot ab.</p>
+              <p>Echte Kaufangebote von bonitätsstarken Investoren — keine Makler-Schätzungen. Jeder gibt ein verdecktes Angebot ab.</p>
             </div>
           </div>
+
+          <!-- SCHRITT 3 -->
           <div class="sfh-timeline__item">
             <div class="sfh-timeline__dot">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -60,7 +66,7 @@ import Layout from '../layouts/Layout.astro';
             <div class="sfh-timeline__content">
               <div class="sfh-timeline__label">Schritt 03</div>
               <h3>Du entscheidest</h3>
-              <p>Alle Angebote einsehen. Frei wählen. Wir koordinieren den Notartermin. Kein Zwang, kein Zeitdruck.</p>
+              <p>Alle Angebote einsehen. Frei wählen. Wir koordinieren den Notartermin.</p>
             </div>
           </div>
         </div>
@@ -111,24 +117,25 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
-  <!-- ANGEBOTSVERFAHREN ERKLÄRT — Dark Hover Grid -->
+  <!-- ANGEBOTSVERFAHREN ERKLÄRT -->
   <section class="sfh-av-section">
     <div class="container">
       <h2>Das digitale Angebotsverfahren</h2>
       <p class="sfh-av__intro">
-        <strong>Kein Bieterwettlauf. Kein Zwang.</strong> — Jeder gibt sein bestes Angebot ab, verdeckt.
-        Der Verkäufer sieht alle Angebote und entscheidet frei.
+        Jeder Investor gibt sein bestes Angebot ab — verdeckt. Der Verkäufer und wirkaufendeineimmobilie sind die Einzigen, die alle Angebote sehen. Der Eigentümer hat die freie Entscheidung.
       </p>
       <div class="sfh-av-grid">
+
         <div class="sfh-av-point">
           <div class="sfh-av-point__icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
           <div>
             <h3>Geschlossen</h3>
-            <p>Niemand sieht andere Gebote. Kein Hochbieten, kein FOMO.</p>
+            <p>Niemand sieht andere Gebote.</p>
           </div>
         </div>
+
         <div class="sfh-av-point">
           <div class="sfh-av-point__icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -138,38 +145,45 @@ import Layout from '../layouts/Layout.astro';
             <p>Ein Gebot pro Käufer. Gleiche Regeln für alle.</p>
           </div>
         </div>
+
         <div class="sfh-av-point">
           <div class="sfh-av-point__icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </div>
           <div>
             <h3>Transparent</h3>
-            <p>Alle Angebote werden dem Verkäufer gezeigt. Vollständige Einsicht.</p>
+            <p>Alle Angebote der Investoren werden dem Verkäufer offengelegt.</p>
           </div>
         </div>
+
         <div class="sfh-av-point">
           <div class="sfh-av-point__icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
           <div>
             <h3>Rechtssicher</h3>
-            <p>Kaufvertrag kommt erst durch notarielle Beurkundung zustande.</p>
+            <p>Kaufvertrag kommt durch notarielle Beurkundung zustande und ist damit rechtssicher und vertrauenswürdig.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA WITH GLOW -->
-  <section class="sfh-cta-glow-section">
-    <div class="sfh-cta-glow__glow" aria-hidden="true"></div>
-    <div class="container sfh-cta-glow__inner">
-      <p class="sfh-cta-glow__eyebrow">Kostenlos &amp; unverbindlich</p>
-      <h2 class="sfh-cta-glow__heading">Bereit für ein faires Angebot?</h2>
-      <p class="sfh-cta-glow__sub">Reiche deine Immobilie ein — wir melden uns innerhalb von 48 Stunden mit einem ersten Angebot.</p>
-      <a href="/#bewertung" class="sfh-cta-glow__btn">Jetzt Immobilie einreichen &rarr;</a>
+  <!-- CTA BANNER -->
+  <section class="sfh-cta-banner">
+    <div class="sfh-cta-banner__glow" aria-hidden="true"></div>
+    <div class="container sfh-cta-banner__inner">
+      <p class="sfh-cta-banner__eyebrow">Kostenlos &amp; unverbindlich</p>
+      <h2 class="sfh-cta-banner__heading">Bereit für ein faires Angebot?</h2>
+      <p class="sfh-cta-banner__body">
+        Reiche deine Immobilie ein — wir melden uns innerhalb von 48 Stunden beim Eigentümer, um nach Prüfung aller Unterlagen sicherzustellen, dass alle Informationen für das Angebotsverfahren vorliegen.
+      </p>
+      <a href="/#bewertung" class="sfh-cta-banner__btn">Jetzt Immobilie einreichen &rarr;</a>
     </div>
   </section>
+
+  <!-- HELLER SPACER nach dem Banner -->
+  <div class="sfh-spacer-after-banner"></div>
 
 </Layout>
 
@@ -203,12 +217,11 @@ import Layout from '../layouts/Layout.astro';
     margin-top: var(--space-4);
   }
 
-  /* TABS SECTION — full width bg */
+  /* TABS SECTION */
   .sfh-tabs-section {
     padding-block: var(--section-gap);
   }
 
-  /* Pill-Container Tab Switch */
   .tab-switch-container {
     display: flex;
     justify-content: center;
@@ -274,12 +287,7 @@ import Layout from '../layouts/Layout.astro';
     left: 0;
     width: 100%;
     height: 40%;
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      var(--color-accent),
-      transparent
-    );
+    background: linear-gradient(to bottom, transparent, var(--color-accent), transparent);
     animation: sfh-beam-slide 3s ease-in-out infinite;
   }
 
@@ -347,7 +355,7 @@ import Layout from '../layouts/Layout.astro';
     margin-top: var(--space-10);
   }
 
-  /* ANGEBOTSVERFAHREN — Light cards */
+  /* ANGEBOTSVERFAHREN */
   .sfh-av-section {
     padding-block: var(--section-gap);
     background: var(--color-bg-card);
@@ -417,42 +425,42 @@ import Layout from '../layouts/Layout.astro';
   }
 
   @media (max-width: 640px) {
-    .sfh-av-grid {
-      grid-template-columns: 1fr;
-    }
+    .sfh-av-grid { grid-template-columns: 1fr; }
   }
 
-  /* CTA GLOW SECTION */
-  .sfh-cta-glow-section {
+  /* CTA BANNER */
+  .sfh-cta-banner {
     position: relative;
     background: var(--color-primary);
-    padding-block: var(--space-20);
+    padding-block: var(--space-16);
     overflow: hidden;
   }
 
-  .sfh-cta-glow__glow {
+  .sfh-cta-banner__glow {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;
+    width: 700px;
     height: 300px;
     background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
     pointer-events: none;
   }
 
-  .sfh-cta-glow__inner {
+  .sfh-cta-banner__inner {
     position: relative;
     z-index: 1;
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-4);
+    text-align: center;
+    gap: var(--space-5);
+    max-width: var(--container-narrow);
+    margin-inline: auto;
   }
 
-  .sfh-cta-glow__eyebrow {
-    font-size: var(--text-sm);
+  .sfh-cta-banner__eyebrow {
+    font-size: var(--text-xs);
     font-weight: var(--weight-semibold);
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -460,23 +468,22 @@ import Layout from '../layouts/Layout.astro';
     margin: 0;
   }
 
-  .sfh-cta-glow__heading {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  .sfh-cta-banner__heading {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
     font-weight: var(--weight-extrabold);
     color: white;
     line-height: var(--leading-tight);
-    max-width: 640px;
     margin: 0;
   }
 
-  .sfh-cta-glow__sub {
-    font-size: var(--text-lg);
-    color: rgba(255, 255, 255, 0.65);
-    max-width: 560px;
+  .sfh-cta-banner__body {
+    font-size: var(--text-base);
+    color: rgba(255, 255, 255, 0.75);
+    line-height: var(--leading-relaxed);
     margin: 0;
   }
 
-  .sfh-cta-glow__btn {
+  .sfh-cta-banner__btn {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
@@ -487,38 +494,33 @@ import Layout from '../layouts/Layout.astro';
     background: var(--color-accent);
     border-radius: var(--radius-sm);
     text-decoration: none;
+    white-space: nowrap;
     transition: all var(--duration-fast) ease;
+    box-shadow: 0 0 24px rgba(59, 130, 246, 0.5);
     margin-top: var(--space-2);
-    box-shadow: 0 0 32px rgba(59, 130, 246, 0.5);
   }
 
-  .sfh-cta-glow__btn:hover {
+  .sfh-cta-banner__btn:hover {
     background: var(--color-accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 0 48px rgba(59, 130, 246, 0.65);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.65);
+  }
+
+  /* HELLER SPACER nach Banner */
+  .sfh-spacer-after-banner {
+    background: var(--color-bg);
+    padding-block: var(--space-16);
   }
 
   @media (max-width: 640px) {
-    .sfh-timeline {
-      padding-left: 40px;
-    }
-    .sfh-timeline__dot {
-      left: -40px;
-      width: 32px;
-      height: 32px;
-    }
-    .sfh-timeline__dot svg {
-      width: 16px;
-      height: 16px;
-    }
-    .sfh-timeline__rail {
-      left: 15px;
-    }
+    .sfh-timeline { padding-left: 40px; }
+    .sfh-timeline__dot { left: -40px; width: 32px; height: 32px; }
+    .sfh-timeline__dot svg { width: 16px; height: 16px; }
+    .sfh-timeline__rail { left: 15px; }
   }
 </style>
 
 <script>
-  // Tab switching
   const tabs = document.querySelectorAll('.tab-btn');
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
@@ -542,7 +544,6 @@ import Layout from '../layouts/Layout.astro';
     });
   });
 
-  // Timeline entrance animation
   const timelineItems = document.querySelectorAll('.sfh-timeline__item');
   timelineItems.forEach((item) => item.classList.add('animate-hidden'));
 
@@ -558,5 +559,4 @@ import Layout from '../layouts/Layout.astro';
     { threshold: 0.15 }
   );
   timelineItems.forEach((item) => observer.observe(item));
-
 </script>
