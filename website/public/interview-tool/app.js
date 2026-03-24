@@ -165,9 +165,12 @@ function renderInterview() {
 
   return `
     <header class="header">
-      <button class="btn btn--ghost btn--back" onclick="navigate('startscreen')">← Zurück</button>
+      <button class="btn btn--ghost btn--sm" onclick="navigate('startscreen')">← Neu</button>
       <span class="header__topic">${topic.label}</span>
-      <span class="autosave-indicator" id="autosave-indicator">Gespeichert ✓</span>
+      <div class="header__actions">
+        <span class="autosave-indicator" id="autosave-indicator">✓</span>
+        <button class="btn btn--ghost btn--sm" onclick="navigate('archive')">Archiv</button>
+      </div>
     </header>
 
     <div class="progress-bar">
