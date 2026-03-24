@@ -319,7 +319,7 @@ import Layout from '../layouts/Layout.astro';
     <p class="rechner-cross-banner__label">Auch interessant</p>
     <h2 class="rechner-cross-banner__heading">Fix &amp; Flip statt Langzeit-Vermietung?</h2>
     <p class="rechner-cross-banner__sub">Der ROI-Rechner zeigt dir was du für eine Sanierungsimmobilie bekommst — Einkaufspreis, Sanierungskosten, Verkaufsrendite.</p>
-    <a href="/roi-rechner" class="btn btn-primary">ROI-Rechner öffnen &rarr;</a>
+    <a href="/roi-rechner" class="rechner-cross-btn">&rarr; ROI-Rechner für Fix &amp; Flip</a>
   </div>
 </section>
 
@@ -365,6 +365,30 @@ import Layout from '../layouts/Layout.astro';
   max-width: 540px;
   line-height: 1.6;
   margin: 0;
+}
+.rechner-cross-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 40px;
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+  background: #F8FAFC;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.1),
+    0 4px 24px rgba(59, 130, 246, 0.4);
+  margin-top: var(--space-2);
+}
+.rechner-cross-btn:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.2),
+    0 8px 32px rgba(59, 130, 246, 0.5);
 }
 
 /* ─────────────────────────────
