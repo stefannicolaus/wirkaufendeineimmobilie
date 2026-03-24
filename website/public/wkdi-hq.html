@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WKDI Team HQ</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --forest-950: #0d1f17;
+  --forest-900: #1a3a2a;
+  --forest-800: #1e4433;
+  --forest-700: #2d6a4f;
+  --forest-600: #3a7d5c;
+  --forest-500: #52a77d;
+  --forest-200: #b7d9c9;
+  --forest-100: #d8eee5;
+  --forest-50:  #eef6f1;
+  --sand-900:   #3d3530;
+  --sand-700:   #6b5e56;
+  --sand-400:   #b5a99f;
+  --sand-200:   #ddd5cf;
+  --sand-100:   #ede8e3;
+  --sand-50:    #f5f2ef;
+  --gold-600:   #b8860b;
+  --gold-400:   #d4a843;
+  --gold-50:    #fdf8ec;
+  --paper:      #fafaf8;
+  --red-700:    #b91c1c;
+  --red-600:    #c0392b;
+  --red-50:     #fef5f4;
+  --yellow-600: #b45309;
+  --yellow-50:  #fef9ed;
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
+  --shadow:     0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+  --radius:     10px;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font-sans:  'Inter', system-ui, sans-serif;
+}
+
+body { font-family: var(--font-sans); background: var(--sand-50); color: var(--forest-900); font-size: 14px; line-height: 1.5; }
+
+/* ── LOGIN ── */
+#login-screen {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 100dvh; gap: 12px; padding: 24px;
+  background: linear-gradient(160deg, var(--forest-950) 0%, var(--forest-800) 100%);
+}
+.login-logo { font-family: var(--font-serif); font-size: 28px; color: white; margin-bottom: 8px; }
+.login-logo span { color: var(--forest-500); }
+.login-sub { font-size: 13px; color: var(--forest-200); margin-bottom: 16px; }
+.login-input {
+  padding: 13px 16px; font-size: 15px; font-family: var(--font-sans);
+  border: 1.5px solid rgba(255,255,255,.15); border-radius: 10px;
+  background: rgba(255,255,255,.08); color: white; width: 100%; max-width: 320px;
+  outline: none; transition: border-color .15s;
+}
+.login-input::placeholder { color: rgba(255,255,255,.4); }
+.login-input:focus { border-color: var(--forest-500); }
+.login-btn {
+  padding: 13px 28px; background: var(--forest-700); color: white; border: none; border-radius: 10px;
+  font-size: 15px; font-weight: 600; font-family: var(--font-sans); cursor: pointer; width: 100%;
+  max-width: 320px; transition: background .15s;
+}
+.login-btn:hover { background: var(--forest-600); }
+.login-err { color: #f87171; font-size: 13px; min-height: 20px; }
+
+/* ── APP SHELL ── */
+#app { display: none; }
+#app.visible { display: flex; flex-direction: column; min-height: 100dvh; }
+
+.hq-header {
+  background: var(--forest-950); color: white;
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,.3);
+}
+.hq-logo { font-family: var(--font-serif); font-size: 19px; }
+.hq-logo span { color: var(--forest-500); }
+.hq-meta { display: flex; gap: 12px; align-items: center; font-size: 12px; color: var(--forest-200); }
+.hq-user { background: rgba(255,255,255,.1); padding: 4px 10px; border-radius: 20px; font-size: 11px; }
+.btn-logout {
+  background: transparent; border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.6);
+  padding: 5px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; transition: all .15s;
+}
+.btn-logout:hover { border-color: rgba(255,255,255,.4); color: white; }
+
+/* ── BODY LAYOUT ── */
+.hq-body { display: flex; flex: 1; }
+
+.hq-nav {
+  width: 210px; flex-shrink: 0; background: white; border-right: 1px solid var(--sand-200);
+  padding: 20px 0; position: sticky; top: 52px; height: calc(100vh - 52px); overflow-y: auto;
+}
+.nav-label {
+  font-size: 10px; color: var(--sand-700); padding: 14px 20px 5px;
+  text-transform: uppercase; letter-spacing: .07em; font-weight: 600;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 10px; padding: 9px 20px;
+  cursor: pointer; color: var(--sand-900); border-left: 3px solid transparent;
+  transition: all .15s; font-size: 13px; font-weight: 500;
+}
+.nav-item:hover { background: var(--sand-50); }
+.nav-item.active { background: var(--forest-50); color: var(--forest-700); border-left-color: var(--forest-700); }
+.nav-icon { font-size: 15px; width: 20px; text-align: center; }
+.nav-badge {
+  margin-left: auto; background: var(--red-600); color: white;
+  font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 10px;
+}
+
+.hq-main { flex: 1; padding: 28px; min-width: 0; max-width: 960px; }
+
+/* ── SECTIONS ── */
+.section { display: none; }
+.section.active { display: block; }
+.section > h2 { font-family: var(--font-serif); font-size: 24px; margin-bottom: 4px; color: var(--forest-900); }
+.section-subtitle { font-size: 13px; color: var(--sand-700); margin-bottom: 22px; }
+
+/* ── CARDS ── */
+.card {
+  background: white; border-radius: var(--radius); border: 1px solid var(--sand-200);
+  box-shadow: var(--shadow-sm); margin-bottom: 16px; overflow: hidden;
+}
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; border-bottom: 1px solid var(--sand-100); background: var(--paper);
+}
+.card-header h3 { font-size: 13px; font-weight: 700; color: var(--forest-900); }
+.card-body { padding: 0; }
+
+/* ── SCORE BAR ── */
+.score-bar {
+  display: flex; align-items: center; gap: 14px; padding: 18px 20px;
+  border-radius: var(--radius); border: 1px solid; margin-bottom: 22px;
+}
+.score-bar.green  { background: var(--forest-50); border-color: var(--forest-200); }
+.score-bar.yellow { background: var(--yellow-50); border-color: #fcd34d; }
+.score-bar.red    { background: var(--red-50); border-color: #fca5a5; }
+.score-num { font-family: var(--font-serif); font-size: 48px; line-height: 1; }
+.score-bar.green  .score-num { color: var(--forest-700); }
+.score-bar.yellow .score-num { color: var(--yellow-600); }
+.score-bar.red    .score-num { color: var(--red-700); }
+.score-label { font-size: 13px; color: var(--sand-700); line-height: 1.6; }
+.score-label strong { display: block; font-size: 15px; color: var(--forest-900); margin-bottom: 2px; }
+
+/* ── STATS GRID ── */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 22px; }
+.stat-card {
+  background: white; border-radius: var(--radius); border: 1px solid var(--sand-200);
+  padding: 16px 18px; box-shadow: var(--shadow-sm);
+}
+.stat-card .num { font-family: var(--font-serif); font-size: 34px; line-height: 1; }
+.stat-card .lbl { font-size: 11px; color: var(--sand-700); margin-top: 4px; }
+.stat-card.red  .num { color: var(--red-600); }
+.stat-card.yellow .num { color: var(--yellow-600); }
+.stat-card.green  .num { color: var(--forest-700); }
+
+/* ── BADGE ── */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 700;
+}
+.badge.critical { background: #fee2e2; color: var(--red-700); }
+.badge.high     { background: var(--yellow-50); color: var(--yellow-600); }
+.badge.medium   { background: var(--sand-100); color: var(--sand-900); }
+.badge.ok       { background: var(--forest-50); color: var(--forest-700); }
+.badge.done     { background: var(--forest-100); color: var(--forest-800); }
+
+/* ── CHECKLIST ── */
+.check-list { list-style: none; }
+.check-item {
+  display: flex; align-items: flex-start; gap: 12px; padding: 14px 20px;
+  border-bottom: 1px solid var(--sand-100); transition: background .1s;
+}
+.check-item:last-child { border-bottom: none; }
+.check-item:hover { background: var(--sand-50); }
+.check-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.check-content { flex: 1; min-width: 0; }
+.check-title { font-weight: 600; font-size: 13px; margin-bottom: 3px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.check-desc { font-size: 12px; color: var(--sand-700); line-height: 1.6; }
+.check-fix { font-size: 12px; color: var(--forest-700); background: var(--forest-50); border-radius: 6px; padding: 6px 10px; margin-top: 6px; }
+.check-fix code { font-family: monospace; font-size: 11px; }
+
+/* ── LOG TABLE ── */
+.log-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.log-table th { text-align: left; font-size: 11px; font-weight: 600; color: var(--sand-700); text-transform: uppercase; letter-spacing: .05em; padding: 10px 16px; border-bottom: 1px solid var(--sand-200); background: var(--paper); }
+.log-table td { padding: 12px 16px; border-bottom: 1px solid var(--sand-100); vertical-align: top; }
+.log-table tr:last-child td { border-bottom: none; }
+.log-table tr:hover td { background: var(--sand-50); }
+.log-date { font-size: 11px; color: var(--sand-700); white-space: nowrap; }
+
+/* ── TOOL IFRAME ── */
+.tool-frame-wrap { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--sand-200); background: white; }
+.tool-frame-wrap iframe { display: block; width: 100%; height: calc(100vh - 160px); border: none; }
+
+/* ── KEYWORD TABLE ── */
+.kw-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.kw-table th { text-align: left; font-size: 11px; font-weight: 600; color: var(--sand-700); text-transform: uppercase; letter-spacing: .05em; padding: 10px 16px; border-bottom: 1px solid var(--sand-200); background: var(--paper); }
+.kw-table td { padding: 11px 16px; border-bottom: 1px solid var(--sand-100); vertical-align: top; }
+.kw-table tr:last-child td { border-bottom: none; }
+.kw-table tr:hover td { background: var(--sand-50); }
+.kw-vol { font-size: 11px; color: var(--sand-700); }
+.kw-intent { font-size: 11px; }
+.intent-buy  { color: var(--forest-700); font-weight: 600; }
+.intent-info { color: var(--gold-600); }
+
+/* ── TOOL CARDS ── */
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+.tool-card { background: white; border-radius: var(--radius); border: 1px solid var(--sand-200); padding: 18px 20px; }
+.tool-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.tool-card p { font-size: 12px; color: var(--sand-700); line-height: 1.6; margin-bottom: 10px; }
+.tool-link { font-size: 12px; color: var(--forest-700); text-decoration: none; font-weight: 600; border: 1px solid var(--forest-200); padding: 6px 12px; border-radius: 6px; display: inline-block; transition: all .15s; }
+.tool-link:hover { background: var(--forest-50); border-color: var(--forest-500); }
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div id="login-screen">
+  <div class="login-logo">WKDI <span>Team HQ</span></div>
+  <div class="login-sub">Nur für Team-Mitglieder</div>
+  <input id="usr" type="text" class="login-input" placeholder="Benutzername" autocomplete="username">
+  <input id="pw"  type="password" class="login-input" placeholder="Passwort" autocomplete="current-password">
+  <button class="login-btn" onclick="doLogin()">Einloggen</button>
+  <div class="login-err" id="login-err"></div>
+</div>
+
+<!-- ── APP ── -->
+<div id="app">
+
+  <header class="hq-header">
+    <div class="hq-logo">WKDI <span>HQ</span></div>
+    <div class="hq-meta">
+      <span class="hq-user" id="user-badge">stefan</span>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <div class="hq-body">
+    <!-- SIDEBAR -->
+    <nav class="hq-nav">
+      <div class="nav-label">Übersicht</div>
+      <div class="nav-item active" onclick="show('overview', this)">
+        <span class="nav-icon">📊</span> Dashboard
+      </div>
+
+      <div class="nav-label">Team-Tools</div>
+      <div class="nav-item" onclick="show('interview', this)">
+        <span class="nav-icon">🎙️</span> Interview-Tool
+      </div>
+
+      <div class="nav-label">SEO & Sichtbarkeit</div>
+      <div class="nav-item" onclick="show('seo', this)">
+        <span class="nav-icon">🔍</span> SEO-Checkliste
+        <span class="nav-badge" id="seo-badge">7</span>
+      </div>
+      <div class="nav-item" onclick="show('keywords', this)">
+        <span class="nav-icon">🗝️</span> Keywords
+      </div>
+      <div class="nav-item" onclick="show('tools', this)">
+        <span class="nav-icon">🛠️</span> Externe Tools
+      </div>
+
+      <div class="nav-label">Verlauf</div>
+      <div class="nav-item" onclick="show('log', this)">
+        <span class="nav-icon">📋</span> Audit-Log
+      </div>
+    </nav>
+
+    <main class="hq-main">
+
+      <!-- DASHBOARD -->
+      <div class="section active" id="section-overview">
+        <h2>Dashboard</h2>
+        <p class="section-subtitle">Aktueller Stand — wirkaufendeineimmobilie.de</p>
+
+        <div class="score-bar yellow">
+          <div class="score-num">7.0</div>
+          <div class="score-label">
+            <strong>SEO-Score (von 10)</strong>
+            Seit letztem Audit (16.03.) gestiegen von 6.2 → 7.0. 7 offene Items, davon 2 kritisch.
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card red">
+            <div class="num">2</div>
+            <div class="lbl">CRITICAL</div>
+          </div>
+          <div class="stat-card yellow">
+            <div class="num">3</div>
+            <div class="lbl">HIGH</div>
+          </div>
+          <div class="stat-card" style="color:var(--sand-700)">
+            <div class="num" style="color:var(--sand-700)">2</div>
+            <div class="lbl">MEDIUM</div>
+          </div>
+          <div class="stat-card green">
+            <div class="num">8</div>
+            <div class="lbl">Erledigt ✓</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>Nächste Schritte (Priorität)</h3></div>
+          <ul class="check-list">
+            <li class="check-item">
+              <span class="check-icon">🔴</span>
+              <div class="check-content">
+                <div class="check-title">
+                  GSC-Property verifizieren
+                  <span class="badge critical">CRITICAL</span>
+                  <span style="font-size:11px;color:var(--sand-700)">~15 Min</span>
+                </div>
+                <div class="check-desc">DNS-TXT bei Cloudflare setzen → danach Keyword-Performance sichtbar</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">🔴</span>
+              <div class="check-content">
+                <div class="check-title">
+                  Build-upstream-URLs in Stadtteil-JSON-LD fixen
+                  <span class="badge critical">CRITICAL</span>
+                  <span style="font-size:11px;color:var(--sand-700)">~10 Min</span>
+                </div>
+                <div class="check-desc">Alle 5 Stadtteil-Seiten haben Test-Domain hardcodiert im JSON-LD</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">🟡</span>
+              <div class="check-content">
+                <div class="check-title">
+                  Telefonnummer vereinheitlichen
+                  <span class="badge high">HIGH</span>
+                  <span style="font-size:11px;color:var(--sand-700)">Mit Joachim klären</span>
+                </div>
+                <div class="check-desc">3 verschiedene Formate auf der Site — E.164-Standard wählen</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">🟡</span>
+              <div class="check-content">
+                <div class="check-title">
+                  Stadtteile von Startseite verlinken
+                  <span class="badge high">HIGH</span>
+                </div>
+                <div class="check-desc">5 Stadtteil-Seiten existieren, sind aber von keiner Hauptseite verlinkt</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">🟡</span>
+              <div class="check-content">
+                <div class="check-title">
+                  /leipzig/ Hub-Seite erstellen
+                  <span class="badge high">HIGH</span>
+                  <span style="font-size:11px;color:var(--sand-700)">~2h</span>
+                </div>
+                <div class="check-desc">Übergeordnete Leipzig-Seite mit Links zu allen Stadtteilen — starker SEO-Hebel</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>Letzte Audits</h3></div>
+          <table class="log-table">
+            <thead><tr><th>Datum</th><th>Score</th><th>Wer</th><th>Notiz</th></tr></thead>
+            <tbody>
+              <tr><td class="log-date">23.03.2026</td><td><strong>7.0</strong>/10</td><td>NEXUS SEO</td><td>Vollständiger Code-Audit, 7 offene Items identifiziert</td></tr>
+              <tr><td class="log-date">16.03.2026</td><td><strong>6.2</strong>/10</td><td>NEXUS SEO</td><td>Erster vollständiger Audit, Sitemap + OG + noindex umgesetzt</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- INTERVIEW TOOL -->
+      <div class="section" id="section-interview">
+        <h2>Interview-Tool</h2>
+        <p class="section-subtitle">Für Joachim — Seller-Interviews strukturiert führen</p>
+        <div class="tool-frame-wrap">
+          <iframe src="/interview-tool/" title="WKDI Interview Tool"></iframe>
+        </div>
+      </div>
+
+      <!-- SEO CHECKLIST -->
+      <div class="section" id="section-seo">
+        <h2>SEO-Checkliste</h2>
+        <p class="section-subtitle">Letzter Audit: 23.03.2026 — Score: 7.0/10 · 2 Critical · 3 High · 2 Medium</p>
+
+        <div class="card">
+          <div class="card-header"><h3>🔴 CRITICAL — Sofort fixen</h3></div>
+          <ul class="check-list">
+            <li class="check-item">
+              <span class="check-icon">❌</span>
+              <div class="check-content">
+                <div class="check-title">
+                  GSC-Property nicht verifiziert
+                  <span class="badge critical">CRITICAL</span>
+                </div>
+                <div class="check-desc">403-Fehler beim Abrufen von GSC-Daten. Ohne Google Search Console kein Keyword-Performance-Monitoring möglich.</div>
+                <div class="check-fix">Fix: search.google.com/search-console → Property hinzufügen → DNS-TXT bei Cloudflare setzen → Service Account hinzufügen</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">❌</span>
+              <div class="check-content">
+                <div class="check-title">
+                  Build-upstream-URLs in Stadtteil-JSON-LD
+                  <span class="badge critical">CRITICAL</span>
+                </div>
+                <div class="check-desc">Alle 5 Stadtteil-Seiten haben <code style="font-size:11px;background:var(--sand-100);padding:1px 4px;border-radius:3px">wirkaufendeineimmobilie.build-upstream.com</code> hardcodiert in BreadcrumbList + LocalBusiness-URL.</div>
+                <div class="check-fix">Fix: <code>src/pages/leipzig/[...stadtteil].astro</code> Zeilen 73/84/90 → <code>Astro.site</code> statt hardcodierter Domain verwenden</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>🟡 HIGH — Diese Woche</h3></div>
+          <ul class="check-list">
+            <li class="check-item">
+              <span class="check-icon">⚠️</span>
+              <div class="check-content">
+                <div class="check-title">Telefonnummer-Inkonsistenz <span class="badge high">HIGH</span></div>
+                <div class="check-desc">3 verschiedene Formate auf der Site: <code style="font-size:11px;background:var(--sand-100);padding:1px 4px;border-radius:3px">+4915679614866</code> (Layout-JSON-LD), <code style="font-size:11px;background:var(--sand-100);padding:1px 4px;border-radius:3px">+49-341-800-900-0</code> (Stadtteil), <code style="font-size:11px;background:var(--sand-100);padding:1px 4px;border-radius:3px">+493418009000</code> (Danke-Seite)</div>
+                <div class="check-fix">Mit Joachim klären: Welche ist die offizielle Nummer? → E.164-Format wählen → alle 3 Stellen angleichen</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">⚠️</span>
+              <div class="check-content">
+                <div class="check-title">Stadtteile von Hauptseite nicht verlinkt <span class="badge high">HIGH</span></div>
+                <div class="check-desc">Volkmarsdorf, Lindenau, Reudnitz, Plagwitz, Gohlis existieren als Seiten — aber keine interne Verlinkung von index, nav oder einer Hub-Seite.</div>
+                <div class="check-fix">Interim-Fix: Footer-Links oder Widget auf Startseite. Langfristig: /leipzig/ Hub-Seite (→ nächster Punkt)</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">⚠️</span>
+              <div class="check-content">
+                <div class="check-title">/leipzig/ Hub-Seite fehlt <span class="badge high">HIGH</span></div>
+                <div class="check-desc">Übergeordnete Seite die alle Stadtteile unter sich versammelt. Erheblicher SEO-Hebel für "Wohnung verkaufen Leipzig"-Keywords.</div>
+                <div class="check-fix">Neue Seite: src/pages/leipzig/index.astro mit H1 "Wohnung verkaufen Leipzig", Liste aller Stadtteile, internen Links</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>🟠 MEDIUM — Nächste 2 Wochen</h3></div>
+          <ul class="check-list">
+            <li class="check-item">
+              <span class="check-icon">⚠️</span>
+              <div class="check-content">
+                <div class="check-title">Page Titles zu lang (6+ Seiten über 60 Zeichen) <span class="badge medium">MEDIUM</span></div>
+                <div class="check-desc">Index: 108 Zeichen, Investoren: 78 Zeichen, Makler: 79 Zeichen, Tippgeber: 87 Zeichen — Google kürzt auf ~60 Zeichen ab.</div>
+                <div class="check-fix">Kürzere Titles: "Wohnung verkaufen Leipzig — Messie & Erbengemeinschaft" statt des langen Templates</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">⚠️</span>
+              <div class="check-content">
+                <div class="check-title">Fließtext nicht als sichtbares HTML gerendert <span class="badge medium">MEDIUM</span></div>
+                <div class="check-desc">data.fliesstext liegt in den Stadtteil-JSONs, wird aber nicht im HTML ausgegeben — Google sieht keinen Content-Text auf Stadtteil-Seiten.</div>
+                <div class="check-fix">stadtteil.astro: data.fliesstext als &lt;p&gt;-Element rendern (30 Min)</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>✅ Erledigt</h3></div>
+          <ul class="check-list">
+            <li class="check-item">
+              <span class="check-icon">✅</span>
+              <div class="check-content">
+                <div class="check-title">Sitemap <span class="badge done">OK</span></div>
+                <div class="check-desc">@astrojs/sitemap installiert + konfiguriert, /danke und /api/ ausgeschlossen</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">✅</span>
+              <div class="check-content">
+                <div class="check-title">Favicon <span class="badge done">OK</span></div>
+                <div class="check-desc">/public/favicon.svg vorhanden</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">✅</span>
+              <div class="check-content">
+                <div class="check-title">OG-Image <span class="badge done">OK</span></div>
+                <div class="check-desc">/public/og-default.svg vorhanden</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">✅</span>
+              <div class="check-content">
+                <div class="check-title">Danke-Seite noindex <span class="badge done">OK</span></div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">✅</span>
+              <div class="check-content">
+                <div class="check-title">Impressum + Datenschutz gefüllt <span class="badge done">OK</span></div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">✅</span>
+              <div class="check-content">
+                <div class="check-title">GA4 Tracking aktiv (G-X33GJRWJB5) <span class="badge done">OK</span></div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">✅</span>
+              <div class="check-content">
+                <div class="check-title">Person-Schema Joachim Kleinke <span class="badge done">OK</span></div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">✅</span>
+              <div class="check-content">
+                <div class="check-title">robots.txt + llms.txt <span class="badge done">OK</span></div>
+                <div class="check-desc">OAI-SearchBot + ChatGPT-User erlaubt, llms.txt erweitert</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- KEYWORDS -->
+      <div class="section" id="section-keywords">
+        <h2>Keywords</h2>
+        <p class="section-subtitle">Target-Keywords auf Basis der Code-Analyse + SERP-Research — GSC-Daten sobald Property verifiziert</p>
+
+        <div class="card">
+          <div class="card-header"><h3>Verkäufer-Segment — Primäre Keywords</h3></div>
+          <div style="overflow-x:auto;">
+            <table class="kw-table">
+              <thead>
+                <tr>
+                  <th>Keyword</th>
+                  <th>Intent</th>
+                  <th>Ziel-Seite</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Wohnung verkaufen Leipzig</strong></td>
+                  <td><span class="kw-intent intent-buy">Kaufend</span></td>
+                  <td>/</td>
+                  <td><span class="badge high">Title zu lang</span></td>
+                </tr>
+                <tr>
+                  <td>Messie Wohnung verkaufen Leipzig</td>
+                  <td><span class="kw-intent intent-buy">Kaufend</span></td>
+                  <td>/</td>
+                  <td><span class="badge ok">Adressiert</span></td>
+                </tr>
+                <tr>
+                  <td>Erbengemeinschaft Immobilie verkaufen</td>
+                  <td><span class="kw-intent intent-buy">Kaufend</span></td>
+                  <td>/ + /aktionsplan-erbengemeinschaft</td>
+                  <td><span class="badge ok">Adressiert</span></td>
+                </tr>
+                <tr>
+                  <td>Wohnung verkaufen Volkmarsdorf</td>
+                  <td><span class="kw-intent intent-buy">Kaufend</span></td>
+                  <td>/leipzig/volkmarsdorf</td>
+                  <td><span class="badge critical">JSON-LD Bug</span></td>
+                </tr>
+                <tr>
+                  <td>Wohnung verkaufen Lindenau Leipzig</td>
+                  <td><span class="kw-intent intent-buy">Kaufend</span></td>
+                  <td>/leipzig/lindenau</td>
+                  <td><span class="badge critical">JSON-LD Bug</span></td>
+                </tr>
+                <tr>
+                  <td>sanierungsbedürftige Wohnung verkaufen</td>
+                  <td><span class="kw-intent intent-buy">Kaufend</span></td>
+                  <td>/</td>
+                  <td><span class="badge ok">Adressiert</span></td>
+                </tr>
+                <tr>
+                  <td>Immobilie verkaufen ohne Makler Leipzig</td>
+                  <td><span class="kw-intent intent-info">Informierend</span></td>
+                  <td>— (fehlt)</td>
+                  <td><span class="badge medium">Keyword-Gap</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>Investoren-Segment — Primäre Keywords</h3></div>
+          <div style="overflow-x:auto;">
+            <table class="kw-table">
+              <thead>
+                <tr><th>Keyword</th><th>Intent</th><th>Ziel-Seite</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Fix and Flip Leipzig</strong></td>
+                  <td><span class="kw-intent intent-buy">Kaufend</span></td>
+                  <td>/investoren</td>
+                  <td><span class="badge high">Title zu lang</span></td>
+                </tr>
+                <tr>
+                  <td>Off-Market Immobilien Leipzig</td>
+                  <td><span class="kw-intent intent-buy">Kaufend</span></td>
+                  <td>/investoren</td>
+                  <td><span class="badge ok">Adressiert</span></td>
+                </tr>
+                <tr>
+                  <td>Sanierungsobjekte Leipzig kaufen</td>
+                  <td><span class="kw-intent intent-buy">Kaufend</span></td>
+                  <td>/investoren</td>
+                  <td><span class="badge ok">Adressiert</span></td>
+                </tr>
+                <tr>
+                  <td>ROI Immobilien Rechner Leipzig</td>
+                  <td><span class="kw-intent intent-info">Informierend</span></td>
+                  <td>/roi-rechner</td>
+                  <td><span class="badge medium">JS-only, kein SEO-Content</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>Keyword-Gaps — Content fehlt noch</h3></div>
+          <ul class="check-list">
+            <li class="check-item">
+              <span class="check-icon">🎯</span>
+              <div class="check-content">
+                <div class="check-title">Blog/FAQ-Seite "Wie läuft der Verkauf ab?"</div>
+                <div class="check-desc">Häufige Informationsfrage — Zielgruppe sucht nach Prozess-Erklärung. Gute Ergänzung zu /so-funktionierts</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">🎯</span>
+              <div class="check-content">
+                <div class="check-title">"Immobilie verkaufen ohne Makler Leipzig"</div>
+                <div class="check-desc">~600 Suchanfragen/Monat. Direktes Verkäufer-Keyword. Content-Seite oder starker Abschnitt auf Startseite</div>
+              </div>
+            </li>
+            <li class="check-item">
+              <span class="check-icon">🎯</span>
+              <div class="check-content">
+                <div class="check-title">Weitere Leipzig-Stadtteile</div>
+                <div class="check-desc">Aktuell: 5 Stadtteile. Potenzial: Grünau, Connewitz, Schleußig, Mockau — alle mit höherem Migrationsindex</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- EXTERNE TOOLS -->
+      <div class="section" id="section-tools">
+        <h2>Externe Audit-Tools</h2>
+        <p class="section-subtitle">Kostenlose Tools die wirkaufendeineimmobilie.de von außen prüfen — unabhängig vom internen Audit</p>
+
+        <div class="tools-grid">
+          <div class="tool-card">
+            <h4>🔍 Google Search Console</h4>
+            <p>Performance-Daten, Keyword-Klicks, Indexierungsstatus. <strong>Noch nicht eingerichtet</strong> — höchste Priorität.</p>
+            <a class="tool-link" href="https://search.google.com/search-console" target="_blank">→ GSC öffnen</a>
+          </div>
+          <div class="tool-card">
+            <h4>🚀 Google PageSpeed Insights</h4>
+            <p>Core Web Vitals, Performance-Score, Accessibility. Kostenlos, direkt von Google.</p>
+            <a class="tool-link" href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fwirkaufendeineimmobilie.de" target="_blank">→ Jetzt prüfen</a>
+          </div>
+          <div class="tool-card">
+            <h4>📊 Bing Webmaster Tools</h4>
+            <p>Zweit-Suchmaschine. Keyword-Daten die GSC nicht zeigt. Gleicher Aufwand wie GSC — einfach zusätzlich einrichten.</p>
+            <a class="tool-link" href="https://www.bing.com/webmasters" target="_blank">→ Bing einrichten</a>
+          </div>
+          <div class="tool-card">
+            <h4>🔗 Google Rich Results Test</h4>
+            <p>Prüft ob JSON-LD korrekt erkannt wird. Wichtig um den Build-upstream-Bug nach dem Fix zu bestätigen.</p>
+            <a class="tool-link" href="https://search.google.com/test/rich-results" target="_blank">→ Testen</a>
+          </div>
+          <div class="tool-card">
+            <h4>📋 Schema.org Validator</h4>
+            <p>Validiert JSON-LD direkt. Paste die URL oder den Code ein.</p>
+            <a class="tool-link" href="https://validator.schema.org" target="_blank">→ Validieren</a>
+          </div>
+          <div class="tool-card" style="border: 1.5px solid var(--gold-400);">
+            <h4>⭐ Sistrix (Bezahl — empfohlen)</h4>
+            <p>Beste DACH-Abdeckung für deutschen Immobilienmarkt. €99/Monat wenn WKDI Revenue generiert.</p>
+            <a class="tool-link" href="https://app.sistrix.com" target="_blank">→ sistrix.com</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOG -->
+      <div class="section" id="section-log">
+        <h2>Audit-Log</h2>
+        <p class="section-subtitle">Was wurde wann gemacht — vollständige Historie</p>
+
+        <div class="card">
+          <table class="log-table">
+            <thead>
+              <tr>
+                <th style="width:110px">Datum</th>
+                <th style="width:80px">Wer</th>
+                <th>Was gemacht</th>
+                <th style="width:90px">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="log-date">23.03.2026</td>
+                <td>NEXUS SEO</td>
+                <td>Vollständiger Code-Audit v2. 7 offene Items identifiziert. Build-upstream-URL-Bug neu entdeckt. Score 6.2 → 7.0.</td>
+                <td><span class="badge ok">Erledigt</span></td>
+              </tr>
+              <tr>
+                <td class="log-date">17.03.2026</td>
+                <td>Stefan/CC</td>
+                <td>Copy-Rewrite: index.astro Klartext (Verkäufer), investoren.astro Makler-Lyrik (Investoren). Build clean.</td>
+                <td><span class="badge ok">Live</span></td>
+              </tr>
+              <tr>
+                <td class="log-date">16.03.2026</td>
+                <td>NEXUS SEO</td>
+                <td>Audit v1: Sitemap (@astrojs/sitemap), Favicon, OG-Image, noindex Danke/Unterlagen, llms.txt erweitert, robots.txt OAI-SearchBot, Person-Schema Joachim. Score: 6.2/10.</td>
+                <td><span class="badge ok">Erledigt</span></td>
+              </tr>
+              <tr>
+                <td class="log-date">16.03.2026</td>
+                <td>Stefan</td>
+                <td>wirkaufendeineimmobilie.de auf Hetzner/Coolify deployed. Vercel Hobby downgrade.</td>
+                <td><span class="badge ok">Live</span></td>
+              </tr>
+              <tr>
+                <td class="log-date">16.03.2026</td>
+                <td>CC</td>
+                <td>Website NEXUS-Audit: "NEEDS WORK". Copy "wir kaufen" → Vermittlungsmodell unklar.</td>
+                <td><span class="badge done">Behoben</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+const AUTH_KEY = 'wkdi_hq_auth';
+const USERS = { 'stefan': 'stefan2026', 'joachim': 'joachim2026' };
+
+function doLogin() {
+  const usr = document.getElementById('usr').value.trim().toLowerCase();
+  const pw  = document.getElementById('pw').value;
+  if (USERS[usr] && USERS[usr] === pw) {
+    localStorage.setItem(AUTH_KEY + '_user', usr);
+    localStorage.setItem(AUTH_KEY + '_pass', pw);
+    initApp(usr);
+  } else {
+    document.getElementById('login-err').textContent = 'Falscher Benutzername oder Passwort';
+  }
+}
+
+function logout() {
+  localStorage.removeItem(AUTH_KEY + '_user');
+  localStorage.removeItem(AUTH_KEY + '_pass');
+  location.reload();
+}
+
+function show(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+function initApp(usr) {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').classList.add('visible');
+  document.getElementById('user-badge').textContent = usr;
+}
+
+// Auto-login if credentials stored
+const storedUser = localStorage.getItem(AUTH_KEY + '_user');
+const storedPass = localStorage.getItem(AUTH_KEY + '_pass');
+if (storedUser && USERS[storedUser] === storedPass) {
+  initApp(storedUser);
+}
+
+// Enter key support
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') {
+    doLogin();
+  }
+});
+</script>
+</body>
+</html>
