@@ -595,14 +595,20 @@ export const POST: APIRoute = async ({ request }) => {
     // Trigger DOI — Brevo sends confirmation email, user clicks → confirm-report
     if (BREVO_DOI_TEMPLATE_ID && BREVO_LIST_ID_ROI) {
       const redirectionUrl = buildDoiRedirectUrl(SITE_BASE_URL, 'confirm-report', refNr);
-      triggerBrevoDoubleOptIn({
-        email,
-        name: vorname,
-        typ: 'roi-rechner',
-        listId: BREVO_LIST_ID_ROI,
-        templateId: BREVO_DOI_TEMPLATE_ID,
-        redirectionUrl,
-      });
+      try {
+        await triggerBrevoDoubleOptIn({
+          email,
+          name: vorname,
+          typ: 'roi-rechner',
+          listId: BREVO_LIST_ID_ROI,
+          templateId: BREVO_DOI_TEMPLATE_ID,
+          redirectionUrl,
+        });
+      } catch (doiErr) {
+        console.error('[roi-report] DOI trigger failed:', doiErr);
+        // Fail the whole request — user must retry, otherwise they'll never receive the confirmation email
+        throw doiErr;
+      }
     }
 
     return new Response(
@@ -853,14 +859,23 @@ export const POST: APIRoute = async ({ request }) => {
     const listId = LIST_IDS[typ] || 0;
     if (listId) {
       const redirectionUrl = buildDoiRedirectUrl(SITE_BASE_URL, 'confirm-lead', refNr);
-      triggerBrevoDoubleOptIn({
-        email,
-        name,
-        typ,
-        listId,
-        templateId: BREVO_DOI_TEMPLATE_ID,
-        redirectionUrl,
-      });
+      try {
+        await triggerBrevoDoubleOptIn({
+          email,
+          name,
+          typ,
+          listId,
+          templateId: BREVO_DOI_TEMPLATE_ID,
+          redirectionUrl,
+        });
+      } catch (doiErr) {
+        console.error('[lead-magnet] DOI trigger failed:', doiErr);
+        // Fail the request — user must retry, otherwise no confirmation email arrives
+        return new Response(JSON.stringify({ success: false, error: 'E-Mail konnte nicht gesendet werden. Bitte erneut versuchen.' }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
     }
   }
 
