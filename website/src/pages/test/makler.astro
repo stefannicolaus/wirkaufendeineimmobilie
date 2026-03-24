@@ -59,17 +59,18 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     </div>
   </section>
 
-  <!-- PAIN POINTS -->
-  <!-- DESIGN GEÄNDERT: Dunkel → Hell, Pain-Cards hellrot hinterlegt, schwarze Schrift -->
-  <section class="section painpoints-dark" id="painpoints">
+  <!-- PAIN POINTS — Header dunkelblau, Karten hell -->
+  <section class="painpoints-header" id="painpoints">
     <div class="container">
       <div class="makler-section-header makler-section-header--center">
         <div class="label">Das kennen Sie</div>
-        <!-- GEÄNDERT: "Kleine, sanierungsbedürftige 1-2-Zimmer-Wohnungen" → "Sanierungsbedürftige Wohnungen" -->
         <h2>Warum diese Objekte Ihren Stundensatz ruinieren.</h2>
         <p class="text-mid">Sanierungsbedürftige Wohnungen aus schwierigen Konstellationen sind das „unten links" im Portfolio: Viel Arbeit, wenig Glanz, magere Provision.</p>
       </div>
-
+    </div>
+  </section>
+  <section class="painpoints-cards">
+    <div class="container">
       <div class="pain-grid">
         <div class="pain-card">
           <div class="pain-card__number">01</div>
@@ -368,20 +369,22 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     margin-bottom: var(--space-12);
   }
 
-  /* PAIN GRID — Dunkel mit hellen Karten */
-  .painpoints-dark {
+  /* PAIN — Header dunkelblau */
+  .painpoints-header {
     background: var(--color-primary);
+    padding-block: var(--section-gap) var(--space-12);
   }
-  .painpoints-dark .makler-section-header {
+  .painpoints-header .makler-section-header {
+    color: white;
+    margin-bottom: 0;
+  }
+  .painpoints-header .makler-section-header h2 {
     color: white;
   }
-  .painpoints-dark .makler-section-header h2 {
-    color: white;
-  }
-  .painpoints-dark .makler-section-header p {
+  .painpoints-header .makler-section-header p {
     color: rgba(255, 255, 255, 0.65);
   }
-  .painpoints-dark .label {
+  .painpoints-header .label {
     color: var(--color-accent);
     background: rgba(59, 130, 246, 0.12);
     border-color: rgba(59, 130, 246, 0.25);
@@ -396,6 +399,11 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     max-width: 600px;
     margin-inline: auto;
   }
+  /* PAIN — Karten hell */
+  .painpoints-cards {
+    background: var(--color-bg-alt);
+    padding-block: var(--space-12) var(--section-gap);
+  }
   .pain-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -403,7 +411,7 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
   }
   .pain-card {
     background: white;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-8);
     display: flex;
