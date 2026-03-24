@@ -284,7 +284,7 @@ img {
 .btn-outline {
   background: transparent;
   color: var(--color-text);
-  border: 1px solid var(--color-border-strong);
+  border: 2px solid var(--color-text-mid);
   padding: var(--space-3) var(--space-6);
   font-family: var(--font-family);
   font-size: var(--text-sm);
