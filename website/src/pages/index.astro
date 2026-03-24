@@ -7,11 +7,17 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   title="Wohnung verkaufen Leipzig — Messie, Erbschaft, Sanierung"
   description="Sanierungsbedürftige Wohnung in Leipzig verkaufen? Geprüfte Käufer, diskrete Abwicklung — Messie-Objekte, Erbengemeinschaft, Insolvenz. 48h Erstbewertung."
 >
+  <link slot="head" rel="preload" as="image" href="/images/wkdi-hero-bg-mobile.webp" media="(max-width: 800px)" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href="/images/wkdi-hero-bg.webp" media="(min-width: 801px)" fetchpriority="high" />
 
   <!-- HERO -->
   <section class="hero section hero--bg">
     <div class="hero__bg-img" aria-hidden="true">
-      <img src="/images/wkdi-hero-bg.webp" alt="" fetchpriority="high" decoding="async" />
+      <img
+        src="/images/wkdi-hero-bg.webp"
+        srcset="/images/wkdi-hero-bg-mobile.webp 800w, /images/wkdi-hero-bg.webp 1376w"
+        sizes="(max-width: 800px) 800px, 1376px"
+        alt="" fetchpriority="high" decoding="async" />
     </div>
     <div class="container hero__inner">
       <div class="label">
