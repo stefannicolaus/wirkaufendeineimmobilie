@@ -11,7 +11,7 @@ function debounce(fn, ms) {
 
 // --- State ---
 let state = {
-  view: 'startscreen',         // 'startscreen' | 'interview' | 'evaluierung' | 'archive'
+  view: 'startscreen',         // 'startscreen' | 'interview' | 'evaluierung' | 'archive' | 'guide'
   activeInterviewId: null,
   activeQuestionIndex: 0,
   filterThema: 'alle',
@@ -32,6 +32,7 @@ function render() {
     case 'interview':    app.innerHTML = renderInterview();    break;
     case 'evaluierung':  app.innerHTML = renderEvaluierung();  break;
     case 'archive':      app.innerHTML = renderArchive();      break;
+    case 'guide':        app.innerHTML = renderGuide();        break;
   }
   bindEvents();
 }
@@ -52,8 +53,9 @@ function renderStartscreen() {
     <header class="header">
       <h1 class="header__title">WKDI Interview Tool</h1>
       <div class="header__actions">
-        <button class="btn btn--ghost" onclick="navigate('archive')">
-          Interviews ${interviews.length > 0 ? `<span class="badge">${interviews.length}</span>` : ''}
+        <button class="btn btn--ghost btn--sm" onclick="navigate('guide')">📋 Fragen</button>
+        <button class="btn btn--ghost btn--sm" onclick="navigate('archive')">
+          Archiv ${interviews.length > 0 ? `<span class="badge">${interviews.length}</span>` : ''}
         </button>
         <button class="btn btn--ghost btn--sm btn--logout" onclick="logout()">Logout</button>
       </div>
@@ -405,6 +407,61 @@ function bindArchiveEvents() {
   });
 }
 
+// === FRAGEN-GUIDE ===
+function renderGuide() {
+  const topicsHtml = TOPICS.map(t => {
+    const totalQ = t.sections.flatMap(s => s.questions).length;
+    let qCounter = 0;
+    const sectionsHtml = t.sections.map(s => {
+      const questionsHtml = s.questions.map(q => {
+        qCounter++;
+        const haBadge = q.hiddenAgenda
+          ? `<span class="guide-question__ha ha-badge ha-badge--${q.hiddenAgenda.toLowerCase()}">${q.hiddenAgenda}</span>`
+          : '';
+        return `
+          <div class="guide-question">
+            <span class="guide-question__num">${qCounter}.</span>
+            <span class="guide-question__text">${q.text}</span>
+            ${haBadge}
+          </div>`;
+      }).join('');
+      return `
+        <div class="guide-section">
+          <div class="guide-section__title">${s.title}</div>
+          ${questionsHtml}
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="guide-topic">
+        <button class="guide-topic__header" type="button">
+          <span class="guide-topic__emoji">${t.emoji}</span>
+          <span class="guide-topic__label">${t.label}</span>
+          <span class="guide-topic__count">${totalQ} Fragen</span>
+          <span class="guide-topic__chevron">▾</span>
+        </button>
+        <div class="guide-topic__body">${sectionsHtml}</div>
+      </div>`;
+  }).join('');
+
+  return `
+    <header class="header">
+      <button class="btn btn--ghost btn--sm" onclick="navigate('startscreen')">← Zurück</button>
+      <h1 class="header__title">Fragen-Guide</h1>
+      <button class="btn btn--ghost btn--sm btn--logout" onclick="logout()">Logout</button>
+    </header>
+    <main class="guide-view">${topicsHtml}</main>
+  `;
+}
+
+function bindGuideEvents() {
+  document.querySelectorAll('.guide-topic__header').forEach(header => {
+    header.addEventListener('click', () => {
+      header.closest('.guide-topic').classList.toggle('guide-topic--open');
+    });
+  });
+}
+
 // === BIND EVENTS DISPATCHER ===
 function bindEvents() {
   switch (state.view) {
@@ -412,6 +469,7 @@ function bindEvents() {
     case 'interview':    bindInterviewEvents();     break;
     case 'evaluierung':  bindEvaluierungEvents();  break;
     case 'archive':      bindArchiveEvents();       break;
+    case 'guide':        bindGuideEvents();         break;
   }
 }
 
@@ -420,7 +478,7 @@ function bindEvents() {
 function boot() {
   const params = new URLSearchParams(location.search);
   const viewParam = params.get('view');
-  if (viewParam && ['startscreen', 'archive'].includes(viewParam)) {
+  if (viewParam && ['startscreen', 'archive', 'guide'].includes(viewParam)) {
     state.view = viewParam;
   }
   render();
