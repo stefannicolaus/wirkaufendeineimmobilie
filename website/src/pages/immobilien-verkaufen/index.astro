@@ -1,0 +1,133 @@
+---
+export const prerender = true;
+
+import Layout from '../../layouts/Layout.astro';
+import { STADTTEILE, groupByBezirk, BEZIRK_ORDER } from '../../data/stadtteile-verkaufen';
+
+const groups = groupByBezirk();
+
+const jsonLdItemList = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Immobilie verkaufen in Leipzig — alle Stadtteile",
+  "itemListElement": STADTTEILE.map((st, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": st.name,
+    "url": `https://wirkaufendeineimmobilie.de/immobilien-verkaufen/${st.slug}`
+  }))
+});
+
+const jsonLdBreadcrumb = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://wirkaufendeineimmobilie.de/" },
+    { "@type": "ListItem", "position": 2, "name": "Immobilie verkaufen in Leipzig" }
+  ]
+});
+---
+
+<Layout
+  title="Immobilie verkaufen in Leipzig — nach Stadtteil | wirkaufendeineimmobilie.de"
+  description="Immobilie in Leipzig verkaufen — alle 56 Stadtteile mit aktuellem Marktpreis. Kostenlose Ersteinschätzung in 48h, auch bei Erbschaft, Messie-Objekt & GEG-Sanierungspflicht."
+>
+  <script type="application/ld+json" set:html={jsonLdItemList} />
+  <script type="application/ld+json" set:html={jsonLdBreadcrumb} />
+
+  <!-- BREADCRUMB -->
+  <nav class="iv-breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <a href="/">Home</a>
+      <span class="iv-bc-sep">&rsaquo;</span>
+      <span class="iv-bc-current">Immobilie verkaufen in Leipzig</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="section hub-hero">
+    <div class="container">
+      <div class="label">Leipzig &middot; Alle Stadtteile</div>
+      <h1>Immobilie verkaufen in Leipzig<br />— nach Stadtteil</h1>
+      <p class="hub-hero__sub">
+        Wählen Sie Ihren Stadtteil für aktuelle Marktpreise und kostenlose Ersteinschätzung —
+        auch bei Erbschaft, Sanierungsstau oder Sondersituation.
+      </p>
+      <form class="iv-form hub-form" id="hub-form">
+        <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+        <div class="iv-form__row">
+          <input type="text" name="vorname" placeholder="Vorname" required aria-label="Vorname" />
+          <input type="text" name="nachname" placeholder="Nachname" required aria-label="Nachname" />
+        </div>
+        <input type="email" name="email" placeholder="E-Mail-Adresse" required aria-label="E-Mail" />
+        <input type="tel" name="telefon" placeholder="Telefonnummer (optional)" aria-label="Telefon" />
+        <input type="text" name="plz" placeholder="PLZ der Immobilie" pattern="[0-9]{5}" maxlength="5" required aria-label="PLZ" />
+        <button type="submit" class="btn btn-primary iv-form__btn">Kostenlos bewerten &rarr;</button>
+      </form>
+      <p class="hub-trust">56 Stadtteile &middot; Kostenlos &middot; Antwort in 48h</p>
+    </div>
+  </section>
+
+  <!-- BEZIRKS-GRID -->
+  <section class="section hub-grid-section bg-alt">
+    <div class="container">
+      {BEZIRK_ORDER.map(bezirk => groups[bezirk] && (
+        <div class="hub-bezirk-group">
+          <h2 class="hub-bezirk-title">{bezirk} <span class="hub-bezirk-count">({groups[bezirk].length})</span></h2>
+          <div class="hub-pills">
+            {groups[bezirk].map(st => (
+              <a href={`/immobilien-verkaufen/${st.slug}`} class="hub-pill">
+                {st.name}
+                <span class="hub-pill__preis">{st.preis.toLocaleString('de-DE')} €/m²</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .iv-breadcrumb { padding-block: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); }
+  .iv-breadcrumb a { color: var(--color-text-muted); }
+  .iv-breadcrumb a:hover { color: var(--color-accent); }
+  .iv-bc-sep { margin-inline: var(--space-2); opacity: 0.5; }
+  .iv-bc-current { color: var(--color-text); font-weight: var(--weight-medium); }
+
+  .hub-hero { padding-bottom: var(--space-8); }
+  .hub-hero__sub { font-size: var(--text-lg); color: var(--color-text-mid); margin-top: var(--space-4); margin-bottom: var(--space-8); max-width: 600px; }
+  .hub-trust { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: var(--space-4); }
+
+  .iv-form { display: flex; flex-direction: column; gap: var(--space-3); max-width: 520px; }
+  .iv-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+  .iv-form input { padding: var(--space-3) var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: var(--text-base); background: var(--color-bg-card); color: var(--color-text); width: 100%; }
+  .iv-form input:focus { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .iv-form__btn { align-self: flex-start; }
+  @media (max-width: 480px) { .iv-form__row { grid-template-columns: 1fr; } .iv-form__btn { width: 100%; } }
+
+  .hub-grid-section { padding-block: var(--section-gap); }
+  .hub-bezirk-group { margin-bottom: var(--space-10); }
+  .hub-bezirk-title { font-size: var(--text-xl); margin-bottom: var(--space-4); }
+  .hub-bezirk-count { font-size: var(--text-base); font-weight: var(--weight-normal); color: var(--color-text-muted); }
+  .hub-pills { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .hub-pill { display: inline-flex; flex-direction: column; align-items: flex-start; padding: var(--space-3) var(--space-4); background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); text-decoration: none; transition: all var(--duration-fast) var(--ease-default); min-height: 44px; }
+  .hub-pill:hover { border-color: var(--color-accent); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+  .hub-pill span:first-child { font-size: var(--text-sm); font-weight: var(--weight-medium); color: var(--color-text); }
+  .hub-pill__preis { font-size: var(--text-xs); color: var(--color-accent); margin-top: 2px; }
+</style>
+
+<script>
+  const form = document.getElementById('hub-form') as HTMLFormElement;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button') as HTMLButtonElement;
+    btn.textContent = 'Wird gesendet...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/bewertung', { method: 'POST', body: new FormData(form) });
+      if (res.ok) { window.location.href = '/danke?typ=verkaeufer'; }
+      else { btn.textContent = 'Fehler — erneut versuchen'; btn.disabled = false; }
+    } catch { btn.textContent = 'Fehler — erneut versuchen'; btn.disabled = false; }
+  });
+</script>
