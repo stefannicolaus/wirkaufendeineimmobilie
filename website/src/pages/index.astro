@@ -166,6 +166,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
           </div>
           <h3>Erbengemeinschaft</h3>
           <p>Wir holen echte Kaufangebote von geprüften Investoren — damit alle Erben eine faire Entscheidungsgrundlage haben und die Teilungsversteigerung vermieden wird.</p>
+          <a href="/aktionsplan-erbengemeinschaft" class="scenario-cta">Aktionsplan holen &rarr;</a>
         </div>
 
         <div class="scenario-card">
@@ -175,6 +176,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
           </div>
           <h3>Messie-Objekt</h3>
           <p>Vollgestellte Wohnung, Gerüche, jahrelanger Leerstand. Kein Aufräumen, keine Entrümpelung vorab. Wir vermitteln an Käufer, die den Zustand kennen und trotzdem kaufen.</p>
+          <a href="#hero-form" class="scenario-cta">Kostenlos bewerten &rarr;</a>
         </div>
 
         <div class="scenario-card">
@@ -184,6 +186,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
           </div>
           <h3>Energetische Sanierung gemäß Gebäudeenergiegesetz</h3>
           <p>Energieklasse E bis H, Heizung veraltet, Sanierungspflicht droht. Unsere Käufer rechnen die Sanierungskosten ein — Du musst nichts investieren und dich um nichts kümmern.</p>
+          <a href="#hero-form" class="scenario-cta">Kostenlos bewerten &rarr;</a>
         </div>
 
         <div class="scenario-card">
@@ -193,6 +196,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
           </div>
           <h3>Insolvenzverfahren</h3>
           <p>Zwangsversteigerung droht und Wertverlust wird zum realen Risiko. Wir liefern geprüfte Käufer, bevor der Zeitdruck die Verhandlungsposition zerstört — diskret und schnell.</p>
+          <a href="#hero-form" class="scenario-cta">Kostenlos bewerten &rarr;</a>
         </div>
 
         <div class="scenario-card scenario-card--highlight">
@@ -202,6 +206,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
           </div>
           <h3>Kapitalanleger mit Renovierungsdruck</h3>
           <p>Vor 10 Jahren gekauft, abgeschrieben, jetzt steht die Sanierung an. Du bekommst geprüfte Kaufangebote von Investoren, die die Renovierung selbst koordinieren — ohne dass du eine Schraube anfasst.</p>
+          <a href="/roi-rechner" class="scenario-cta">ROI berechnen &rarr;</a>
         </div>
 
         <div class="scenario-card">
@@ -211,6 +216,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
           </div>
           <h3>Scheidung</h3>
           <p>Gemeinsames Eigentum, getrennte Interessen. Wir holen diskret Kaufangebote ein, damit beide Seiten eine faire Basis für die Einigung haben — ohne öffentlichen Auftritt und ohne Eskalation.</p>
+          <a href="/scheidung" class="scenario-cta">Schnell-Aktionsplan holen &rarr;</a>
         </div>
 
         <div class="scenario-card">
@@ -220,6 +226,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
           </div>
           <h3>Beruflicher Umzug / Zeitdruck</h3>
           <p>Neuer Job in einer anderen Stadt, kein Spielraum für monatelange Vermarktung. Wir liefern konkrete Kaufangebote schnell — damit du weiterziehen kannst, ohne eine Immobilie zu verwalten.</p>
+          <a href="/umzug" class="scenario-cta">Checkliste holen &rarr;</a>
         </div>
 
       </div>
@@ -934,6 +941,18 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   .scenario-card:hover p,
   .scenario-card:active p {
     color: #ffffff;
+  }
+  .scenario-cta {
+    display: inline-block;
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: opacity var(--duration-fast, 150ms) ease;
+  }
+  .scenario-cta:hover {
+    opacity: 0.8;
   }
 
   /* STEPS — Timeline Design (ANF Framework) */
