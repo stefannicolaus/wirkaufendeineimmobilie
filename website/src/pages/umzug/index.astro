@@ -1,0 +1,129 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
+---
+<Layout
+  title="Checkliste: Immobilie verkaufen bei Umzug — wirkaufendeineimmobilie.de"
+  description="Du musst umziehen und weißt nicht, wie du deine Immobilie schnell und stressfrei loswirst? Joachim Kleinke erstellt deine persönliche Checkliste. Kostenlos."
+>
+
+  <section class="section ap-hero">
+    <div class="container ap-hero__inner">
+      <div class="label">Kostenlos und unverbindlich</div>
+      <h1>Checkliste:<br /><span class="text-accent">Immobilie verkaufen bei Umzug</span></h1>
+      <p class="ap-hero__sub">Umzug und Immobilienverkauf gleichzeitig — das ist stressig. Joachim Kleinke erstellt dir eine persönliche Checkliste, zugeschnitten auf deinen Zeitplan und deine Situation. Damit du weißt, was wann zu tun ist.</p>
+
+      <div class="ap-steps">
+        <div class="ap-step">
+          <div class="ap-step__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="ap-step__label">E-Mail hinterlassen</div>
+          <div class="ap-step__detail">30 Sekunden</div>
+        </div>
+        <div class="ap-step__divider"></div>
+        <div class="ap-step">
+          <div class="ap-step__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="ap-step__label">3 Fragen beantworten</div>
+          <div class="ap-step__detail">Via Welcome-E-Mail</div>
+        </div>
+        <div class="ap-step__divider"></div>
+        <div class="ap-step">
+          <div class="ap-step__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div class="ap-step__label">Deine Checkliste</div>
+          <div class="ap-step__detail">Innerhalb von 24h</div>
+        </div>
+      </div>
+
+      <!-- EMAIL GATE -->
+      <div id="email-gate" class="ap-email-gate">
+        <p class="ap-email-gate__label">Wohin sollen wir deine Checkliste schicken?</p>
+        <form id="gate-form" class="ap-email-gate__form" novalidate>
+          <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+          <input type="hidden" name="typ" value="umzug" />
+          <div class="ap-gate-row">
+            <input type="text" name="name" placeholder="Dein Vorname" class="ap-gate-input" />
+            <input type="email" name="email" placeholder="Deine E-Mail *" required class="ap-gate-input" />
+          </div>
+          <FormPrivacyHint />
+          <button type="submit" class="btn btn-primary ap-hero__cta">Checkliste anfordern &rarr;</button>
+        </form>
+      </div>
+
+      <!-- FAST FERTIG SCREEN -->
+      <div id="doi-pending" hidden class="ap-doi-pending">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">✉️</div>
+        <h3>Fast fertig — check deine E-Mails!</h3>
+        <p>Wir haben dir gerade eine E-Mail von <strong>office@wirkaufendeineimmobilie.de</strong> geschickt. Klick auf den Bestätigungslink — dann erhältst du deine persönliche Checkliste.</p>
+        <div class="ap-doi-benefits">
+          <p><strong>Was dich erwartet:</strong></p>
+          <ul>
+            <li>✓ Checkliste für stressfreien Verkauf unter Zeitdruck</li>
+            <li>✓ Was du VOR dem Umzug, WÄHREND und DANACH tun musst</li>
+            <li>✓ Wie du auch aus der Ferne den Verkauf organisierst</li>
+            <li>✓ Persönliche Einschätzung von Joachim Kleinke</li>
+          </ul>
+        </div>
+        <p style="font-size:0.85rem; opacity:0.7;">⚠️ Mail nicht da? Schau in deinen Spam-Ordner. Absender: office@wirkaufendeineimmobilie.de</p>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  const form = document.getElementById('gate-form') as HTMLFormElement | null;
+  const gate = document.getElementById('email-gate') as HTMLElement | null;
+  const pending = document.getElementById('doi-pending') as HTMLElement | null;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const emailInput = form?.querySelector('[name="email"]') as HTMLInputElement | null;
+    if (!emailInput?.value) { emailInput?.focus(); return; }
+    const checkbox = form?.querySelector('[name="datenschutz_ok"]') as HTMLInputElement | null;
+    if (checkbox && !checkbox.checked) { checkbox.focus(); return; }
+    const btn = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    if (btn) { btn.textContent = 'Wird gesendet...'; btn.disabled = true; }
+    try {
+      const fd = new FormData(form!);
+      const res = await fetch('/api/lead-magnet', { method: 'POST', body: fd });
+      if (res.ok) {
+        if (gate) gate.hidden = true;
+        if (pending) pending.hidden = false;
+      } else {
+        if (btn) { btn.textContent = 'Fehler — erneut versuchen'; btn.disabled = false; }
+      }
+    } catch {
+      if (btn) { btn.textContent = 'Fehler — erneut versuchen'; btn.disabled = false; }
+    }
+  });
+</script>
+
+<style>
+  .ap-hero { text-align: center; }
+  .ap-hero__inner { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); }
+  .ap-hero__sub { max-width: 640px; color: var(--color-text-mid); font-size: var(--text-lg); line-height: var(--leading-relaxed); }
+  .ap-steps { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; justify-content: center; }
+  .ap-step { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); max-width: 140px; text-align: center; }
+  .ap-step__icon { color: var(--color-accent); }
+  .ap-step__label { font-weight: var(--weight-semibold); font-size: var(--text-sm); }
+  .ap-step__detail { font-size: var(--text-xs); color: var(--color-text-muted); }
+  .ap-step__divider { width: 40px; height: 2px; background: var(--color-border); }
+  .ap-email-gate { width: 100%; max-width: 560px; }
+  .ap-email-gate__label { font-weight: 600; margin-bottom: 0.75rem; }
+  .ap-email-gate__form { display: flex; flex-direction: column; gap: 0.75rem; }
+  .ap-gate-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .ap-gate-input { flex: 1; min-width: 160px; padding: 0.75rem 1rem; border: 2px solid var(--color-border); border-radius: 8px; font-family: inherit; font-size: 1rem; background: var(--color-bg); color: var(--color-text); min-height: 48px; }
+  .ap-doi-pending { max-width: 560px; padding: 2rem 0; }
+  .ap-doi-pending h3 { margin-bottom: 0.75rem; }
+  .ap-doi-benefits { background: var(--color-bg-card, #f9f9f9); border: 1px solid var(--color-border, #e0e0e0); border-radius: 8px; padding: 1.25rem; text-align: left; margin: 1rem 0; }
+  .ap-doi-benefits ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+  .ap-hero__cta { margin-top: 0; }
+  .label { font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--color-accent); text-transform: uppercase; letter-spacing: var(--tracking-wide); }
+  .text-accent { color: var(--color-accent); }
+</style>
