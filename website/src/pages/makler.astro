@@ -5,8 +5,9 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
 ---
 <Layout
   title="Makler-Kooperation — Problemobjekte zu Geld machen | wirkaufendeineimmobilie.de"
-  description="Problemobjekte fressen Zeit und Nerven? Wir haben die Käufer. Vertraglich abgesicherter Provisionsanspruch, null Mehraufwand für Sie."
+  description="Problemobjekte fressen Zeit, Nerven und Gewinn? Wir haben die Käufer. Dokumentation für den Provisionsanspruch, null Mehraufwand für Sie."
 >
+
 
   <!-- HERO -->
   <section class="section makler-hero">
@@ -14,8 +15,10 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
       <div class="makler-hero__text">
         <div class="label">Für Immobilienmakler — Kooperation</div>
         <h1>Ihre Problemobjekte.<br /><span class="text-accent">Unser Spezialgebiet.</span></h1>
+        <!-- GEÄNDERT: "Zeit und Nerven" → "Zeit, Nerven und Gewinn" -->
+        <!-- GEÄNDERT: "Wir machen Ihre Problemobjekte zu Geld" → fett -->
         <p class="makler-hero__sub">
-          Problemobjekte fressen Zeit und Nerven. Messie, Erbschaft, Sanierungsstau — Stundenlohn geht gegen Null. Wir haben die Käufer die genau das suchen. Machen Sie Ihre Problemobjekte zu Geld. Vertraglich abgesicherter Provisionsanspruch, null Mehraufwand.
+          Problemobjekte fressen Zeit, Nerven und Gewinn. Messie, Erbschaft, Sanierungsstau — Stundenlohn geht gegen Null. Wir haben die Käufer, die genau das suchen. <strong>Wir machen Ihre Problemobjekte zu Geld.</strong> Dokumentation für den Provisionsanspruch, null Mehraufwand.
         </p>
         <div class="makler-hero__buttons">
           <a href="#makler-form" class="btn btn-primary">Jetzt bewerben &rarr;</a>
@@ -29,11 +32,12 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   </section>
 
   <!-- STATS BAR -->
+  <!-- GEÄNDERT: 48h → 24h, Keine Vorab-Sanierung + kein Homestaging -->
   <section class="makler-stats">
     <div class="container makler-stats__grid">
       <div class="makler-stat">
-        <div class="makler-stat__value">48h</div>
-        <div class="makler-stat__label">Verbindliches Angebot</div>
+        <div class="makler-stat__value">24h</div>
+        <div class="makler-stat__label">Persönliche Rückmeldung</div>
       </div>
       <div class="makler-stat">
         <div class="makler-stat__value">0 €</div>
@@ -45,20 +49,23 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
       </div>
       <div class="makler-stat">
         <div class="makler-stat__value">Kauf wie gesehen</div>
-        <div class="makler-stat__label">Keine Vorab-Sanierung</div>
+        <div class="makler-stat__label">Keine Vorab-Sanierung, kein Homestaging</div>
       </div>
     </div>
   </section>
 
-  <!-- PAIN POINTS -->
-  <section class="section painpoints-dark" id="painpoints">
+  <!-- PAIN POINTS — Header dunkelblau, Karten hell -->
+  <section class="painpoints-header" id="painpoints">
     <div class="container">
-      <div class="makler-section-header">
+      <div class="makler-section-header makler-section-header--center">
         <div class="label">Das kennen Sie</div>
-        <h2>Warum diese Objekte<br />Ihren Stundensatz ruinieren.</h2>
-        <p class="text-mid">Kleine, sanierungsbedürftige 1-2-Zimmer-Wohnungen aus schwierigen Konstellationen sind das „unten links" im Portfolio: Viel Arbeit, wenig Glanz, magere Provision.</p>
+        <h2>Warum diese Objekte Ihren Stundensatz ruinieren.</h2>
+        <p class="text-mid">Sanierungsbedürftige Wohnungen aus schwierigen Konstellationen sind das „unten links" im Portfolio: Viel Arbeit, wenig Glanz, magere Provision.</p>
       </div>
-
+    </div>
+  </section>
+  <section class="painpoints-cards">
+    <div class="container">
       <div class="pain-grid">
         <div class="pain-card">
           <div class="pain-card__number">01</div>
@@ -73,7 +80,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
         <div class="pain-card">
           <div class="pain-card__number">03</div>
           <h3 class="pain-card__title">Vermarktungs-Desaster</h3>
-          <p class="pain-card__desc">Renovierungsbedürftige Wohnungen lassen sich schlecht fotografieren. Banken verweigern Finanzierungen kurz vor dem Notartermin. Und Sie ziehen primär hartgesottene Profi-Investoren an, die jeden Mangel kennen und den Preis — und damit Ihre Provision — drücken.</p>
+          <p class="pain-card__desc">Renovierungsbedürftige Wohnungen lassen sich schlecht fotografieren — und müssen teuer aufbereitet werden, um vermarktungsfähig zu sein. Banken verweigern Finanzierungen kurz vor dem Notartermin. Und Sie ziehen primär hartgesottene Profi-Investoren an, die jeden Mangel kennen und den Preis — und damit Ihre Provision — drücken.</p>
         </div>
         <div class="pain-card">
           <div class="pain-card__number">04</div>
@@ -85,11 +92,13 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   </section>
 
   <!-- LÖSUNG -->
+  <!-- GEÄNDERT: "Sie kassieren." → "Sie kassieren!" -->
+  <!-- GEÄNDERT: Bisher-Liste + Mit-WKDI-Liste aktualisiert -->
   <section class="section makler-solution bg-alt">
     <div class="container">
       <div class="makler-section-header">
         <div class="label">Unsere Lösung</div>
-        <h2>Sie übergeben.<br />Wir übernehmen. <span class="text-accent">Sie kassieren.</span></h2>
+        <h2>Sie übergeben.<br />Wir übernehmen. <span class="text-accent">Sie kassieren!</span></h2>
       </div>
 
       <div class="solution-split">
@@ -99,21 +108,29 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
             <li>Wochen für Exposé, Fotograf, Portal-Listing</li>
             <li>Endlose Besichtigungen mit Schnäppchenjägern</li>
             <li>Finanzierung platzt kurz vor dem Notar</li>
-            <li>Mediation zwischen zerstrittenen Erben</li>
+            <!-- GEÄNDERT: präziser formuliert -->
+            <li>Mediation zwischen zerstrittenen Erben und entscheidungsbefindlichen Eigentümern</li>
             <li>Bürokratie mit Insolvenzverwaltern</li>
             <li>Messie-Objektvorbereitung vor jeder Besichtigung</li>
+            <!-- GEÄNDERT: "PIS" → "Preis" -->
             <li>Provision geschmälert durch Preisdruck der Investoren</li>
+            <!-- NEU: Besichtigungslogistik -->
+            <li>Besichtigungstermine kaum zu koordinieren — Schlüssel, An- und Abreise, Terminabstimmung mit weggezogenen Eigentümern</li>
           </ul>
         </div>
         <div class="solution-col solution-col--after">
           <div class="solution-col__label solution-col__label--good">Mit WKDI</div>
           <ul class="solution-list solution-list--good">
-            <li>Verbindliches Angebot innerhalb 48 Stunden</li>
+            <!-- GEÄNDERT: 48h → 24h -->
+            <li>Verbindliches Angebot innerhalb kurzer Zeit</li>
             <li>Kauf im Ist-Zustand — keine Vorbereitung nötig</li>
-            <li>Keine Finanzierungshürden — Kapitalbestätigung sofort</li>
-            <li>Wir übernehmen Kommunikation mit Erben &amp; Verwaltern</li>
+            <!-- GEÄNDERT: "Keine Finanzierungshürden" → "Bonitätsstarke Käufer" -->
+            <li>Bonitätsstarke Käufer aus unserem Bestand</li>
+            <!-- GEÄNDERT: Ehepartner ergänzt -->
+            <li>Wir übernehmen Kommunikation mit Erben, geschiedenen oder entscheidungsbefindlichen Ehepartnern und Verwaltern</li>
             <li>Keine Portalkosten, kein Fotograf, kein Exposé</li>
-            <li>Ihre volle Provision — mit einem Bruchteil des Aufwands</li>
+            <!-- GEÄNDERT: "volle" gestrichen -->
+            <li>Ihre Provision — mit einem Bruchteil des Aufwands</li>
             <li>Kopf frei für die Objekte, die Ihren Umsatz wirklich treiben</li>
           </ul>
         </div>
@@ -122,13 +139,17 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   </section>
 
   <!-- WELCHE OBJEKTE -->
-  <section class="section objects-dark">
+  <!-- DESIGN GEÄNDERT: Dunkel → Hell, schwarze Schrift -->
+  <section class="objects-header">
     <div class="container">
-      <div class="makler-section-header">
+      <div class="makler-section-header makler-section-header--center">
         <div class="label">Welche Objekte wir abnehmen</div>
-        <h2>Alles, was auf Ihrem<br />Schreibtisch blockiert.</h2>
+        <h2>Alles, was auf Ihrem Schreibtisch blockiert.</h2>
       </div>
-
+    </div>
+  </section>
+  <section class="objects-cards">
+    <div class="container">
       <div class="objects-grid">
         <div class="object-card">
           <h3>Messie-Wohnungen</h3>
@@ -140,25 +161,29 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
         </div>
         <div class="object-card">
           <h3>Insolvenzverfahren</h3>
-          <p>Bonitätsgeprüfte Käufer, schnelle Abwicklung. Wir liefern dem Insolvenzverwalter, was er braucht: einen sicheren, schnellen Abschluss.</p>
+          <!-- GEÄNDERT: "Zum besten Preis." ergänzt -->
+          <p>Bonitätsgeprüfte Käufer, schnelle Abwicklung. Wir liefern dem Insolvenzverwalter, was er braucht: einen sicheren, schnellen Abschluss. Zum besten Preis.</p>
         </div>
         <div class="object-card">
           <h3>Renovierungsstau / Energetische Sanierung (Gebäudeenergiegesetz E–H)</h3>
           <p>Banken verweigern Kredit? Unser Netzwerk aus Profi-Investoren kauft genau diese Objekte — ohne Finanzierungsvorbehalt.</p>
         </div>
         <div class="object-card">
+          <!-- GEÄNDERT: "Spekulationsfrist abgelaufen" → "noch nicht abgelaufen" + Kündigungsschutz ergänzt -->
           <h3>Vermietet &amp; schwierig</h3>
-          <p>Milieuschutz, Renditefalle, Spekulationsfrist abgelaufen — wir kennen das Marktumfeld in Leipzig und finden den passenden Langfrist-Investor.</p>
+          <p>Kündigungsschutz nach Aufteilung, Milieuschutz, Renditefalle, Spekulationsfrist noch nicht abgelaufen — wir kennen das Marktumfeld in Leipzig und finden den passenden Langfrist-Investor.</p>
         </div>
         <div class="object-card">
-          <h3>Leerstand &amp; Blockader</h3>
+          <h3>Leerstand &amp; Blockade</h3>
           <p>Wenn Miteigentümer blockieren oder das Objekt schon zu lange im Portfolio liegt — wir schaffen Bewegung.</p>
         </div>
       </div>
     </div>
   </section>
+  <!-- END objects-cards -->
 
   <!-- TRUST / JOACHIM -->
+  <!-- GEÄNDERT: Quote-Text authentischer + "Partnermaklern" ergänzt -->
   <section class="section">
     <div class="container trust-wrap">
       <div class="trust-card">
@@ -173,9 +198,9 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <h2 class="trust-card__heading">Kollege zu Kollege.<br />Kein Konkurrent.</h2>
+          <h2 class="trust-card__heading">Kollege zu Kollege.<br />Partner statt Konkurrent.</h2>
           <blockquote class="trust-card__quote">
-            &bdquo;Ich bin selbst Makler und kenne diese Objekte seit 35 Jahren. Ich weiß, wie viel Arbeit eine Messie-Wohnung oder eine zerstrittene Erbengemeinschaft kostet — und wie wenig am Ende übrig bleibt. Deshalb biete ich Kollegen eine saubere Lösung: Objekt rein, Provision raus, kein Stress.&ldquo;
+            &bdquo;Ich bin selbst Immobilienprofi und im Immobilienhandel tätig — mit 35 Jahren Berufserfahrung. Ich weiß, wie viel Zeit und Geld eine zerstrittene Eigentümergemeinschaft oder eine Messie-Wohnung wirklich kostet — und wie wenig am Ende übrig bleibt. Deshalb bieten wir Kollegen und Partnermaklern eine saubere Lösung: Objekt rein, Provision raus, kein Stress.&ldquo;
           </blockquote>
           <div class="trust-card__author">
             <span class="trust-card__name">Joachim Kleinke</span>
@@ -187,10 +212,11 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   </section>
 
   <!-- CTA GLOW -->
+  <!-- GEÄNDERT: "Dokumentation für den Provisionsanspruch" → "Vertraglich abgesicherte Dokumentation..." -->
   <section class="makler-cta-glow-section">
     <div class="makler-cta-glow__glow" aria-hidden="true"></div>
     <div class="container makler-cta-glow__inner">
-      <p class="makler-cta-glow__eyebrow">Vertraglich abgesicherter Provisionsanspruch</p>
+      <p class="makler-cta-glow__eyebrow">Vertraglich abgesicherte Dokumentation für den Provisionsanspruch</p>
       <h2 class="makler-cta-glow__heading">Problemobjekte rein — Provision raus.</h2>
       <p class="makler-cta-glow__sub">Einmal anmelden. Wir prüfen, koordinieren, schließen ab — Sie bekommen Ihre Provision.</p>
       <a href="#makler-form" class="makler-cta-glow__btn">Jetzt Kooperationspartner werden &rarr;</a>
@@ -198,6 +224,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   </section>
 
   <!-- FORMULAR — Bewerbung -->
+  <!-- GEÄNDERT: "48h" → "24 Stunden" -->
   <section class="makler-form-section bg-alt" id="makler-form">
     <div class="container makler-form-split">
       <div class="makler-form-split__text">
@@ -206,11 +233,11 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
         <ul class="makler-form-split__checks">
           <li>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Vertraglich abgesicherter Provisionsanspruch
+            Dokumentation für den Provisionsanspruch
           </li>
           <li>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Persönliche Rückmeldung in 48h
+            Persönliche Rückmeldung in 24 Stunden
           </li>
           <li>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -251,6 +278,19 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
 </Layout>
 
 <style>
+  /* TEST BANNER */
+  .test-banner {
+    background: #f59e0b;
+    color: #1c1917;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
   /* HERO */
   .makler-hero {
     padding-top: var(--space-20);
@@ -328,57 +368,54 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     margin-bottom: var(--space-12);
   }
 
-  /* PAIN GRID — Dark Hover Grid */
-  .painpoints-dark {
+  /* PAIN — Header dunkelblau */
+  .painpoints-header {
     background: var(--color-primary);
+    padding-block: var(--section-gap) var(--space-12);
   }
-  .painpoints-dark .makler-section-header {
+  .painpoints-header .makler-section-header {
+    color: white;
+    margin-bottom: 0;
+  }
+  .painpoints-header .makler-section-header h2 {
     color: white;
   }
-  .painpoints-dark .makler-section-header h2 {
-    color: white;
-  }
-  .painpoints-dark .makler-section-header p {
+  .painpoints-header .makler-section-header p {
     color: rgba(255, 255, 255, 0.65);
   }
-  .painpoints-dark .label {
+  .painpoints-header .label {
     color: var(--color-accent);
     background: rgba(59, 130, 246, 0.12);
     border-color: rgba(59, 130, 246, 0.25);
   }
+  .makler-section-header--center {
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+    align-items: center;
+  }
+  .makler-section-header--center p {
+    max-width: 600px;
+    margin-inline: auto;
+  }
+  /* PAIN — Karten hell */
+  .painpoints-cards {
+    background: var(--color-bg-alt);
+    padding-block: var(--space-12) var(--section-gap);
+  }
   .pain-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+    gap: var(--space-5);
   }
   .pain-card {
-    background: #0f172a;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     padding: var(--space-8);
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    position: relative;
-    overflow: hidden;
-    cursor: default;
-  }
-  .pain-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(59, 130, 246, 0.12),
-      transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-  .pain-card:hover::before {
-    opacity: 1;
   }
   .pain-card__number {
     font-size: var(--text-sm);
@@ -389,11 +426,11 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   .pain-card__title {
     font-size: var(--text-lg);
     font-weight: var(--weight-bold);
-    color: white;
+    color: var(--color-text);
   }
   .pain-card__desc {
     font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--color-text-mid);
     line-height: var(--leading-relaxed);
   }
 
@@ -411,16 +448,16 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     flex-direction: column;
     gap: var(--space-5);
   }
-  .solution-col--before { background: #fff5f5; border: 1px solid #fecaca; }
-  .solution-col--after  { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .solution-col--before { background: white; border: 1px solid var(--color-border); }
+  .solution-col--after  { background: white; border: 1px solid var(--color-border); }
   .solution-col__label {
     font-size: var(--text-xs);
     font-weight: var(--weight-bold);
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
-  .solution-col__label--bad  { color: #b91c1c; }
-  .solution-col__label--good { color: #15803d; }
+  .solution-col__label--bad  { color: var(--color-text-mid); }
+  .solution-col__label--good { color: var(--color-accent); }
   .solution-list {
     list-style: none;
     display: flex;
@@ -432,72 +469,57 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     line-height: var(--leading-relaxed);
     padding-left: var(--space-5);
     position: relative;
+    color: var(--color-text);
   }
-  .solution-list--bad  li { color: #7f1d1d; }
-  .solution-list--bad  li::before { content: '✗'; position: absolute; left: 0; color: #ef4444; font-weight: 700; }
-  .solution-list--good li { color: #14532d; }
-  .solution-list--good li::before { content: '✓'; position: absolute; left: 0; color: #22c55e; font-weight: 700; }
+  .solution-list--bad  li::before { content: '✗'; position: absolute; left: 0; color: var(--color-text-mid); font-weight: 700; }
+  .solution-list--good li::before { content: '✓'; position: absolute; left: 0; color: var(--color-accent); font-weight: 700; }
 
-  /* OBJECTS GRID — Dark Hover Grid */
-  .objects-dark {
+  /* OBJECTS GRID — HELL (war dunkel) */
+  /* OBJECTS — Header dunkelblau, Karten hell */
+  .objects-header {
     background: var(--color-primary);
+    padding-block: var(--section-gap) var(--space-12);
   }
-  .objects-dark .makler-section-header h2 {
-    color: white;
-  }
-  .objects-dark .makler-section-header {
-    color: white;
-  }
-  .objects-dark .makler-section-header p {
-    color: rgba(255, 255, 255, 0.65);
-  }
-  .objects-dark .label {
+  .objects-header .makler-section-header { margin-bottom: 0; }
+  .objects-header .makler-section-header h2 { color: white; }
+  .objects-header .makler-section-header p { color: rgba(255,255,255,0.65); }
+  .objects-header .label {
     color: var(--color-accent);
-    background: rgba(59, 130, 246, 0.12);
-    border-color: rgba(59, 130, 246, 0.25);
+    background: rgba(59,130,246,0.12);
+    border-color: rgba(59,130,246,0.25);
+  }
+  .objects-cards {
+    background: var(--color-bg-alt);
+    padding-block: var(--space-12) var(--section-gap);
   }
   .objects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+    gap: var(--space-5);
   }
   .object-card {
-    background: #0f172a;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     padding: var(--space-6);
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    position: relative;
-    overflow: hidden;
-    cursor: default;
+    transition: box-shadow var(--duration-normal) var(--ease-default),
+                transform var(--duration-normal) var(--ease-default);
   }
-  .object-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(59, 130, 246, 0.12),
-      transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-  .object-card:hover::before {
-    opacity: 1;
+  .object-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
   }
   .object-card h3 {
     font-size: var(--text-base);
     font-weight: var(--weight-bold);
-    color: white;
+    color: var(--color-text);
   }
   .object-card p {
     font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--color-text-mid);
     line-height: var(--leading-relaxed);
   }
 
@@ -550,7 +572,6 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   }
   .makler-form__submit { width: 100%; margin-top: var(--space-2); }
 
-  /* REUSE from investoren */
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
   .form-group { display: flex; flex-direction: column; gap: var(--space-1); }
   .form-group label { font-size: var(--text-sm); font-weight: var(--weight-medium); color: var(--color-text-mid); }
@@ -560,8 +581,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     font-size: var(--text-sm);
   }
 
-  /* Trust card reuse */
-  .trust-wrap { }
+  /* Trust card */
   .trust-card {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
@@ -671,17 +691,6 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
 </style>
 
 <script>
-  // Mouse-tracking glow for dark grid cards
-  [...document.querySelectorAll('.pain-card'), ...document.querySelectorAll('.object-card')].forEach((card) => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = (card as HTMLElement).getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      (card as HTMLElement).style.setProperty('--mouse-x', `${x}%`);
-      (card as HTMLElement).style.setProperty('--mouse-y', `${y}%`);
-    });
-  });
-
   const form = document.getElementById('makler-reg-form') as HTMLFormElement;
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
