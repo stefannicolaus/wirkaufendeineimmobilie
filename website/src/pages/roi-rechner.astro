@@ -501,6 +501,26 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
+<!-- DOI PENDING SCREEN — shown after form submit instead of redirect -->
+<div id="doi-pending-screen" style="display:none; max-width:640px; margin:0 auto; padding:var(--space-16) var(--space-6); text-align:center;">
+  <div style="font-size:3rem; margin-bottom:var(--space-4);">✉️</div>
+  <h2 style="margin-bottom:var(--space-4);">Fast fertig — check deine E-Mails</h2>
+  <p style="color:var(--color-text-mid); font-size:var(--text-lg); margin-bottom:var(--space-6);">
+    Wir haben dir gerade eine E-Mail von <strong>office@wirkaufendeineimmobilie.de</strong> geschickt.
+    Klick auf den Bestätigungslink darin — dann erhältst du sofort deine persönliche Deal-Analyse.
+  </p>
+  <div style="background:var(--color-bg-card,#f9f9f9); border:1px solid var(--color-border,#e0e0e0); border-radius:8px; padding:var(--space-6); text-align:left; margin-bottom:var(--space-6);">
+    <p style="font-weight:600; margin-bottom:var(--space-3);">Was dich erwartet:</p>
+    <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:var(--space-2);">
+      <li>✓ Deal-Score für deinen Stadtteil</li>
+      <li>✓ ROI + Eigenkapital-Rendite</li>
+      <li>✓ Break-even Analyse</li>
+      <li>✓ Nächste konkrete Schritte</li>
+    </ul>
+  </div>
+  <p style="font-size:var(--text-sm); color:var(--color-text-muted);">⚠️ Mail nicht da? Schau in deinen Spam-Ordner. Absender: office@wirkaufendeineimmobilie.de</p>
+</div>
+
 <div class="rechner-cross-link">
   <p>Langfrist-Investor? <a href="/kapitalanleger-rechner">→ Kapitalanleger-Rechner mit AfA &amp; DCF-Rendite</a></p>
 </div>
@@ -2045,17 +2065,24 @@ emailForm?.addEventListener('submit', async (e) => {
     });
 
     if (res.ok) {
-      emailBtn.textContent = '✓ Analyse gesendet';
+      // Show "Fast fertig" DOI pending screen
+      const quizSection = document.querySelector('.quiz-section') as HTMLElement | null;
+      const progressWrap = document.getElementById('quiz-progress') as HTMLElement | null;
+      if (quizSection) quizSection.style.display = 'none';
+      if (progressWrap) progressWrap.style.display = 'none';
+      const pending = document.getElementById('doi-pending-screen');
+      if (pending) pending.style.display = 'block';
+      window.scrollTo(0, 0);
     } else {
       emailBtn.textContent = 'Analyse erhalten';
+      emailBtn.classList.remove('is-loading');
       // Result still unlocked
     }
   } catch {
     emailBtn.textContent = 'Analyse erhalten';
+    emailBtn.classList.remove('is-loading');
     // Still unlocked — user has their result
   }
-
-  emailBtn.classList.remove('is-loading');
 });
 
 function unlockResult() {

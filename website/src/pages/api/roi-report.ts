@@ -3,11 +3,11 @@ import puppeteer from 'puppeteer';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
-import { calcRoi, formatEur } from '../../lib/roi-calc';
+import { calcRoi } from '../../lib/roi-calc';
 import type { RoiInput } from '../../lib/roi-calc';
 import { generatePdfHtml } from '../../lib/roi-pdf';
-import { sendTransactionalEmail } from '../../lib/brevo';
-import { insertRegistration } from '../../lib/db';
+import { insertRegistration, triggerBrevoDoubleOptIn } from '../../lib/db';
+import { generateRefNr, buildDoiRedirectUrl } from '../../lib/ref';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const portraitPath = join(__dirname, '../../../../public/images/joachim-kleinke-portrait.jpg');
@@ -18,12 +18,9 @@ try {
 
 export const prerender = false;
 
-function generateRefNr(): string {
-  const now = new Date();
-  const date = now.toISOString().slice(0, 10).replace(/-/g, '');
-  const rand = Math.floor(1000 + Math.random() * 9000);
-  return `WKDI-${date}-${rand}`;
-}
+const BREVO_DOI_TEMPLATE_ID = Number(process.env.BREVO_DOI_TEMPLATE_ID) || 0;
+const BREVO_LIST_ID_ROI = Number(process.env.BREVO_LIST_ID_ROI) || 0;
+const SITE_BASE_URL = process.env.SITE_URL || 'https://wirkaufendeineimmobilie.de';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -55,28 +52,24 @@ export const POST: APIRoute = async ({ request }) => {
       eigenkapital_pct: Number(eigenkapital_pct),
     };
 
-    // Calculate ROI
     const result = calcRoi(input);
-
-    // Generate reference number and datum
-    const refNr = generateRefNr();
+    const refNr = generateRefNr('WKDI');
     const datum = new Date().toLocaleDateString('de-DE', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
     });
 
-    // Generate PDF HTML
     const html = generatePdfHtml({ input, result, vorname, email, refNr, datum, portraitB64 });
 
-    // Launch Puppeteer to convert HTML → PDF
-    let pdfBase64: string;
+    // Generate PDF and store as base64 — sent AFTER DOI confirmation
     const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
     const browser = await puppeteer.launch({
       executablePath: executablePath || undefined,
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
       headless: true,
     });
+    let pdfBase64: string;
     try {
       const page = await browser.newPage();
       await page.setContent(html, { waitUntil: 'networkidle0' });
@@ -86,44 +79,39 @@ export const POST: APIRoute = async ({ request }) => {
       await browser.close();
     }
 
-    const pdfAttachment = {
-      content: pdfBase64,
-      name: `ROI-Analyse-${refNr}.pdf`,
-    };
-
-    // Send email to user with PDF attachment
-    await sendTransactionalEmail({
-      to: { email, name: vorname },
-      subject: `Ihre persönliche Deal-Analyse — Ref ${refNr}`,
-      htmlContent: `<p>Hallo ${vorname},</p>
-<p>anbei Ihre persönliche Deal-Analyse mit der Referenznummer <strong>${refNr}</strong>.</p>
-<p>Das PDF enthält Ihre vollständige Kalkulation, den Deal Score und nächste Empfehlungen.</p>
-<p>Bei Fragen melden Sie sich gerne direkt: office@wirkaufendeineimmobilie.de</p>
-<br><p>Beste Grüße,<br>Joachim Kleinke</p>`,
-      attachments: [pdfAttachment],
-    });
-
-    // Send notification to Joachim (no attachment needed)
-    await sendTransactionalEmail({
-      to: { email: 'office@wirkaufendeineimmobilie.de', name: 'Joachim Kleinke' },
-      subject: `Neuer ROI-Rechner Lead: ${vorname} — ${refNr}`,
-      htmlContent: `<p>Neuer ROI-Rechner Lead: ${vorname} (${email})</p>
-<p>Ref-Nr: ${refNr}</p>
-<p>Deal Score: ${result.deal_score} — ROI: ${result.roi_pct}%</p>
-<p>Stadtteil: ${input.stadtteil}, Kaufpreis: ${formatEur(input.kaufpreis)}</p>`,
-    });
-
-    // Store in DB
+    // Store in DB — doi_confirmed=0, pdf_base64 stored for retrieval in confirm-report
     insertRegistration({
       typ: 'lead-magnet',
       email,
       name: vorname,
       lead_magnet_typ: 'roi-rechner',
+      ref_nr: refNr,
+      doi_confirmed: 0,
+      pdf_base64: pdfBase64,
       lead_magnet_data: JSON.stringify({ ...input, result, refNr }),
     });
 
+    // Trigger DOI — Brevo sends confirmation email, user clicks → confirm-report
+    if (BREVO_DOI_TEMPLATE_ID && BREVO_LIST_ID_ROI) {
+      const redirectionUrl = buildDoiRedirectUrl(SITE_BASE_URL, 'confirm-report', refNr);
+      try {
+        await triggerBrevoDoubleOptIn({
+          email,
+          name: vorname,
+          typ: 'roi-rechner',
+          listId: BREVO_LIST_ID_ROI,
+          templateId: BREVO_DOI_TEMPLATE_ID,
+          redirectionUrl,
+        });
+      } catch (doiErr) {
+        console.error('[roi-report] DOI trigger failed:', doiErr);
+        // Fail the whole request — user must retry, otherwise they'll never receive the confirmation email
+        throw doiErr;
+      }
+    }
+
     return new Response(
-      JSON.stringify({ success: true, result, refNr }),
+      JSON.stringify({ success: true, status: 'doi_pending', refNr }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (err) {
