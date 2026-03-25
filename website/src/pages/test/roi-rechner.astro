@@ -56,16 +56,15 @@ import Layout from '../../layouts/Layout.astro';
   <section class="quiz-section">
     <div class="container">
 
-      <!-- STEP 1: Objekt-Typ -->
+      <!-- STEP 1: Szenarien Info + Start -->
       <div class="quiz-step" id="step-1">
         <div class="quiz-step__header">
-          <h2>Welchen Objekt-Typ willst du kalkulieren?</h2>
-          <!-- GEÄNDERT: Ehrlich — nur GEG hat Recheneinfluss, Rest für Auswertung -->
-          <p class="quiz-step__hint">Wähle das passende Szenario — bei energetischer Sanierung fließt die staatliche Bundesförderung für effiziente Gebäude (BEG) automatisch in die Kalkulation ein. Alle anderen Szenarien helfen uns, dein Ergebnis besser einzuordnen.</p>
+          <h2>Für welche Situation willst du kalkulieren?</h2>
+          <p class="quiz-step__hint">Erkenne deine Situation — und starte dann den Rechner. Die Frage zur energetischen Sanierung kommt im nächsten Schritt.</p>
         </div>
         <div class="scenario-grid">
 
-          <button class="scenario-card" data-value="messie" aria-label="Messie / Verwahrlost">
+          <div class="scenario-card" aria-label="Messie / Verwahrlost">
             <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-messie.jpg')"></div>
             <div class="scenario-card__glow"></div>
             <div class="scenario-card__content">
@@ -76,9 +75,9 @@ import Layout from '../../layouts/Layout.astro';
               <p class="scenario-card__desc">Der Rechner kalkuliert den realistischen Kaufpreisabschlag durch den Zustand und zeigt, welchen Erlös du trotzdem erzielen kannst.</p>
               <span class="scenario-card__benefit">Erlös trotz Problemzustand sichtbar machen</span>
             </div>
-          </button>
+          </div>
 
-          <button class="scenario-card" data-value="erbengemeinschaft" aria-label="Erbengemeinschaft">
+          <div class="scenario-card" aria-label="Erbengemeinschaft">
             <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-erbengemeinschaft.jpg')"></div>
             <div class="scenario-card__glow"></div>
             <div class="scenario-card__content">
@@ -89,9 +88,9 @@ import Layout from '../../layouts/Layout.astro';
               <p class="scenario-card__desc">Der Rechner liefert einen objektiven Marktwert — unabhängig von Erben-Emotionen. Zahlen statt Streit als Grundlage für die Einigung.</p>
               <span class="scenario-card__benefit">Neutrale Zahl für alle Beteiligten</span>
             </div>
-          </button>
+          </div>
 
-          <button class="scenario-card" data-value="geg" aria-label="Energetischer Sanierungsbedarf (gemäß GEG)">
+          <div class="scenario-card" aria-label="Energetischer Sanierungsbedarf (gemäß GEG)">
             <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-geg.jpg')"></div>
             <div class="scenario-card__glow"></div>
             <div class="scenario-card__content">
@@ -99,13 +98,12 @@ import Layout from '../../layouts/Layout.astro';
                 <svg class="scenario-card__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 <h3>Energetische Sanierung (gemäß GEG)</h3>
               </div>
-              <!-- GEÄNDERT: BEG ausgeschrieben -->
-              <p class="scenario-card__desc">Der Rechner zieht die 40 % staatliche Bundesförderung für effiziente Gebäude (BEG) automatisch in die Kalkulation ein und zeigt, was für Käufer nach Förderung noch übrig bleibt.</p>
-              <span class="scenario-card__benefit badge-beg">40 % Bundesförderung fließt in die Kalkulation</span>
+              <p class="scenario-card__desc">Sanierungspflicht durch das Gebäudeenergiegesetz? Im nächsten Schritt kannst du die staatliche Bundesförderung für effiziente Gebäude (BEG) aktivieren — 40 % der Sanierungskosten werden dann eingerechnet.</p>
+              <span class="scenario-card__benefit badge-beg">40 % Bundesförderung aktivierbar im Rechner</span>
             </div>
-          </button>
+          </div>
 
-          <button class="scenario-card" data-value="insolvenz" aria-label="Insolvenz / Zwangslage">
+          <div class="scenario-card" aria-label="Insolvenz / Zwangslage">
             <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-insolvenz.jpg')"></div>
             <div class="scenario-card__glow"></div>
             <div class="scenario-card__content">
@@ -116,9 +114,9 @@ import Layout from '../../layouts/Layout.astro';
               <p class="scenario-card__desc">Der Rechner stellt Zwangsversteigerungswert und diskret vermittelten Verkaufspreis gegenüber — damit du siehst, wie viel du durch uns mehr holst.</p>
               <span class="scenario-card__benefit">Vergleich: Zwangsversteigerung vs. diskreter Verkauf</span>
             </div>
-          </button>
+          </div>
 
-          <button class="scenario-card" data-value="standard" aria-label="Kapitalanlage">
+          <div class="scenario-card" aria-label="Kapitalanlage">
             <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-kapitalanleger.jpg')"></div>
             <div class="scenario-card__glow"></div>
             <div class="scenario-card__content">
@@ -129,10 +127,9 @@ import Layout from '../../layouts/Layout.astro';
               <p class="scenario-card__desc">Fix &amp; Flip oder Halten? Der Rechner vergleicht beide Exit-Strategien mit echten Sanierungskosten und Marktpreisen — Entscheidung auf Zahlenbasis.</p>
               <span class="scenario-card__benefit">Fix &amp; Flip vs. Halten — direkt vergleichbar</span>
             </div>
-          </button>
+          </div>
 
-          <!-- NEU: Scheidungsfall -->
-          <button class="scenario-card" data-value="scheidung" aria-label="Scheidung / Trennung">
+          <div class="scenario-card" aria-label="Scheidung / Trennung">
             <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-erbengemeinschaft.jpg')"></div>
             <div class="scenario-card__glow"></div>
             <div class="scenario-card__content">
@@ -143,10 +140,9 @@ import Layout from '../../layouts/Layout.astro';
               <p class="scenario-card__desc">Bei Scheidung muss oft schnell verkauft werden — Emotionen auf beiden Seiten, Einigung nötig. Der Rechner liefert eine neutrale Zahl als Gesprächsgrundlage und zeigt den realistischen Nettoerlös nach Aufteilung.</p>
               <span class="scenario-card__benefit">Neutrale Bewertung für beide Parteien</span>
             </div>
-          </button>
+          </div>
 
-          <!-- NEU: Ortswechsel / Umzug -->
-          <button class="scenario-card" data-value="ortswechsel" aria-label="Verkauf wegen Umzug">
+          <div class="scenario-card" aria-label="Verkauf wegen Umzug">
             <div class="scenario-card__bg" style="background-image: url('/images/wkdi-szenario-insolvenz.jpg')"></div>
             <div class="scenario-card__glow"></div>
             <div class="scenario-card__content">
@@ -157,8 +153,11 @@ import Layout from '../../layouts/Layout.astro';
               <p class="scenario-card__desc">Du lebst bereits woanders — die Wohnung in Leipzig steht leer oder ist vermietet. Der Rechner zeigt, was dir ein schneller, unkomplizierter Verkauf trotz Entfernung einbringt.</p>
               <span class="scenario-card__benefit">Schnell abwickeln — ohne Aufwand vor Ort</span>
             </div>
-          </button>
+          </div>
 
+        </div>
+        <div class="scenario-start-wrap">
+          <button class="btn btn-primary btn-lg" id="scenario-start">Rechner starten →</button>
         </div>
       </div>
 
@@ -268,6 +267,16 @@ import Layout from '../../layouts/Layout.astro';
                 <p>Umwandlung Miete → ETW und Luxussanierung eingeschränkt. Aufteiler-Strategie vorab mit Anwalt prüfen.</p>
               </div>
             </div>
+          </div>
+
+          <!-- GEG-Förderung Toggle -->
+          <div class="step2-col step2-col--full">
+            <span class="field-label">Ist eine energetische Sanierung geplant?</span>
+            <div class="geg-toggle">
+              <button class="geg-btn" id="geg-nein" data-value="nein" aria-pressed="true">Nein</button>
+              <button class="geg-btn" id="geg-ja" data-value="ja" aria-pressed="false">Ja — 40 % Bundesförderung (BEG) einrechnen</button>
+            </div>
+            <p class="exit-hint" id="geg-hint" hidden>Die staatliche Bundesförderung für effiziente Gebäude (BEG) wird automatisch von den Sanierungskosten abgezogen.</p>
           </div>
 
           <!-- Right: Exit-Strategie -->
@@ -749,25 +758,24 @@ import Layout from '../../layouts/Layout.astro';
 /* Row 2: 2 cards à 3 cols each */
 .scenario-card:nth-child(4) { grid-column: 1 / 4; }
 .scenario-card:nth-child(5) { grid-column: 4 / 7; }
-/* Row 3: 2 neue Karten zentriert (je 2 cols, 1 col Abstand je Seite) */
-.scenario-card:nth-child(6) { grid-column: 2 / 4; }
-.scenario-card:nth-child(7) { grid-column: 4 / 6; }
+/* Row 3: gleich groß wie Row 2 */
+.scenario-card:nth-child(6) { grid-column: 1 / 4; }
+.scenario-card:nth-child(7) { grid-column: 4 / 7; }
 
 .scenario-card {
   position: relative;
   min-height: 200px;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  cursor: pointer;
+  cursor: default;
   background: rgba(15, 23, 42, 0.95);
   border: 2px solid var(--color-border);
-  transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+  transition: border-color 0.25s, box-shadow 0.25s;
   text-align: left;
 }
 
 .scenario-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(37, 99, 235, 0.5);
+  border-color: rgba(37, 99, 235, 0.3);
   box-shadow:
     0 4px 16px rgba(37, 99, 235, 0.15),
     0 8px 32px rgba(15, 23, 42, 0.3);
@@ -1662,6 +1670,43 @@ import Layout from '../../layouts/Layout.astro';
   margin-top: var(--space-6);
 }
 
+/* Start-Button unter Szenario-Grid */
+.scenario-start-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-10);
+}
+.btn-lg {
+  padding: var(--space-4) var(--space-10);
+  font-size: var(--text-base);
+}
+
+/* GEG-Toggle */
+.step2-col--full { grid-column: 1 / -1; }
+.geg-toggle {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+.geg-btn {
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-border);
+  background: white;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  min-height: 44px;
+}
+.geg-btn[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: white;
+}
+
 .btn-back {
   background: none;
   border: 1px solid var(--color-border-strong);
@@ -1799,6 +1844,7 @@ window.scrollTo(0, 0);
 // ─────────────────────────────────────────
 interface QuizState {
   objekt_typ: string;
+  geg_foerderung: boolean;
   stadtteil: string;
   kaufpreis: number;
   wohnflaeche: number;
@@ -1809,6 +1855,7 @@ interface QuizState {
 
 const state: QuizState = {
   objekt_typ: '',
+  geg_foerderung: false,
   stadtteil: 'neustadt-neuschoenef',
   kaufpreis: 80000,
   wohnflaeche: 60,
@@ -1859,7 +1906,7 @@ function calcResult(s: QuizState) {
   const kp = s.kaufpreis, san = s.sanierungskosten, m2 = s.wohnflaeche;
   const grunderwerb = kp * 0.035, notar = kp * 0.02, prov_kauf = kp * 0.0238;
   const nk = grunderwerb + notar + prov_kauf;
-  const beg = s.objekt_typ === 'geg' ? san * 0.40 : 0;
+  const beg = s.geg_foerderung ? san * 0.40 : 0;
   const san_netto = san - beg;
   const gesamt = kp + nk + san_netto;
   const qm_preis = MARKT[s.stadtteil] ?? 2400;
@@ -1908,23 +1955,17 @@ function showStep(n: number) {
 }
 
 // ─────────────────────────────────────────
-//  STEP 1 — SCENARIO CARDS
+//  STEP 1 — SCENARIO CARDS (Info only) + START BUTTON
 // ─────────────────────────────────────────
 document.querySelectorAll<HTMLElement>('.scenario-card').forEach((card) => {
-  // Mouse tracking glow
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
     card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
     card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
   });
-
-  card.addEventListener('click', () => {
-    document.querySelectorAll('.scenario-card').forEach((c) => c.classList.remove('selected'));
-    card.classList.add('selected');
-    state.objekt_typ = card.dataset.value ?? '';
-    setTimeout(() => showStep(2), 300);
-  });
 });
+
+document.getElementById('scenario-start')?.addEventListener('click', () => showStep(2));
 
 // ─────────────────────────────────────────
 //  STEP 2 — LAGE & STRATEGIE
@@ -1970,6 +2011,17 @@ document.querySelectorAll<HTMLElement>('.exit-card').forEach((card) => {
 });
 
 document.getElementById('step2-back')?.addEventListener('click', () => showStep(1));
+
+// GEG-Toggle
+document.querySelectorAll<HTMLElement>('.geg-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.geg-btn').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+    btn.setAttribute('aria-pressed', 'true');
+    state.geg_foerderung = btn.dataset.value === 'ja';
+    const hint = document.getElementById('geg-hint');
+    if (hint) hint.hidden = !state.geg_foerderung;
+  });
+});
 
 document.getElementById('step2-next')?.addEventListener('click', () => {
   if (!state.exit_strategie) {
