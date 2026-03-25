@@ -2,6 +2,7 @@
 import type { APIRoute } from 'astro';
 import { insertRegistration } from '../../lib/db';
 import { checkRateLimit } from '../../lib/rate-limit';
+import { sendTransactionalEmail } from '../../lib/brevo';
 
 export const prerender = false;
 
@@ -54,6 +55,23 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     lead_magnet_data,
     pain_freitext: data.get('pain_freitext') || null,
   });
+
+  const anrede = vorname || name || 'Investor';
+  sendTransactionalEmail({
+    to: { email, name },
+    subject: 'Dein Zugang ist beantragt — wirkaufendeineimmobilie.de',
+    htmlContent: `<div style="font-family:system-ui,sans-serif;max-width:560px;margin:0 auto;color:#111827;line-height:1.6">
+<p>Hallo ${anrede},</p>
+<p>deine Anfrage ist bei uns eingegangen. Wir prüfen dein Profil und melden uns innerhalb von 24 Stunden bei dir.</p>
+<p><strong>Was dich erwartet:</strong></p>
+<ul style="padding-left:1.2rem">
+  <li>Off-Market Objekte bevor sie öffentlich werden</li>
+  <li>Vorgeprüft mit Renditepotenzial &amp; Sanierungskalkulation</li>
+  <li>Kein Bietergefecht — diskretes Angebotsverfahren</li>
+</ul>
+<p>Wir freuen uns auf die Zusammenarbeit.</p>
+</div>`,
+  }).catch(() => {});
 
   return new Response(JSON.stringify({ success: true }), {
     status: 200, headers: { 'Content-Type': 'application/json' },

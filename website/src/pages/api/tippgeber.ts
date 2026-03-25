@@ -2,6 +2,7 @@
 import type { APIRoute } from 'astro';
 import { insertRegistration } from '../../lib/db';
 import { checkRateLimit } from '../../lib/rate-limit';
+import { sendTransactionalEmail } from '../../lib/brevo';
 
 export const prerender = false;
 
@@ -46,6 +47,23 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     lead_magnet_data,
     pain_freitext: data.get('pain_freitext') || null,
   });
+
+  const anrede = vorname || name || 'Tippgeber';
+  sendTransactionalEmail({
+    to: { email, name },
+    subject: 'Deine Anmeldung als Tippgeber — wirkaufendeineimmobilie.de',
+    htmlContent: `<div style="font-family:system-ui,sans-serif;max-width:560px;margin:0 auto;color:#111827;line-height:1.6">
+<p>Hallo ${anrede},</p>
+<p>willkommen an Bord. Deine Anmeldung als Tippgeber ist eingegangen.</p>
+<p><strong>Wie es weitergeht:</strong></p>
+<ul style="padding-left:1.2rem">
+  <li>Wir schicken dir in Kürze deinen persönlichen Leitfaden</li>
+  <li>Du erfährst genau, welche Objekte für uns interessant sind</li>
+  <li>Bei jedem erfolgreichen Deal erhältst du deine Provision</li>
+</ul>
+<p>Schreib uns jederzeit — wir sind für dich da.</p>
+</div>`,
+  }).catch(() => {});
 
   return new Response(JSON.stringify({ success: true }), {
     status: 200, headers: { 'Content-Type': 'application/json' },
