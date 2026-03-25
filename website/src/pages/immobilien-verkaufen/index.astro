@@ -64,6 +64,25 @@ const jsonLdBreadcrumb = JSON.stringify({
         <input type="text" name="plz" placeholder="PLZ der Immobilie" pattern="[0-9]{5}" maxlength="5" required aria-label="PLZ" />
         <button type="submit" class="btn btn-primary iv-form__btn">Kostenlos bewerten &rarr;</button>
       </form>
+      <div id="post-submit" style="display:none; padding: 2rem; background: #f0fdf4; border-radius: 12px; border: 1px solid #bbf7d0; max-width: 520px;">
+        <p style="font-size: 1.25rem; font-weight: 600; color: #15803d; margin: 0 0 1rem">
+          ✓ Danke, <span id="submitted-name"></span>!
+        </p>
+        <p style="color: #374151; margin: 0 0 1.5rem">
+          📬 Du bekommst gleich eine E-Mail mit dem Link zu deinen Unterlagen von:<br>
+          <strong>office@wirkaufendeineimmobilie.de</strong><br>
+          <span style="font-size: 0.875rem; color: #6b7280">→ Bitte prüfe auch deinen Spam-Ordner.</span>
+        </p>
+        <p style="font-weight: 600; margin: 0 0 0.5rem; color: #374151">Was als nächstes passiert:</p>
+        <ul style="margin: 0 0 1.5rem; padding-left: 1.25rem; color: #374151; line-height: 1.8">
+          <li>Wir prüfen dein Objekt und berechnen eine erste Preisspanne</li>
+          <li>Du erhältst eine PDF-Preisindikation per E-Mail</li>
+          <li>Joachim meldet sich persönlich bei dir</li>
+        </ul>
+        <p style="color: #6b7280; font-size: 0.875rem; margin: 1rem 0 0">
+          Das geht schnell — meist innerhalb von 24h.
+        </p>
+      </div>
       <p class="hub-trust">56 Stadtteile &middot; Kostenlos &middot; Antwort in 48h</p>
     </div>
   </section>
@@ -126,7 +145,15 @@ const jsonLdBreadcrumb = JSON.stringify({
     btn.disabled = true;
     try {
       const res = await fetch('/api/bewertung', { method: 'POST', body: new FormData(form) });
-      if (res.ok) { window.location.href = '/danke?typ=verkaeufer'; }
+      if (res.ok) {
+        document.getElementById('hub-form')!.style.display = 'none';
+        const nameField = form.querySelector('input[name="vorname"]') as HTMLInputElement || form.querySelector('input[name="name"]') as HTMLInputElement;
+        const nameSpan = document.getElementById('submitted-name');
+        if (nameField && nameSpan) nameSpan.textContent = nameField.value.split(' ')[0] || nameField.value;
+        const postSubmit = document.getElementById('post-submit')!;
+        postSubmit.style.display = 'block';
+        postSubmit.scrollIntoView({ behavior: 'smooth' });
+      }
       else { btn.textContent = 'Fehler — erneut versuchen'; btn.disabled = false; }
     } catch { btn.textContent = 'Fehler — erneut versuchen'; btn.disabled = false; }
   });

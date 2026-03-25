@@ -271,6 +271,25 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
           <button type="submit" class="btn btn-primary makler-form__submit">Bewerbung einreichen &rarr;</button>
           <FormPrivacyHint />
         </form>
+        <div id="post-submit" style="display:none; padding: 2rem; background: #f0fdf4; border-radius: 12px; border: 1px solid #bbf7d0;">
+          <p style="font-size: 1.25rem; font-weight: 600; color: #15803d; margin: 0 0 1rem">
+            ✓ Danke, <span id="submitted-name"></span>!
+          </p>
+          <p style="color: #374151; margin: 0 0 1.5rem">
+            📬 Du bekommst gleich eine E-Mail von:<br>
+            <strong>office@wirkaufendeineimmobilie.de</strong><br>
+            <span style="font-size: 0.875rem; color: #6b7280">→ Bitte prüfe auch deinen Spam-Ordner.</span>
+          </p>
+          <p style="font-weight: 600; margin: 0 0 0.5rem; color: #374151">Was dich erwartet:</p>
+          <ul style="margin: 0 0 1.5rem; padding-left: 1.25rem; color: #374151; line-height: 1.8">
+            <li>Off-Market Deal-Flow für deine Kunden</li>
+            <li>Klare Provisionsteilung vorab vereinbart</li>
+            <li>Kooperation, keine Konkurrenz</li>
+          </ul>
+          <p style="color: #6b7280; font-size: 0.875rem; margin: 1rem 0 0">
+            Wir melden uns nach Prüfung innerhalb von 48h bei dir.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -702,7 +721,13 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     try {
       const res = await fetch('/api/makler', { method: 'POST', body: formData });
       if (res.ok) {
-        window.location.href = '/danke?typ=makler';
+        document.getElementById('makler-reg-form')!.style.display = 'none';
+        const nameField = form.querySelector('input[name="name"], input[name="vorname"]') as HTMLInputElement;
+        const nameSpan = document.getElementById('submitted-name');
+        if (nameField && nameSpan) nameSpan.textContent = nameField.value.split(' ')[0] || nameField.value;
+        const postSubmit = document.getElementById('post-submit')!;
+        postSubmit.style.display = 'block';
+        postSubmit.scrollIntoView({ behavior: 'smooth' });
       } else {
         btn.textContent = 'Fehler — bitte erneut versuchen';
         btn.disabled = false;
