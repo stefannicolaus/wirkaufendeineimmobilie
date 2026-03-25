@@ -19,7 +19,9 @@ export async function sendTransactionalEmail(opts: {
   const apiKey = process.env.BREVO_API_KEY || import.meta.env.BREVO_API_KEY;
   if (!apiKey) throw new Error('BREVO_API_KEY not configured');
 
-  const unsubscribeFooter = `<div style="margin-top:2rem;padding-top:1rem;border-top:1px solid #e5e7eb;font-size:12px;color:#9ca3af;font-family:system-ui,sans-serif;line-height:1.5"><p style="margin:0 0 4px">wirkaufendeineimmobilie.de — Joachim Kleinke<br>Diese E-Mail wurde durch Ihre Anfrage auf unserer Website ausgelöst.</p><p style="margin:0">Keine weiteren E-Mails? <a href="mailto:datenschutz@wirkaufendeineimmobilie.de" style="color:#9ca3af">datenschutz@wirkaufendeineimmobilie.de</a></p></div>`;
+  const signature = `<div style="margin-top:2rem;padding-top:1.5rem;border-top:2px solid #f3f4f6;font-family:system-ui,sans-serif"><table cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right:14px;vertical-align:middle"><img src="https://wirkaufendeineimmobilie.de/images/joachim-kleinke-portrait.jpg" alt="Joachim Kleinke" width="56" height="56" style="border-radius:50%;display:block;object-fit:cover" /></td><td style="vertical-align:middle"><p style="margin:0;font-size:15px;font-weight:600;color:#111827">Joachim Kleinke</p><p style="margin:2px 0 0;font-size:13px;color:#6b7280">Immobilienprofi · Handel &amp; Consulting</p><p style="margin:4px 0 0;font-size:13px"><a href="https://wirkaufendeineimmobilie.de" style="color:#1d4ed8;text-decoration:none">wirkaufendeineimmobilie.de</a></p></td></tr></table></div>`;
+
+  const unsubscribeFooter = `<div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid #e5e7eb;font-size:12px;color:#9ca3af;font-family:system-ui,sans-serif;line-height:1.5"><p style="margin:0 0 4px">Diese E-Mail wurde durch Ihre Anfrage auf unserer Website ausgelöst.</p><p style="margin:0">Keine weiteren E-Mails? <a href="mailto:datenschutz@wirkaufendeineimmobilie.de" style="color:#9ca3af">datenschutz@wirkaufendeineimmobilie.de</a></p></div>`;
 
   const body: Record<string, unknown> = {
     sender: {
@@ -32,7 +34,7 @@ export async function sendTransactionalEmail(opts: {
       'List-Unsubscribe': '<mailto:datenschutz@wirkaufendeineimmobilie.de?subject=Abmeldung>',
     },
     ...(opts.subject ? { subject: opts.subject } : {}),
-    ...(opts.htmlContent ? { htmlContent: opts.htmlContent + unsubscribeFooter } : {}),
+    ...(opts.htmlContent ? { htmlContent: opts.htmlContent + signature + unsubscribeFooter } : {}),
     ...(opts.templateId ? { templateId: opts.templateId } : {}),
     ...(opts.params ? { params: opts.params } : {}),
     ...(opts.attachments?.length ? { attachment: opts.attachments } : {}),
