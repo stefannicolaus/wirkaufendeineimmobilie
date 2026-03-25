@@ -144,14 +144,19 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
   </section>
   <!-- END tipp-wer-cards -->
 
-  <!-- SO FUNKTIONIERT'S -->
-  <section class="section tipp-steps bg-alt">
+  <!-- SO FUNKTIONIERT'S — Header (dunkel) -->
+  <section class="tipp-steps-header">
     <div class="container">
-      <div class="tipp-section-header">
+      <div class="tipp-section-header tipp-section-header--center">
         <div class="label">So einfach geht's</div>
         <h2>So funktioniert's.</h2>
       </div>
+    </div>
+  </section>
 
+  <!-- SO FUNKTIONIERT'S — Steps (hell) -->
+  <section class="tipp-steps-cards">
+    <div class="container">
       <div class="tipp-steps__grid">
         <div class="tipp-step">
           <div class="tipp-step__number">1</div>
@@ -454,6 +459,26 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
   }
 
   /* STEPS */
+  .tipp-steps-header {
+    background: var(--color-primary);
+    padding-block: var(--section-gap) var(--space-12);
+  }
+
+  .tipp-steps-header .label {
+    color: var(--color-accent);
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.25);
+  }
+
+  .tipp-steps-header h2 {
+    color: white;
+  }
+
+  .tipp-steps-cards {
+    background: var(--color-bg-alt);
+    padding-block: var(--space-12) var(--section-gap);
+  }
+
   .tipp-steps {
     padding-block: var(--section-gap);
   }
