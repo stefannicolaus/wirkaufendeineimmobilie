@@ -1875,8 +1875,9 @@ Vielen Dank und freundliche Grüße,
       document.querySelectorAll('.wiz-step').forEach(el => el.classList.add('hidden'));
       document.getElementById('quiz-progress')?.classList.remove('hidden');
       goToQuizStep(1);
-      return; // nicht weiter initialisieren
+      return true; // Quiz-Modus aktiv — goToStep(0) überspringen
     }
+    return false;
   }
 
   // ── QUIZ STATE ──
@@ -2710,8 +2711,8 @@ Vielen Dank und freundliche Grüße,
   });
 
   // ── INIT ──
-  initSession();
-  goToStep(0);
+  const isQuizMode = initSession();
+  if (!isQuizMode) goToStep(0);
 
   // Handle goToStep calls from upload/skip buttons (they call goToStep directly)
   // Monkey-patch the local function reference via a shared object
