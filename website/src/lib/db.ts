@@ -62,6 +62,10 @@ try { db.exec(`ALTER TABLE registrations ADD COLUMN doi_confirmed INTEGER DEFAUL
 try { db.exec(`ALTER TABLE registrations ADD COLUMN ref_nr TEXT`); } catch {}
 try { db.exec(`ALTER TABLE registrations ADD COLUMN pdf_base64 TEXT`); } catch {}
 
+// Quiz-Felder für Erstbewertung (idempotent)
+try { db.exec(`ALTER TABLE registrations ADD COLUMN energieausweis_base64 TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN situation TEXT`); } catch {}
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS leads_kapitalanleger (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
