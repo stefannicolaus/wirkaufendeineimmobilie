@@ -25,6 +25,23 @@ export const prerender = false;
   </ul>
 </div>
 
+<!-- QUIZ PROGRESS (only shown in quiz mode) -->
+<div id="quiz-progress" class="quiz-progress hidden">
+  <div class="quiz-progress__dots" id="quiz-dots">
+    <span class="quiz-dot quiz-dot--active" data-qstep="1"></span>
+    <span class="quiz-dot" data-qstep="2"></span>
+    <span class="quiz-dot" data-qstep="3"></span>
+    <span class="quiz-dot" data-qstep="4"></span>
+    <span class="quiz-dot" data-qstep="5"></span>
+    <span class="quiz-dot" data-qstep="6"></span>
+    <span class="quiz-dot" data-qstep="7"></span>
+  </div>
+  <div class="quiz-progress__label">
+    <span id="quiz-step-label">Schritt 1 von 7</span>
+    <span class="quiz-time">⏱ Noch ca. 2 Minuten</span>
+  </div>
+</div>
+
 <!-- Versteckte Felder für URL-Params (Erstbewertung-Flow) -->
 <input type="hidden" id="hidden-email" value="" />
 <input type="hidden" id="hidden-plz" value="" />
@@ -33,122 +50,312 @@ export const prerender = false;
 <div class="container wiz-container">
 
   <!-- ═══════════════════════════════════════
-       ERSTBEWERTUNG — OBJEKT-DATEN (nur bei URL-Params)
+       QUIZ SCHRITT 1 — SITUATION (optional)
   ════════════════════════════════════════ -->
-  <div class="wiz-step hidden" id="step-erstbewertung">
+  <div class="wiz-step hidden" id="quiz-step-1">
     <div class="wiz-intro">
-      <div class="label">Schritt 2 von 2</div>
-      <h1>Fast fertig —<br /><span class="text-accent">Ihre Immobilien-Details.</span></h1>
-      <p class="wiz-intro__sub">
-        Je mehr Sie angeben, desto genauer Ihre persönliche Preisindikation.
-      </p>
-      <div class="wiz-reassure">
-        <span>✓ 2 Minuten</span>
-        <span>✓ Kein Feld ist Pflicht</span>
-        <span>✓ PDF kommt per E-Mail</span>
+      <h1>Damit wir gezielter helfen können —<br /><span class="text-accent">Was beschreibt Ihre Situation?</span></h1>
+      <p class="wiz-intro__sub">Mehrere Antworten möglich. Kein Pflichtfeld.</p>
+    </div>
+    <div class="wiz-card">
+      <div class="quiz-tile-grid quiz-tile-grid--2col" id="situation-tiles">
+        <button type="button" class="quiz-tile" data-value="Erbengemeinschaft">
+          <span class="quiz-tile__icon">🏚</span>
+          <span class="quiz-tile__label">Erbengemeinschaft</span>
+          <span class="quiz-tile__desc">Gemeinsam mit anderen Erben, noch keine Einigung</span>
+        </button>
+        <button type="button" class="quiz-tile" data-value="Messie-Objekt">
+          <span class="quiz-tile__icon">🧹</span>
+          <span class="quiz-tile__label">Messie-Objekt</span>
+          <span class="quiz-tile__desc">Starke Verschmutzung oder schwieriger Zustand</span>
+        </button>
+        <button type="button" class="quiz-tile" data-value="GEG / Energetischer Sanierungsstau">
+          <span class="quiz-tile__icon">⚡</span>
+          <span class="quiz-tile__label">GEG / Energetischer Sanierungsstau</span>
+          <span class="quiz-tile__desc">Hohe Energiekosten, Sanierungspflicht</span>
+        </button>
+        <button type="button" class="quiz-tile" data-value="Insolvenzverfahren">
+          <span class="quiz-tile__icon">⚖️</span>
+          <span class="quiz-tile__label">Insolvenzverfahren</span>
+          <span class="quiz-tile__desc">Zwangssituation, Zeitdruck</span>
+        </button>
+        <button type="button" class="quiz-tile" data-value="Kapitalanleger mit Renovierungsdruck">
+          <span class="quiz-tile__icon">🏗</span>
+          <span class="quiz-tile__label">Kapitalanleger mit Renovierungsdruck</span>
+          <span class="quiz-tile__desc">Vermietetes Objekt, Renovierungsstau</span>
+        </button>
+        <button type="button" class="quiz-tile" data-value="Scheidung / Trennung">
+          <span class="quiz-tile__icon">💔</span>
+          <span class="quiz-tile__label">Scheidung / Trennung</span>
+          <span class="quiz-tile__desc">Gemeinsames Eigentum muss aufgeteilt werden</span>
+        </button>
+        <button type="button" class="quiz-tile" data-value="Beruflicher Umzug / Zeitdruck">
+          <span class="quiz-tile__icon">📦</span>
+          <span class="quiz-tile__label">Beruflicher Umzug / Zeitdruck</span>
+          <span class="quiz-tile__desc">Schneller Verkauf nötig</span>
+        </button>
+        <button type="button" class="quiz-tile quiz-tile--other" data-value="__andere__">
+          <span class="quiz-tile__icon">✏️</span>
+          <span class="quiz-tile__label">Meine Situation ist anders...</span>
+        </button>
+      </div>
+      <textarea id="situation-freitext" class="quiz-freitext hidden" rows="2"
+        placeholder="Beschreiben Sie kurz Ihre Situation..."></textarea>
+      <div class="quiz-actions">
+        <button type="button" class="btn-quiz-skip" id="quiz-1-skip">Überspringen →</button>
+        <button type="button" class="btn btn-primary" id="quiz-1-next">Weiter →</button>
       </div>
     </div>
+  </div>
 
+  <!-- ═══════════════════════════════════════
+       QUIZ SCHRITT 2 — BAUJAHR
+  ════════════════════════════════════════ -->
+  <div class="wiz-step hidden" id="quiz-step-2">
+    <div class="wiz-intro">
+      <h1>Wann wurde die<br /><span class="text-accent">Immobilie gebaut?</span></h1>
+    </div>
     <div class="wiz-card">
-      <h2 class="wiz-card__title">Ihre Immobilie</h2>
-      <form class="wiz-form" id="form-erstbewertung">
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="eb-baujahr">Baujahr</label>
-            <input type="number" id="eb-baujahr" name="baujahr" placeholder="z.B. 1978" min="1800" max="2025" />
-          </div>
-          <div class="form-group">
-            <label for="eb-wohnflaeche">Wohnfläche (m²)</label>
-            <input type="number" id="eb-wohnflaeche" name="wohnflaeche" placeholder="z.B. 82" min="10" max="2000" />
-          </div>
+      <div class="quiz-year-input">
+        <label for="q-baujahr" id="q-baujahr-label" class="quiz-year-label">Baujahr</label>
+        <input type="number" id="q-baujahr" class="quiz-year-field" placeholder="z.B. 1987" min="1850" max="2026" />
+      </div>
+      <div class="quiz-checkbox-group">
+        <label class="quiz-checkbox-label">
+          <input type="checkbox" id="q-baujahr-unsicher" />
+          <span>Ungefähre Angabe — bin nicht ganz sicher</span>
+        </label>
+        <label class="quiz-checkbox-label">
+          <input type="checkbox" id="q-baujahr-weissnicht" />
+          <span>Weiß nicht</span>
+        </label>
+      </div>
+      <p class="quiz-hint">Das Baujahr steht im Kaufvertrag, auf dem Energieausweis oder in der Bauakte. Joachim kann auch mit einer Schätzung gut arbeiten.</p>
+      <div class="quiz-actions">
+        <button type="button" class="btn-quiz-back" data-qtarget="1">← Zurück</button>
+        <div class="quiz-actions__right">
+          <button type="button" class="btn-quiz-skip" id="quiz-2-skip">Überspringen →</button>
+          <button type="button" class="btn btn-primary" id="quiz-2-next">Weiter →</button>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <div class="form-group">
-          <label for="eb-energieklasse">Energieklasse</label>
-          <select id="eb-energieklasse" name="energieklasse">
-            <option value="">— bitte wählen / unbekannt —</option>
-            <option value="A+">A+ (sehr effizient)</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="G">G</option>
-            <option value="H">H (wenig effizient)</option>
-          </select>
+  <!-- ═══════════════════════════════════════
+       QUIZ SCHRITT 3 — WOHNFLÄCHE
+  ════════════════════════════════════════ -->
+  <div class="wiz-step hidden" id="quiz-step-3">
+    <div class="wiz-intro">
+      <h1>Wie groß ist die<br /><span class="text-accent">Wohnfläche?</span></h1>
+    </div>
+    <div class="wiz-card">
+      <div class="quiz-year-input">
+        <label for="q-wohnflaeche" class="quiz-year-label">Wohnfläche in m²</label>
+        <div class="quiz-number-row">
+          <button type="button" class="quiz-stepper-btn" id="wf-minus">−</button>
+          <input type="number" id="q-wohnflaeche" class="quiz-year-field quiz-year-field--center" placeholder="z.B. 82" min="10" max="2000" />
+          <button type="button" class="quiz-stepper-btn" id="wf-plus">+</button>
         </div>
-
-        <div class="form-group">
-          <label for="eb-zustand">Zustand der Immobilie</label>
-          <select id="eb-zustand" name="zustand">
-            <option value="">— bitte wählen —</option>
-            <option value="neuwertig">Neuwertig / wie neu</option>
-            <option value="gut">Gut gepflegt</option>
-            <option value="mittel">Mittelmäßig</option>
-            <option value="renovierungsbeduerftig">Renovierungsbedürftig</option>
-          </select>
+      </div>
+      <p class="quiz-hint">Keller, Garage und Abstellräume zählen normalerweise nicht dazu. Die Zahl steht im Kaufvertrag oder Grundriss. Eine Schätzung reicht.</p>
+      <div class="quiz-actions">
+        <button type="button" class="btn-quiz-back" data-qtarget="2">← Zurück</button>
+        <div class="quiz-actions__right">
+          <button type="button" class="btn-quiz-skip" id="quiz-3-skip">Überspringen →</button>
+          <button type="button" class="btn btn-primary" id="quiz-3-next">Weiter →</button>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <div class="form-group">
-          <label for="eb-sanierungsstand">Sanierungsstand</label>
-          <select id="eb-sanierungsstand" name="sanierungsstand">
-            <option value="">— bitte wählen —</option>
-            <option value="vollsaniert">Vollsaniert</option>
-            <option value="teilsaniert">Teilsaniert</option>
-            <option value="kaum-saniert">Kaum saniert</option>
-            <option value="unsaniert">Unsaniert / Originalzustand</option>
-          </select>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="eb-heizung-baujahr">Heizung Baujahr</label>
-            <input type="number" id="eb-heizung-baujahr" name="heizung_baujahr" placeholder="z.B. 2005" min="1950" max="2025" />
-          </div>
-          <div class="form-group">
-            <label for="eb-etage">Etage (bei ETW)</label>
-            <input type="text" id="eb-etage" name="etage" placeholder="z.B. 3. OG / EG" />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-              <input type="checkbox" id="eb-stellplatz" name="stellplatz" style="width:18px;height:18px;" />
-              Stellplatz vorhanden
-            </label>
-          </div>
-          <div class="form-group">
-            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-              <input type="checkbox" id="eb-vermietet" name="vermietet" style="width:18px;height:18px;" />
-              Aktuell vermietet
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="eb-besonderheit">Besonderheiten (optional)</label>
-          <textarea id="eb-besonderheit" name="besonderheit" rows="2" placeholder="z.B. Dachterrasse, Erstbezug nach Sanierung, Erbbaurecht, ..."></textarea>
-        </div>
-
-        <div class="form-group" style="margin-top:32px;border-top:1px solid #e2e8f0;padding-top:32px;">
-          <label for="eb-pain-freitext">Was ist aktuell das größte Problem für Sie? <span style="color:#64748b;font-weight:400;">(optional)</span></label>
-          <textarea id="eb-pain-freitext" name="pain_freitext" rows="4"
-            placeholder="Je mehr Sie uns mitteilen, desto persönlicher kann Joachim auf Ihre Situation eingehen..."></textarea>
-          <p class="form-hint">Joachim liest Ihre Nachricht persönlich vor dem Rückruf.</p>
-        </div>
-
-        <button type="submit" class="btn btn-primary wiz-btn-next" style="width:100%;margin-top:24px;">
-          Preisindikation erstellen &rarr;
+  <!-- ═══════════════════════════════════════
+       QUIZ SCHRITT 4 — ENERGIEKLASSE
+  ════════════════════════════════════════ -->
+  <div class="wiz-step hidden" id="quiz-step-4">
+    <div class="wiz-intro">
+      <h1>Welche Energieklasse hat<br /><span class="text-accent">die Immobilie?</span></h1>
+    </div>
+    <div class="wiz-card">
+      <div class="quiz-tile-grid quiz-tile-grid--3col quiz-tile-grid--energy" id="energy-tiles">
+        <button type="button" class="quiz-tile quiz-tile--energy" data-value="A+">A+</button>
+        <button type="button" class="quiz-tile quiz-tile--energy" data-value="A">A</button>
+        <button type="button" class="quiz-tile quiz-tile--energy" data-value="B">B</button>
+        <button type="button" class="quiz-tile quiz-tile--energy" data-value="C">C</button>
+        <button type="button" class="quiz-tile quiz-tile--energy" data-value="D">D</button>
+        <button type="button" class="quiz-tile quiz-tile--energy" data-value="E">E</button>
+        <button type="button" class="quiz-tile quiz-tile--energy" data-value="F">F</button>
+        <button type="button" class="quiz-tile quiz-tile--energy" data-value="G">G</button>
+        <button type="button" class="quiz-tile quiz-tile--energy" data-value="H">H</button>
+      </div>
+      <div class="quiz-tile-grid quiz-tile-grid--1col" style="margin-top:8px">
+        <button type="button" class="quiz-tile quiz-tile--weissnicht" data-value="__weissnicht__" id="energy-weissnicht">
+          Weiß nicht / Kein Ausweis vorhanden
         </button>
-        <FormPrivacyHint />
-      </form>
-      <div id="eb-success" class="hidden" style="text-align:center;padding:48px 24px;">
-        <p style="font-size:32px;margin-bottom:16px;">✓</p>
+      </div>
+      <p class="quiz-hint">Die Energieklasse steht auf dem Energieausweis (oben rechts, oft als farbige Skala).</p>
+      <div class="quiz-upload-optional">
+        <label for="q-energieausweis" class="quiz-upload-label-btn">
+          📎 Energieausweis hochladen (optional)
+          <input type="file" id="q-energieausweis" accept=".pdf,image/*" class="quiz-file-hidden" />
+        </label>
+        <span id="q-energieausweis-name" class="quiz-upload-filename"></span>
+      </div>
+      <div class="quiz-actions">
+        <button type="button" class="btn-quiz-back" data-qtarget="3">← Zurück</button>
+        <div class="quiz-actions__right">
+          <button type="button" class="btn-quiz-skip" id="quiz-4-skip">Überspringen →</button>
+          <button type="button" class="btn btn-primary" id="quiz-4-next">Weiter →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       QUIZ SCHRITT 5 — ZUSTAND
+  ════════════════════════════════════════ -->
+  <div class="wiz-step hidden" id="quiz-step-5">
+    <div class="wiz-intro">
+      <h1>Wie würden Sie den<br /><span class="text-accent">Zustand beschreiben?</span></h1>
+    </div>
+    <div class="wiz-card">
+      <div class="quiz-tile-grid quiz-tile-grid--1col quiz-tile-grid--zustand" id="zustand-tiles">
+        <button type="button" class="quiz-tile quiz-tile--zustand" data-value="sanierungsbeduerftig">
+          <span class="quiz-tile__icon">🔧</span>
+          <div>
+            <span class="quiz-tile__label">Sanierungsbedürftig</span>
+            <span class="quiz-tile__desc">Größere Mängel, letzte Renovierung vor über 20 Jahren oder gar nicht</span>
+          </div>
+        </button>
+        <button type="button" class="quiz-tile quiz-tile--zustand" data-value="renovierungsbeduerftig">
+          <span class="quiz-tile__icon">🪣</span>
+          <div>
+            <span class="quiz-tile__label">Renovierungsbedürftig</span>
+            <span class="quiz-tile__desc">Funktionsfähig, aber Bad, Küche oder Böden sind veraltet</span>
+          </div>
+        </button>
+        <button type="button" class="quiz-tile quiz-tile--zustand" data-value="gepflegt">
+          <span class="quiz-tile__icon">🏠</span>
+          <div>
+            <span class="quiz-tile__label">Gepflegt</span>
+            <span class="quiz-tile__desc">Regelmäßig instand gehalten, bewohnbar ohne große Maßnahmen</span>
+          </div>
+        </button>
+        <button type="button" class="quiz-tile quiz-tile--zustand" data-value="modernisiert">
+          <span class="quiz-tile__icon">✨</span>
+          <div>
+            <span class="quiz-tile__label">Modernisiert</span>
+            <span class="quiz-tile__desc">Küche, Bad oder Heizung wurden in den letzten Jahren erneuert</span>
+          </div>
+        </button>
+        <button type="button" class="quiz-tile quiz-tile--zustand" data-value="neuwertig">
+          <span class="quiz-tile__icon">🌟</span>
+          <div>
+            <span class="quiz-tile__label">Neuwertig</span>
+            <span class="quiz-tile__desc">Neubau oder vollständig saniert, keine Mängel erkennbar</span>
+          </div>
+        </button>
+      </div>
+      <div class="quiz-actions">
+        <button type="button" class="btn-quiz-back" data-qtarget="4">← Zurück</button>
+        <div class="quiz-actions__right">
+          <button type="button" class="btn-quiz-skip" id="quiz-5-skip">Überspringen →</button>
+          <button type="button" class="btn btn-primary" id="quiz-5-next">Weiter →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       QUIZ SCHRITT 6 — SANIERUNGSSTAND
+  ════════════════════════════════════════ -->
+  <div class="wiz-step hidden" id="quiz-step-6">
+    <div class="wiz-intro">
+      <h1>Was wurde in den letzten<br /><span class="text-accent">15 Jahren erneuert?</span></h1>
+      <p class="wiz-intro__sub">Mehrere Antworten möglich.</p>
+    </div>
+    <div class="wiz-card">
+      <div class="quiz-tile-grid quiz-tile-grid--2col" id="sanierung-tiles">
+        <button type="button" class="quiz-tile" data-value="Fenster">🪟 Fenster</button>
+        <button type="button" class="quiz-tile" data-value="Heizungsanlage">🔥 Heizungsanlage</button>
+        <button type="button" class="quiz-tile" data-value="Dach">🏠 Dach</button>
+        <button type="button" class="quiz-tile" data-value="Bad / Sanitär">🚿 Bad / Sanitär</button>
+        <button type="button" class="quiz-tile" data-value="Fassade / Dämmung">🧱 Fassade / Dämmung</button>
+        <button type="button" class="quiz-tile" data-value="Elektrik">⚡ Elektrik</button>
+        <button type="button" class="quiz-tile" data-value="Böden / Innenausbau">🪵 Böden / Innenausbau</button>
+        <button type="button" class="quiz-tile" data-value="Küche">🍳 Küche</button>
+        <button type="button" class="quiz-tile quiz-tile--exclusive" data-value="__nichts__">Nichts davon</button>
+        <button type="button" class="quiz-tile quiz-tile--exclusive" data-value="__weissnicht__">Weiß nicht</button>
+      </div>
+      <p class="quiz-hint">Jede Maßnahme kann den Wert Ihrer Immobilie erhöhen. Grobe Angaben reichen.</p>
+      <div class="quiz-actions">
+        <button type="button" class="btn-quiz-back" data-qtarget="5">← Zurück</button>
+        <div class="quiz-actions__right">
+          <button type="button" class="btn-quiz-skip" id="quiz-6-skip">Überspringen →</button>
+          <button type="button" class="btn btn-primary" id="quiz-6-next">Weiter →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       QUIZ SCHRITT 7 — EXTRAS
+  ════════════════════════════════════════ -->
+  <div class="wiz-step hidden" id="quiz-step-7">
+    <div class="wiz-intro">
+      <h1>Noch etwas<br /><span class="text-accent">Wichtiges?</span></h1>
+      <p class="wiz-intro__sub">Alles freiwillig — was Sie wissen, hilft Joachim.</p>
+    </div>
+    <div class="wiz-card">
+      <div class="quiz-extras-checkboxes">
+        <label class="quiz-checkbox-label"><input type="checkbox" id="q-stellplatz" /> Stellplatz / Garage vorhanden</label>
+        <label class="quiz-checkbox-label"><input type="checkbox" id="q-vermietet" /> Aktuell vermietet</label>
+        <label class="quiz-checkbox-label"><input type="checkbox" id="q-denkmalschutz" /> Denkmalschutz</label>
+        <label class="quiz-checkbox-label"><input type="checkbox" id="q-aufzug" /> Aufzug im Gebäude (bei ETW)</label>
+      </div>
+      <div class="form-group" style="margin-top:16px">
+        <label for="q-etage">Etage (bei ETW)</label>
+        <input type="text" id="q-etage" placeholder="z.B. 3. OG / Erdgeschoss" />
+      </div>
+      <div class="form-group">
+        <label for="q-heizung-baujahr">Heizung Baujahr</label>
+        <input type="number" id="q-heizung-baujahr" placeholder="z.B. 2008" min="1950" max="2026" />
+      </div>
+      <div class="form-group">
+        <label for="q-besonderheit">Besonderheiten</label>
+        <textarea id="q-besonderheit" rows="2" placeholder="z.B. Dachterrasse, Erbbaurecht, Erstbezug nach Sanierung..."></textarea>
+      </div>
+      <div class="form-group quiz-pain-group">
+        <label for="q-pain">Was ist aktuell das größte Problem für Sie?</label>
+        <textarea id="q-pain" rows="3" placeholder="Joachim liest das persönlich vor dem Anruf..."></textarea>
+        <p class="quiz-hint">Joachim liest Ihre Nachricht persönlich vor dem Rückruf.</p>
+      </div>
+      <div class="quiz-actions">
+        <button type="button" class="btn-quiz-back" data-qtarget="6">← Zurück</button>
+        <div class="quiz-actions__right">
+          <button type="button" class="btn-quiz-skip" id="quiz-7-skip">Überspringen →</button>
+          <button type="button" class="btn btn-primary" id="quiz-7-next">Weiter zur Zusammenfassung →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       QUIZ ZUSAMMENFASSUNG
+  ════════════════════════════════════════ -->
+  <div class="wiz-step hidden" id="quiz-summary">
+    <div class="wiz-intro">
+      <h1>Alles<br /><span class="text-accent">auf einen Blick.</span></h1>
+      <p class="wiz-intro__sub">Stimmt alles? Dann erstellen wir Ihre Preisindikation.</p>
+    </div>
+    <div class="wiz-card">
+      <ul class="quiz-summary-list" id="quiz-summary-list"></ul>
+      <button type="button" class="btn btn-primary" id="quiz-submit-btn" style="width:100%;margin-top:24px">
+        Preisindikation erstellen →
+      </button>
+      <div id="quiz-success" class="hidden" style="text-align:center;padding:48px 24px;">
+        <p style="font-size:32px;margin-bottom:16px">✓</p>
         <h3>Danke! Ihre Preisindikation wird erstellt.</h3>
-        <p style="color:#64748b;margin-top:8px;">Sie bekommen Ihr persönliches PDF in Kürze per E-Mail. Joachim ruft Sie in den nächsten 48 Stunden zurück.</p>
+        <p style="color:#64748b;margin-top:8px">Sie bekommen Ihr persönliches PDF in Kürze per E-Mail. Joachim ruft Sie in den nächsten 48 Stunden zurück.</p>
       </div>
     </div>
   </div>
