@@ -42,15 +42,20 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     </div>
   </section>
 
-  <!-- WER KANN TIPPGEBER WERDEN -->
-  <section class="section tipp-wer-section" id="wer">
+  <!-- WER KANN TIPPGEBER WERDEN — Header (dunkel) -->
+  <section class="tipp-wer-header" id="wer">
     <div class="container">
-      <div class="tipp-section-header">
+      <div class="tipp-section-header tipp-section-header--center">
         <div class="label">Für wen ist das?</div>
         <h2>Wer kann Tippgeber werden?</h2>
-        <p class="text-mid">Wer täglich in Wohnhäusern unterwegs ist, hört manchmal Dinge die andere nicht hören. Das ist dein Vorteil.</p>
+        <p>Wer täglich in Wohnhäusern unterwegs ist, hört manchmal Dinge die andere nicht hören. Das ist dein Vorteil.</p>
       </div>
+    </div>
+  </section>
 
+  <!-- WER KANN TIPPGEBER WERDEN — Cards (hell) -->
+  <section class="tipp-wer-cards">
+    <div class="container">
       <div class="tipp-wer-grid">
 
         <div class="tipp-wer-card">
@@ -137,6 +142,7 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
       </div>
     </div>
   </section>
+  <!-- END tipp-wer-cards -->
 
   <!-- SO FUNKTIONIERT'S -->
   <section class="section tipp-steps bg-alt">
@@ -354,70 +360,59 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     margin-bottom: var(--space-12);
   }
 
-  /* WER-GRID — Dark Hover Grid */
-  .tipp-wer-section {
+  /* WER — Header (dunkel) */
+  .tipp-wer-header {
     background: var(--color-primary);
+    padding-block: var(--section-gap) var(--space-12);
   }
-  .tipp-wer-section .tipp-section-header h2 {
+
+  .tipp-section-header--center {
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+    align-items: center;
+  }
+
+  .tipp-wer-header .tipp-section-header h2 {
     color: white;
   }
-  .tipp-wer-section .tipp-section-header p {
+
+  .tipp-wer-header .tipp-section-header p {
     color: rgba(255, 255, 255, 0.65);
   }
-  .tipp-wer-section .label {
+
+  .tipp-wer-header .label {
     color: var(--color-accent);
     background: rgba(59, 130, 246, 0.12);
     border-color: rgba(59, 130, 246, 0.25);
   }
+
+  /* WER — Cards (hell) */
+  .tipp-wer-cards {
+    background: var(--color-bg-alt);
+    padding-block: var(--space-12) var(--section-gap);
+  }
+
   .tipp-wer-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+    gap: var(--space-4);
   }
 
   .tipp-wer-card {
-    background: #0f172a;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     padding: var(--space-6);
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    position: relative;
-    overflow: hidden;
-    cursor: default;
-  }
-
-  .tipp-wer-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(59, 130, 246, 0.12),
-      transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .tipp-wer-card:hover::before {
-    opacity: 1;
+    box-shadow: var(--shadow-sm);
   }
 
   .tipp-wer-card--highlight {
-    background: #0f172a;
-    border: 1px solid rgba(59, 130, 246, 0.4);
-  }
-
-  .tipp-wer-card--highlight::before {
-    background: radial-gradient(
-      350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(59, 130, 246, 0.2),
-      transparent 60%
-    );
+    border-color: var(--color-accent);
+    border-width: 2px;
   }
 
   .tipp-wer-card__icon {
@@ -426,19 +421,11 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(59, 130, 246, 0.15);
+    background: var(--color-accent-light);
     color: var(--color-accent);
     border-radius: var(--radius-md);
     flex-shrink: 0;
     border: 1px solid rgba(59, 130, 246, 0.2);
-    transition: background var(--duration-normal) var(--ease-default),
-                color var(--duration-normal) var(--ease-default);
-  }
-
-  .tipp-wer-card:hover .tipp-wer-card__icon {
-    background: var(--color-accent);
-    color: white;
-    border-color: transparent;
   }
 
   .tipp-wer-card--highlight .tipp-wer-card__icon {
@@ -450,13 +437,20 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
   .tipp-wer-card h3 {
     font-size: var(--text-base);
     font-weight: var(--weight-bold);
-    color: white;
+    color: var(--color-text);
   }
 
   .tipp-wer-card p {
     font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--color-text-mid);
     line-height: var(--leading-relaxed);
+  }
+
+  @media (max-width: 768px) {
+    .tipp-wer-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .tipp-wer-grid { grid-template-columns: 1fr; }
   }
 
   /* STEPS */
