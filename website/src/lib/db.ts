@@ -94,6 +94,10 @@ try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN doi_confirmed INTEGER
 try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN ref_nr TEXT`); } catch {}
 try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN pdf_base64 TEXT`); } catch {}
 
+// Admin columns for status tracking and notes (idempotent)
+try { db.exec(`ALTER TABLE registrations ADD COLUMN status TEXT DEFAULT 'neu'`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN notiz TEXT`); } catch {}
+
 export function insertRegistration(data: Record<string, unknown>) {
   const columns = Object.keys(data);
   const placeholders = columns.map(() => '?').join(', ');
@@ -258,4 +262,84 @@ export function confirmKapitalanlegerByRef(refNr: string): void {
   db.prepare('UPDATE leads_kapitalanleger SET doi_confirmed = 1 WHERE ref_nr = ?').run(refNr);
 }
 
+export function getRegistrations(opts: {
+  typ?: string;
+  status?: string;
+  limit?: number;
+  offset?: number;
+  sort?: string;
+  dir?: 'ASC' | 'DESC';
+} = {}) {
+  const ALLOWED_SORT = ['created_at', 'name', 'typ', 'status', 'email'];
+  const col = opts.sort && ALLOWED_SORT.includes(opts.sort) ? opts.sort : 'created_at';
+  const dir = opts.dir === 'ASC' ? 'ASC' : 'DESC';
+
+  const conditions: string[] = [];
+  const params: unknown[] = [];
+
+  if (opts.typ) { conditions.push('typ = ?'); params.push(opts.typ); }
+  if (opts.status) { conditions.push('status = ?'); params.push(opts.status); }
+
+  const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+  const limit = opts.limit ?? 50;
+  const offset = opts.offset ?? 0;
+
+  return db.prepare(
+    `SELECT id, typ, name, email, telefon, status, notiz, pain_freitext,
+            lead_magnet_data, investor_typ, erfahrung, maklerbuero,
+            tippgeber_typ, tippgeber_plz, plz, immobilientyp, doi_confirmed, created_at
+     FROM registrations ${where}
+     ORDER BY ${col} ${dir} LIMIT ? OFFSET ?`
+  ).all(...params, limit, offset) as Record<string, unknown>[];
+}
+
+export function countRegistrations(opts: { typ?: string; status?: string } = {}) {
+  const conditions: string[] = [];
+  const params: unknown[] = [];
+  if (opts.typ) { conditions.push('typ = ?'); params.push(opts.typ); }
+  if (opts.status) { conditions.push('status = ?'); params.push(opts.status); }
+  const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+  return (db.prepare(`SELECT COUNT(*) as count FROM registrations ${where}`).get(...params) as { count: number }).count;
+}
+
+export function getRegistrationById(id: number) {
+  return db.prepare(`SELECT * FROM registrations WHERE id = ?`).get(id) as Record<string, unknown> | undefined;
+}
+
+export function updateRegistration(id: number, fields: { status?: string; notiz?: string }) {
+  const ALLOWED = ['status', 'notiz'];
+  const keys = Object.keys(fields).filter(k => ALLOWED.includes(k));
+  if (!keys.length) return;
+  const sets = keys.map(k => `${k} = ?`).join(', ');
+  const values = keys.map(k => (fields as Record<string, unknown>)[k]);
+  db.prepare(`UPDATE registrations SET ${sets} WHERE id = ?`).run(...values, id);
+}
+
+export function getDashboardStats() {
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+  const weekStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7).toISOString();
+
+  const typen = ['investor', 'makler', 'tippgeber', 'bewertung', 'lead-magnet'];
+  const result: Record<string, { heute: number; woche: number; gesamt: number }> = {};
+
+  for (const typ of typen) {
+    result[typ] = {
+      heute: (db.prepare(`SELECT COUNT(*) as c FROM registrations WHERE typ=? AND created_at >= ?`).get(typ, todayStart) as { c: number }).c,
+      woche: (db.prepare(`SELECT COUNT(*) as c FROM registrations WHERE typ=? AND created_at >= ?`).get(typ, weekStart) as { c: number }).c,
+      gesamt: (db.prepare(`SELECT COUNT(*) as c FROM registrations WHERE typ=?`).get(typ) as { c: number }).c,
+    };
+  }
+  return result;
+}
+
+export function getKapitalanlegerLeads(opts: { limit?: number; offset?: number } = {}) {
+  return db.prepare(
+    `SELECT id, ref_nr, vorname, email, brutto_rendite, netto_cashflow_monat,
+            kaufpreis, doi_confirmed, created_at
+     FROM leads_kapitalanleger ORDER BY created_at DESC LIMIT ? OFFSET ?`
+  ).all(opts.limit ?? 50, opts.offset ?? 0) as Record<string, unknown>[];
+}
+
 export default db;
+
