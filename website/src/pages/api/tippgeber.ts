@@ -27,6 +27,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     });
   }
 
+  const vorname = String(data.get('vorname') || '').trim();
+  const nachname = String(data.get('nachname') || '').trim();
+  const name = `${vorname} ${nachname}`.trim() || String(data.get('name') || '').trim();
+
   const lead_magnet_data = JSON.stringify({
     ...(data.get('objekt_quelle') ? { objekt_quelle: data.get('objekt_quelle') } : {}),
     ...(data.get('tipps_monat') ? { tipps_monat: data.get('tipps_monat') } : {}),
@@ -34,7 +38,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   insertRegistration({
     typ: 'tippgeber',
-    name: data.get('name'),
+    name,
     email,
     telefon: data.get('telefon'),
     tippgeber_typ: data.get('tippgeber_typ'),

@@ -1376,22 +1376,7 @@ Vielen Dank und freundliche Grüße,
     const plzParam = params.get('plz') || '';
     const refParam = params.get('ref') || '';
 
-    // Erstbewertung-Flow: wenn email + (plz oder ref) in URL → Step 0 überspringen
-    if (emailParam && (plzParam || refParam)) {
-      // Werte in versteckte Felder schreiben
-      const hiddenEmail = document.getElementById('hidden-email') as HTMLInputElement;
-      const hiddenPlz = document.getElementById('hidden-plz') as HTMLInputElement;
-      const hiddenRef = document.getElementById('hidden-ref') as HTMLInputElement;
-      if (hiddenEmail) hiddenEmail.value = emailParam;
-      if (hiddenPlz) hiddenPlz.value = plzParam;
-      if (hiddenRef) hiddenRef.value = refParam;
-
-      // Erstbewertung-Schritt anzeigen, alles andere ausblenden
-      document.querySelectorAll('.wiz-step').forEach(el => el.classList.add('hidden'));
-      document.getElementById('step-erstbewertung')?.classList.remove('hidden');
-      return; // nicht weiter initialisieren
-    }
-
+    // Pre-fill contact fields from URL params (all flows)
     if (nameParam) {
       const parts = nameParam.trim().split(' ');
       const vorname = parts[0] || '';
@@ -1408,6 +1393,22 @@ Vielen Dank und freundliche Grüße,
     if (plzParam) {
       const plzEl = document.getElementById('k-plz') as HTMLInputElement;
       if (plzEl) plzEl.value = plzParam;
+    }
+
+    // Erstbewertung-Flow: wenn email + (plz oder ref) in URL → Step 0 überspringen
+    if (emailParam && (plzParam || refParam)) {
+      // Werte in versteckte Felder schreiben
+      const hiddenEmail = document.getElementById('hidden-email') as HTMLInputElement;
+      const hiddenPlz = document.getElementById('hidden-plz') as HTMLInputElement;
+      const hiddenRef = document.getElementById('hidden-ref') as HTMLInputElement;
+      if (hiddenEmail) hiddenEmail.value = emailParam;
+      if (hiddenPlz) hiddenPlz.value = plzParam;
+      if (hiddenRef) hiddenRef.value = refParam;
+
+      // Erstbewertung-Schritt anzeigen, alles andere ausblenden
+      document.querySelectorAll('.wiz-step').forEach(el => el.classList.add('hidden'));
+      document.getElementById('step-erstbewertung')?.classList.remove('hidden');
+      return; // nicht weiter initialisieren
     }
   }
 

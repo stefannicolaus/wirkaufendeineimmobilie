@@ -270,40 +270,6 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
             <label for="tipp-plz">PLZ Einsatzgebiet *</label>
             <input type="text" id="tipp-plz" name="plz" required placeholder="z.B. 04177" />
           </div>
-          <details style="margin-top: 1.5rem; border: 1px dashed #d1d5db; border-radius: 8px; padding: 1rem;">
-  <summary style="cursor:pointer; font-weight: 600; color: #374151; list-style: none; display: flex; align-items: center; gap: 0.5rem;">
-    <span>➕</span> 2 kurze Fragen (optional) — damit Joachim vorbereitet ist
-  </summary>
-  <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
-    <div>
-      <label style="display:block; font-size:0.875rem; color:#374151; margin-bottom:0.25rem">Woher kennst du die Objekte, die du tipps?</label>
-      <select name="objekt_quelle" style="width:100%; padding:0.5rem; border:1px solid #d1d5db; border-radius:6px;">
-        <option value="">– wählen –</option>
-        <option value="beruflich">Beruflich (Makler, Handwerker, Anwalt...)</option>
-        <option value="familie">Familie / Bekannte</option>
-        <option value="nachbarschaft">Nachbarschaft</option>
-        <option value="sonstiges">Sonstiges</option>
-      </select>
-    </div>
-    <div>
-      <label style="display:block; font-size:0.875rem; color:#374151; margin-bottom:0.25rem">Wie viele Tipps könntest du pro Monat geben?</label>
-      <select name="tipps_monat" style="width:100%; padding:0.5rem; border:1px solid #d1d5db; border-radius:6px;">
-        <option value="">– wählen –</option>
-        <option value="1-2">1–2</option>
-        <option value="3-5">3–5</option>
-        <option value="mehr">Mehr als 5</option>
-      </select>
-    </div>
-    <div>
-      <label style="display:block; font-size:0.875rem; color:#374151; margin-bottom:0.25rem">
-        Gibt es einen konkreten Fall gerade?
-        <span style="font-size:0.8rem; color:#9ca3af; display:block; margin-top:2px">Stichworte reichen — Joachim meldet sich.</span>
-      </label>
-      <textarea name="pain_freitext" rows="3" placeholder="z.B. Nachbarin in Gohlis, 3-Zimmer, will schnell verkaufen — weiss aber nicht an wen..."
-        style="width:100%; padding:0.5rem; border:1px solid #d1d5db; border-radius:6px; font-family:inherit; resize:vertical; box-sizing:border-box;"></textarea>
-    </div>
-  </div>
-</details>
           <button type="submit" class="btn btn-primary tipp-form__submit">Jetzt anmelden &rarr;</button>
           <FormPrivacyHint />
         </form>

@@ -29,6 +29,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     });
   }
 
+  const vorname = String(data.get('vorname') || '').trim();
+  const nachname = String(data.get('nachname') || '').trim();
+  const name = `${vorname} ${nachname}`.trim() || String(data.get('name') || '').trim();
+
   const erfahrung_deals = data.get('erfahrung_deals');
   const hauptproblem = data.get('hauptproblem');
   const konkreter_deal = data.get('konkreter_deal');
@@ -41,7 +45,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   insertRegistration({
     typ: 'investor',
-    name: data.get('name'),
+    name,
     email,
     telefon: data.get('telefon'),
     investor_typ: data.get('investor_typ'),

@@ -58,7 +58,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const id = result.lastInsertRowid;
 
   // Brevo-Mail mit Link zu /unterlagen (Step 2)
-  const unterlagenUrl = `${SITE_URL}/unterlagen?email=${encodeURIComponent(email)}&plz=${encodeURIComponent(plz)}&ref=${id}`;
+  const unterlagenUrl = `${SITE_URL}/unterlagen?email=${encodeURIComponent(email)}&plz=${encodeURIComponent(plz)}&ref=${id}&name=${encodeURIComponent(name)}`;
 
   if (email) {
     await sendTransactionalEmail({

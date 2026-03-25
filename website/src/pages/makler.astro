@@ -268,31 +268,6 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
           <div style="position: absolute; left: -9999px;" aria-hidden="true">
             <input type="text" name="website" tabindex="-1" autocomplete="off" />
           </div>
-          <details style="margin-top: 1.5rem; border: 1px dashed #d1d5db; border-radius: 8px; padding: 1rem;">
-  <summary style="cursor:pointer; font-weight: 600; color: #374151; list-style: none; display: flex; align-items: center; gap: 0.5rem;">
-    <span>➕</span> 2 kurze Fragen (optional) — damit Joachim vorbereitet ist
-  </summary>
-  <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
-    <div>
-      <label style="display:block; font-size:0.875rem; color:#374151; margin-bottom:0.25rem">Wie viele Abschlüsse im Jahr?</label>
-      <select name="abschluesse_jahr" style="width:100%; padding:0.5rem; border:1px solid #d1d5db; border-radius:6px;">
-        <option value="">– wählen –</option>
-        <option value="unter-10">Unter 10</option>
-        <option value="10-30">10–30</option>
-        <option value="ueber-30">Über 30</option>
-      </select>
-    </div>
-    <div>
-      <label style="display:block; font-size:0.875rem; color:#374151; margin-bottom:0.25rem">Interesse an welcher Art Kooperation?</label>
-      <select name="kooperation_interesse" style="width:100%; padding:0.5rem; border:1px solid #d1d5db; border-radius:6px;">
-        <option value="">– wählen –</option>
-        <option value="deal-flow">Deal-Flow für meine Käufer</option>
-        <option value="verkauf">Verkaufsmandate weitergeben</option>
-        <option value="beides">Beides</option>
-      </select>
-    </div>
-  </div>
-</details>
           <button type="submit" class="btn btn-primary makler-form__submit">Bewerbung einreichen &rarr;</button>
           <FormPrivacyHint />
         </form>
