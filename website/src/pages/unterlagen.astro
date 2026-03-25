@@ -102,7 +102,6 @@ export const prerender = false;
       <textarea id="situation-freitext" class="quiz-freitext hidden" rows="2"
         placeholder="Beschreiben Sie kurz Ihre Situation..."></textarea>
       <div class="quiz-actions">
-        <button type="button" class="btn-quiz-skip" id="quiz-1-skip">Überspringen →</button>
         <button type="button" class="btn btn-primary" id="quiz-1-next">Weiter →</button>
       </div>
     </div>
@@ -118,9 +117,21 @@ export const prerender = false;
     <div class="wiz-card">
       <div class="quiz-year-input">
         <label for="q-baujahr" id="q-baujahr-label" class="quiz-year-label">Baujahr</label>
-        <input type="number" id="q-baujahr" class="quiz-year-field" placeholder="z.B. 1987" min="1850" max="2026" />
+        <div class="quiz-select-wrapper">
+          <select id="q-baujahr" class="quiz-year-field quiz-year-select">
+            <option value="">— Bitte wählen —</option>
+            {Array.from({length: 177}, (_, i) => 2026 - i).map(y => (
+              <option value={y}>{y}</option>
+            ))}
+          </select>
+          <span class="quiz-select-chevron">▾</span>
+        </div>
       </div>
-      <div class="quiz-checkbox-group">
+      <div class="quiz-checkbox-group" id="q-baujahr-options">
+        <label class="quiz-checkbox-label">
+          <input type="checkbox" id="q-baujahr-exakt" />
+          <span>Stimmt genau — ich hab's nachgeschaut</span>
+        </label>
         <label class="quiz-checkbox-label">
           <input type="checkbox" id="q-baujahr-unsicher" />
           <span>Ungefähre Angabe — bin nicht ganz sicher</span>
@@ -130,11 +141,11 @@ export const prerender = false;
           <span>Weiß nicht</span>
         </label>
       </div>
-      <p class="quiz-hint">Das Baujahr steht im Kaufvertrag, auf dem Energieausweis oder in der Bauakte. Joachim kann auch mit einer Schätzung gut arbeiten.</p>
+      <p class="quiz-hint quiz-hint--error hidden" id="q-baujahr-error">Bitte kurz bestätigen, wie sicher du beim Baujahr bist.</p>
+      <p class="quiz-hint">Das Baujahr steht im Kaufvertrag, auf dem Energieausweis oder in der Bauakte. Wir können auch mit einer Schätzung arbeiten.</p>
       <div class="quiz-actions">
         <button type="button" class="btn-quiz-back" data-qtarget="1">← Zurück</button>
         <div class="quiz-actions__right">
-          <button type="button" class="btn-quiz-skip" id="quiz-2-skip">Überspringen →</button>
           <button type="button" class="btn btn-primary" id="quiz-2-next">Weiter →</button>
         </div>
       </div>
@@ -149,19 +160,23 @@ export const prerender = false;
       <h1>Wie groß ist die<br /><span class="text-accent">Wohnfläche?</span></h1>
     </div>
     <div class="wiz-card">
-      <div class="quiz-year-input">
-        <label for="q-wohnflaeche" class="quiz-year-label">Wohnfläche in m²</label>
-        <div class="quiz-number-row">
-          <button type="button" class="quiz-stepper-btn" id="wf-minus">−</button>
-          <input type="number" id="q-wohnflaeche" class="quiz-year-field quiz-year-field--center" placeholder="z.B. 82" min="10" max="2000" />
-          <button type="button" class="quiz-stepper-btn" id="wf-plus">+</button>
+      <div class="quiz-year-input quiz-wf-input">
+        <label for="q-wohnflaeche" class="quiz-year-label">Wohnfläche</label>
+        <div class="quiz-select-wrapper quiz-wf-select-wrapper">
+          <select id="q-wohnflaeche" class="quiz-year-field quiz-year-select quiz-wf-select">
+            <option value="">— Bitte wählen —</option>
+            {[...Array.from({length: 19}, (_, i) => (i + 1) * 5 + 5), ...Array.from({length: 10}, (_, i) => (i + 1) * 10 + 100), ...Array.from({length: 5}, (_, i) => (i + 1) * 20 + 200)].map(m => (
+              <option value={m}>{m} m²</option>
+            ))}
+            <option value="301">Mehr als 300 m²</option>
+          </select>
+          <span class="quiz-select-chevron">▾</span>
         </div>
       </div>
-      <p class="quiz-hint">Keller, Garage und Abstellräume zählen normalerweise nicht dazu. Die Zahl steht im Kaufvertrag oder Grundriss. Eine Schätzung reicht.</p>
+      <p class="quiz-hint">Keller, Garage und Abstellräume zählen normalerweise nicht dazu. Wir können auch mit einer Schätzung arbeiten.</p>
       <div class="quiz-actions">
         <button type="button" class="btn-quiz-back" data-qtarget="2">← Zurück</button>
         <div class="quiz-actions__right">
-          <button type="button" class="btn-quiz-skip" id="quiz-3-skip">Überspringen →</button>
           <button type="button" class="btn btn-primary" id="quiz-3-next">Weiter →</button>
         </div>
       </div>
@@ -200,10 +215,17 @@ export const prerender = false;
         </label>
         <span id="q-energieausweis-name" class="quiz-upload-filename"></span>
       </div>
+      <button type="button" class="quiz-energieausweis-help-btn" id="btn-energieausweis-help">
+        <span class="quiz-energieausweis-help-icon">📋</span>
+        <span class="quiz-energieausweis-help-text">
+          <strong>Ich habe noch keinen Energieausweis — könnt ihr mir helfen, einen zu beantragen?</strong>
+          <span>Unverbindlich · kein Auftrag · keine Kosten — wir melden uns einfach bei euch</span>
+        </span>
+        <span class="quiz-energieausweis-help-check" id="energieausweis-help-check">✓</span>
+      </button>
       <div class="quiz-actions">
         <button type="button" class="btn-quiz-back" data-qtarget="3">← Zurück</button>
         <div class="quiz-actions__right">
-          <button type="button" class="btn-quiz-skip" id="quiz-4-skip">Überspringen →</button>
           <button type="button" class="btn btn-primary" id="quiz-4-next">Weiter →</button>
         </div>
       </div>
@@ -255,10 +277,13 @@ export const prerender = false;
           </div>
         </button>
       </div>
+      <div class="quiz-zustand-sonstiges" id="zustand-sonstiges-wrap">
+        <label for="q-zustand-sonstiges" class="quiz-year-label">Eigene Beschreibung (optional)</label>
+        <textarea id="q-zustand-sonstiges" class="quiz-textarea" rows="2" placeholder="z.B. Teilsaniert, Erdgeschoss renoviert, Dach neu 2018 ..."></textarea>
+      </div>
       <div class="quiz-actions">
         <button type="button" class="btn-quiz-back" data-qtarget="4">← Zurück</button>
         <div class="quiz-actions__right">
-          <button type="button" class="btn-quiz-skip" id="quiz-5-skip">Überspringen →</button>
           <button type="button" class="btn btn-primary" id="quiz-5-next">Weiter →</button>
         </div>
       </div>
@@ -290,7 +315,6 @@ export const prerender = false;
       <div class="quiz-actions">
         <button type="button" class="btn-quiz-back" data-qtarget="5">← Zurück</button>
         <div class="quiz-actions__right">
-          <button type="button" class="btn-quiz-skip" id="quiz-6-skip">Überspringen →</button>
           <button type="button" class="btn btn-primary" id="quiz-6-next">Weiter →</button>
         </div>
       </div>
@@ -303,22 +327,36 @@ export const prerender = false;
   <div class="wiz-step hidden" id="quiz-step-7">
     <div class="wiz-intro">
       <h1>Noch etwas<br /><span class="text-accent">Wichtiges?</span></h1>
-      <p class="wiz-intro__sub">Alles freiwillig — was Sie wissen, hilft Joachim.</p>
+      <p class="wiz-intro__sub">Alles freiwillig — was Sie uns mitteilen, hilft uns, die Ersteinschätzung so genau wie möglich zu machen.</p>
     </div>
     <div class="wiz-card">
       <div class="quiz-extras-checkboxes">
         <label class="quiz-checkbox-label"><input type="checkbox" id="q-stellplatz" /> Stellplatz / Garage vorhanden</label>
-        <label class="quiz-checkbox-label"><input type="checkbox" id="q-vermietet" /> Aktuell vermietet</label>
         <label class="quiz-checkbox-label"><input type="checkbox" id="q-denkmalschutz" /> Denkmalschutz</label>
         <label class="quiz-checkbox-label"><input type="checkbox" id="q-aufzug" /> Aufzug im Gebäude (bei ETW)</label>
       </div>
       <div class="form-group" style="margin-top:16px">
+        <label class="quiz-year-label">Vermietungsstatus</label>
+        <div class="quiz-toggle-row" id="q-vermietet-toggle">
+          <button type="button" class="quiz-toggle-btn" data-value="vermietet">Aktuell vermietet</button>
+          <button type="button" class="quiz-toggle-btn" data-value="leer">Aktuell leer</button>
+        </div>
+      </div>
+      <div class="form-group">
         <label for="q-etage">Etage (bei ETW)</label>
         <input type="text" id="q-etage" placeholder="z.B. 3. OG / Erdgeschoss" />
       </div>
       <div class="form-group">
-        <label for="q-heizung-baujahr">Heizung Baujahr</label>
-        <input type="number" id="q-heizung-baujahr" placeholder="z.B. 2008" min="1950" max="2026" />
+        <label for="q-heizung-baujahr" class="quiz-year-label">Heizung Baujahr</label>
+        <div class="quiz-select-wrapper" style="max-width:200px">
+          <select id="q-heizung-baujahr" class="quiz-year-field quiz-year-select">
+            <option value="">— Bitte wählen —</option>
+            {Array.from({length: 77}, (_, i) => 2026 - i).map(y => (
+              <option value={y}>{y}</option>
+            ))}
+          </select>
+          <span class="quiz-select-chevron">▾</span>
+        </div>
       </div>
       <div class="form-group">
         <label for="q-besonderheit">Besonderheiten</label>
@@ -326,13 +364,11 @@ export const prerender = false;
       </div>
       <div class="form-group quiz-pain-group">
         <label for="q-pain">Was ist aktuell das größte Problem für Sie?</label>
-        <textarea id="q-pain" rows="3" placeholder="Joachim liest das persönlich vor dem Anruf..."></textarea>
-        <p class="quiz-hint">Joachim liest Ihre Nachricht persönlich vor dem Rückruf.</p>
+        <textarea id="q-pain" rows="3" placeholder="Wir lesen das persönlich — was beschäftigt Sie bei diesem Verkauf am meisten?"></textarea>
       </div>
       <div class="quiz-actions">
         <button type="button" class="btn-quiz-back" data-qtarget="6">← Zurück</button>
         <div class="quiz-actions__right">
-          <button type="button" class="btn-quiz-skip" id="quiz-7-skip">Überspringen →</button>
           <button type="button" class="btn btn-primary" id="quiz-7-next">Weiter zur Zusammenfassung →</button>
         </div>
       </div>
@@ -345,18 +381,18 @@ export const prerender = false;
   <div class="wiz-step hidden" id="quiz-summary">
     <div class="wiz-intro">
       <h1>Alles<br /><span class="text-accent">auf einen Blick.</span></h1>
-      <p class="wiz-intro__sub">Stimmt alles? Dann erstellen wir Ihre Preisindikation.</p>
+      <p class="wiz-intro__sub">Stimmt alles? Dann erstellen wir Ihre Erstbewertung.</p>
     </div>
     <div class="wiz-card">
       <ul class="quiz-summary-list" id="quiz-summary-list"></ul>
       <button type="button" class="btn btn-primary" id="quiz-submit-btn" style="width:100%;margin-top:24px">
-        Preisindikation erstellen →
+        Erstbewertung erstellen →
       </button>
       <p id="quiz-submit-error" class="hidden" style="color:#ef4444;font-size:14px;text-align:center;margin-top:12px">Etwas ist schiefgelaufen — bitte versuchen Sie es erneut.</p>
       <div id="quiz-success" class="hidden" style="text-align:center;padding:48px 24px;">
         <p style="font-size:32px;margin-bottom:16px">✓</p>
-        <h3>Danke! Ihre Preisindikation wird erstellt.</h3>
-        <p style="color:#64748b;margin-top:8px">Sie bekommen Ihr persönliches PDF in Kürze per E-Mail. Joachim ruft Sie in den nächsten 48 Stunden zurück.</p>
+        <h3>Danke! Ihre Erstbewertung wird erstellt.</h3>
+        <p style="color:#64748b;margin-top:8px">Sie bekommen Ihr persönliches PDF in Kürze per E-Mail. Wir melden uns in den nächsten 24 Stunden bei Ihnen.</p>
       </div>
     </div>
   </div>
@@ -1667,6 +1703,131 @@ Vielen Dank und freundliche Grüße,
   .quiz-year-field:focus { outline: none; border-color: var(--color-accent); }
   .quiz-year-field--center { text-align: center; }
 
+  /* Select wrapper */
+  .quiz-select-wrapper {
+    position: relative;
+  }
+  .quiz-year-select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding-right: var(--space-8);
+  }
+  .quiz-select-chevron {
+    position: absolute;
+    right: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--color-text-muted);
+    font-size: 1rem;
+  }
+
+  /* Wohnfläche — schmaler */
+  .quiz-wf-select-wrapper { max-width: 240px; }
+
+  /* Error hint */
+  .quiz-hint--error {
+    color: #c0392b;
+    font-weight: var(--weight-semibold);
+  }
+  .quiz-hint--error.hidden { display: none; }
+
+  /* Energieausweis-Hilfe Button */
+  .quiz-energieausweis-help-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    margin-top: var(--space-3);
+    padding: var(--space-4);
+    background: transparent;
+    border: 2px dashed var(--color-accent);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-align: left;
+    color: var(--color-text);
+    transition: background var(--duration-fast), border-style var(--duration-fast);
+  }
+  .quiz-energieausweis-help-btn:hover {
+    background: color-mix(in srgb, var(--color-accent) 6%, transparent);
+  }
+  .quiz-energieausweis-help-btn--active {
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    border-style: solid;
+  }
+  .quiz-energieausweis-help-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .quiz-energieausweis-help-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .quiz-energieausweis-help-text strong {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-accent);
+    line-height: 1.3;
+  }
+  .quiz-energieausweis-help-text span {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+  .quiz-energieausweis-help-check {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  /* Toggle row (vermietet / leer) */
+  .quiz-toggle-row {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+  .quiz-toggle-btn {
+    flex: 1;
+    padding: var(--space-3) var(--space-4);
+    border: 2px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-card);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    cursor: pointer;
+    transition: border-color var(--duration-fast), background var(--duration-fast), color var(--duration-fast);
+  }
+  .quiz-toggle-btn:hover { border-color: var(--color-accent); }
+  .quiz-toggle-btn--active {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+    color: white;
+  }
+
+  /* Textarea */
+  .quiz-textarea {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border: 2px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    background: var(--color-bg-card);
+    color: var(--color-text);
+    resize: vertical;
+    transition: border-color var(--duration-fast);
+  }
+  .quiz-textarea:focus { outline: none; border-color: var(--color-accent); }
+
   /* Number row with stepper buttons */
   .quiz-number-row {
     display: flex;
@@ -1889,11 +2050,13 @@ Vielen Dank und freundliche Grüße,
     wohnflaeche: null as number | null,
     energieklasse: null as string | null,
     energieausweis_b64: null as string | null,
+    braucht_energieausweis_hilfe: false,
     zustand: null as string | null,
+    zustand_sonstiges: '',
     was_saniert: [] as string[],
     extras: {
       stellplatz: false,
-      vermietet: false,
+      vermietet: null as string | null,
       denkmalschutz: false,
       aufzug: false,
       etage: '',
@@ -1969,77 +2132,88 @@ Vielen Dank und freundliche Grüße,
     goToQuizStep(quizState.returnToSummary ? 'summary' : 2);
     quizState.returnToSummary = false;
   });
-  document.getElementById('quiz-1-skip')?.addEventListener('click', () => {
-    quizState.situation = [];
-    goToQuizStep(quizState.returnToSummary ? 'summary' : 2);
-    quizState.returnToSummary = false;
-  });
 
   // ── QUIZ SCHRITT 2 — BAUJAHR ──
-  const baujahrInput = document.getElementById('q-baujahr') as HTMLInputElement;
+  const baujahrSelect = document.getElementById('q-baujahr') as HTMLSelectElement;
+  const baujahrExakt = document.getElementById('q-baujahr-exakt') as HTMLInputElement;
   const baujahrUnsicher = document.getElementById('q-baujahr-unsicher') as HTMLInputElement;
   const baujahrWeissnicht = document.getElementById('q-baujahr-weissnicht') as HTMLInputElement;
   const baujahrLabel = document.getElementById('q-baujahr-label') as HTMLLabelElement;
+  const baujahrError = document.getElementById('q-baujahr-error') as HTMLElement;
+
+  function uncheckBaujahrOptions(except?: HTMLInputElement) {
+    [baujahrExakt, baujahrUnsicher, baujahrWeissnicht].forEach(cb => {
+      if (cb !== except) cb.checked = false;
+    });
+  }
+
+  baujahrExakt?.addEventListener('change', () => {
+    if (baujahrExakt.checked) {
+      uncheckBaujahrOptions(baujahrExakt);
+      baujahrSelect.disabled = false;
+      baujahrLabel.textContent = 'Baujahr';
+      quizState.baujahr_unsicher = false;
+    }
+    baujahrError?.classList.add('hidden');
+  });
 
   baujahrUnsicher?.addEventListener('change', () => {
     if (baujahrUnsicher.checked) {
-      baujahrWeissnicht.checked = false;
-      baujahrInput.disabled = false;
+      uncheckBaujahrOptions(baujahrUnsicher);
+      baujahrSelect.disabled = false;
       baujahrLabel.textContent = 'Ungefähres Baujahr';
       quizState.baujahr_unsicher = true;
     } else {
       baujahrLabel.textContent = 'Baujahr';
       quizState.baujahr_unsicher = false;
     }
+    baujahrError?.classList.add('hidden');
   });
 
   baujahrWeissnicht?.addEventListener('change', () => {
     if (baujahrWeissnicht.checked) {
-      baujahrUnsicher.checked = false;
-      baujahrInput.value = '';
-      baujahrInput.disabled = true;
+      uncheckBaujahrOptions(baujahrWeissnicht);
+      baujahrSelect.value = '';
+      baujahrSelect.disabled = true;
       quizState.baujahr = null;
       quizState.baujahr_unsicher = false;
       baujahrLabel.textContent = 'Baujahr';
     } else {
-      baujahrInput.disabled = false;
+      baujahrSelect.disabled = false;
     }
+    baujahrError?.classList.add('hidden');
   });
 
-  baujahrInput?.addEventListener('input', () => {
-    quizState.baujahr = Number(baujahrInput.value) || null;
+  baujahrSelect?.addEventListener('change', () => {
+    quizState.baujahr = Number(baujahrSelect.value) || null;
+    // Reset accuracy selection when year changes
+    uncheckBaujahrOptions();
+    baujahrLabel.textContent = 'Baujahr';
+    quizState.baujahr_unsicher = false;
+    baujahrError?.classList.add('hidden');
   });
 
   document.getElementById('quiz-2-next')?.addEventListener('click', () => {
-    quizState.baujahr = Number(baujahrInput?.value) || null;
-    goToQuizStep(quizState.returnToSummary ? 'summary' : 3);
-    quizState.returnToSummary = false;
-  });
-  document.getElementById('quiz-2-skip')?.addEventListener('click', () => {
-    quizState.baujahr = null;
+    quizState.baujahr = Number(baujahrSelect?.value) || null;
+    // If year selected, require accuracy confirmation
+    if (quizState.baujahr && !baujahrExakt?.checked && !baujahrUnsicher?.checked && !baujahrWeissnicht?.checked) {
+      baujahrError?.classList.remove('hidden');
+      return;
+    }
+    baujahrError?.classList.add('hidden');
     goToQuizStep(quizState.returnToSummary ? 'summary' : 3);
     quizState.returnToSummary = false;
   });
 
   // ── QUIZ SCHRITT 3 — WOHNFLÄCHE ──
-  const wfInput = document.getElementById('q-wohnflaeche') as HTMLInputElement;
+  const wfSelect = document.getElementById('q-wohnflaeche') as HTMLSelectElement;
 
-  document.getElementById('wf-minus')?.addEventListener('click', () => {
-    const cur = Number(wfInput.value) || 0;
-    wfInput.value = String(Math.max(10, cur - 5));
-  });
-  document.getElementById('wf-plus')?.addEventListener('click', () => {
-    const cur = Number(wfInput.value) || 0;
-    wfInput.value = String(Math.min(2000, cur + 5));
+  wfSelect?.addEventListener('change', () => {
+    quizState.wohnflaeche = Number(wfSelect.value) || null;
   });
 
   document.getElementById('quiz-3-next')?.addEventListener('click', () => {
-    quizState.wohnflaeche = Number(wfInput?.value) || null;
-    goToQuizStep(quizState.returnToSummary ? 'summary' : 4);
-    quizState.returnToSummary = false;
-  });
-  document.getElementById('quiz-3-skip')?.addEventListener('click', () => {
-    quizState.wohnflaeche = null;
+    quizState.wohnflaeche = Number(wfSelect?.value) || null;
     goToQuizStep(quizState.returnToSummary ? 'summary' : 4);
     quizState.returnToSummary = false;
   });
@@ -2053,6 +2227,20 @@ Vielen Dank und freundliche Grüße,
       const val = (tile as HTMLElement).dataset.value!;
       quizState.energieklasse = val === '__weissnicht__' ? null : val;
     });
+  });
+
+  // Energieausweis-Hilfe Button
+  document.getElementById('btn-energieausweis-help')?.addEventListener('click', () => {
+    quizState.braucht_energieausweis_hilfe = !quizState.braucht_energieausweis_hilfe;
+    const btn = document.getElementById('btn-energieausweis-help');
+    const check = document.getElementById('energieausweis-help-check');
+    if (quizState.braucht_energieausweis_hilfe) {
+      btn?.classList.add('quiz-energieausweis-help-btn--active');
+      if (check) check.style.display = 'flex';
+    } else {
+      btn?.classList.remove('quiz-energieausweis-help-btn--active');
+      if (check) check.style.display = 'none';
+    }
   });
 
   // Energieausweis file upload → base64
@@ -2074,11 +2262,6 @@ Vielen Dank und freundliche Grüße,
     goToQuizStep(quizState.returnToSummary ? 'summary' : 5);
     quizState.returnToSummary = false;
   });
-  document.getElementById('quiz-4-skip')?.addEventListener('click', () => {
-    quizState.energieklasse = null;
-    goToQuizStep(quizState.returnToSummary ? 'summary' : 5);
-    quizState.returnToSummary = false;
-  });
 
   // ── QUIZ SCHRITT 5 — ZUSTAND ──
   document.querySelectorAll('#zustand-tiles .quiz-tile').forEach(tile => {
@@ -2089,12 +2272,12 @@ Vielen Dank und freundliche Grüße,
     });
   });
 
-  document.getElementById('quiz-5-next')?.addEventListener('click', () => {
-    goToQuizStep(quizState.returnToSummary ? 'summary' : 6);
-    quizState.returnToSummary = false;
+  (document.getElementById('q-zustand-sonstiges') as HTMLTextAreaElement)?.addEventListener('input', (e) => {
+    quizState.zustand_sonstiges = (e.target as HTMLTextAreaElement).value;
   });
-  document.getElementById('quiz-5-skip')?.addEventListener('click', () => {
-    quizState.zustand = null;
+
+  document.getElementById('quiz-5-next')?.addEventListener('click', () => {
+    quizState.zustand_sonstiges = (document.getElementById('q-zustand-sonstiges') as HTMLTextAreaElement)?.value || '';
     goToQuizStep(quizState.returnToSummary ? 'summary' : 6);
     quizState.returnToSummary = false;
   });
@@ -2130,25 +2313,31 @@ Vielen Dank und freundliche Grüße,
     goToQuizStep(quizState.returnToSummary ? 'summary' : 7);
     quizState.returnToSummary = false;
   });
-  document.getElementById('quiz-6-skip')?.addEventListener('click', () => {
-    quizState.was_saniert = [];
-    goToQuizStep(quizState.returnToSummary ? 'summary' : 7);
-    quizState.returnToSummary = false;
-  });
 
   // ── QUIZ SCHRITT 7 — EXTRAS ──
+  // Vermietungsstatus Toggle
+  document.querySelectorAll('#q-vermietet-toggle .quiz-toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#q-vermietet-toggle .quiz-toggle-btn').forEach(b => b.classList.remove('quiz-toggle-btn--active'));
+      const val = (btn as HTMLElement).dataset.value!;
+      if (quizState.extras.vermietet === val) {
+        // Deselect if same clicked again
+        quizState.extras.vermietet = null;
+      } else {
+        btn.classList.add('quiz-toggle-btn--active');
+        quizState.extras.vermietet = val;
+      }
+    });
+  });
+
   document.getElementById('quiz-7-next')?.addEventListener('click', () => {
     quizState.extras.stellplatz = (document.getElementById('q-stellplatz') as HTMLInputElement)?.checked || false;
-    quizState.extras.vermietet = (document.getElementById('q-vermietet') as HTMLInputElement)?.checked || false;
     quizState.extras.denkmalschutz = (document.getElementById('q-denkmalschutz') as HTMLInputElement)?.checked || false;
     quizState.extras.aufzug = (document.getElementById('q-aufzug') as HTMLInputElement)?.checked || false;
     quizState.extras.etage = (document.getElementById('q-etage') as HTMLInputElement)?.value || '';
-    quizState.extras.heizung_baujahr = Number((document.getElementById('q-heizung-baujahr') as HTMLInputElement)?.value) || null;
+    quizState.extras.heizung_baujahr = Number((document.getElementById('q-heizung-baujahr') as HTMLSelectElement)?.value) || null;
     quizState.extras.besonderheit = (document.getElementById('q-besonderheit') as HTMLTextAreaElement)?.value || '';
     quizState.extras.pain_freitext = (document.getElementById('q-pain') as HTMLTextAreaElement)?.value || '';
-    goToQuizStep('summary');
-  });
-  document.getElementById('quiz-7-skip')?.addEventListener('click', () => {
     goToQuizStep('summary');
   });
 
@@ -2232,6 +2421,7 @@ Vielen Dank und freundliche Grüße,
       wohnflaeche: quizState.wohnflaeche,
       energieklasse: quizState.energieklasse,
       energieausweis_base64: quizState.energieausweis_b64,
+      braucht_energieausweis_hilfe: quizState.braucht_energieausweis_hilfe || undefined,
       zustand: quizState.zustand,
       was_saniert: quizState.was_saniert.length > 0 ? quizState.was_saniert : null,
       stellplatz: quizState.extras.stellplatz,
@@ -2257,7 +2447,7 @@ Vielen Dank und freundliche Grüße,
       btn.classList.add('hidden');
       document.getElementById('quiz-success')?.classList.remove('hidden');
     } catch {
-      btn.textContent = 'Preisindikation erstellen →';
+      btn.textContent = 'Erstbewertung erstellen →';
       btn.disabled = false;
       const errEl = document.getElementById('quiz-submit-error');
       if (errEl) errEl.classList.remove('hidden');
@@ -2387,7 +2577,7 @@ Vielen Dank und freundliche Grüße,
       form.classList.add('hidden');
       document.getElementById('eb-success')?.classList.remove('hidden');
     } catch {
-      btn.textContent = 'Preisindikation erstellen →';
+      btn.textContent = 'Erstbewertung erstellen →';
       btn.disabled = false;
     }
   });
