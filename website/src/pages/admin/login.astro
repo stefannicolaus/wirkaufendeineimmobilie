@@ -1,0 +1,42 @@
+---
+export const prerender = false;
+const error = Astro.url.searchParams.get('error');
+---
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login — WKDI</title>
+  <style>
+    body { font-family: system-ui; display: flex; align-items: center; justify-content: center;
+           min-height: 100vh; background: #f3f4f6; margin: 0; }
+    .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            width: 100%; max-width: 360px; }
+    h1 { font-size: 1.25rem; margin: 0 0 1.5rem; color: #111; }
+    label { display: block; font-size: 0.875rem; color: #374151; margin-bottom: 0.25rem; }
+    input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 6px;
+            font-size: 1rem; box-sizing: border-box; }
+    button { width: 100%; padding: 0.625rem; background: #1d4ed8; color: white; border: none;
+             border-radius: 6px; font-size: 1rem; cursor: pointer; margin-top: 1rem; }
+    .error { color: #dc2626; font-size: 0.875rem; margin-bottom: 1rem; }
+    .field { margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>wirkaufendeineimmobilie.de<br>Admin</h1>
+    {error && <p class="error">Falsches Passwort oder Nutzername.</p>}
+    <form method="POST" action="/api/admin-login">
+      <div class="field">
+        <label for="user">Nutzername</label>
+        <input type="text" id="user" name="user" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="password">Passwort</label>
+        <input type="password" id="password" name="password" required autocomplete="current-password">
+      </div>
+      <button type="submit">Anmelden</button>
+    </form>
+  </div>
+</body>
+</html>

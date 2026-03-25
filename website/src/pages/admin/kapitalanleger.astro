@@ -1,0 +1,58 @@
+---
+export const prerender = false;
+import { getKapitalanlegerLeads } from '../../lib/db';
+const rows = getKapitalanlegerLeads();
+---
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>KA-Rechner — WKDI Admin</title>
+  <style>
+    body { font-family: system-ui; margin: 0; background: #f9fafb; }
+    nav { background: #1d4ed8; color: white; padding: 0.75rem 1.5rem; display: flex;
+          gap: 1.5rem; align-items: center; }
+    nav a { color: white; text-decoration: none; font-size: 0.9rem; }
+    nav strong { margin-right: auto; }
+    main { padding: 2rem; }
+    table { border-collapse: collapse; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-radius: 8px; overflow: hidden; width: 100%; }
+    th, td { padding: 0.625rem 0.875rem; text-align: left; border-bottom: 1px solid #e5e7eb;
+             font-size: 0.875rem; }
+    th { background: #f3f4f6; font-size: 0.75rem; color: #6b7280; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <nav>
+    <strong>WKDI Admin</strong>
+    <a href="/admin">Dashboard</a>
+    <a href="/admin/registrierungen">Registrierungen</a>
+    <a href="/admin/kapitalanleger">KA-Rechner</a>
+    <form method="POST" action="/api/admin-logout" style="margin:0">
+      <button style="background:none;border:none;color:white;cursor:pointer;font-size:0.9rem">Abmelden</button>
+    </form>
+  </nav>
+  <main>
+    <h1 style="font-size:1.25rem;margin:0 0 1.5rem">KA-Rechner Leads ({rows.length})</h1>
+    <table>
+      <thead>
+        <tr><th>Ref</th><th>Name</th><th>E-Mail</th><th>Brutto-Rendite</th><th>Cashflow/Monat</th><th>Kaufpreis</th><th>DOI</th><th>Datum</th></tr>
+      </thead>
+      <tbody>
+        {rows.map(r => (
+          <tr>
+            <td>{String(r.ref_nr ?? String(r.id))}</td>
+            <td>{String(r.vorname ?? '—')}</td>
+            <td>{String(r.email ?? '—')}</td>
+            <td>{r.brutto_rendite ? Number(r.brutto_rendite).toFixed(1) + '%' : '—'}</td>
+            <td>{r.netto_cashflow_monat ? '€ ' + Number(r.netto_cashflow_monat).toFixed(0) : '—'}</td>
+            <td>{r.kaufpreis ? '€ ' + Number(r.kaufpreis).toLocaleString('de-DE') : '—'}</td>
+            <td>{r.doi_confirmed ? '✓' : '—'}</td>
+            <td>{String(r.created_at ?? '—').slice(0, 16)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

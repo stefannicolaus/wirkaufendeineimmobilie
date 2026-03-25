@@ -1,0 +1,122 @@
+---
+export const prerender = false;
+import { getRegistrationById } from '../../../lib/db';
+
+const id = Number(Astro.params.id);
+const row = getRegistrationById(id);
+
+if (!row) return Astro.redirect('/admin/registrierungen');
+
+const statusList = ['neu', 'kontaktiert', 'qualifiziert', 'abgeschlossen', 'nicht qualifiziert'];
+let leadData: Record<string, unknown> = {};
+try {
+  if (row.lead_magnet_data) leadData = JSON.parse(String(row.lead_magnet_data));
+} catch {}
+---
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Lead #{id} — WKDI Admin</title>
+  <style>
+    body { font-family: system-ui; margin: 0; background: #f9fafb; }
+    nav { background: #1d4ed8; color: white; padding: 0.75rem 1.5rem; display: flex;
+          gap: 1.5rem; align-items: center; }
+    nav a { color: white; text-decoration: none; font-size: 0.9rem; }
+    nav strong { margin-right: auto; }
+    main { padding: 2rem; max-width: 800px; }
+    .card { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            padding: 1.5rem; margin-bottom: 1.5rem; }
+    h2 { font-size: 1rem; color: #6b7280; margin: 0 0 1rem; text-transform: uppercase;
+         font-size: 0.75rem; letter-spacing: 0.05em; }
+    .field { display: flex; padding: 0.5rem 0; border-bottom: 1px solid #f3f4f6; font-size: 0.875rem; }
+    .field:last-child { border-bottom: none; }
+    .field label { color: #6b7280; width: 160px; flex-shrink: 0; }
+    .pain { background: #fef2f2; border-left: 3px solid #ef4444; padding: 0.75rem 1rem;
+            border-radius: 0 6px 6px 0; font-size: 0.9rem; color: #374151; }
+    select, textarea { width: 100%; padding: 0.5rem; border: 1px solid #d1d5db;
+                       border-radius: 6px; font-size: 0.9rem; font-family: inherit; }
+    textarea { min-height: 80px; resize: vertical; }
+    button { background: #1d4ed8; color: white; padding: 0.5rem 1.25rem; border: none;
+             border-radius: 6px; cursor: pointer; font-size: 0.9rem; }
+    .back { color: #1d4ed8; text-decoration: none; font-size: 0.875rem; display: inline-block;
+            margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <strong>WKDI Admin</strong>
+    <a href="/admin">Dashboard</a>
+    <a href="/admin/registrierungen">Registrierungen</a>
+    <a href="/admin/kapitalanleger">KA-Rechner</a>
+    <form method="POST" action="/api/admin-logout" style="margin:0">
+      <button style="background:none;border:none;color:white;cursor:pointer;font-size:0.9rem">Abmelden</button>
+    </form>
+  </nav>
+  <main>
+    <a href="/admin/registrierungen" class="back">← Zurück zur Liste</a>
+    <h1 style="font-size:1.25rem;margin:0 0 1.5rem">Lead #{id} — {String(row.typ ?? '')} — {String(row.name ?? '—')}</h1>
+
+    <div class="card">
+      <h2>Kontaktdaten</h2>
+      <div class="field"><label>Name</label><span>{String(row.name ?? '—')}</span></div>
+      <div class="field"><label>E-Mail</label><span>{String(row.email ?? '—')}</span></div>
+      <div class="field"><label>Telefon</label><span>{String(row.telefon ?? '—')}</span></div>
+      <div class="field"><label>PLZ</label><span>{String(row.plz ?? row.tippgeber_plz ?? '—')}</span></div>
+      <div class="field"><label>Typ</label><span>{String(row.typ ?? '—')}</span></div>
+      <div class="field"><label>DOI bestätigt</label><span>{row.doi_confirmed ? 'Ja ✓' : 'Nein'}</span></div>
+      <div class="field"><label>Angemeldet am</label><span>{String(row.created_at ?? '—').slice(0, 16)}</span></div>
+    </div>
+
+    {row.pain_freitext && (
+      <div class="card">
+        <h2>Freitext (Pain)</h2>
+        <div class="pain">{String(row.pain_freitext)}</div>
+      </div>
+    )}
+
+    {Object.keys(leadData).length > 0 && (
+      <div class="card">
+        <h2>Personalisierung</h2>
+        {Object.entries(leadData).map(([k, v]) => (
+          <div class="field"><label>{k}</label><span>{String(v ?? '—')}</span></div>
+        ))}
+      </div>
+    )}
+
+    <div class="card" id="status-card">
+      <h2>Status & Notiz</h2>
+      <div style="display:flex;flex-direction:column;gap:1rem">
+        <div>
+          <label style="display:block;font-size:0.875rem;color:#374151;margin-bottom:0.25rem">Status</label>
+          <select id="status-select">
+            {statusList.map(s => <option value={s} selected={s === String(row.status ?? 'neu')}>{s}</option>)}
+          </select>
+        </div>
+        <div>
+          <label style="display:block;font-size:0.875rem;color:#374151;margin-bottom:0.25rem">Notiz</label>
+          <textarea id="notiz-field">{String(row.notiz ?? '')}</textarea>
+        </div>
+        <button onclick="saveStatus()">Speichern</button>
+        <span id="save-msg" style="display:none;color:#16a34a;font-size:0.875rem">✓ Gespeichert</span>
+      </div>
+    </div>
+  </main>
+  <script define:vars={{ leadId: id }}>
+    async function saveStatus() {
+      const status = document.getElementById('status-select').value;
+      const notiz = document.getElementById('notiz-field').value;
+      const res = await fetch('/api/admin-leads', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: leadId, status, notiz }),
+      });
+      if (res.ok) {
+        const msg = document.getElementById('save-msg');
+        msg.style.display = 'inline';
+        setTimeout(() => msg.style.display = 'none', 2000);
+      }
+    }
+  </script>
+</body>
+</html>

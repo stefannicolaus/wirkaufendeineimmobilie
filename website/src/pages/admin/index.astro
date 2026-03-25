@@ -1,0 +1,58 @@
+---
+export const prerender = false;
+import { getDashboardStats } from '../../lib/db';
+const stats = getDashboardStats();
+const typen = ['investor', 'tippgeber', 'makler', 'bewertung', 'lead-magnet'];
+---
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard — WKDI</title>
+  <style>
+    body { font-family: system-ui; margin: 0; background: #f9fafb; color: #111; }
+    nav { background: #1d4ed8; color: white; padding: 0.75rem 1.5rem; display: flex;
+          gap: 1.5rem; align-items: center; }
+    nav a { color: white; text-decoration: none; font-size: 0.9rem; }
+    nav strong { margin-right: auto; }
+    main { padding: 2rem; }
+    h1 { font-size: 1.5rem; margin: 0 0 1.5rem; }
+    table { border-collapse: collapse; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-radius: 8px; overflow: hidden; width: 100%; }
+    th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #e5e7eb; }
+    th { background: #f3f4f6; font-size: 0.8rem; color: #6b7280; text-transform: uppercase; }
+    td { font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <strong>WKDI Admin</strong>
+    <a href="/admin">Dashboard</a>
+    <a href="/admin/registrierungen">Registrierungen</a>
+    <a href="/admin/kapitalanleger">KA-Rechner</a>
+    <form method="POST" action="/api/admin-logout" style="margin:0">
+      <button style="background:none;border:none;color:white;cursor:pointer;font-size:0.9rem">
+        Abmelden
+      </button>
+    </form>
+  </nav>
+  <main>
+    <h1>Dashboard</h1>
+    <table>
+      <thead>
+        <tr><th>Segment</th><th>Heute</th><th>Letzte 7 Tage</th><th>Gesamt</th></tr>
+      </thead>
+      <tbody>
+        {typen.map(typ => (
+          <tr>
+            <td>{typ}</td>
+            <td>{stats[typ]?.heute ?? 0}</td>
+            <td>{stats[typ]?.woche ?? 0}</td>
+            <td>{stats[typ]?.gesamt ?? 0}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

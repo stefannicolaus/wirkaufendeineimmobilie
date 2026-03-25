@@ -1,0 +1,107 @@
+---
+export const prerender = false;
+import { getRegistrations, countRegistrations } from '../../lib/db';
+
+const url = Astro.url;
+const typ = url.searchParams.get('typ') ?? undefined;
+const status = url.searchParams.get('status') ?? undefined;
+const page = Math.max(0, Number(url.searchParams.get('page') ?? 0));
+const limit = 50;
+
+const rows = getRegistrations({ typ, status, limit, offset: page * limit });
+const total = countRegistrations({ typ, status });
+const pages = Math.ceil(total / limit);
+
+const typen = ['', 'investor', 'tippgeber', 'makler', 'bewertung', 'lead-magnet'];
+const statusList = ['', 'neu', 'kontaktiert', 'qualifiziert', 'abgeschlossen', 'nicht qualifiziert'];
+
+function badgeColor(s: unknown) {
+  if (s === 'neu') return '#dbeafe';
+  if (s === 'kontaktiert') return '#fef9c3';
+  if (s === 'qualifiziert') return '#dcfce7';
+  if (s === 'abgeschlossen') return '#f0fdf4';
+  return '#f3f4f6';
+}
+---
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrierungen — WKDI Admin</title>
+  <style>
+    body { font-family: system-ui; margin: 0; background: #f9fafb; }
+    nav { background: #1d4ed8; color: white; padding: 0.75rem 1.5rem; display: flex;
+          gap: 1.5rem; align-items: center; }
+    nav a { color: white; text-decoration: none; font-size: 0.9rem; }
+    nav strong { margin-right: auto; }
+    main { padding: 2rem; }
+    .filters { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    select { padding: 0.4rem 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.9rem; }
+    a.btn { background: #1d4ed8; color: white; padding: 0.4rem 1rem; border-radius: 6px;
+            text-decoration: none; font-size: 0.85rem; }
+    table { border-collapse: collapse; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-radius: 8px; overflow: hidden; width: 100%; }
+    th, td { padding: 0.625rem 0.875rem; text-align: left; border-bottom: 1px solid #e5e7eb;
+             font-size: 0.875rem; }
+    th { background: #f3f4f6; font-size: 0.75rem; color: #6b7280; text-transform: uppercase; }
+    td a { color: #1d4ed8; text-decoration: none; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 9999px; font-size: 0.75rem; }
+    .pagination { display: flex; gap: 0.5rem; margin-top: 1rem; }
+    .pagination a { padding: 0.4rem 0.75rem; border: 1px solid #d1d5db; border-radius: 6px;
+                    text-decoration: none; color: #374151; font-size: 0.875rem; }
+    .pagination a.active { background: #1d4ed8; color: white; border-color: #1d4ed8; }
+  </style>
+</head>
+<body>
+  <nav>
+    <strong>WKDI Admin</strong>
+    <a href="/admin">Dashboard</a>
+    <a href="/admin/registrierungen">Registrierungen</a>
+    <a href="/admin/kapitalanleger">KA-Rechner</a>
+    <form method="POST" action="/api/admin-logout" style="margin:0">
+      <button style="background:none;border:none;color:white;cursor:pointer;font-size:0.9rem">Abmelden</button>
+    </form>
+  </nav>
+  <main>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <h1 style="margin:0;font-size:1.25rem">Registrierungen ({total})</h1>
+      <a href={`/api/admin-leads?view=export${typ ? '&typ='+typ : ''}${status ? '&status='+status : ''}`} class="btn">
+        CSV Export
+      </a>
+    </div>
+    <form class="filters">
+      <select name="typ" onchange="this.form.submit()">
+        {typen.map(t => <option value={t} selected={t === (typ ?? '')}>{t || 'Alle Typen'}</option>)}
+      </select>
+      <select name="status" onchange="this.form.submit()">
+        {statusList.map(s => <option value={s} selected={s === (status ?? '')}>{s || 'Alle Status'}</option>)}
+      </select>
+    </form>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Typ</th><th>Name</th><th>E-Mail</th><th>Status</th><th>Datum</th></tr>
+      </thead>
+      <tbody>
+        {rows.map(r => (
+          <tr>
+            <td><a href={`/admin/registrierungen/${r.id}`}>{String(r.id)}</a></td>
+            <td>{String(r.typ ?? '')}</td>
+            <td><a href={`/admin/registrierungen/${r.id}`}>{String(r.name ?? '—')}</a></td>
+            <td>{String(r.email ?? '')}</td>
+            <td><span class="badge" style={`background:${badgeColor(r.status)}`}>{String(r.status ?? 'neu')}</span></td>
+            <td>{String(r.created_at ?? '').slice(0, 16)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    {pages > 1 && (
+      <div class="pagination">
+        {Array.from({length: pages}, (_, i) => (
+          <a href={`?${new URLSearchParams({...(typ ? {typ} : {}), ...(status ? {status} : {}), page: String(i)})}`}
+             class={i === page ? 'active' : ''}>{i + 1}</a>
+        ))}
+      </div>
+    )}
+  </main>
+</body>
+</html>
