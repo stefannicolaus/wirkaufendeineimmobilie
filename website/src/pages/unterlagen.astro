@@ -1870,12 +1870,386 @@ Vielen Dank und freundliche Grüße,
       if (hiddenPlz) hiddenPlz.value = plzParam;
       if (hiddenRef) hiddenRef.value = refParam;
 
-      // Erstbewertung-Schritt anzeigen, alles andere ausblenden
+      // Quiz-Modus: 7-Schritt Quiz anzeigen
       document.querySelectorAll('.wiz-step').forEach(el => el.classList.add('hidden'));
-      document.getElementById('step-erstbewertung')?.classList.remove('hidden');
+      document.getElementById('quiz-progress')?.classList.remove('hidden');
+      goToQuizStep(1);
       return; // nicht weiter initialisieren
     }
   }
+
+  // ── QUIZ STATE ──
+  const quizState = {
+    situation: [] as string[],
+    situationFreitext: '',
+    baujahr: null as number | null,
+    baujahr_unsicher: false,
+    wohnflaeche: null as number | null,
+    energieklasse: null as string | null,
+    energieausweis_b64: null as string | null,
+    zustand: null as string | null,
+    was_saniert: [] as string[],
+    extras: {
+      stellplatz: false,
+      vermietet: false,
+      denkmalschutz: false,
+      aufzug: false,
+      etage: '',
+      heizung_baujahr: null as number | null,
+      besonderheit: '',
+      pain_freitext: '',
+    },
+    returnToSummary: false,
+  };
+
+  let currentQuizStep = 1;
+
+  function fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve((reader.result as string).split(',')[1]);
+      reader.onerror = reject;
+    });
+  }
+
+  function goToQuizStep(n: number | 'summary') {
+    // Hide all quiz steps
+    document.querySelectorAll('[id^="quiz-step-"], #quiz-summary').forEach(el => el.classList.add('hidden'));
+
+    if (n === 'summary') {
+      renderQuizSummary();
+      document.getElementById('quiz-summary')?.classList.remove('hidden');
+      // Hide progress dots on summary
+      document.getElementById('quiz-progress')?.classList.add('hidden');
+    } else {
+      document.getElementById('quiz-step-' + n)?.classList.remove('hidden');
+      currentQuizStep = n;
+      updateQuizProgress(n);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateQuizProgress(step: number) {
+    const dots = document.querySelectorAll('.quiz-dot');
+    dots.forEach((dot, i) => {
+      dot.classList.remove('quiz-dot--active', 'quiz-dot--done');
+      if (i + 1 < step) dot.classList.add('quiz-dot--done');
+      else if (i + 1 === step) dot.classList.add('quiz-dot--active');
+    });
+    const label = document.getElementById('quiz-step-label');
+    if (label) label.textContent = `Schritt ${step} von 7`;
+  }
+
+  // ── QUIZ SCHRITT 1 — SITUATION ──
+  document.querySelectorAll('#situation-tiles .quiz-tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      const val = (tile as HTMLElement).dataset.value!;
+      if (val === '__andere__') {
+        tile.classList.toggle('quiz-tile--selected');
+        const freitext = document.getElementById('situation-freitext');
+        if (freitext) freitext.classList.toggle('hidden', !tile.classList.contains('quiz-tile--selected'));
+      } else {
+        tile.classList.toggle('quiz-tile--selected');
+      }
+      // Update state
+      quizState.situation = Array.from(document.querySelectorAll('#situation-tiles .quiz-tile--selected'))
+        .map(t => (t as HTMLElement).dataset.value!)
+        .filter(v => v !== '__andere__');
+    });
+  });
+
+  document.getElementById('situation-freitext')?.addEventListener('input', (e) => {
+    quizState.situationFreitext = (e.target as HTMLTextAreaElement).value;
+  });
+
+  document.getElementById('quiz-1-next')?.addEventListener('click', () => {
+    goToQuizStep(quizState.returnToSummary ? 'summary' : 2);
+    quizState.returnToSummary = false;
+  });
+  document.getElementById('quiz-1-skip')?.addEventListener('click', () => {
+    quizState.situation = [];
+    goToQuizStep(quizState.returnToSummary ? 'summary' : 2);
+    quizState.returnToSummary = false;
+  });
+
+  // ── QUIZ SCHRITT 2 — BAUJAHR ──
+  const baujahrInput = document.getElementById('q-baujahr') as HTMLInputElement;
+  const baujahrUnsicher = document.getElementById('q-baujahr-unsicher') as HTMLInputElement;
+  const baujahrWeissnicht = document.getElementById('q-baujahr-weissnicht') as HTMLInputElement;
+  const baujahrLabel = document.getElementById('q-baujahr-label') as HTMLLabelElement;
+
+  baujahrUnsicher?.addEventListener('change', () => {
+    if (baujahrUnsicher.checked) {
+      baujahrWeissnicht.checked = false;
+      baujahrInput.disabled = false;
+      baujahrLabel.textContent = 'Ungefähres Baujahr';
+      quizState.baujahr_unsicher = true;
+    } else {
+      baujahrLabel.textContent = 'Baujahr';
+      quizState.baujahr_unsicher = false;
+    }
+  });
+
+  baujahrWeissnicht?.addEventListener('change', () => {
+    if (baujahrWeissnicht.checked) {
+      baujahrUnsicher.checked = false;
+      baujahrInput.value = '';
+      baujahrInput.disabled = true;
+      quizState.baujahr = null;
+      quizState.baujahr_unsicher = false;
+      baujahrLabel.textContent = 'Baujahr';
+    } else {
+      baujahrInput.disabled = false;
+    }
+  });
+
+  baujahrInput?.addEventListener('input', () => {
+    quizState.baujahr = Number(baujahrInput.value) || null;
+  });
+
+  document.getElementById('quiz-2-next')?.addEventListener('click', () => {
+    quizState.baujahr = Number(baujahrInput?.value) || null;
+    goToQuizStep(quizState.returnToSummary ? 'summary' : 3);
+    quizState.returnToSummary = false;
+  });
+  document.getElementById('quiz-2-skip')?.addEventListener('click', () => {
+    quizState.baujahr = null;
+    goToQuizStep(quizState.returnToSummary ? 'summary' : 3);
+    quizState.returnToSummary = false;
+  });
+
+  // ── QUIZ SCHRITT 3 — WOHNFLÄCHE ──
+  const wfInput = document.getElementById('q-wohnflaeche') as HTMLInputElement;
+
+  document.getElementById('wf-minus')?.addEventListener('click', () => {
+    const cur = Number(wfInput.value) || 0;
+    wfInput.value = String(Math.max(10, cur - 5));
+  });
+  document.getElementById('wf-plus')?.addEventListener('click', () => {
+    const cur = Number(wfInput.value) || 0;
+    wfInput.value = String(Math.min(2000, cur + 5));
+  });
+
+  document.getElementById('quiz-3-next')?.addEventListener('click', () => {
+    quizState.wohnflaeche = Number(wfInput?.value) || null;
+    goToQuizStep(quizState.returnToSummary ? 'summary' : 4);
+    quizState.returnToSummary = false;
+  });
+  document.getElementById('quiz-3-skip')?.addEventListener('click', () => {
+    quizState.wohnflaeche = null;
+    goToQuizStep(quizState.returnToSummary ? 'summary' : 4);
+    quizState.returnToSummary = false;
+  });
+
+  // ── QUIZ SCHRITT 4 — ENERGIEKLASSE ──
+  document.querySelectorAll('#energy-tiles .quiz-tile, #quiz-step-4 .quiz-tile--weissnicht').forEach(tile => {
+    tile.addEventListener('click', () => {
+      // Deselect all energy tiles in step 4
+      document.querySelectorAll('#quiz-step-4 .quiz-tile').forEach(t => t.classList.remove('quiz-tile--selected'));
+      tile.classList.add('quiz-tile--selected');
+      const val = (tile as HTMLElement).dataset.value!;
+      quizState.energieklasse = val === '__weissnicht__' ? null : val;
+    });
+  });
+
+  // Energieausweis file upload → base64
+  const energieInput = document.getElementById('q-energieausweis') as HTMLInputElement;
+  energieInput?.addEventListener('change', async () => {
+    const file = energieInput.files?.[0];
+    if (!file) return;
+    if (file.size > 8 * 1024 * 1024) {
+      alert('Datei zu groß (max. 8 MB). Bitte komprimieren oder als JPG-Foto hochladen.');
+      energieInput.value = '';
+      return;
+    }
+    const nameEl = document.getElementById('q-energieausweis-name');
+    if (nameEl) nameEl.textContent = `✓ ${file.name}`;
+    quizState.energieausweis_b64 = await fileToBase64(file);
+  });
+
+  document.getElementById('quiz-4-next')?.addEventListener('click', () => {
+    goToQuizStep(quizState.returnToSummary ? 'summary' : 5);
+    quizState.returnToSummary = false;
+  });
+  document.getElementById('quiz-4-skip')?.addEventListener('click', () => {
+    quizState.energieklasse = null;
+    goToQuizStep(quizState.returnToSummary ? 'summary' : 5);
+    quizState.returnToSummary = false;
+  });
+
+  // ── QUIZ SCHRITT 5 — ZUSTAND ──
+  document.querySelectorAll('#zustand-tiles .quiz-tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      document.querySelectorAll('#zustand-tiles .quiz-tile').forEach(t => t.classList.remove('quiz-tile--selected'));
+      tile.classList.add('quiz-tile--selected');
+      quizState.zustand = (tile as HTMLElement).dataset.value!;
+    });
+  });
+
+  document.getElementById('quiz-5-next')?.addEventListener('click', () => {
+    goToQuizStep(quizState.returnToSummary ? 'summary' : 6);
+    quizState.returnToSummary = false;
+  });
+  document.getElementById('quiz-5-skip')?.addEventListener('click', () => {
+    quizState.zustand = null;
+    goToQuizStep(quizState.returnToSummary ? 'summary' : 6);
+    quizState.returnToSummary = false;
+  });
+
+  // ── QUIZ SCHRITT 6 — SANIERUNGSSTAND ──
+  document.querySelectorAll('#sanierung-tiles .quiz-tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      const val = (tile as HTMLElement).dataset.value!;
+      const isExclusive = tile.classList.contains('quiz-tile--exclusive');
+
+      if (isExclusive) {
+        // Deselect all, select only this
+        document.querySelectorAll('#sanierung-tiles .quiz-tile').forEach(t => t.classList.remove('quiz-tile--selected'));
+        tile.classList.add('quiz-tile--selected');
+      } else {
+        // Deselect exclusive tiles
+        document.querySelectorAll('#sanierung-tiles .quiz-tile--exclusive').forEach(t => t.classList.remove('quiz-tile--selected'));
+        tile.classList.toggle('quiz-tile--selected');
+      }
+
+      // Update state
+      quizState.was_saniert = Array.from(document.querySelectorAll('#sanierung-tiles .quiz-tile--selected'))
+        .map(t => (t as HTMLElement).dataset.value!)
+        .filter(v => v !== '__nichts__' && v !== '__weissnicht__');
+
+      // If "Nichts davon" selected → empty array
+      const exclusiveSelected = document.querySelector('#sanierung-tiles .quiz-tile--exclusive.quiz-tile--selected');
+      if (exclusiveSelected?.getAttribute('data-value') === '__nichts__') quizState.was_saniert = [];
+    });
+  });
+
+  document.getElementById('quiz-6-next')?.addEventListener('click', () => {
+    goToQuizStep(quizState.returnToSummary ? 'summary' : 7);
+    quizState.returnToSummary = false;
+  });
+  document.getElementById('quiz-6-skip')?.addEventListener('click', () => {
+    quizState.was_saniert = [];
+    goToQuizStep(quizState.returnToSummary ? 'summary' : 7);
+    quizState.returnToSummary = false;
+  });
+
+  // ── QUIZ SCHRITT 7 — EXTRAS ──
+  document.getElementById('quiz-7-next')?.addEventListener('click', () => {
+    quizState.extras.stellplatz = (document.getElementById('q-stellplatz') as HTMLInputElement)?.checked || false;
+    quizState.extras.vermietet = (document.getElementById('q-vermietet') as HTMLInputElement)?.checked || false;
+    quizState.extras.denkmalschutz = (document.getElementById('q-denkmalschutz') as HTMLInputElement)?.checked || false;
+    quizState.extras.aufzug = (document.getElementById('q-aufzug') as HTMLInputElement)?.checked || false;
+    quizState.extras.etage = (document.getElementById('q-etage') as HTMLInputElement)?.value || '';
+    quizState.extras.heizung_baujahr = Number((document.getElementById('q-heizung-baujahr') as HTMLInputElement)?.value) || null;
+    quizState.extras.besonderheit = (document.getElementById('q-besonderheit') as HTMLTextAreaElement)?.value || '';
+    quizState.extras.pain_freitext = (document.getElementById('q-pain') as HTMLTextAreaElement)?.value || '';
+    goToQuizStep('summary');
+  });
+  document.getElementById('quiz-7-skip')?.addEventListener('click', () => {
+    goToQuizStep('summary');
+  });
+
+  // ── QUIZ ZUSAMMENFASSUNG ──
+  function renderQuizSummary() {
+    const list = document.getElementById('quiz-summary-list');
+    if (!list) return;
+
+    const situationLabel = quizState.situation.length > 0
+      ? quizState.situation.join(', ') + (quizState.situationFreitext ? ` · ${quizState.situationFreitext}` : '')
+      : null;
+
+    const baujahrLabel = quizState.baujahr
+      ? `${quizState.baujahr}${quizState.baujahr_unsicher ? ' (ca.)' : ''}`
+      : null;
+
+    const items = [
+      { step: 1, label: 'Situation', value: situationLabel },
+      { step: 2, label: 'Baujahr', value: baujahrLabel },
+      { step: 3, label: 'Wohnfläche', value: quizState.wohnflaeche ? `${quizState.wohnflaeche} m²` : null },
+      { step: 4, label: 'Energieklasse', value: quizState.energieklasse ? `Klasse ${quizState.energieklasse}${quizState.energieausweis_b64 ? ' + Ausweis ✓' : ''}` : quizState.energieausweis_b64 ? 'Ausweis hochgeladen ✓' : null },
+      { step: 5, label: 'Zustand', value: quizState.zustand },
+      { step: 6, label: 'Sanierungsstand', value: quizState.was_saniert.length > 0 ? quizState.was_saniert.join(', ') : null },
+      { step: 7, label: 'Extras', value: [
+        quizState.extras.stellplatz ? 'Stellplatz' : '',
+        quizState.extras.vermietet ? 'Vermietet' : '',
+        quizState.extras.denkmalschutz ? 'Denkmalschutz' : '',
+        quizState.extras.aufzug ? 'Aufzug' : '',
+        quizState.extras.etage ? `Etage: ${quizState.extras.etage}` : '',
+        quizState.extras.heizung_baujahr ? `Heizung: ${quizState.extras.heizung_baujahr}` : '',
+        quizState.extras.besonderheit || '',
+      ].filter(Boolean).join(', ') || null },
+    ];
+
+    list.innerHTML = items.map(item => `
+      <li class="quiz-summary-item ${item.value ? '' : 'quiz-summary-item--skipped'}">
+        <div>
+          <div class="quiz-summary-item__label">${item.label}</div>
+          <div class="quiz-summary-item__value">${item.value || 'Nicht angegeben'}</div>
+        </div>
+        <button type="button" class="btn-quiz-edit" data-edit-step="${item.step}">Ändern</button>
+      </li>
+    `).join('');
+
+    // Bind "Ändern" buttons
+    list.querySelectorAll('.btn-quiz-edit').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const step = parseInt((btn as HTMLElement).dataset.editStep || '1');
+        quizState.returnToSummary = true;
+        document.getElementById('quiz-progress')?.classList.remove('hidden');
+        goToQuizStep(step);
+      });
+    });
+  }
+
+  // ── QUIZ SUBMIT ──
+  document.getElementById('quiz-submit-btn')?.addEventListener('click', async () => {
+    const btn = document.getElementById('quiz-submit-btn') as HTMLButtonElement;
+    btn.textContent = 'Wird erstellt…';
+    btn.disabled = true;
+
+    const email = (document.getElementById('hidden-email') as HTMLInputElement)?.value;
+    const ref = (document.getElementById('hidden-ref') as HTMLInputElement)?.value;
+
+    // Build situation array: include freitext as special entry if present
+    const situationToSend = [...quizState.situation];
+    if (quizState.situationFreitext) situationToSend.push(`Andere: ${quizState.situationFreitext}`);
+
+    const body: Record<string, unknown> = {
+      ref: ref ? Number(ref) : undefined,
+      email: ref ? undefined : email,
+      baujahr: quizState.baujahr,
+      wohnflaeche: quizState.wohnflaeche,
+      energieklasse: quizState.energieklasse,
+      energieausweis_base64: quizState.energieausweis_b64,
+      zustand: quizState.zustand,
+      was_saniert: quizState.was_saniert.length > 0 ? quizState.was_saniert : null,
+      stellplatz: quizState.extras.stellplatz,
+      vermietet: quizState.extras.vermietet,
+      etage: quizState.extras.etage || null,
+      heizung_baujahr: quizState.extras.heizung_baujahr,
+      besonderheit: [
+        quizState.extras.besonderheit,
+        quizState.extras.denkmalschutz ? 'Denkmalschutz' : '',
+        quizState.extras.aufzug ? 'Aufzug' : '',
+      ].filter(Boolean).join(', ') || null,
+      pain_freitext: quizState.extras.pain_freitext || null,
+      situation: situationToSend.length > 0 ? situationToSend : null,
+    };
+
+    try {
+      await fetch('/api/bewertung', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      btn.classList.add('hidden');
+      document.getElementById('quiz-success')?.classList.remove('hidden');
+    } catch {
+      btn.textContent = 'Preisindikation erstellen →';
+      btn.disabled = false;
+    }
+  });
 
   // ── NAVIGATION ──
   function goToStep(n) {
