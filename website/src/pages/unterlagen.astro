@@ -379,22 +379,59 @@ export const prerender = false;
        QUIZ ZUSAMMENFASSUNG
   ════════════════════════════════════════ -->
   <div class="wiz-step hidden" id="quiz-summary">
-    <div class="wiz-intro">
-      <h1>Alles<br /><span class="text-accent">auf einen Blick.</span></h1>
-      <p class="wiz-intro__sub">Stimmt alles? Dann erstellen wir Ihre Erstbewertung.</p>
+
+    <div class="qs-hero">
+      <div class="qs-hero__check">✓</div>
+      <h1 class="qs-hero__title">Fast da.</h1>
+      <p class="qs-hero__sub">Ihre Angaben sind vollständig — wir können loslegen.</p>
     </div>
-    <div class="wiz-card">
+
+    <div class="qs-data-section">
+      <div class="qs-data-header">
+        <span>Ihre Immobilie auf einen Blick</span>
+        <span class="qs-data-header__hint">Etwas falsch? Einfach anklicken.</span>
+      </div>
       <ul class="quiz-summary-list" id="quiz-summary-list"></ul>
-      <button type="button" class="btn btn-primary" id="quiz-submit-btn" style="width:100%;margin-top:24px">
-        Erstbewertung erstellen →
-      </button>
-      <p id="quiz-submit-error" class="hidden" style="color:#ef4444;font-size:14px;text-align:center;margin-top:12px">Etwas ist schiefgelaufen — bitte versuchen Sie es erneut.</p>
-      <div id="quiz-success" class="hidden" style="text-align:center;padding:48px 24px;">
-        <p style="font-size:32px;margin-bottom:16px">✓</p>
-        <h3>Danke! Ihre Erstbewertung wird erstellt.</h3>
-        <p style="color:#64748b;margin-top:8px">Sie bekommen Ihr persönliches PDF in Kürze per E-Mail. Wir melden uns in den nächsten 24 Stunden bei Ihnen.</p>
+    </div>
+
+    <div class="qs-benefits">
+      <div class="qs-benefit">
+        <span class="qs-benefit__icon">📊</span>
+        <div>
+          <strong>Marktbasierte Preisspanne</strong>
+          <span>Auf Basis echter Verkaufsdaten aus Ihrer Region — kein Bauchgefühl.</span>
+        </div>
+      </div>
+      <div class="qs-benefit">
+        <span class="qs-benefit__icon">📬</span>
+        <div>
+          <strong>Persönliches PDF</strong>
+          <span>Innerhalb weniger Stunden direkt in Ihrem Postfach.</span>
+        </div>
+      </div>
+      <div class="qs-benefit">
+        <span class="qs-benefit__icon">📞</span>
+        <div>
+          <strong>Persönlicher Kontakt</strong>
+          <span>Wir melden uns in den nächsten 24 Stunden — für alles was noch offen ist.</span>
+        </div>
       </div>
     </div>
+
+    <div class="qs-cta-wrap">
+      <button type="button" class="qs-cta-btn" id="quiz-submit-btn">
+        Erstbewertung erstellen →
+      </button>
+      <p class="qs-cta-reassure">Kostenlos · Unverbindlich · Kein Auftrag</p>
+      <p id="quiz-submit-error" class="hidden qs-error">Etwas ist schiefgelaufen — bitte versuchen Sie es erneut.</p>
+    </div>
+
+    <div id="quiz-success" class="hidden qs-success">
+      <div class="qs-success__icon">✓</div>
+      <h3>Danke! Ihre Erstbewertung wird erstellt.</h3>
+      <p>Sie bekommen Ihr persönliches PDF in Kürze per E-Mail.<br>Wir melden uns in den nächsten 24 Stunden bei Ihnen.</p>
+    </div>
+
   </div>
 
   <!-- ═══════════════════════════════════════
@@ -1938,33 +1975,213 @@ Vielen Dank und freundliche Grüße,
   }
   .btn-quiz-skip:hover { color: var(--color-text); }
 
-  /* Summary */
-  .quiz-summary-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+  /* ── Summary Page ── */
+
+  /* Hero */
+  .qs-hero {
+    text-align: center;
+    padding: var(--space-6) var(--space-4) var(--space-4);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 8%, transparent) 0%, transparent 60%);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-5);
+  }
+  .qs-hero__check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    font-size: 1.6rem;
+    margin-bottom: var(--space-3);
+    box-shadow: 0 4px 20px color-mix(in srgb, var(--color-accent) 35%, transparent);
+  }
+  .qs-hero__title {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0 0 var(--space-2);
+    line-height: 1.2;
+  }
+  .qs-hero__sub {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    margin: 0;
+    max-width: 360px;
+    margin-inline: auto;
+  }
+
+  /* Data section */
+  .qs-data-section {
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin-bottom: var(--space-5);
+    border: 1px solid var(--color-border);
+  }
+  .qs-data-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .qs-data-header h3 {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+  .qs-data-header__hint {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    opacity: 0.7;
+  }
+
+  /* Summary list — 2-column card grid */
+  .quiz-summary-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+  }
   .quiz-summary-item {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--space-3);
-    padding: var(--space-3) var(--space-4);
+    gap: var(--space-2);
+    padding: var(--space-3);
     border-radius: var(--radius-sm);
-    background: var(--color-bg-alt);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
     font-size: var(--text-sm);
+    transition: border-color 0.15s;
   }
-  .quiz-summary-item__label { font-weight: var(--weight-semibold); color: var(--color-text-muted); font-size: var(--text-xs); }
-  .quiz-summary-item__value { color: var(--color-text); font-weight: var(--weight-medium); }
+  .quiz-summary-item--filled { border-color: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+  .quiz-summary-item__icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .quiz-summary-item__body { flex: 1; min-width: 0; }
+  .quiz-summary-item__label {
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+  .quiz-summary-item__value {
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-sm);
+    word-break: break-word;
+  }
   .quiz-summary-item--skipped .quiz-summary-item__value { color: var(--color-text-muted); font-style: italic; }
+  .qs-empty { color: var(--color-text-muted); font-style: italic; }
   .btn-quiz-edit {
     background: none;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    padding: 2px var(--space-2);
+    border: none;
+    padding: 0;
     font-size: var(--text-xs);
     cursor: pointer;
-    color: var(--color-text-muted);
+    color: var(--color-accent);
     font-family: var(--font-family);
     flex-shrink: 0;
+    margin-top: 2px;
+    opacity: 0.7;
+    transition: opacity 0.15s;
   }
-  .btn-quiz-edit:hover { color: var(--color-accent); border-color: var(--color-accent); }
+  .btn-quiz-edit:hover { opacity: 1; }
+
+  /* Benefits */
+  .qs-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+    padding: var(--space-4);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 5%, transparent), var(--color-bg-alt));
+    border-radius: var(--radius-md);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 20%, transparent);
+  }
+  .qs-benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+  .qs-benefit__icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .qs-benefit__body strong {
+    display: block;
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    margin-bottom: 2px;
+  }
+  .qs-benefit__body span {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    line-height: 1.4;
+  }
+
+  /* CTA */
+  .qs-cta-wrap {
+    text-align: center;
+    padding: var(--space-2) 0 var(--space-4);
+  }
+  .qs-cta-btn {
+    display: inline-block;
+    width: 100%;
+    padding: var(--space-4) var(--space-6);
+    background: var(--color-accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    font-family: var(--font-family);
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    box-shadow: 0 6px 24px color-mix(in srgb, var(--color-accent) 40%, transparent);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .qs-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px color-mix(in srgb, var(--color-accent) 50%, transparent);
+  }
+  .qs-cta-btn:active { transform: translateY(0); }
+  .qs-cta-reassure {
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+  .qs-error {
+    color: #e53e3e;
+    font-size: var(--text-sm);
+    margin-top: var(--space-2);
+    text-align: center;
+  }
+
+  /* Success state */
+  .qs-success {
+    text-align: center;
+    padding: var(--space-6) var(--space-4);
+  }
+  .qs-success__icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-3);
+    display: block;
+  }
 
   /* Pain group prominent */
   .quiz-pain-group { border-top: 1px solid var(--color-border); padding-top: var(--space-4); margin-top: var(--space-2); }
@@ -2385,11 +2602,17 @@ Vielen Dank und freundliche Grüße,
       ].filter(Boolean).join(', ') || null },
     ];
 
+    const ICONS: Record<string, string> = {
+      'Situation': '💬', 'Baujahr': '🏗', 'Wohnfläche': '📐',
+      'Energieklasse': '⚡', 'Zustand': '🔧', 'Sanierungsstand': '🛠', 'Extras': '✨'
+    };
+
     list.innerHTML = items.map(item => `
-      <li class="quiz-summary-item ${item.value ? '' : 'quiz-summary-item--skipped'}">
-        <div>
+      <li class="quiz-summary-item ${item.value ? 'quiz-summary-item--filled' : 'quiz-summary-item--skipped'}">
+        <span class="quiz-summary-item__icon">${ICONS[item.label] || '·'}</span>
+        <div class="quiz-summary-item__body">
           <div class="quiz-summary-item__label">${item.label}</div>
-          <div class="quiz-summary-item__value">${item.value || 'Nicht angegeben'}</div>
+          <div class="quiz-summary-item__value">${item.value || '<span class="qs-empty">Nicht angegeben</span>'}</div>
         </div>
         <button type="button" class="btn-quiz-edit" data-edit-step="${item.step}">Ändern</button>
       </li>
