@@ -152,11 +152,44 @@ function notifyN8N(data: Record<string, unknown>) {
     const name = data.name as string || 'Unbekannt';
     const email = data.email as string || '';
 
+    // Parse lead_magnet_data for personalization fields
+    let leadData: Record<string, string> = {};
+    try {
+      if (typeof data.lead_magnet_data === 'string') {
+        leadData = JSON.parse(data.lead_magnet_data);
+      }
+    } catch {}
+
+    const extraLines = Object.entries(leadData)
+      .map(([k, v]) => `<tr><td style="padding:6px;color:#6b7280">${k}</td><td style="padding:6px">${v}</td></tr>`)
+      .join('');
+
+    const painHtml = data.pain_freitext
+      ? `<tr><td colspan="2" style="padding:6px"><strong>Notiz:</strong> <span style="color:#dc2626">${data.pain_freitext}</span></td></tr>`
+      : '';
+
+    const htmlContent = `
+      <table style="border-collapse:collapse;font-family:system-ui;font-size:14px">
+        <tr><td style="padding:6px;font-weight:600">Segment</td><td style="padding:6px">${typ}</td></tr>
+        <tr><td style="padding:6px;font-weight:600">Name</td><td style="padding:6px">${name}</td></tr>
+        <tr><td style="padding:6px;font-weight:600">E-Mail</td><td style="padding:6px">${email}</td></tr>
+        <tr><td style="padding:6px;font-weight:600">Telefon</td><td style="padding:6px">${data.telefon || '—'}</td></tr>
+        ${extraLines}
+        ${painHtml}
+        <tr><td style="padding:6px;font-weight:600">Zeitpunkt</td><td style="padding:6px">${new Date().toLocaleString('de-DE')}</td></tr>
+        <tr><td colspan="2" style="padding:6px">
+          <a href="https://wirkaufendeineimmobilie.de/admin/registrierungen" style="color:#1d4ed8">
+            → Admin-Panel öffnen
+          </a>
+        </td></tr>
+      </table>
+    `;
+
     // Notify Joachim
     sendBrevoEmail({
       to: NOTIFY_EMAIL,
       subject: `Neue Registrierung: ${typ} — ${name}`,
-      text: `Neue ${typ}-Registrierung auf wirkaufendeineimmobilie.de\n\nName: ${name}\nE-Mail: ${email}\nTelefon: ${data.telefon || 'nicht angegeben'}\nTyp: ${typ}\n${data.investor_typ ? 'Investor-Typ: ' + data.investor_typ + '\n' : ''}${data.erfahrung ? 'Erfahrung: ' + data.erfahrung + '\n' : ''}${data.maklerbuero ? 'Maklerbüro: ' + data.maklerbuero + '\n' : ''}${data.tippgeber_typ ? 'Tippgeber-Typ: ' + data.tippgeber_typ + '\n' : ''}${data.tippgeber_plz ? 'PLZ: ' + data.tippgeber_plz + '\n' : ''}${data.plz ? 'PLZ: ' + data.plz + '\n' : ''}\nZeitpunkt: ${new Date().toISOString()}\n\n— wirkaufendeineimmobilie.de`,
+      html: htmlContent,
     });
 
     // Double Opt-In für investor, makler, tippgeber — Brevo sendet eine
@@ -218,7 +251,7 @@ export async function triggerBrevoDoubleOptIn(opts: {
   });
 }
 
-function sendBrevoEmail(opts: { to: string; subject: string; text: string }) {
+function sendBrevoEmail(opts: { to: string; subject: string; text?: string; html?: string }) {
   fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
     headers: {
@@ -229,7 +262,7 @@ function sendBrevoEmail(opts: { to: string; subject: string; text: string }) {
       sender: { name: 'Joachim Kleinke — wirkaufendeineimmobilie.de', email: 'office@wirkaufendeineimmobilie.de' },
       to: [{ email: opts.to }],
       subject: opts.subject,
-      textContent: opts.text,
+      ...(opts.html ? { htmlContent: opts.html } : { textContent: opts.text ?? '' }),
     }),
   }).catch(() => {
     // Silent fail — notification is not critical
