@@ -62,6 +62,30 @@ const jsonLdBreadcrumb = JSON.stringify({
         <input type="email" name="email" placeholder="E-Mail-Adresse" required aria-label="E-Mail" />
         <input type="tel" name="telefon" placeholder="Telefonnummer (optional)" aria-label="Telefon" />
         <input type="text" name="plz" placeholder="PLZ der Immobilie" pattern="[0-9]{5}" maxlength="5" required aria-label="PLZ" />
+        <details style="margin-top: 1.5rem; border: 1px dashed #d1d5db; border-radius: 8px; padding: 1rem;">
+  <summary style="cursor:pointer; font-weight: 600; color: #374151; list-style: none; display: flex; align-items: center; gap: 0.5rem;">
+    <span>➕</span> 2 kurze Fragen (optional) — für eine schnellere Einschätzung
+  </summary>
+  <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+    <div>
+      <label style="display:block; font-size:0.875rem; color:#374151; margin-bottom:0.25rem">Wie dringend möchten Sie verkaufen?</label>
+      <select name="dringlichkeit" style="width:100%; padding:0.5rem; border:1px solid #d1d5db; border-radius:6px;">
+        <option value="">– wählen –</option>
+        <option value="sofort">So schnell wie möglich</option>
+        <option value="3-6-monate">In 3–6 Monaten</option>
+        <option value="kein-stress">Kein Zeitdruck</option>
+      </select>
+    </div>
+    <div>
+      <label style="display:block; font-size:0.875rem; color:#374151; margin-bottom:0.25rem">Ist die Immobilie vermietet?</label>
+      <select name="vermietet_form" style="width:100%; padding:0.5rem; border:1px solid #d1d5db; border-radius:6px;">
+        <option value="">– wählen –</option>
+        <option value="ja">Ja, vermietet</option>
+        <option value="nein">Nein, selbst genutzt / leer</option>
+      </select>
+    </div>
+  </div>
+</details>
         <button type="submit" class="btn btn-primary iv-form__btn">Kostenlos bewerten &rarr;</button>
       </form>
       <div id="post-submit" style="display:none; padding: 2rem; background: #f0fdf4; border-radius: 12px; border: 1px solid #bbf7d0; max-width: 520px;">
