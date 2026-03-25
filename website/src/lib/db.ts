@@ -134,7 +134,7 @@ const BREVO_LIST_IDS: Record<string, number> = {
 
 // URL auf die Brevo nach Klick auf den Bestätigungslink weiterleitet
 const BREVO_DOI_REDIRECT_URL = process.env.BREVO_DOI_REDIRECT_URL
-  || 'https://wirkaufendeineimmobilie.de/danke?typ=doi-bestaetigt';
+  || 'https://wirkaufendeineimmobilie.de/api/confirm-welcome';
 
 function notifyN8N(data: Record<string, unknown>) {
   // N8N webhook (if configured)
