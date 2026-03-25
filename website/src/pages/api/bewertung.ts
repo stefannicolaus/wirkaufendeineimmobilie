@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { insertRegistration } from '../../lib/db';
 import db from '../../lib/db';
+import { checkRateLimit } from '../../lib/rate-limit';
 import { sendTransactionalEmail } from '../../lib/brevo';
 import { calcPreisindikation } from '../../lib/preisindikation/calc';
 import { generatePreisindikationPdf } from '../../lib/preisindikation/pdf';
@@ -11,7 +12,14 @@ const SITE_URL = process.env.SITE_URL || 'https://wirkaufendeineimmobilie.de';
 
 // POST /api/bewertung — Step 1: Kontaktdaten
 // Speichert Lead, schickt Brevo-Mail mit Link zu /unterlagen
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, clientAddress }) => {
+  const ip = clientAddress || request.headers.get('x-forwarded-for') || 'unknown';
+  if (!checkRateLimit(ip)) {
+    return new Response(JSON.stringify({ error: 'Zu viele Anfragen.' }), {
+      status: 429, headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const data = await request.formData();
 
   // Honeypot
@@ -29,6 +37,13 @@ export const POST: APIRoute = async ({ request }) => {
   const telefon = String(data.get('telefon') || '');
   const plz = String(data.get('plz') || '');
 
+  const dringlichkeit = String(data.get('dringlichkeit') || '');
+  const vermietet_form = data.get('vermietet_form'); // 'ja' oder 'nein' aus Formular-Dropdown
+
+  const lead_magnet_data_obj: Record<string, string> = {};
+  if (dringlichkeit) lead_magnet_data_obj.dringlichkeit = dringlichkeit;
+  if (vermietet_form) lead_magnet_data_obj.vermietet_form = String(vermietet_form);
+
   const result = insertRegistration({
     typ: 'bewertung',
     name,
@@ -36,6 +51,8 @@ export const POST: APIRoute = async ({ request }) => {
     telefon,
     plz,
     immobilientyp: data.get('typ') || null,
+    lead_magnet_data: Object.keys(lead_magnet_data_obj).length ? JSON.stringify(lead_magnet_data_obj) : null,
+    pain_freitext: data.get('pain_freitext') || null,
   });
 
   const id = result.lastInsertRowid;

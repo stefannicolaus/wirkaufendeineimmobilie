@@ -1,18 +1,27 @@
+// src/pages/api/makler.ts
 import type { APIRoute } from 'astro';
 import { insertRegistration } from '../../lib/db';
+import { checkRateLimit } from '../../lib/rate-limit';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request }) => {
-  const data = await request.formData();
-
-  // Honeypot spam check
-  if (data.get('website')) {
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
+export const POST: APIRoute = async ({ request, clientAddress }) => {
+  const ip = clientAddress || request.headers.get('x-forwarded-for') || 'unknown';
+  if (!checkRateLimit(ip)) {
+    return new Response(JSON.stringify({ error: 'Zu viele Anfragen.' }), {
+      status: 429, headers: { 'Content-Type': 'application/json' },
     });
   }
+
+  const data = await request.formData();
+  if (data.get('website')) {
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
+  }
+
+  const lead_magnet_data = JSON.stringify({
+    ...(data.get('abschluesse_jahr') ? { abschluesse_jahr: data.get('abschluesse_jahr') } : {}),
+    ...(data.get('kooperation_interesse') ? { kooperation_interesse: data.get('kooperation_interesse') } : {}),
+  });
 
   insertRegistration({
     typ: 'makler',
@@ -20,10 +29,11 @@ export const POST: APIRoute = async ({ request }) => {
     email: data.get('email'),
     telefon: data.get('telefon'),
     maklerbuero: data.get('maklerbuero'),
+    lead_magnet_data,
+    pain_freitext: data.get('pain_freitext') || null,
   });
 
   return new Response(JSON.stringify({ success: true }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' },
+    status: 200, headers: { 'Content-Type': 'application/json' },
   });
 };
