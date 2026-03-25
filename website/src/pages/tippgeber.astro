@@ -4,9 +4,11 @@ import Layout from '../layouts/Layout.astro';
 import FormPrivacyHint from '../components/FormPrivacyHint.astro';
 ---
 <Layout
-  title="Tippgeber werden — Zusatzeinkommen für einen guten Tipp | wirkaufendeineimmobilie.de"
   description="Du bist sowieso in Wohnhäusern unterwegs. Wenn du hörst dass jemand verkaufen will, melde uns den Kontakt — und verdiene echtes Zusatzeinkommen. Für Postboten, Hausmeister, Handwerker und mehr."
 >
+
+  <div style="background:#f59e0b;color:#000;text-align:center;padding:8px 16px;font-size:14px;font-weight:600;position:relative;z-index:200;">
+  </div>
 
   <!-- HERO -->
   <section class="section tipp-hero">
@@ -37,15 +39,20 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     </div>
   </section>
 
-  <!-- WER KANN TIPPGEBER WERDEN -->
-  <section class="section tipp-wer-section" id="wer">
+  <!-- WER KANN TIPPGEBER WERDEN — Header (dunkel) -->
+  <section class="tipp-wer-header" id="wer">
     <div class="container">
-      <div class="tipp-section-header">
+      <div class="tipp-section-header tipp-section-header--center">
         <div class="label">Für wen ist das?</div>
         <h2>Wer kann Tippgeber werden?</h2>
-        <p class="text-mid">Wer täglich in Wohnhäusern unterwegs ist, hört manchmal Dinge die andere nicht hören. Das ist dein Vorteil.</p>
+        <p>Wer täglich in Wohnhäusern unterwegs ist, hört manchmal Dinge die andere nicht hören. Das ist dein Vorteil.</p>
       </div>
+    </div>
+  </section>
 
+  <!-- WER KANN TIPPGEBER WERDEN — Cards (hell) -->
+  <section class="tipp-wer-cards">
+    <div class="container">
       <div class="tipp-wer-grid">
 
         <div class="tipp-wer-card">
@@ -120,7 +127,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
           <p>Pflichttermine die dich in jede Wohnung bringen — ein kurzes Gespräch reicht oft.</p>
         </div>
 
-        <div class="tipp-wer-card tipp-wer-card--highlight">
+        <div class="tipp-wer-card">
           <div class="tipp-wer-card__icon">
             <!-- Users / People -->
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -132,21 +139,27 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
       </div>
     </div>
   </section>
+  <!-- END tipp-wer-cards -->
 
-  <!-- SO FUNKTIONIERT'S -->
-  <section class="section tipp-steps bg-alt">
+  <!-- SO FUNKTIONIERT'S — Header (dunkel) -->
+  <section class="tipp-steps-header">
     <div class="container">
-      <div class="tipp-section-header">
+      <div class="tipp-section-header tipp-section-header--center">
         <div class="label">So einfach geht's</div>
         <h2>So funktioniert's.</h2>
       </div>
+    </div>
+  </section>
 
+  <!-- SO FUNKTIONIERT'S — Steps (hell) -->
+  <section class="tipp-steps-cards">
+    <div class="container">
       <div class="tipp-steps__grid">
         <div class="tipp-step">
           <div class="tipp-step__number">1</div>
           <div class="tipp-step__content">
             <h3>Du hörst von jemandem der verkaufen will?</h3>
-            <p>Melde uns den Kontakt — per Telefon, WhatsApp oder über das Formular. Kein Papierkram, kein Aufwand.</p>
+            <p>Melde uns den Kontakt — über das Formular, per WhatsApp oder Telefon. Kein Papierkram, kein Aufwand.</p>
           </div>
         </div>
         <div class="tipp-step__connector" aria-hidden="true">
@@ -183,7 +196,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     <div class="tipp-cta-glow__glow" aria-hidden="true"></div>
     <div class="container tipp-cta-glow__inner">
       <p class="tipp-cta-glow__eyebrow">Kein Vorwissen nötig</p>
-      <h2 class="tipp-cta-glow__heading">Ein Tipp. Echter Lohn.</h2>
+      <h2 class="tipp-cta-glow__heading">Ein einfacher Tipp. Ein echter Zusatzverdienst.</h2>
       <p class="tipp-cta-glow__sub">Melde uns den Kontakt — wir machen den Rest. Dein Provisionsanspruch ist schriftlich abgesichert.</p>
       <a href="#tippgeber-form" class="tipp-cta-glow__btn">Jetzt anmelden &rarr;</a>
     </div>
@@ -197,16 +210,16 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
         <p class="text-mid">Einfach Formular ausfüllen, wir melden uns bei dir. Kein Risiko, keine Verpflichtung.</p>
         <ul class="tipp-form-split__checks">
           <li>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
             Dein Provisionsanspruch ist schriftlich abgesichert
           </li>
           <li>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
             Kein Vorwissen nötig — wir erklären alles
           </li>
           <li>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Wir machen den Rest — du brauchst nur den Kontakt
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Wir machen den Rest — du brauchst nur den Kontakt vermitteln
           </li>
         </ul>
       </div>
@@ -219,9 +232,15 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
           </div>
 
-          <div class="form-group">
-            <label for="tipp-name">Name *</label>
-            <input type="text" id="tipp-name" name="name" required placeholder="Vorname Nachname" />
+          <div class="form-group form-group--2col">
+            <div class="form-group">
+              <label for="tipp-vorname">Vorname *</label>
+              <input type="text" id="tipp-vorname" name="vorname" required placeholder="Max" />
+            </div>
+            <div class="form-group">
+              <label for="tipp-nachname">Nachname *</label>
+              <input type="text" id="tipp-nachname" name="nachname" required placeholder="Mustermann" />
+            </div>
           </div>
           <div class="form-group">
             <label for="tipp-email">E-Mail *</label>
@@ -247,8 +266,8 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
             </select>
           </div>
           <div class="form-group">
-            <label for="tipp-plz">PLZ Einsatzgebiet <span class="tipp-form__optional">(optional)</span></label>
-            <input type="text" id="tipp-plz" name="plz" placeholder="z.B. 04177" />
+            <label for="tipp-plz">PLZ Einsatzgebiet *</label>
+            <input type="text" id="tipp-plz" name="plz" required placeholder="z.B. 04177" />
           </div>
           <button type="submit" class="btn btn-primary tipp-form__submit">Jetzt anmelden &rarr;</button>
           <FormPrivacyHint />
@@ -343,69 +362,59 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     margin-bottom: var(--space-12);
   }
 
-  /* WER-GRID — Dark Hover Grid */
-  .tipp-wer-section {
+  /* WER — Header (dunkel) */
+  .tipp-wer-header {
     background: var(--color-primary);
+    padding-block: var(--section-gap) var(--space-12);
   }
-  .tipp-wer-section .tipp-section-header h2 {
+
+  .tipp-section-header--center {
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+    align-items: center;
+  }
+
+  .tipp-wer-header .tipp-section-header h2 {
     color: white;
   }
-  .tipp-wer-section .tipp-section-header p {
+
+  .tipp-wer-header .tipp-section-header p {
     color: rgba(255, 255, 255, 0.65);
   }
-  .tipp-wer-section .label {
+
+  .tipp-wer-header .label {
     color: var(--color-accent);
     background: rgba(59, 130, 246, 0.12);
     border-color: rgba(59, 130, 246, 0.25);
   }
+
+  /* WER — Cards (hell) */
+  .tipp-wer-cards {
+    background: var(--color-bg-alt);
+    padding-block: var(--space-12) var(--section-gap);
+  }
+
   .tipp-wer-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+    gap: var(--space-4);
   }
 
   .tipp-wer-card {
-    background: #0f172a;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     padding: var(--space-6);
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    position: relative;
-    overflow: hidden;
-    cursor: default;
-  }
-
-  .tipp-wer-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(59, 130, 246, 0.12),
-      transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .tipp-wer-card:hover::before {
-    opacity: 1;
+    box-shadow: var(--shadow-sm);
   }
 
   .tipp-wer-card--highlight {
-    background: rgba(59, 130, 246, 0.15);
-  }
-
-  .tipp-wer-card--highlight::before {
-    background: radial-gradient(
-      350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(59, 130, 246, 0.2),
-      transparent 60%
-    );
+    border-color: var(--color-accent);
+    border-width: 2px;
   }
 
   .tipp-wer-card__icon {
@@ -414,19 +423,11 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(59, 130, 246, 0.15);
+    background: var(--color-accent-light);
     color: var(--color-accent);
     border-radius: var(--radius-md);
     flex-shrink: 0;
     border: 1px solid rgba(59, 130, 246, 0.2);
-    transition: background var(--duration-normal) var(--ease-default),
-                color var(--duration-normal) var(--ease-default);
-  }
-
-  .tipp-wer-card:hover .tipp-wer-card__icon {
-    background: var(--color-accent);
-    color: white;
-    border-color: transparent;
   }
 
   .tipp-wer-card--highlight .tipp-wer-card__icon {
@@ -438,16 +439,43 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   .tipp-wer-card h3 {
     font-size: var(--text-base);
     font-weight: var(--weight-bold);
-    color: white;
+    color: var(--color-text);
   }
 
   .tipp-wer-card p {
     font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--color-text-mid);
     line-height: var(--leading-relaxed);
   }
 
+  @media (max-width: 768px) {
+    .tipp-wer-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .tipp-wer-grid { grid-template-columns: 1fr; }
+  }
+
   /* STEPS */
+  .tipp-steps-header {
+    background: var(--color-primary);
+    padding-block: var(--section-gap) var(--space-12);
+  }
+
+  .tipp-steps-header .label {
+    color: var(--color-accent);
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.25);
+  }
+
+  .tipp-steps-header h2 {
+    color: white;
+  }
+
+  .tipp-steps-cards {
+    background: var(--color-bg-alt);
+    padding-block: var(--space-12) var(--section-gap);
+  }
+
   .tipp-steps {
     padding-block: var(--section-gap);
   }
@@ -636,6 +664,18 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
   .tipp-form__optional {
     font-weight: var(--weight-regular);
     color: var(--color-text-muted);
+  }
+
+  .form-group--2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 480px) {
+    .form-group--2col {
+      grid-template-columns: 1fr;
+    }
   }
 
   .tipp-form__submit {
