@@ -2150,6 +2150,14 @@ Vielen Dank und freundliche Grüße,
     goToQuizStep('summary');
   });
 
+  // ── QUIZ BACK BUTTONS ──
+  document.querySelectorAll('.btn-quiz-back').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = parseInt((btn as HTMLElement).dataset.qtarget || '1');
+      goToQuizStep(target);
+    });
+  });
+
   // ── QUIZ ZUSAMMENFASSUNG ──
   function renderQuizSummary() {
     const list = document.getElementById('quiz-summary-list');
