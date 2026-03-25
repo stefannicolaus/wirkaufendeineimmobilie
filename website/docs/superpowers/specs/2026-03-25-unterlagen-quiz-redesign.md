@@ -21,36 +21,36 @@ Den `step-erstbewertung` auf `/unterlagen` von einem flachen Formular in ein ste
 
 ### Schritt 1 — Situation (optional)
 **Frage:** "Damit wir Ihre Situation besser einschätzen und gezielter helfen können:"
-**UI:** 6 Kacheln zum Anklicken (Icon + Label), Mehrfachauswahl möglich
-**Optionen:**
-- Ich denke über einen Verkauf nach
-- Ich habe geerbt
-- Scheidung / Trennung
-- Hohe Energiekosten / GEG-Pflicht
-- Ich bin neugierig auf den Wert
-- Meine Situation ist anders... (→ öffnet Freitext)
+**UI:** Dieselben Szenario-Kacheln wie auf der Homepage — aber kleiner, ohne Hintergrundbild. Nur Icon-Emoji + Label + 1 kurzer Satz. Mehrfachauswahl möglich. Ausgewählte Kacheln erhalten einen blauen Rahmen.
 
-**Skip-Option:** "Überspringen →" prominent sichtbar
-**Speicherung:** In `lead_magnet_data` JSON (neues Feld: `situation`)
+**Optionen** (identisch mit Homepage-Szenarien):
+- 🏚 Erbengemeinschaft — "Gemeinsam mit anderen Erben, noch keine Einigung"
+- 🧹 Messie-Objekt — "Starke Verschmutzung oder schwieriger Zustand"
+- ⚡ GEG / Energetischer Sanierungsstau — "Hohe Energiekosten, Sanierungspflicht"
+- ⚖️ Insolvenzverfahren — "Zwangssituation, Zeitdruck"
+- 🏗 Kapitalanleger mit Renovierungsdruck — "Vermietetes Objekt, Renovierungsstau"
+- 💔 Scheidung / Trennung — "Gemeinsames Eigentum muss aufgeteilt werden"
+- 📦 Beruflicher Umzug / Zeitdruck — "Schneller Verkauf nötig"
+- ✏️ Meine Situation ist anders... (→ öffnet Freitext-Eingabe)
+
+**Skip-Option:** "Überspringen →" prominent sichtbar (kein Pflichtfeld)
+**Speicherung:** In `lead_magnet_data` JSON (neues Feld: `situation`, Array der gewählten Labels)
 
 ---
 
 ### Schritt 2 — Baujahr
 **Frage:** "Wann wurde die Immobilie gebaut?"
-**UI:** 6 Jahrzehnt-Kacheln + 1 "Weiß nicht"-Kachel
-**Optionen:**
-- Vor 1950
-- 1950–1970
-- 1970–1990
-- 1990–2010
-- 2010–2020
-- Nach 2020
-- Weiß nicht / Unsicher
+**UI:** Zahleingabe (4-stellige Jahreszahl, z.B. 1987) + Checkbox "Ungefähre Angabe / bin nicht sicher" + Checkbox "Weiß nicht"
+
+- Wenn "Ungefähre Angabe" aktiviert: Eingabefeld bleibt sichtbar, Label ändert sich auf "Ungefähres Baujahr" — Wert wird mit Hinweis `baujahr_unsicher: true` gespeichert
+- Wenn "Weiß nicht" aktiviert: Eingabefeld wird disabled/geleert
 
 **Hilfetext** (immer sichtbar, klein, grau):
-> "Das Baujahr steht auf dem Energieausweis, im Kaufvertrag oder der Bauakte. Wenn Sie unsicher sind, wählen Sie einfach die ungefähre Dekade."
+> "Das Baujahr steht im Kaufvertrag, auf dem Energieausweis oder in der Bauakte. Eine Schätzung reicht — Joachim kann damit arbeiten."
 
-**Mapping zu DB-Feld `baujahr`:** Jahrzehnt-Mitte (z.B. "1970–1990" → 1980). "Weiß nicht" → null.
+**Validierung:** Nur 4-stellige Zahlen zwischen 1850 und aktuellem Jahr.
+
+**Mapping zu DB-Feld `baujahr`:** Eingegebene Zahl direkt. "Weiß nicht" → null. `baujahr_unsicher` wird in `lead_magnet_data` JSON gespeichert.
 
 ---
 
@@ -75,7 +75,10 @@ Den `step-erstbewertung` auf `/unterlagen` von einem flachen Formular in ein ste
 **Upload-Option** (sekundär, unter dem Grid):
 > "📎 Energieausweis hochladen (optional)" → Datei-Upload (PDF, JPG, PNG, max. 8 MB)
 
-**Kein Ausweis?** → Link/Hinweis: "Noch keinen Ausweis? Wir helfen dabei — einfach im nächsten Schritt erwähnen."
+**"Kein Ausweis vorhanden"** → Eigene Kachel (unter dem Grid), als aktive Auswahl. Wenn angeklickt → erscheint darunter ein Infotext:
+> "Kein Problem — nach Ihrer Ersteinschätzung können wir den Energieausweis für Sie organisieren. Für den Verkauf ist er ohnehin Pflicht, wir kennen schnelle und günstige Anbieter."
+
+Diese Kachel schließt die Energieklassen-Kacheln nicht aus (jemand kann trotzdem eine Klasse schätzen). `energieklasse = null` nur wenn auch keine Klasse gewählt.
 
 **Mapping:** Kachel-Wert direkt in DB-Feld `energieklasse`. "Weiß nicht" → null.
 
@@ -114,7 +117,7 @@ Den `step-erstbewertung` auf `/unterlagen` von einem flachen Formular in ein ste
 - Weiß nicht (Exklusiv-Auswahl)
 
 **Hilfetext:**
-> "Jede Maßnahme kann den Wert Ihrer Immobilie erhöhen. Wählen Sie alles, was zutrifft — grobe Angaben reichen."
+> "Jede Maßnahme kann den Wert Ihrer Immobilie erhöhen. Wählen Sie alles, was zutrifft — grobe Angaben reichen für die Ersteinschätzung."
 
 **Mapping:** JSON-Array in DB-Feld `was_saniert`
 
