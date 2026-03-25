@@ -12,9 +12,12 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:dau": "tsx test-system/run.ts",
+    "test:dau:l1": "tsx -e \"import('./test-system/layer1-content.js').then(m => m.runLayer1()).then(r => console.log(JSON.stringify(r, null, 2)))\""
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
     "@astrojs/node": "^10.0.1",
     "@astrojs/sitemap": "^3.7.1",
     "astro": "^6.0.4",
@@ -23,6 +26,8 @@
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
+    "playwright": "^1.58.2",
+    "tsx": "^4.21.0",
     "vitest": "^4.1.0"
   }
 }
