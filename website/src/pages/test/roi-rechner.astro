@@ -48,9 +48,9 @@ import Layout from '../../layouts/Layout.astro';
       <img src="/images/wkdi-roi-quiz-hero.webp" alt="" />
     </div>
     <div class="container quiz-hero__inner">
-      <p class="quiz-hero__tag">Für Eigentümer mit schwierigen Immobilien</p>
-      <h1>Was bekommst du für deine Immobilie — trotz des Zustands?</h1>
-      <p class="quiz-hero__sub">Messie-Wohnung, Erbschaft im Streit, Energetische Sanierungspflicht (gemäß GEG), Zwangslage — kein Problem. Gib 3 Zahlen ein und sieh sofort, was beim Verkauf realistisch für dich rausspringt.</p>
+      <p class="quiz-hero__tag">Für Fix &amp; Flip Investoren</p>
+      <h1>Rechnet sich der Deal — nach Einkauf, Sanierung und Verkauf?</h1>
+      <p class="quiz-hero__sub">Du hast ein sanierungsbedürftiges Objekt im Blick. Gib 3 Zahlen ein und sieh sofort: Was bleibt nach Sanierung, Kosten und Steuern wirklich übrig?</p>
     </div>
   </section>
 
@@ -88,8 +88,8 @@ import Layout from '../../layouts/Layout.astro';
       <!-- STEP 1: Was du bekommst -->
       <div class="quiz-step" id="step-1">
         <div class="quiz-step__header">
-          <h2>Was bekommst du — in 2 Minuten?</h2>
-          <p class="quiz-step__sub">Gib 3 Zahlen ein. Der Rechner zeigt dir sofort und kostenlos:</p>
+          <h2>Was zeigt dir der Rechner?</h2>
+          <p class="quiz-step__sub">Einkaufspreis, Sanierungskosten, Lage — das reicht. Du bekommst sofort:</p>
         </div>
 
         <div class="benefit-grid">
@@ -99,8 +99,8 @@ import Layout from '../../layouts/Layout.astro';
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             </div>
             <div class="benefit-card__body">
-              <h3>Realistischer Verkaufserlös</h3>
-              <p>Was du nach Zustandsabschlag, Makler, Notar und Nebenkosten tatsächlich in der Hand hast — kein Wunschdenken, echte Zahlen.</p>
+              <h3>Realistischer Verkaufserlös nach Sanierung</h3>
+              <p>Was das Objekt nach der Aufwertung tatsächlich wert ist — basierend auf echten Marktpreisen nach Stadtteil in Leipzig.</p>
             </div>
           </div>
 
@@ -109,8 +109,8 @@ import Layout from '../../layouts/Layout.astro';
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
             </div>
             <div class="benefit-card__body">
-              <h3>Netto nach allen Kosten</h3>
-              <p>Provision, Grundbuch, Steuern — alles eingerechnet. Du siehst den Betrag, der wirklich bei dir ankommt. Bevor du irgendwo unterschreibst.</p>
+              <h3>Gewinn nach allen Kosten</h3>
+              <p>Einkauf, Sanierung, Makler, Steuer — alles abgezogen. Du siehst deinen tatsächlichen Gewinn bevor du eine Entscheidung triffst.</p>
             </div>
           </div>
 
@@ -120,7 +120,7 @@ import Layout from '../../layouts/Layout.astro';
             </div>
             <div class="benefit-card__body">
               <h3>BEG-Förderpotenzial</h3>
-              <p>Steht eine energetische Sanierung an? Der Rechner zeigt ob du bis zu 40 % der Sanierungskosten durch staatliche Förderung zurückbekommst — und wie das deinen Erlös verändert.</p>
+              <p>Ist eine energetische Sanierung geplant? Der Rechner zeigt ob du bis zu 40 % der Sanierungskosten staatlich gefördert bekommst — und wie das deinen Gewinn erhöht.</p>
             </div>
           </div>
 
@@ -129,8 +129,8 @@ import Layout from '../../layouts/Layout.astro';
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
             <div class="benefit-card__body">
-              <h3>Ergebnis sofort per E-Mail</h3>
-              <p>Deine persönliche Auswertung kommt direkt in dein Postfach — kostenlos, ohne Verpflichtung, ohne Makler-Termin.</p>
+              <h3>Auswertung sofort per E-Mail</h3>
+              <p>Dein Deal-Score und die vollständige Kalkulation kommen direkt in dein Postfach — kostenlos, ohne Verpflichtung.</p>
             </div>
           </div>
 
@@ -263,18 +263,13 @@ import Layout from '../../layouts/Layout.astro';
           <div class="step2-col">
             <span class="field-label">Exit-Strategie</span>
             <div class="exit-cards">
-              <button class="exit-card" data-value="flip" aria-label="Flip 6 bis 18 Monate">
+              <button class="exit-card exit-card--only selected" data-value="flip" aria-label="Flip 6 bis 18 Monate">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-                <span class="exit-card__title">Flip</span>
-                <span class="exit-card__sub">6–18 Monate</span>
-              </button>
-              <button class="exit-card" data-value="langfrist" aria-label="Langfrist 10 plus Jahre">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                <span class="exit-card__title">Langfrist</span>
-                <span class="exit-card__sub">10+ Jahre</span>
+                <span class="exit-card__title">Fix &amp; Flip</span>
+                <span class="exit-card__sub">Kaufen · Sanieren · Verkaufen</span>
               </button>
             </div>
-            <p class="exit-hint">Langfrist = steuerfrei nach 10 Jahren Haltezeit</p>
+            <p class="exit-hint">Planst du langfristige Vermietung? → <a href="/kapitalanleger-rechner">Kapitalanleger-Rechner nutzen</a></p>
           </div>
 
         </div>
