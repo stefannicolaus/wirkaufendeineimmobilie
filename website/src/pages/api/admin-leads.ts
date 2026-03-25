@@ -33,6 +33,20 @@ export const GET: APIRoute = async ({ request }) => {
     });
   }
 
+  // Energieausweis-Download
+  const action = url.searchParams.get('action');
+  if (action === 'energieausweis') {
+    const id = Number(url.searchParams.get('id'));
+    if (!id) return new Response(JSON.stringify({ error: 'id fehlt' }), { status: 400 });
+    const row = getRegistrationById(id);
+    if (!row || !row.energieausweis_base64) {
+      return new Response(JSON.stringify({ error: 'kein Energieausweis' }), { status: 404 });
+    }
+    return new Response(JSON.stringify({ base64: String(row.energieausweis_base64) }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   if (view === 'detail') {
     const id = Number(url.searchParams.get('id'));
     if (!id) return new Response(JSON.stringify({ error: 'id fehlt' }), { status: 400 });

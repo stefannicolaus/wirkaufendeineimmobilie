@@ -12,6 +12,18 @@ let leadData: Record<string, unknown> = {};
 try {
   if (row.lead_magnet_data) leadData = JSON.parse(String(row.lead_magnet_data));
 } catch {}
+
+const situation = Array.isArray(leadData.situation) ? (leadData.situation as string[]).join(', ') : null;
+const wasSaniert = row.was_saniert ? (() => { try { return (JSON.parse(String(row.was_saniert)) as string[]).join(', '); } catch { return String(row.was_saniert); } })() : null;
+const hatEnergieausweis = !!row.energieausweis_base64;
+
+const zustandLabels: Record<string, string> = {
+  sanierungsbeduerftig: 'Sanierungsbedürftig',
+  renovierungsbeduerftig: 'Renovierungsbedürftig',
+  gepflegt: 'Gepflegt',
+  modernisiert: 'Modernisiert',
+  neuwertig: 'Neuwertig',
+};
 ---
 <!DOCTYPE html>
 <html lang="de">
@@ -27,20 +39,36 @@ try {
     main { padding: 2rem; max-width: 800px; }
     .card { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
             padding: 1.5rem; margin-bottom: 1.5rem; }
-    h2 { font-size: 1rem; color: #6b7280; margin: 0 0 1rem; text-transform: uppercase;
-         font-size: 0.75rem; letter-spacing: 0.05em; }
+    h2 { font-size: 0.75rem; color: #6b7280; margin: 0 0 1rem; text-transform: uppercase;
+         letter-spacing: 0.05em; }
     .field { display: flex; padding: 0.5rem 0; border-bottom: 1px solid #f3f4f6; font-size: 0.875rem; }
     .field:last-child { border-bottom: none; }
     .field label { color: #6b7280; width: 160px; flex-shrink: 0; }
+    .field span { color: #111827; }
+    .field span.muted { color: #9ca3af; font-style: italic; }
     .pain { background: #fef2f2; border-left: 3px solid #ef4444; padding: 0.75rem 1rem;
-            border-radius: 0 6px 6px 0; font-size: 0.9rem; color: #374151; }
+            border-radius: 0 6px 6px 0; font-size: 0.9rem; color: #374151; line-height: 1.6; }
+    .tag { display: inline-block; background: #eff6ff; color: #1d4ed8; border-radius: 4px;
+           padding: 2px 8px; font-size: 0.75rem; font-weight: 600; margin-right: 4px; }
+    .tag-green { background: #f0fdf4; color: #16a34a; }
     select, textarea { width: 100%; padding: 0.5rem; border: 1px solid #d1d5db;
-                       border-radius: 6px; font-size: 0.9rem; font-family: inherit; }
+                       border-radius: 6px; font-size: 0.9rem; font-family: inherit; box-sizing: border-box; }
     textarea { min-height: 80px; resize: vertical; }
     button { background: #1d4ed8; color: white; padding: 0.5rem 1.25rem; border: none;
              border-radius: 6px; cursor: pointer; font-size: 0.9rem; }
+    button:hover { background: #1e40af; }
+    .btn-download { background: #0f766e; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-download:hover { background: #0d5c57; }
+    .btn-delete { background: #dc2626; }
+    .btn-delete:hover { background: #b91c1c; }
     .back { color: #1d4ed8; text-decoration: none; font-size: 0.875rem; display: inline-block;
             margin-bottom: 1rem; }
+    .delete-confirm { display: none; background: #fff7ed; border: 1px solid #fed7aa;
+                      border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+    .delete-confirm p { margin: 0 0 0.75rem; font-size: 0.875rem; color: #92400e; font-weight: 600; }
+    .delete-confirm input { border: 1px solid #f97316; border-radius: 6px; padding: 0.4rem 0.75rem;
+                            font-size: 0.875rem; width: 100%; box-sizing: border-box; margin-bottom: 0.75rem; }
+    .delete-confirm .btn-row { display: flex; gap: 0.5rem; }
   </style>
 </head>
 <body>
@@ -57,6 +85,7 @@ try {
     <a href="/admin/registrierungen" class="back">← Zurück zur Liste</a>
     <h1 style="font-size:1.25rem;margin:0 0 1.5rem">Lead #{id} — {String(row.typ ?? '')} — {String(row.name ?? '—')}</h1>
 
+    <!-- KONTAKTDATEN -->
     <div class="card">
       <h2>Kontaktdaten</h2>
       <div class="field"><label>Name</label><span>{String(row.name ?? '—')}</span></div>
@@ -68,22 +97,79 @@ try {
       <div class="field"><label>Angemeldet am</label><span>{String(row.created_at ?? '—').slice(0, 16)}</span></div>
     </div>
 
+    <!-- PAIN / FREITEXT -->
     {row.pain_freitext && (
       <div class="card">
-        <h2>Freitext (Pain)</h2>
+        <h2>Größtes Problem (Joachim liest das vor dem Anruf)</h2>
         <div class="pain">{String(row.pain_freitext)}</div>
       </div>
     )}
 
-    {Object.keys(leadData).length > 0 && (
+    <!-- SITUATION -->
+    {situation && (
       <div class="card">
-        <h2>Personalisierung</h2>
-        {Object.entries(leadData).map(([k, v]) => (
-          <div class="field"><label>{k}</label><span>{String(v ?? '—')}</span></div>
-        ))}
+        <h2>Verkäufer-Situation</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;padding-top:4px">
+          {(leadData.situation as string[]).map((s: string) => (
+            <span class="tag">{s}</span>
+          ))}
+        </div>
       </div>
     )}
 
+    <!-- IMMOBILIEN-DATEN (Quiz-Ergebnis) -->
+    {row.objekt_step_done && (
+      <div class="card">
+        <h2>Immobilien-Daten (Quiz-Ergebnis)</h2>
+        <div class="field">
+          <label>Baujahr</label>
+          <span>{row.baujahr ? String(row.baujahr) : <span class="muted">nicht angegeben</span>}</span>
+        </div>
+        <div class="field">
+          <label>Wohnfläche</label>
+          <span>{row.wohnflaeche ? `${row.wohnflaeche} m²` : <span class="muted">nicht angegeben</span>}</span>
+        </div>
+        <div class="field">
+          <label>Energieklasse</label>
+          <span>{row.energieklasse ? `Klasse ${row.energieklasse}` : <span class="muted">nicht angegeben</span>}</span>
+        </div>
+        <div class="field">
+          <label>Zustand</label>
+          <span>{row.zustand ? (zustandLabels[String(row.zustand)] ?? String(row.zustand)) : <span class="muted">nicht angegeben</span>}</span>
+        </div>
+        <div class="field">
+          <label>Sanierungen (15 J.)</label>
+          <span>{wasSaniert ? wasSaniert : <span class="muted">nicht angegeben</span>}</span>
+        </div>
+        <div class="field">
+          <label>Heizung Baujahr</label>
+          <span>{row.heizung_baujahr ? String(row.heizung_baujahr) : <span class="muted">nicht angegeben</span>}</span>
+        </div>
+        <div class="field">
+          <label>Stellplatz / Garage</label>
+          <span>{row.stellplatz ? 'Ja' : 'Nein'}</span>
+        </div>
+        <div class="field">
+          <label>Aktuell vermietet</label>
+          <span>{row.vermietet ? 'Ja' : 'Nein'}</span>
+        </div>
+        {row.etage && (
+          <div class="field"><label>Etage</label><span>{String(row.etage)}</span></div>
+        )}
+        {row.besonderheit && (
+          <div class="field"><label>Besonderheiten</label><span>{String(row.besonderheit)}</span></div>
+        )}
+        <div class="field">
+          <label>Energieausweis</label>
+          {hatEnergieausweis
+            ? <button class="btn-download" onclick="downloadEnergie()">⬇ Herunterladen</button>
+            : <span class="muted">nicht hochgeladen</span>
+          }
+        </div>
+      </div>
+    )}
+
+    <!-- STATUS & NOTIZ -->
     <div class="card" id="status-card">
       <h2>Status & Notiz</h2>
       <div style="display:flex;flex-direction:column;gap:1rem">
@@ -97,18 +183,32 @@ try {
           <label style="display:block;font-size:0.875rem;color:#374151;margin-bottom:0.25rem">Notiz</label>
           <textarea id="notiz-field">{String(row.notiz ?? '')}</textarea>
         </div>
-        <button onclick="saveStatus()">Speichern</button>
-        <span id="save-msg" style="display:none;color:#16a34a;font-size:0.875rem">✓ Gespeichert</span>
+        <div style="display:flex;align-items:center;gap:1rem">
+          <button onclick="saveStatus()">Speichern</button>
+          <span id="save-msg" style="display:none;color:#16a34a;font-size:0.875rem">✓ Gespeichert</span>
+        </div>
       </div>
     </div>
 
+    <!-- LÖSCHEN -->
     <div class="card" style="border:1px solid #fecaca">
       <h2 style="color:#dc2626">Eintrag löschen</h2>
-      <p style="font-size:0.875rem;color:#6b7280;margin:0 0 1rem">Dieser Eintrag wird unwiderruflich aus der Datenbank gelöscht.</p>
-      <button onclick="deleteLead()" style="background:#dc2626">Eintrag löschen</button>
+      <p style="font-size:0.875rem;color:#6b7280;margin:0 0 1rem">
+        Löscht diesen Lead unwiderruflich aus der Datenbank — inklusive aller Immobilien-Daten und des Energieausweises.
+      </p>
+      <button class="btn-delete" onclick="showDeleteConfirm()">Eintrag löschen…</button>
+      <div class="delete-confirm" id="delete-confirm">
+        <p>Zur Bestätigung bitte E-Mail-Adresse des Leads eingeben:</p>
+        <input type="text" id="delete-email-input" placeholder="{String(row.email ?? '')}" autocomplete="off" />
+        <div class="btn-row">
+          <button class="btn-delete" onclick="confirmDelete()">Unwiderruflich löschen</button>
+          <button onclick="hideDeleteConfirm()" style="background:#6b7280">Abbrechen</button>
+        </div>
+      </div>
     </div>
   </main>
-  <script define:vars={{ leadId: id }}>
+
+  <script define:vars={{ leadId: id, leadEmail: String(row.email ?? '') }}>
     async function saveStatus() {
       const status = document.getElementById('status-select').value;
       const notiz = document.getElementById('notiz-field').value;
@@ -123,14 +223,38 @@ try {
         setTimeout(() => msg.style.display = 'none', 2000);
       }
     }
-    async function deleteLead() {
-      if (!confirm('Eintrag wirklich löschen? Das kann nicht rückgängig gemacht werden.')) return;
+
+    function showDeleteConfirm() {
+      document.getElementById('delete-confirm').style.display = 'block';
+      document.getElementById('delete-email-input').focus();
+    }
+    function hideDeleteConfirm() {
+      document.getElementById('delete-confirm').style.display = 'none';
+      document.getElementById('delete-email-input').value = '';
+    }
+    async function confirmDelete() {
+      const entered = document.getElementById('delete-email-input').value.trim().toLowerCase();
+      if (entered !== leadEmail.toLowerCase()) {
+        alert('E-Mail-Adresse stimmt nicht überein. Bitte erneut versuchen.');
+        return;
+      }
       const res = await fetch(`/api/admin-leads?id=${leadId}`, { method: 'DELETE' });
       if (res.ok) {
         window.location.href = '/admin/registrierungen';
       } else {
         alert('Fehler beim Löschen.');
       }
+    }
+
+    async function downloadEnergie() {
+      const res = await fetch(`/api/admin-leads?id=${leadId}&action=energieausweis`);
+      if (!res.ok) { alert('Fehler beim Laden des Energieausweises.'); return; }
+      const data = await res.json();
+      if (!data.base64) { alert('Kein Energieausweis vorhanden.'); return; }
+      const link = document.createElement('a');
+      link.href = 'data:application/octet-stream;base64,' + data.base64;
+      link.download = `energieausweis-lead-${leadId}.pdf`;
+      link.click();
     }
   </script>
 </body>
