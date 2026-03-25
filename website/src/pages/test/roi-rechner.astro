@@ -1732,9 +1732,30 @@ import Layout from '../../layouts/Layout.astro';
   .scenario-grid {
     grid-template-columns: 1fr 1fr;
   }
+  /* nth-child Spalten-Zuweisungen auf Tablet zurücksetzen */
+  .scenario-card:nth-child(1),
+  .scenario-card:nth-child(2),
+  .scenario-card:nth-child(3),
+  .scenario-card:nth-child(4),
+  .scenario-card:nth-child(5),
+  .scenario-card:nth-child(6),
+  .scenario-card:nth-child(7) {
+    grid-column: auto;
+  }
 
   .step2-grid {
     grid-template-columns: 1fr;
+  }
+  .step2-col--full {
+    grid-column: auto;
+  }
+
+  .geg-toggle {
+    flex-direction: column;
+  }
+  .geg-btn {
+    width: 100%;
+    text-align: left;
   }
 
   .result-grid {
@@ -1758,6 +1779,15 @@ import Layout from '../../layouts/Layout.astro';
   .scenario-grid {
     grid-template-columns: 1fr;
   }
+  .scenario-card:nth-child(1),
+  .scenario-card:nth-child(2),
+  .scenario-card:nth-child(3),
+  .scenario-card:nth-child(4),
+  .scenario-card:nth-child(5),
+  .scenario-card:nth-child(6),
+  .scenario-card:nth-child(7) {
+    grid-column: auto;
+  }
 
   .exit-cards {
     flex-direction: column;
@@ -1765,6 +1795,11 @@ import Layout from '../../layouts/Layout.astro';
 
   .quiz-step-dot__label {
     display: none;
+  }
+
+  .scenario-start-wrap .btn-lg {
+    width: 100%;
+    text-align: center;
   }
 }
 .rechner-cross-banner {
