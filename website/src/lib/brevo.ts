@@ -34,7 +34,7 @@ export async function sendTransactionalEmail(opts: {
       'List-Unsubscribe': '<mailto:datenschutz@wirkaufendeineimmobilie.de?subject=Abmeldung>',
     },
     ...(opts.subject ? { subject: opts.subject } : {}),
-    ...(opts.htmlContent ? { htmlContent: opts.htmlContent + signature + unsubscribeFooter } : {}),
+    ...(opts.htmlContent ? { htmlContent: `<div style="font-family:system-ui,-apple-system,sans-serif;max-width:600px;color:#111827;line-height:1.6;text-align:left">` + opts.htmlContent + signature + unsubscribeFooter + `</div>` } : {}),
     ...(opts.templateId ? { templateId: opts.templateId } : {}),
     ...(opts.params ? { params: opts.params } : {}),
     ...(opts.attachments?.length ? { attachment: opts.attachments } : {}),

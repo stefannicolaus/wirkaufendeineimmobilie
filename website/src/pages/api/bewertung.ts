@@ -64,21 +64,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     await sendTransactionalEmail({
       to: { email, name: vorname || name },
       subject: 'Ihre Erstbewertung — Schritt 2: Objekt-Details eingeben',
-      htmlContent: `
-        <p>Hallo ${vorname || name},</p>
-        <p>vielen Dank für Ihre Anfrage bei wirkaufendeineimmobilie.de.</p>
-        <p>Für Ihre kostenlose Erstbewertung benötigen wir noch ein paar Details zu Ihrer Immobilie. Das dauert etwa 2 Minuten:</p>
-        <p style="margin: 24px 0;">
-          <a href="${unterlagenUrl}" style="background:#2563eb;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;">
-            Jetzt Objekt-Details eingeben →
-          </a>
-        </p>
-        <p style="color:#6b7280;font-size:14px;">
-          Kein Dokument ist Pflicht. Was Sie haben, reicht.<br>
-          Bei Fragen ruft Joachim Kleinke Sie persönlich zurück.
-        </p>
-        <p>Viele Grüße,<br>Joachim Kleinke<br>wirkaufendeineimmobilie.de</p>
-      `,
+      htmlContent: `<p>Hallo ${vorname || name},</p>
+<p>vielen Dank für Ihre Anfrage bei wirkaufendeineimmobilie.de.</p>
+<p>Für Ihre kostenlose Erstbewertung benötigen wir noch ein paar Details zu Ihrer Immobilie. Das dauert etwa 2 Minuten:</p>
+<p style="margin:24px 0">
+  <a href="${unterlagenUrl}" style="background:#2563eb;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-block">Jetzt Objekt-Details eingeben →</a>
+</p>
+<p style="color:#6b7280;font-size:14px">Kein Dokument ist Pflicht. Was Sie haben, reicht.<br>Bei Fragen ruft Joachim Kleinke Sie persönlich zurück.</p>`,
     });
   }
 

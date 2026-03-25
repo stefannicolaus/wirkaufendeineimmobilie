@@ -60,17 +60,15 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   sendTransactionalEmail({
     to: { email, name },
     subject: 'Dein Zugang ist beantragt — wirkaufendeineimmobilie.de',
-    htmlContent: `<div style="font-family:system-ui,sans-serif;max-width:560px;margin:0 auto;color:#111827;line-height:1.6">
-<p>Hallo ${anrede},</p>
+    htmlContent: `<p>Hallo ${anrede},</p>
 <p>deine Anfrage ist bei uns eingegangen. Wir prüfen dein Profil und melden uns innerhalb von 24 Stunden bei dir.</p>
 <p><strong>Was dich erwartet:</strong></p>
-<ul style="padding-left:1.2rem">
+<ul style="padding-left:1.2rem;margin:8px 0">
   <li>Off-Market Objekte bevor sie öffentlich werden</li>
   <li>Vorgeprüft mit Renditepotenzial &amp; Sanierungskalkulation</li>
   <li>Kein Bietergefecht — diskretes Angebotsverfahren</li>
 </ul>
-<p>Wir freuen uns auf die Zusammenarbeit.</p>
-</div>`,
+<p>Wir freuen uns auf die Zusammenarbeit.</p>`,
   }).catch(() => {});
 
   return new Response(JSON.stringify({ success: true }), {

@@ -52,17 +52,15 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   sendTransactionalEmail({
     to: { email, name },
     subject: 'Deine Anmeldung als Tippgeber — wirkaufendeineimmobilie.de',
-    htmlContent: `<div style="font-family:system-ui,sans-serif;max-width:560px;margin:0 auto;color:#111827;line-height:1.6">
-<p>Hallo ${anrede},</p>
+    htmlContent: `<p>Hallo ${anrede},</p>
 <p>willkommen an Bord. Deine Anmeldung als Tippgeber ist eingegangen.</p>
 <p><strong>Wie es weitergeht:</strong></p>
-<ul style="padding-left:1.2rem">
+<ul style="padding-left:1.2rem;margin:8px 0">
   <li>Wir schicken dir in Kürze deinen persönlichen Leitfaden</li>
   <li>Du erfährst genau, welche Objekte für uns interessant sind</li>
   <li>Bei jedem erfolgreichen Deal erhältst du deine Provision</li>
 </ul>
-<p>Schreib uns jederzeit — wir sind für dich da.</p>
-</div>`,
+<p>Schreib uns jederzeit — wir sind für dich da.</p>`,
   }).catch(() => {});
 
   return new Response(JSON.stringify({ success: true }), {
