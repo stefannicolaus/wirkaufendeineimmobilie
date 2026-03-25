@@ -73,7 +73,7 @@ Den `step-erstbewertung` auf `/unterlagen` von einem flachen Formular in ein ste
 > "Die Energieklasse steht auf dem Energieausweis (oben rechts, oft als farbige Skala). Den Ausweis brauchen Sie beim Verkauf ohnehin — wir können Ihnen dabei helfen, einen zu besorgen."
 
 **Upload-Option** (sekundär, unter dem Grid):
-> "📎 Energieausweis hochladen (optional)" → Datei-Upload (PDF, JPG, PNG, max. 10 MB)
+> "📎 Energieausweis hochladen (optional)" → Datei-Upload (PDF, JPG, PNG, max. 8 MB)
 
 **Kein Ausweis?** → Link/Hinweis: "Noch keinen Ausweis? Wir helfen dabei — einfach im nächsten Schritt erwähnen."
 
@@ -165,17 +165,49 @@ Den `step-erstbewertung` auf `/unterlagen` von einem flachen Formular in ein ste
 - Die Situation-Antwort wird zu `lead_magnet_data` JSON hinzugefügt
 - Upload (Energieausweis): File-Input → Base64 → neues DB-Feld `energieausweis_base64` (optional, lazy migration)
 
-### Neue DB-Spalte
+### Neue DB-Spalten (lazy migration in `db.ts`, try/catch Pattern)
 ```sql
 ALTER TABLE registrations ADD COLUMN energieausweis_base64 TEXT;
 ALTER TABLE registrations ADD COLUMN situation TEXT;
+-- was_saniert existiert bereits in der DB (aus vorherigem Release)
 ```
-Beide als lazy migration in `db.ts` (try/catch Pattern wie alle anderen ALTER TABLE).
+`was_saniert` ist bereits vorhanden — kein neues ALTER TABLE nötig.
+
+### `zustand`-Werte: Mapping alter → neuer Strings
+Die neue Quiz-UI verwendet erweiterte Werte. Die API und DB akzeptieren freie Strings — kein Schema-Constraint.
+
+| Neuer Quiz-Wert (DB-gespeichert) | Entspricht altem Wert |
+|-----------------------------------|-----------------------|
+| `sanierungsbeduerftig` | neu (bisher nicht genutzt) |
+| `renovierungsbeduerftig` | `renovierungsbeduerftig` (gleich) |
+| `gepflegt` | `gut` (Altdaten bleiben als `gut`) |
+| `modernisiert` | neu (bisher nicht genutzt) |
+| `neuwertig` | `neuwertig` (gleich) |
+
+Altdaten mit `gut` oder `mittel` bleiben unverändert — die Admin-Anzeige zeigt den gespeicherten Rohwert.
+
+### `sanierungsstand`-Feld: Abkündigung
+Das bisherige Feld `sanierungsstand` (vollsaniert / teilsaniert / kaum-saniert / unsaniert) wird im Quiz nicht mehr befüllt. Es bleibt leer (null) für neue Einträge. Bestehende Altdaten sind nicht betroffen. Das Feld wird nicht gelöscht — nur nicht mehr beschrieben.
+
+### Zusammenfassungs-Screen: "Ändern"-Mechanismus
+Klick auf "Ändern" neben einem Schritt → JS springt direkt zu diesem Schritt zurück (setStep(n)). Nach Änderung → "Weiter →" bringt den Nutzer zur Zusammenfassung zurück (nicht zum nächsten Schritt). Implementierung: `data-return-to-summary="true"` Flag auf den Schritten wenn man vom Summary kommt.
+
+### Upload-Größenlimit
+Clientseitig: File-Input prüft Dateigröße vor Base64-Konvertierung. Über 8 MB → Fehlermeldung: "Datei zu groß (max. 8 MB). Bitte komprimieren oder als JPG-Foto hochladen." Das Limit steht im JS, nicht in der HTML `accept`-Attribut.
 
 ### API `/api/bewertung` PATCH
-- Neues optionales Feld `situation` im Request-Body
-- Neues optionales Feld `energieausweis_base64`
+- Neues optionales Feld `situation` im Request-Body → wird in `lead_magnet_data` JSON gemerged
+- Neues optionales Feld `energieausweis_base64` → direkt in gleichnamige DB-Spalte
+- `sanierungsstand` wird nicht mehr gesendet (bleibt null)
 - Alle anderen Felder bleiben unverändert
+
+### Fortschrittsanzeige: Modus-Unterscheidung
+- **Erstbewertungs-Quiz-Modus** (URL hat `ref` oder `email` Param): 7 Schritte, Dot-Stepper mit 7 Punkten
+- **Upload-Wizard-Modus** (direkter Aufruf): bestehende 6-Schritte-Anzeige bleibt unverändert
+- Das JS erkennt den Modus beim Laden über `urlParams.has('ref') || urlParams.has('email')`
+
+### Skip-Verhalten (alle Schritte)
+Jeder Schritt kann übersprungen werden — "Überspringen →" ist immer vorhanden. Auf Schritten 2–5 ist der "Weiter →" Button die primäre CTA (größer/prominenter), "Überspringen" ist sekundär (kleiner, grau). Technisch identisch — nur visuelles Gewicht unterscheidet sich.
 
 ### Kein neuer API-Endpunkt nötig
 Die bestehende PATCH-Route reicht für alles.
