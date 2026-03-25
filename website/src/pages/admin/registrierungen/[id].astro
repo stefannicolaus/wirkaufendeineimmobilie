@@ -1,6 +1,8 @@
 ---
 export const prerender = false;
 import { getRegistrationById } from '../../../lib/db';
+import { readdirSync, existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 const id = Number(Astro.params.id);
 const row = getRegistrationById(id);
@@ -24,6 +26,39 @@ const zustandLabels: Record<string, string> = {
   modernisiert: 'Modernisiert',
   neuwertig: 'Neuwertig',
 };
+
+// Hochgeladene Dokumente (Upload-Wizard) via Email verknüpfen
+const leadEmail = String(row.email ?? '').toLowerCase().trim();
+interface UploadSession {
+  sessionId: string;
+  docs: { docType: string; files: string[] }[];
+}
+const uploadSessions: UploadSession[] = [];
+if (leadEmail) {
+  const uploadsDir = join(process.cwd(), 'data', 'uploads');
+  if (existsSync(uploadsDir)) {
+    const sessions = readdirSync(uploadsDir, { withFileTypes: true })
+      .filter(d => d.isDirectory())
+      .map(d => d.name);
+    for (const sessionId of sessions) {
+      const metaPath = join(uploadsDir, sessionId, 'meta.json');
+      if (!existsSync(metaPath)) continue;
+      try {
+        const meta = JSON.parse(readFileSync(metaPath, 'utf-8'));
+        if (String(meta.email ?? '').toLowerCase().trim() !== leadEmail) continue;
+        const sessionDir = join(uploadsDir, sessionId);
+        const docs: { docType: string; files: string[] }[] = [];
+        for (const entry of readdirSync(sessionDir, { withFileTypes: true })) {
+          if (!entry.isDirectory()) continue;
+          const docType = entry.name;
+          const files = readdirSync(join(sessionDir, docType));
+          if (files.length > 0) docs.push({ docType, files });
+        }
+        if (docs.length > 0) uploadSessions.push({ sessionId, docs });
+      } catch {}
+    }
+  }
+}
 ---
 <!DOCTYPE html>
 <html lang="de">
@@ -118,7 +153,7 @@ const zustandLabels: Record<string, string> = {
     )}
 
     <!-- IMMOBILIEN-DATEN (Quiz-Ergebnis) -->
-    {row.objekt_step_done && (
+    {!!row.objekt_step_done && (
       <div class="card">
         <h2>Immobilien-Daten (Quiz-Ergebnis)</h2>
         <div class="field">
@@ -189,6 +224,34 @@ const zustandLabels: Record<string, string> = {
         </div>
       </div>
     </div>
+
+    <!-- HOCHGELADENE DOKUMENTE (Upload-Wizard) -->
+    {uploadSessions.length > 0 && (
+      <div class="card">
+        <h2>Hochgeladene Unterlagen (Upload-Wizard)</h2>
+        {uploadSessions.map(session => (
+          <div style="margin-bottom:1rem">
+            <p style="font-size:0.75rem;color:#6b7280;margin:0 0 0.5rem">Session: {session.sessionId}</p>
+            {session.docs.map(doc => (
+              <div style="margin-bottom:0.75rem">
+                <p style="font-size:0.8rem;font-weight:600;color:#374151;margin:0 0 0.25rem;text-transform:capitalize">{doc.docType}</p>
+                <div style="display:flex;flex-wrap:wrap;gap:6px">
+                  {doc.files.map(filename => (
+                    <a
+                      href={`/api/admin-leads?action=file&session=${session.sessionId}&doctype=${doc.docType}&filename=${encodeURIComponent(filename)}`}
+                      style="display:inline-flex;align-items:center;gap:4px;background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;border-radius:4px;padding:3px 10px;font-size:0.8rem;text-decoration:none"
+                      download={filename.replace(/^\d+-/, '')}
+                    >
+                      ⬇ {filename.replace(/^\d+-/, '')}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    )}
 
     <!-- LÖSCHEN -->
     <div class="card" style="border:1px solid #fecaca">

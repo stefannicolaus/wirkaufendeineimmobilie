@@ -4,6 +4,9 @@ import {
   updateRegistration, deleteRegistration, getDashboardStats, getKapitalanlegerLeads
 } from '../../lib/db';
 import { isValidSession } from '../../lib/admin-auth';
+import { readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { lookup as mimeLookup } from 'mime-types';
 
 export const prerender = false;
 
@@ -33,8 +36,33 @@ export const GET: APIRoute = async ({ request }) => {
     });
   }
 
-  // Energieausweis-Download
+  // Upload-Wizard Datei-Download
   const action = url.searchParams.get('action');
+  if (action === 'file') {
+    const session = url.searchParams.get('session') ?? '';
+    const doctype = url.searchParams.get('doctype') ?? '';
+    const filename = url.searchParams.get('filename') ?? '';
+    // Sicherheit: keine Pfad-Traversal
+    if (!session || !doctype || !filename ||
+        session.includes('..') || doctype.includes('..') || filename.includes('..')) {
+      return new Response(JSON.stringify({ error: 'ungültige Parameter' }), { status: 400 });
+    }
+    const filePath = join(process.cwd(), 'data', 'uploads', session, doctype, filename);
+    if (!existsSync(filePath)) {
+      return new Response(JSON.stringify({ error: 'Datei nicht gefunden' }), { status: 404 });
+    }
+    const buffer = readFileSync(filePath);
+    const mimeType = mimeLookup(filename) || 'application/octet-stream';
+    const displayName = filename.replace(/^\d+-/, '');
+    return new Response(buffer, {
+      headers: {
+        'Content-Type': mimeType,
+        'Content-Disposition': `attachment; filename="${displayName}"`,
+      },
+    });
+  }
+
+  // Energieausweis-Download (Quiz-Upload, base64 in DB)
   if (action === 'energieausweis') {
     const id = Number(url.searchParams.get('id'));
     if (!id) return new Response(JSON.stringify({ error: 'id fehlt' }), { status: 400 });
