@@ -10,8 +10,22 @@
       <a href="/so-funktionierts">So funktioniert's</a>
       <a href="/investoren">Für Investoren</a>
       <a href="/makler">Für Makler</a>
-      <a href="/roi-rechner">ROI-Rechner</a>
-      <a href="/kapitalanleger-rechner">Kapitalanleger-Rechner</a>
+      <div class="nav__dropdown">
+        <button class="nav__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+          Rechner
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="nav__dropdown-menu" role="menu">
+          <a href="/roi-rechner" role="menuitem">
+            <span class="nav__dropdown-title">ROI-Rechner</span>
+            <span class="nav__dropdown-desc">Fix &amp; Flip Deal-Analyse</span>
+          </a>
+          <a href="/kapitalanleger-rechner" role="menuitem">
+            <span class="nav__dropdown-title">Kapitalanleger-Rechner</span>
+            <span class="nav__dropdown-desc">AfA, Cashflow &amp; DCF</span>
+          </a>
+        </div>
+      </div>
     </nav>
 
     <div class="nav__actions">
@@ -32,8 +46,11 @@
     <a href="/so-funktionierts">So funktioniert's</a>
     <a href="/investoren">Für Investoren</a>
     <a href="/makler">Für Makler</a>
-    <a href="/roi-rechner">ROI-Rechner</a>
-    <a href="/kapitalanleger-rechner">Kapitalanleger-Rechner</a>
+    <div class="nav__mobile-group">
+      <span class="nav__mobile-group-label">Rechner</span>
+      <a href="/roi-rechner" class="nav__mobile-sub">ROI-Rechner</a>
+      <a href="/kapitalanleger-rechner" class="nav__mobile-sub">Kapitalanleger-Rechner</a>
+    </div>
     <a href="tel:+4915679614866" class="nav__phone nav__phone--mobile">
       +49 156 796 148 66
     </a>
@@ -119,6 +136,112 @@
 
   .nav__links a:hover {
     color: var(--color-text);
+  }
+
+  /* Dropdown */
+  .nav__dropdown {
+    position: relative;
+  }
+
+  .nav__dropdown-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-mid);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    min-height: 44px;
+    transition: color var(--duration-fast, 150ms) ease;
+    white-space: nowrap;
+  }
+
+  .nav__dropdown-trigger:hover,
+  .nav__dropdown:hover .nav__dropdown-trigger {
+    color: var(--color-text);
+  }
+
+  .nav__dropdown-trigger svg {
+    transition: transform 0.2s ease;
+  }
+
+  .nav__dropdown:hover .nav__dropdown-trigger svg,
+  .nav__dropdown-trigger[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+  }
+
+  .nav__dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 240px;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.10), 0 16px 48px rgba(15, 23, 42, 0.08);
+    padding: 6px;
+    z-index: 200;
+  }
+
+  .nav__dropdown:hover .nav__dropdown-menu,
+  .nav__dropdown-trigger[aria-expanded="true"] + .nav__dropdown-menu {
+    display: block;
+  }
+
+  .nav__dropdown-menu a {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-3) var(--space-4);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.15s ease;
+    min-height: unset;
+  }
+
+  .nav__dropdown-menu a:hover {
+    background: var(--color-bg-alt);
+    color: inherit;
+  }
+
+  .nav__dropdown-title {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+  }
+
+  .nav__dropdown-desc {
+    font-size: 12px;
+    color: var(--color-text-mid);
+    font-weight: var(--weight-normal);
+  }
+
+  /* Mobile group */
+  .nav__mobile-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .nav__mobile-group-label {
+    font-size: 11px;
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: var(--space-2) 0 0;
+  }
+
+  .nav__mobile-sub {
+    font-size: var(--text-base) !important;
+    color: var(--color-text) !important;
+    padding-left: var(--space-3) !important;
+    min-height: 40px !important;
   }
 
   .nav__actions {
