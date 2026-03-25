@@ -79,7 +79,7 @@ function badgeColor(s: unknown) {
     </form>
     <table>
       <thead>
-        <tr><th>#</th><th>Typ</th><th>Name</th><th>E-Mail</th><th>Status</th><th>Datum</th></tr>
+        <tr><th>#</th><th>Typ</th><th>Name</th><th>E-Mail</th><th>Status</th><th>Datum</th><th></th></tr>
       </thead>
       <tbody>
         {rows.map(r => (
@@ -90,6 +90,7 @@ function badgeColor(s: unknown) {
             <td>{String(r.email ?? '')}</td>
             <td><span class="badge" style={`background:${badgeColor(r.status)}`}>{String(r.status ?? 'neu')}</span></td>
             <td>{String(r.created_at ?? '').slice(0, 16)}</td>
+            <td><button onclick={`deleteLead(${r.id})`} style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:0.875rem;padding:0">✕</button></td>
           </tr>
         ))}
       </tbody>
@@ -103,5 +104,14 @@ function badgeColor(s: unknown) {
       </div>
     )}
   </main>
+  <script>
+    async function deleteLead(id: number) {
+      if (!confirm('Eintrag wirklich löschen?')) return;
+      const res = await fetch(`/api/admin-leads?id=${id}`, { method: 'DELETE' });
+      if (res.ok) window.location.reload();
+      else alert('Fehler beim Löschen.');
+    }
+    (window as any).deleteLead = deleteLead;
+  </script>
 </body>
 </html>

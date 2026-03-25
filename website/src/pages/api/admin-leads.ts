@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import {
   getRegistrations, countRegistrations, getRegistrationById,
-  updateRegistration, getDashboardStats, getKapitalanlegerLeads
+  updateRegistration, deleteRegistration, getDashboardStats, getKapitalanlegerLeads
 } from '../../lib/db';
 import { isValidSession } from '../../lib/admin-auth';
 
@@ -98,6 +98,22 @@ export const PATCH: APIRoute = async ({ request }) => {
   }
 
   updateRegistration(Number(id), { status, notiz });
+  return new Response(JSON.stringify({ success: true }), {
+    headers: { 'Content-Type': 'application/json' },
+  });
+};
+
+// DELETE /api/admin-leads — Lead löschen
+export const DELETE: APIRoute = async ({ request }) => {
+  if (!authCheck(request)) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+  }
+
+  const url = new URL(request.url);
+  const id = Number(url.searchParams.get('id'));
+  if (!id) return new Response(JSON.stringify({ error: 'id fehlt' }), { status: 400 });
+
+  deleteRegistration(id);
   return new Response(JSON.stringify({ success: true }), {
     headers: { 'Content-Type': 'application/json' },
   });

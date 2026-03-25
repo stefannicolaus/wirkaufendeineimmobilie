@@ -348,6 +348,10 @@ export function updateRegistration(id: number, fields: { status?: string; notiz?
   db.prepare(`UPDATE registrations SET ${sets} WHERE id = ?`).run(...values, id);
 }
 
+export function deleteRegistration(id: number) {
+  db.prepare(`DELETE FROM registrations WHERE id = ?`).run(id);
+}
+
 export function getDashboardStats() {
   const now = new Date();
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
