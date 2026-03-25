@@ -352,6 +352,7 @@ export const prerender = false;
       <button type="button" class="btn btn-primary" id="quiz-submit-btn" style="width:100%;margin-top:24px">
         Preisindikation erstellen →
       </button>
+      <p id="quiz-submit-error" class="hidden" style="color:#ef4444;font-size:14px;text-align:center;margin-top:12px">Etwas ist schiefgelaufen — bitte versuchen Sie es erneut.</p>
       <div id="quiz-success" class="hidden" style="text-align:center;padding:48px 24px;">
         <p style="font-size:32px;margin-bottom:16px">✓</p>
         <h3>Danke! Ihre Preisindikation wird erstellt.</h3>
@@ -2224,7 +2225,7 @@ Vielen Dank und freundliche Grüße,
     if (quizState.situationFreitext) situationToSend.push(`Andere: ${quizState.situationFreitext}`);
 
     const body: Record<string, unknown> = {
-      ref: ref ? Number(ref) : undefined,
+      ref: ref && !isNaN(Number(ref)) ? Number(ref) : undefined,
       email: ref ? undefined : email,
       baujahr: quizState.baujahr,
       wohnflaeche: quizState.wohnflaeche,
@@ -2246,16 +2247,19 @@ Vielen Dank und freundliche Grüße,
     };
 
     try {
-      await fetch('/api/bewertung', {
+      const res = await fetch('/api/bewertung', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       btn.classList.add('hidden');
       document.getElementById('quiz-success')?.classList.remove('hidden');
     } catch {
       btn.textContent = 'Preisindikation erstellen →';
       btn.disabled = false;
+      const errEl = document.getElementById('quiz-submit-error');
+      if (errEl) errEl.classList.remove('hidden');
     }
   });
 
