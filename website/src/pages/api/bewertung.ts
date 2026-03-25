@@ -86,8 +86,8 @@ export const PATCH: APIRoute = async ({ request }) => {
   const body = await request.json();
 
   const { ref, email, baujahr, wohnflaeche, energieklasse, heizung_baujahr,
-          sanierungsstand, was_saniert, zustand, besonderheit, stellplatz,
-          vermietet, etage, pain_freitext } = body;
+          was_saniert, zustand, besonderheit, stellplatz,
+          vermietet, etage, pain_freitext, situation, energieausweis_base64 } = body;
 
   if (!ref && !email) {
     return new Response(JSON.stringify({ success: false, error: 'ref oder email fehlt' }), {
@@ -99,13 +99,15 @@ export const PATCH: APIRoute = async ({ request }) => {
   const stmt = ref
     ? db.prepare(`UPDATE registrations SET
         baujahr=?, wohnflaeche=?, energieklasse=?, heizung_baujahr=?,
-        sanierungsstand=?, was_saniert=?, zustand=?, besonderheit=?,
-        stellplatz=?, vermietet=?, etage=?, pain_freitext=?, objekt_step_done=1
+        was_saniert=?, zustand=?, besonderheit=?,
+        stellplatz=?, vermietet=?, etage=?, pain_freitext=?,
+        energieausweis_base64=?, objekt_step_done=1
         WHERE id=?`)
     : db.prepare(`UPDATE registrations SET
         baujahr=?, wohnflaeche=?, energieklasse=?, heizung_baujahr=?,
-        sanierungsstand=?, was_saniert=?, zustand=?, besonderheit=?,
-        stellplatz=?, vermietet=?, etage=?, pain_freitext=?, objekt_step_done=1
+        was_saniert=?, zustand=?, besonderheit=?,
+        stellplatz=?, vermietet=?, etage=?, pain_freitext=?,
+        energieausweis_base64=?, objekt_step_done=1
         WHERE email=? AND typ='bewertung' ORDER BY id DESC LIMIT 1`);
 
   stmt.run(
@@ -113,7 +115,6 @@ export const PATCH: APIRoute = async ({ request }) => {
     wohnflaeche ?? null,
     energieklasse ?? null,
     heizung_baujahr ?? null,
-    sanierungsstand ?? null,
     was_saniert ? JSON.stringify(was_saniert) : null,
     zustand ?? null,
     besonderheit ?? null,
@@ -121,8 +122,24 @@ export const PATCH: APIRoute = async ({ request }) => {
     vermietet ? 1 : 0,
     etage ?? null,
     pain_freitext ?? null,
+    energieausweis_base64 ?? null,
     ref || email,
   );
+
+  // Merge situation into lead_magnet_data JSON
+  if (situation && Array.isArray(situation) && situation.length > 0) {
+    const existingRow = ref
+      ? (db.prepare(`SELECT lead_magnet_data FROM registrations WHERE id=?`).get(ref) as any)
+      : (db.prepare(`SELECT lead_magnet_data FROM registrations WHERE email=? AND typ='bewertung' ORDER BY id DESC LIMIT 1`).get(email) as any);
+    const current = existingRow?.lead_magnet_data ? JSON.parse(existingRow.lead_magnet_data) : {};
+    current.situation = situation;
+    const updated = JSON.stringify(current);
+    if (ref) {
+      db.prepare(`UPDATE registrations SET lead_magnet_data=? WHERE id=?`).run(updated, ref);
+    } else {
+      db.prepare(`UPDATE registrations SET lead_magnet_data=? WHERE email=? AND typ='bewertung' ORDER BY id DESC LIMIT 1`).run(updated, email);
+    }
+  }
 
   // Benachrichtigung an Joachim mit allen Daten
   const row = ref
@@ -152,6 +169,13 @@ export const PATCH: APIRoute = async ({ request }) => {
           <tr><td style="padding:6px;font-weight:600">Vermietet</td><td style="padding:6px">${r.vermietet ? 'Ja' : 'Nein'}</td></tr>
           <tr><td style="padding:6px;font-weight:600">Etage</td><td style="padding:6px">${r.etage || '—'}</td></tr>
           ${r.pain_freitext ? `<tr><td style="padding:6px;font-weight:600;color:#dc2626">Pain (Freitext)</td><td style="padding:6px;color:#dc2626">${r.pain_freitext}</td></tr>` : ''}
+          ${(() => {
+            try {
+              const lmd = r.lead_magnet_data ? JSON.parse(r.lead_magnet_data as string) : {};
+              return lmd.situation?.length > 0 ? `<tr><td style="padding:6px;font-weight:600">Situation</td><td style="padding:6px">${(lmd.situation as string[]).join(', ')}</td></tr>` : '';
+            } catch { return ''; }
+          })()}
+          ${r.energieausweis_base64 ? `<tr><td style="padding:6px;font-weight:600">Energieausweis</td><td style="padding:6px">✓ Hochgeladen</td></tr>` : ''}
         </table>
       `,
     });
