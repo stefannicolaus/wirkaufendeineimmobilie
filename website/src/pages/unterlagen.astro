@@ -1711,20 +1711,25 @@ Vielen Dank und freundliche Grüße,
     appearance: none;
     -webkit-appearance: none;
     cursor: pointer;
-    padding-right: var(--space-8);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    padding: 10px var(--space-8) 10px var(--space-4);
+    width: auto;
+    min-width: 180px;
   }
   .quiz-select-chevron {
     position: absolute;
-    right: var(--space-4);
+    right: var(--space-3);
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
     color: var(--color-text-muted);
-    font-size: 1rem;
+    font-size: 0.85rem;
   }
 
   /* Wohnfläche — schmaler */
-  .quiz-wf-select-wrapper { max-width: 240px; }
+  .quiz-wf-select-wrapper { display: inline-flex; }
+  .quiz-wf-select { min-width: 160px; }
 
   /* Error hint */
   .quiz-hint--error {
