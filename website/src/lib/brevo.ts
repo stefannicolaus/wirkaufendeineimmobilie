@@ -8,8 +8,10 @@ export interface BrevoAttachment {
 
 export async function sendTransactionalEmail(opts: {
   to: { email: string; name?: string };
-  subject: string;
-  htmlContent: string;
+  subject?: string; // optional when using templateId (Brevo uses the template's own subject)
+  htmlContent?: string;
+  templateId?: number;
+  params?: Record<string, string>;
   attachments?: BrevoAttachment[];
   replyTo?: string;
 }) {
@@ -17,15 +19,17 @@ export async function sendTransactionalEmail(opts: {
   const apiKey = process.env.BREVO_API_KEY || import.meta.env.BREVO_API_KEY;
   if (!apiKey) throw new Error('BREVO_API_KEY not configured');
 
-  const body = {
+  const body: Record<string, unknown> = {
     sender: {
       name: 'Joachim Kleinke — wirkaufendeineimmobilie',
       email: 'office@wirkaufendeineimmobilie.de',
     },
-    to: [opts.to],
-    subject: opts.subject,
-    htmlContent: opts.htmlContent,
+    to: [{ email: opts.to.email, name: opts.to.name }],
     replyTo: { email: opts.replyTo ?? 'office@wirkaufendeineimmobilie.de' },
+    ...(opts.subject ? { subject: opts.subject } : {}),
+    ...(opts.htmlContent ? { htmlContent: opts.htmlContent } : {}),
+    ...(opts.templateId ? { templateId: opts.templateId } : {}),
+    ...(opts.params ? { params: opts.params } : {}),
     ...(opts.attachments?.length ? { attachment: opts.attachments } : {}),
   };
 
