@@ -1,0 +1,41 @@
+---
+export const prerender = false;
+const ok = Astro.url.searchParams.get('ok') === '1';
+const fehler = Astro.url.searchParams.get('fehler') === '1';
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{ ok ? 'Abgemeldet' : 'Fehler' } — wirkaufendeineimmobilie.de</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f9fafb; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .card { background: #fff; border-radius: 12px; padding: 48px 40px; max-width: 480px; width: 90%; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.06); }
+    .icon { font-size: 48px; margin-bottom: 16px; }
+    h1 { font-size: 22px; font-weight: 700; color: #111827; margin: 0 0 12px; }
+    p { color: #6b7280; font-size: 15px; line-height: 1.6; margin: 0 0 24px; }
+    a { color: #2563eb; text-decoration: none; font-size: 14px; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    {ok ? (
+      <>
+        <div class="icon">✓</div>
+        <h1>Du wirst keine weiteren E-Mails erhalten.</h1>
+        <p>Deine E-Mail-Adresse wurde aus unserem Verteiler entfernt.</p>
+        <a href="/">Zurück zur Startseite</a>
+      </>
+    ) : (
+      <>
+        <div class="icon">✗</div>
+        <h1>Dieser Link ist ungültig oder abgelaufen.</h1>
+        <p>Bitte schreib uns direkt an <a href="mailto:datenschutz@wirkaufendeineimmobilie.de">datenschutz@wirkaufendeineimmobilie.de</a> — wir entfernen dich sofort.</p>
+      </>
+    )}
+  </div>
+</body>
+</html>
