@@ -22,6 +22,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     });
   }
 
+  const email = String(data.get('email') || '').trim();
+  if (!email) {
+    return new Response(JSON.stringify({ error: 'E-Mail fehlt.' }), {
+      status: 400, headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const erfahrung_deals = data.get('erfahrung_deals');
   const hauptproblem = data.get('hauptproblem');
   const konkreter_deal = data.get('konkreter_deal');
@@ -35,7 +42,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   insertRegistration({
     typ: 'investor',
     name: data.get('name'),
-    email: data.get('email'),
+    email,
     telefon: data.get('telefon'),
     investor_typ: data.get('investor_typ'),
     erfahrung: data.get('erfahrung'),

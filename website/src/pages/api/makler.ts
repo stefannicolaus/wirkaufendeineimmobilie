@@ -15,7 +15,16 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   const data = await request.formData();
   if (data.get('website')) {
-    return new Response(JSON.stringify({ success: true }), { status: 200 });
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200, headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const email = String(data.get('email') || '').trim();
+  if (!email) {
+    return new Response(JSON.stringify({ error: 'E-Mail fehlt.' }), {
+      status: 400, headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   const lead_magnet_data = JSON.stringify({
@@ -26,7 +35,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   insertRegistration({
     typ: 'makler',
     name: data.get('name'),
-    email: data.get('email'),
+    email,
     telefon: data.get('telefon'),
     maklerbuero: data.get('maklerbuero'),
     lead_magnet_data,
