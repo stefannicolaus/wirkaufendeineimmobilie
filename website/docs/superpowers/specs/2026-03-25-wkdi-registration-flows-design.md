@@ -292,11 +292,92 @@ wkdi-temp/website/test-system/
 
 ---
 
-## 7. Offene Entscheidungen (nicht blockierend)
+## 7. Implementierungs-Details (Reviewer-Fixes)
 
-1. **Brevo-Listen-IDs** für neue Segmente (Investor-DOI etc.) — werden bei Implementierung in `.env` eingetragen
-2. **Provision-Betrag Tippgeber** — nicht im Scope dieses Specs, wird separat kommuniziert
-3. **Kooperationsvereinbarungs-PDF** — Inhalt kommt von Joachim, wird als Brevo-Attachment hinterlegt
+### 7.1 DOI-Bestätigungs-Endpunkt
+
+`/api/confirm-report` **existiert bereits** und übernimmt:
+- `GET /api/confirm-report?ref=WKDI-xxx` → `confirmRegistrationByRef(ref)` → `doi_confirmed = 1`
+- Danach: Welcome-E-Mail via `sendTransactionalEmail()` senden
+
+Für **Investor/Makler/Tippgeber** (Brevo-DOI): Brevo leitet nach Klick auf `/danke?typ=doi-bestaetigt` weiter. Welcome-E-Mail wird direkt in diesem Redirect-Handler ausgelöst — entweder in `/api/confirm-report` (wenn ref-basiert) oder über einen neuen `/api/doi-welcome` Endpunkt der von der `/danke` Seite via JS getriggert wird.
+
+**Einfachste Lösung:** Brevo-DOI Redirect-URL → `/api/confirm-welcome?typ=investor&email=...` → DB update + Welcome-E-Mail senden.
+
+### 7.2 API-Endpunkte die aktualisiert werden
+
+Alle 4 müssen die neuen Personalisierungsfelder verarbeiten:
+
+| Datei | Neue Felder |
+|-------|-------------|
+| `src/pages/api/investor.ts` | `erfahrung_deals`, `hauptproblem`, `konkreter_deal` → `lead_magnet_data` JSON; `pain_freitext` → eigene Spalte |
+| `src/pages/api/tippgeber.ts` | `objekt_quelle`, `tipps_monat` → `lead_magnet_data`; `pain_freitext` |
+| `src/pages/api/makler.ts` | `abschluesse_jahr`, `kooperation_interesse` → `lead_magnet_data`; `pain_freitext` |
+| `src/pages/api/bewertung.ts` | `dringlichkeit`, `vermietet` → `lead_magnet_data`; `pain_freitext` |
+
+### 7.3 Admin-Auth — Astro SSR Implementierung
+
+```
+src/pages/admin/index.astro        → Dashboard (prüft Cookie)
+src/pages/admin/login.astro        → Login-Formular
+src/pages/api/admin-login.ts       → POST: vergleicht ADMIN_USER/ADMIN_PASSWORD (ENV), setzt Cookie
+src/pages/api/admin-logout.ts      → DELETE Cookie
+src/middleware.ts                  → Bestehende Middleware: /admin/* prüft Cookie
+```
+
+**Auth-Mechanismus:** Plaintext-Vergleich gegen ENV-Variablen `ADMIN_USER` + `ADMIN_PASSWORD` — kein bcrypt nötig für diesen Use Case. Cookie-Name: `wkdi_admin_session`, httpOnly, Secure, SameSite=Lax, 7 Tage.
+
+### 7.4 ENV-Variablen (vollständige Liste)
+
+```env
+# Bestehend
+BREVO_API_KEY=
+BREVO_DOI_TEMPLATE_ID=
+BREVO_LIST_ID_INVESTOR=
+BREVO_LIST_ID_MAKLER=
+BREVO_LIST_ID_TIPPGEBER=
+BREVO_LIST_ID_ROI=
+BREVO_LIST_ID_KAPITALANLEGER=
+BREVO_LIST_ID_ERBEN=
+BREVO_LIST_ID_BLUEPRINT=
+BREVO_LIST_ID_KOMPASS=
+BREVO_LIST_ID_SCHEIDUNG=
+BREVO_LIST_ID_UMZUG=
+NOTIFY_EMAIL=office@wirkaufendeineimmobilie.de
+SITE_URL=https://wirkaufendeineimmobilie.de
+
+# Neu
+ADMIN_USER=admin
+ADMIN_PASSWORD=<sicheres-zufalls-pw-bei-implementierung-generieren>
+BREVO_TEMPLATE_ID_WELCOME_INVESTOR=
+BREVO_TEMPLATE_ID_WELCOME_TIPPGEBER=
+BREVO_TEMPLATE_ID_WELCOME_MAKLER=
+BREVO_TEMPLATE_ID_WELCOME_VERKAEUFER=
+```
+
+### 7.5 Admin SQL-Sicherheit
+
+Admin-Abfragen mit dynamischem Sort/Filter: **Whitelist-Validation** für Spalten- und Richtungswerte vor SQL-Ausführung. Kein String-Concat — nur parameterisierte Queries via `better-sqlite3`.
+
+```ts
+const ALLOWED_SORT_COLS = ['created_at', 'name', 'typ', 'status'];
+const col = ALLOWED_SORT_COLS.includes(req.sort) ? req.sort : 'created_at';
+```
+
+### 7.6 CSV-Export
+
+- Encoding: UTF-8 mit BOM (`\uFEFF`) für Excel-Kompatibilität
+- Spaltenreihenfolge: `id, typ, name, email, telefon, status, notiz, pain_freitext, created_at`
+- Dateiname: `wkdi-leads-[typ]-[YYYY-MM-DD].csv`
+- Rate-Limiting (In-Memory-Map): Überlebt Server-Restart nicht — bewusste Entscheidung, akzeptables Trade-off für diesen Scale.
+
+---
+
+## 8. Offene Entscheidungen (nicht blockierend)
+
+1. **Brevo-Listen-IDs + Template-IDs** — werden bei Implementierung in `.env` eingetragen
+2. **Provision-Betrag Tippgeber** — nicht im Scope, kommt von Joachim
+3. **Kooperationsvereinbarungs-PDF** — Inhalt kommt von Joachim, als Brevo-Attachment hinterlegt
 
 ---
 
