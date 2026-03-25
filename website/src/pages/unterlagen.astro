@@ -382,14 +382,13 @@ export const prerender = false;
 
     <div class="qs-hero">
       <div class="qs-hero__check">✓</div>
-      <h1 class="qs-hero__title">Fast da.</h1>
-      <p class="qs-hero__sub">Ihre Angaben sind vollständig — wir können loslegen.</p>
+      <h1 class="qs-hero__title">Fast geschafft.</h1>
+      <p class="qs-hero__sub">Bevor wir deine Erstbewertung erstellen — überprüfe kurz, ob deine Angaben stimmen.</p>
     </div>
 
     <div class="qs-data-section">
       <div class="qs-data-header">
-        <span>Ihre Immobilie auf einen Blick</span>
-        <span class="qs-data-header__hint">Etwas falsch? Einfach anklicken.</span>
+        <span>Deine Immobilie auf einen Blick</span>
       </div>
       <ul class="quiz-summary-list" id="quiz-summary-list"></ul>
     </div>
@@ -397,24 +396,39 @@ export const prerender = false;
     <div class="qs-benefits">
       <div class="qs-benefit">
         <span class="qs-benefit__icon">📊</span>
-        <div>
+        <div class="qs-benefit__body">
           <strong>Marktbasierte Preisspanne</strong>
-          <span>Auf Basis echter Verkaufsdaten aus Ihrer Region — kein Bauchgefühl.</span>
+          <span>Auf Basis echter Verkaufsdaten aus deiner Region — keine Schätzung, keine Maklerwerbung.</span>
         </div>
       </div>
       <div class="qs-benefit">
         <span class="qs-benefit__icon">📬</span>
-        <div>
-          <strong>Persönliches PDF</strong>
-          <span>Innerhalb weniger Stunden direkt in Ihrem Postfach.</span>
+        <div class="qs-benefit__body">
+          <strong>Erstbewertung innerhalb von 24 Stunden</strong>
+          <span>Wir melden uns mit konkreten Zahlen direkt in deinem Postfach.</span>
         </div>
       </div>
       <div class="qs-benefit">
-        <span class="qs-benefit__icon">📞</span>
-        <div>
-          <strong>Persönlicher Kontakt</strong>
-          <span>Wir melden uns in den nächsten 24 Stunden — für alles was noch offen ist.</span>
+        <span class="qs-benefit__icon">🔒</span>
+        <div class="qs-benefit__body">
+          <strong>Diskret &amp; sicher</strong>
+          <span>Deine Daten werden nicht weitergegeben. Es warten Käufer mit ernsthaftem Kaufinteresse — schnelle Angebote, keine Provision für dich.</span>
         </div>
+      </div>
+    </div>
+
+    <div class="qs-objections">
+      <div class="qs-objection">
+        <span class="qs-objection__q">Verpflichtet mich das zu etwas?</span>
+        <span class="qs-objection__a">Nein. Die Bewertung ist kostenlos und unverbindlich — kein Maklervertrag, kein Auftrag.</span>
+      </div>
+      <div class="qs-objection">
+        <span class="qs-objection__q">Bekomme ich jetzt Anrufe?</span>
+        <span class="qs-objection__a">Nur wenn du es möchtest. Deine Erstbewertung kommt per E-Mail — du entscheidest, wie es weitergeht.</span>
+      </div>
+      <div class="qs-objection">
+        <span class="qs-objection__q">Was passiert mit meinen Daten?</span>
+        <span class="qs-objection__a">Sie werden ausschließlich für deine Bewertung genutzt — nicht verkauft, nicht weitergegeben.</span>
       </div>
     </div>
 
@@ -2091,14 +2105,15 @@ Vielen Dank und freundliche Grüße,
     padding: 0;
     font-size: var(--text-xs);
     cursor: pointer;
-    color: var(--color-accent);
+    color: var(--color-text-muted);
     font-family: var(--font-family);
-    flex-shrink: 0;
-    margin-top: 2px;
-    opacity: 0.7;
-    transition: opacity 0.15s;
+    display: inline;
+    margin-top: 4px;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
   }
-  .btn-quiz-edit:hover { opacity: 1; }
+  .btn-quiz-edit:hover { color: var(--color-accent); }
 
   /* Benefits */
   .qs-benefits {
@@ -2132,6 +2147,32 @@ Vielen Dank und freundliche Grüße,
     font-size: var(--text-xs);
     color: var(--color-text-muted);
     line-height: 1.4;
+  }
+
+  /* Objections */
+  .qs-objections {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+  .qs-objection {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-sm);
+  }
+  .qs-objection__q {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+  }
+  .qs-objection__a {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    line-height: 1.5;
   }
 
   /* CTA */
@@ -2613,8 +2654,8 @@ Vielen Dank und freundliche Grüße,
         <div class="quiz-summary-item__body">
           <div class="quiz-summary-item__label">${item.label}</div>
           <div class="quiz-summary-item__value">${item.value || '<span class="qs-empty">Nicht angegeben</span>'}</div>
+          <button type="button" class="btn-quiz-edit" data-edit-step="${item.step}">ändern</button>
         </div>
-        <button type="button" class="btn-quiz-edit" data-edit-step="${item.step}">Ändern</button>
       </li>
     `).join('');
 
