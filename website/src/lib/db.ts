@@ -262,7 +262,8 @@ function sendBrevoEmail(opts: { to: string; subject: string; text?: string; html
       sender: { name: 'Joachim Kleinke — wirkaufendeineimmobilie.de', email: 'office@wirkaufendeineimmobilie.de' },
       to: [{ email: opts.to }],
       subject: opts.subject,
-      ...(opts.html ? { htmlContent: opts.html } : { textContent: opts.text ?? '' }),
+      headers: { 'List-Unsubscribe': '<mailto:datenschutz@wirkaufendeineimmobilie.de?subject=Abmeldung>' },
+      ...(opts.html ? { htmlContent: opts.html + '<div style="margin-top:2rem;padding-top:1rem;border-top:1px solid #e5e7eb;font-size:12px;color:#9ca3af;font-family:system-ui,sans-serif">Diese E-Mail wurde durch Ihre Anfrage ausgelöst. Keine weiteren E-Mails? <a href="mailto:datenschutz@wirkaufendeineimmobilie.de" style="color:#9ca3af">datenschutz@wirkaufendeineimmobilie.de</a></div>' } : { textContent: (opts.text ?? '') + '\n\n---\nKeine weiteren E-Mails? datenschutz@wirkaufendeineimmobilie.de' }),
     }),
   }).catch(() => {
     // Silent fail — notification is not critical

@@ -19,6 +19,8 @@ export async function sendTransactionalEmail(opts: {
   const apiKey = process.env.BREVO_API_KEY || import.meta.env.BREVO_API_KEY;
   if (!apiKey) throw new Error('BREVO_API_KEY not configured');
 
+  const unsubscribeFooter = `<div style="margin-top:2rem;padding-top:1rem;border-top:1px solid #e5e7eb;font-size:12px;color:#9ca3af;font-family:system-ui,sans-serif;line-height:1.5"><p style="margin:0 0 4px">wirkaufendeineimmobilie.de — Joachim Kleinke<br>Diese E-Mail wurde durch Ihre Anfrage auf unserer Website ausgelöst.</p><p style="margin:0">Keine weiteren E-Mails? <a href="mailto:datenschutz@wirkaufendeineimmobilie.de" style="color:#9ca3af">datenschutz@wirkaufendeineimmobilie.de</a></p></div>`;
+
   const body: Record<string, unknown> = {
     sender: {
       name: 'Joachim Kleinke — wirkaufendeineimmobilie',
@@ -26,8 +28,11 @@ export async function sendTransactionalEmail(opts: {
     },
     to: [{ email: opts.to.email, name: opts.to.name }],
     replyTo: { email: opts.replyTo ?? 'office@wirkaufendeineimmobilie.de' },
+    headers: {
+      'List-Unsubscribe': '<mailto:datenschutz@wirkaufendeineimmobilie.de?subject=Abmeldung>',
+    },
     ...(opts.subject ? { subject: opts.subject } : {}),
-    ...(opts.htmlContent ? { htmlContent: opts.htmlContent } : {}),
+    ...(opts.htmlContent ? { htmlContent: opts.htmlContent + unsubscribeFooter } : {}),
     ...(opts.templateId ? { templateId: opts.templateId } : {}),
     ...(opts.params ? { params: opts.params } : {}),
     ...(opts.attachments?.length ? { attachment: opts.attachments } : {}),
