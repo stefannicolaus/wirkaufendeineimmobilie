@@ -95,7 +95,7 @@ Die häufigste Blockade: Einer will verkaufen, der andere will nicht. Das Ergebn
 
 Rechtlich gilt: Beide Eigentümer müssen dem Verkauf zustimmen. Ohne Einigung kein Notartermin. Einziger Ausweg ohne Einigung: die Teilungsversteigerung — und die ist, wie oben beschrieben, der schlechteste Ausweg.
 
-**Was hilft:** Ein neutraler Gutachter oder Direktankäufer gibt beiden Parteien eine objektive Zahl. Kein Feilschen, kein gegenseitiges Misstrauen über den "richtigen" Preis. Auf dieser Basis lässt sich oft leichter einigen als wenn jeder seinen eigenen Makler beauftragt.
+**Was hilft:** Ein neutraler Gutachter oder Direktankäufer gibt beiden Parteien eine objektive Zahl. Kein Feilschen, kein gegenseitiges Misstrauen über den "richtigen" Preis. Auf dieser Basis findet oft einfacher eine Einigung statt, als wenn jeder seinen eigenen Makler beauftragt, die dann mit verschiedenen Zahlen argumentieren.
 
 Wir machen in solchen Situationen ein transparentes Angebot für beide Seiten — ohne Vorbedingungen und ohne dass ihr euch vorher auf einen Preis einigen müsst.
 
