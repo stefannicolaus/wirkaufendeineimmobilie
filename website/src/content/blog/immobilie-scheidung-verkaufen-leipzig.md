@@ -47,7 +47,7 @@ Beide bleiben Eigentümer, keiner wohnt mehr drin, die Immobilie wird vermietet.
 
 Wenn einer verkaufen will und der andere blockiert, kann ein Partner beim Amtsgericht die Teilungsversteigerung beantragen. Das Gericht lässt die Immobilie dann zwangsversteigern — gegen den Willen des anderen.
 
-Das Problem: Zwangsversteigerungen erzielen regelmäßig 20–30 % unter Marktwert. Dazu kommen Gerichtskosten und Anwaltskosten. Am Ende haben beide weniger als beim freiwilligen Verkauf. Unser Rat: Teilungsversteigerung um jeden Preis vermeiden.
+Das Problem: Der Erlös liegt bei einer Zwangsversteigerung regelmäßig 20–30 % unter dem Marktwert. Dazu kommen Gerichtskosten und Anwaltskosten. Am Ende haben beide weniger als beim freiwilligen Verkauf. Unser Rat: Teilungsversteigerung um jeden Preis vermeiden.
 
 ---
 
