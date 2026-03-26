@@ -2100,20 +2100,25 @@ Vielen Dank und freundliche Grüße,
   .quiz-summary-item--skipped .quiz-summary-item__value { color: var(--color-text-muted); font-style: italic; }
   .qs-empty { color: var(--color-text-muted); font-style: italic; }
   .btn-quiz-edit {
+    appearance: none;
+    -webkit-appearance: none;
     background: none;
     border: none;
+    outline: none;
+    box-shadow: none;
     padding: 0;
     font-size: var(--text-xs);
     cursor: pointer;
     color: var(--color-text-muted);
     font-family: var(--font-family);
-    display: inline;
-    margin-top: 4px;
+    display: block;
+    margin-top: 5px;
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: color 0.15s;
   }
   .btn-quiz-edit:hover { color: var(--color-accent); }
+  .btn-quiz-edit:focus { outline: none; }
 
   /* Benefits */
   .qs-benefits {
