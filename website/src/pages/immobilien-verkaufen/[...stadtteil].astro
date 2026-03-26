@@ -129,30 +129,26 @@ const jsonLdFaq = JSON.stringify({
   <!-- S2: MARKTDATEN -->
   <section class="iv-market-section">
     <div class="container">
-      <h2>Aktueller Immobilienmarkt in {st.name}</h2>
-      <div class={`iv-market-grid ${st.milieuschutz ? 'iv-market-grid--4' : 'iv-market-grid--3'}`}>
-        <div class="iv-market-card iv-market-card--highlight">
-          <span class="iv-market-card__val">Ø {preisFormatted} €/m²</span>
-          <span class="iv-market-card__label">Marktpreis März 2026</span>
-        </div>
-        <div class="iv-market-card">
-          <span class="iv-market-card__val">Immowelt</span>
-          <span class="iv-market-card__label">Quelle Preisatlas</span>
-        </div>
-        {st.milieuschutz && (
-          <div class="iv-market-card iv-market-card--warning">
-            <span class="iv-market-card__val">⚠️ Milieuschutz</span>
-            <span class="iv-market-card__label">§ 172 BauGB</span>
-          </div>
-        )}
-        <div class="iv-market-card">
-          <span class="iv-market-card__val">Gutachterausschuss</span>
-          <span class="iv-market-card__label">Leipzig 2024</span>
-        </div>
+      <div class="iv-market-header">
+        <h2>Aktueller Immobilienmarkt in {st.name}</h2>
+        {st.milieuschutz && <span class="iv-milieu-badge">Milieuschutz · § 172 BauGB</span>}
       </div>
-      <p class="iv-source">
-        Quelle: Immowelt Preisatlas, März 2026. Offizielle Transaktionsdaten: Gutachterausschuss Leipzig 2024.
-      </p>
+      <div class="iv-stats-bar">
+        <div class="iv-stat-main">
+          <span class="iv-stat-main__val">Ø {preisFormatted} €/m²</span>
+          <span class="iv-stat-main__label">Marktpreis Bestandswohnungen</span>
+        </div>
+        {st.bodenrichtwert && (
+          <>
+            <div class="iv-stat-divider" aria-hidden="true" />
+            <div class="iv-stat-secondary">
+              <span class="iv-stat-secondary__val">{st.bodenrichtwert.toLocaleString('de-DE')} €/m²</span>
+              <span class="iv-stat-secondary__label">Bodenrichtwert 2024</span>
+            </div>
+          </>
+        )}
+      </div>
+      <p class="iv-source">Quelle: Immowelt Preisatlas, März 2026. Offizielle Transaktionsdaten: Gutachterausschuss Leipzig 2024.</p>
     </div>
   </section>
 
@@ -316,18 +312,18 @@ const jsonLdFaq = JSON.stringify({
 
   /* MARKET */
   .iv-market-section { background: var(--color-bg-alt); padding-block: var(--section-gap); }
-  .iv-market-section h2 { margin-bottom: var(--space-6); }
-  .iv-market-grid { display: grid; gap: var(--space-4); }
-  .iv-market-grid--3 { grid-template-columns: repeat(3, 1fr); }
-  .iv-market-grid--4 { grid-template-columns: repeat(4, 1fr); }
-  .iv-market-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-5); text-align: center; box-shadow: var(--shadow-sm); }
-  .iv-market-card--highlight { background: rgba(59,130,246,0.06); border-color: var(--color-accent); }
-  .iv-market-card--highlight .iv-market-card__val { color: var(--color-accent); }
-  .iv-market-card--warning { background: rgba(234,179,8,0.06); border-color: #ca8a04; }
-  .iv-market-card__val { display: block; font-size: var(--text-2xl); font-weight: var(--weight-extrabold); color: var(--color-text); }
-  .iv-market-card__label { display: block; font-size: var(--text-sm); color: var(--color-text-mid); margin-top: var(--space-1); }
-  .iv-source { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-4); }
-  @media (max-width: 640px) { .iv-market-grid--3, .iv-market-grid--4 { grid-template-columns: repeat(2, 1fr); } }
+  .iv-market-header { display: flex; align-items: baseline; gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-8); }
+  .iv-market-header h2 { margin-bottom: 0; }
+  .iv-milieu-badge { display: inline-flex; align-items: center; padding: var(--space-1) var(--space-3); font-size: var(--text-sm); font-weight: var(--weight-medium); color: #92400e; background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.35); border-radius: var(--radius-full); white-space: nowrap; }
+  .iv-stats-bar { display: flex; align-items: center; gap: var(--space-8); flex-wrap: wrap; }
+  .iv-stat-main { display: flex; flex-direction: column; gap: var(--space-1); }
+  .iv-stat-main__val { font-size: clamp(var(--text-3xl), 4vw, var(--text-4xl)); font-weight: var(--weight-extrabold); color: var(--color-accent); line-height: 1; letter-spacing: -0.02em; }
+  .iv-stat-main__label { font-size: var(--text-sm); color: var(--color-text-muted); }
+  .iv-stat-divider { width: 1px; height: 48px; background: var(--color-border); flex-shrink: 0; }
+  .iv-stat-secondary { display: flex; flex-direction: column; gap: var(--space-1); }
+  .iv-stat-secondary__val { font-size: var(--text-2xl); font-weight: var(--weight-bold); color: var(--color-text); line-height: 1; }
+  .iv-stat-secondary__label { font-size: var(--text-sm); color: var(--color-text-muted); }
+  .iv-source { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-6); }
 
   /* OBJEKTTYPEN */
   .iv-objekt-section { background: var(--color-bg); }
