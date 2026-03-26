@@ -63,7 +63,7 @@ Anna und Thomas kaufen 2018 gemeinsam eine Wohnung in Plagwitz für 180.000 €.
 
 Zugewinn gesamt: 70.000 € (250.000 − 180.000). Da beide gleich beteiligt sind und gleichzeitig eingebracht haben, ist der Zugewinn ausgeglichen — kein Ausgleich nötig.
 
-Wenn Thomas die Wohnung aber allein in die Ehe eingebracht hat und Anna kein Anfangsvermögen hatte: Dann hat Thomas einen Zugewinn von 70.000 €, Anna 0 €. Die Differenz wird halbiert — Thomas zahlt Anna 35.000 €.
+Wenn Thomas die Wohnung aber als Alleineigentümer schuldenfrei in die Ehe eingebracht hatte (Anfangsvermögen: 180.000 €) und Anna kein Anfangsvermögen hatte: Dann ist Thomas' Zugewinn 70.000 € (250.000 − 180.000), Annas Zugewinn 0 €. Die Differenz wird halbiert — Thomas zahlt Anna 35.000 €.
 
 **Wichtig:** Der Zugewinnausgleich muss beantragt werden. Ohne Antrag beim Familiengericht findet kein Ausgleich statt. Und er ist vom Eigentumsanteil getrennt — auch wer nicht im Grundbuch steht, kann Ansprüche haben.
 
