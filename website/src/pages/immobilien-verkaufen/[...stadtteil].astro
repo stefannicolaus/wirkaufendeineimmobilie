@@ -3,7 +3,7 @@ export const prerender = true;
 
 import Layout from '../../layouts/Layout.astro';
 import { STADTTEILE, SLUG_MAP } from '../../data/stadtteile-verkaufen';
-import { getObjektTypText, getMilieuschutzText, MILIEUSCHUTZ_FAQ, SZENARIEN } from '../../lib/stadtteile-verkaufen/copy';
+import { getObjektTypText, getMilieuschutzText, MILIEUSCHUTZ_FAQ, ALLGEMEIN_FAQ, SZENARIEN } from '../../lib/stadtteile-verkaufen/copy';
 
 export function getStaticPaths() {
   const today = new Date();
@@ -68,15 +68,19 @@ const jsonLdBreadcrumb = JSON.stringify({
   ]
 });
 
-const jsonLdFaq = st.milieuschutz ? JSON.stringify({
+const allFaqs = [
+  ...ALLGEMEIN_FAQ,
+  ...(st.milieuschutz ? MILIEUSCHUTZ_FAQ : []),
+];
+const jsonLdFaq = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": MILIEUSCHUTZ_FAQ.map(item => ({
+  "mainEntity": allFaqs.map(item => ({
     "@type": "Question",
     "name": item.question(st.name),
     "acceptedAnswer": { "@type": "Answer", "text": item.answer }
   }))
-}) : null;
+});
 ---
 
 <Layout
@@ -86,7 +90,7 @@ const jsonLdFaq = st.milieuschutz ? JSON.stringify({
   <script type="application/ld+json" set:html={jsonLdBusiness} />
   <script type="application/ld+json" set:html={jsonLdService} />
   <script type="application/ld+json" set:html={jsonLdBreadcrumb} />
-  {jsonLdFaq && <script type="application/ld+json" set:html={jsonLdFaq} />}
+  <script type="application/ld+json" set:html={jsonLdFaq} />
 
   <!-- BREADCRUMB -->
   <nav class="iv-breadcrumb" aria-label="Breadcrumb">
@@ -160,6 +164,32 @@ const jsonLdFaq = st.milieuschutz ? JSON.stringify({
     </div>
   </section>
 
+  <!-- S3b: BODENRICHTWERT (conditional) -->
+  {st.bodenrichtwert && (
+    <section class="iv-brw-section">
+      <div class="container">
+        <h2>Bodenrichtwert in {st.name} — was bedeutet das für den Verkaufspreis?</h2>
+        <div class="iv-brw-compare">
+          <div class="iv-brw-box">
+            <span class="iv-brw-val">{st.bodenrichtwert.toLocaleString('de-DE')} €/m²</span>
+            <span class="iv-brw-label">Bodenrichtwert 2024<br />(Gutachterausschuss Leipzig)</span>
+          </div>
+          <div class="iv-brw-arrow" aria-hidden="true">→</div>
+          <div class="iv-brw-box iv-brw-box--market">
+            <span class="iv-brw-val">Ø {preisFormatted} €/m²</span>
+            <span class="iv-brw-label">Tatsächlicher Marktpreis<br />(Immowelt März 2026)</span>
+          </div>
+        </div>
+        <p class="iv-brw-text">
+          Der Bodenrichtwert beschreibt den Wert des unbebauten Grundstücks — als würde auf deinem Grundstück nichts stehen.
+          Der tatsächliche Verkaufspreis einer Bestandsimmobilie liegt fast immer deutlich darüber, weil Bauzustand,
+          Ausstattung, Energieeffizienz und Nachfrage hinzukommen.
+          <a href="/blog/bodenrichtwert-leipzig" class="iv-brw-link">Mehr zum Unterschied Bodenrichtwert vs. Verkehrswert →</a>
+        </p>
+      </div>
+    </section>
+  )}
+
   <!-- S4: MILIEUSCHUTZ (conditional) -->
   {st.milieuschutz && milieuschutzText && (
     <section class="iv-milieu-section">
@@ -189,6 +219,21 @@ const jsonLdFaq = st.milieuschutz ? JSON.stringify({
             <h3>{s.titel}</h3>
             <p>{s.text}</p>
           </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S5b: ALLGEMEIN FAQ -->
+  <section class="section iv-faq-section bg-alt">
+    <div class="container">
+      <h2>Häufige Fragen zum Immobilienverkauf in {st.name}</h2>
+      <div class="iv-faq-list">
+        {[...ALLGEMEIN_FAQ, ...(st.milieuschutz ? MILIEUSCHUTZ_FAQ : [])].map(item => (
+          <details class="iv-faq-item">
+            <summary class="iv-faq-q">{item.question(st.name)}</summary>
+            <p class="iv-faq-a">{item.answer}</p>
+          </details>
         ))}
       </div>
     </div>
@@ -299,6 +344,22 @@ const jsonLdFaq = st.milieuschutz ? JSON.stringify({
   .iv-faq-q::before { content: '+ '; color: var(--color-accent); }
   details[open] .iv-faq-q::before { content: '− '; }
   .iv-faq-a { margin-top: var(--space-3); font-size: var(--text-sm); color: var(--color-text-mid); line-height: 1.7; }
+
+  /* BODENRICHTWERT */
+  .iv-brw-section { padding-block: var(--section-gap); background: var(--color-bg); }
+  .iv-brw-section h2 { margin-bottom: var(--space-6); }
+  .iv-brw-compare { display: flex; align-items: center; gap: var(--space-6); margin-bottom: var(--space-6); flex-wrap: wrap; }
+  .iv-brw-box { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-5) var(--space-7); text-align: center; min-width: 180px; }
+  .iv-brw-box--market { border-color: var(--color-accent); background: rgba(59,130,246,0.04); }
+  .iv-brw-val { display: block; font-size: var(--text-2xl); font-weight: var(--weight-extrabold); color: var(--color-text); }
+  .iv-brw-box--market .iv-brw-val { color: var(--color-accent); }
+  .iv-brw-label { display: block; font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-2); line-height: 1.5; }
+  .iv-brw-arrow { font-size: var(--text-2xl); color: var(--color-accent); font-weight: var(--weight-bold); }
+  .iv-brw-text { font-size: var(--text-base); line-height: 1.8; color: var(--color-text-mid); max-width: 720px; }
+  .iv-brw-link { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; margin-left: var(--space-1); }
+
+  /* FAQ ALLGEMEIN */
+  .iv-faq-section h2 { margin-bottom: var(--space-6); }
 
   /* SZENARIEN */
   .iv-szenarien-section { background: var(--color-bg-alt); }

@@ -9,6 +9,7 @@ export interface StadtteilVerkaufen {
   nachbarn: string[];     // slugs aus dieser Datei
   objekttyp: ObjektTyp;
   publishDate: string | null;  // ISO-Datum: ab wann die Seite live geht (null = offline)
+  bodenrichtwert?: number;     // €/m², Gutachterausschuss Leipzig, Stichtag 01.01.2024
 }
 
 // Quelle: Immowelt Preisatlas, März 2026
@@ -60,14 +61,14 @@ export const STADTTEILE: StadtteilVerkaufen[] = [
 
   // SÜD (5)
   { slug: 'suedvorstadt', name: 'Südvorstadt', bezirk: 'Süd', preis: 2954, milieuschutz: false, nachbarn: ['connewitz', 'schleussig', 'zentrum-sued'], objekttyp: 'gruenderzeit', publishDate: '2026-04-07' },
-  { slug: 'connewitz', name: 'Connewitz', bezirk: 'Süd', preis: 2669, milieuschutz: true, nachbarn: ['suedvorstadt', 'stoetteritz', 'marienbrunn', 'loessnig', 'kleinzschocher'], objekttyp: 'gruenderzeit', publishDate: '2026-03-25' },
+  { slug: 'connewitz', name: 'Connewitz', bezirk: 'Süd', preis: 2669, milieuschutz: true, nachbarn: ['suedvorstadt', 'stoetteritz', 'marienbrunn', 'loessnig', 'kleinzschocher'], objekttyp: 'gruenderzeit', publishDate: '2026-03-25', bodenrichtwert: 924 },
   { slug: 'marienbrunn', name: 'Marienbrunn', bezirk: 'Süd', preis: 2743, milieuschutz: false, nachbarn: ['connewitz', 'loessnig', 'probstheida'], objekttyp: 'mischbebauung', publishDate: '2026-05-18' },
   { slug: 'loessnig', name: 'Lößnig', bezirk: 'Süd', preis: 2402, milieuschutz: false, nachbarn: ['connewitz', 'marienbrunn', 'doelitz-doesen'], objekttyp: 'plattenbau', publishDate: '2026-05-18' },
   { slug: 'doelitz-doesen', name: 'Dölitz-Dösen', bezirk: 'Süd', preis: 2583, milieuschutz: false, nachbarn: ['loessnig', 'marienbrunn'], objekttyp: 'mischbebauung', publishDate: '2026-05-25' },
 
   // WEST (14)
-  { slug: 'schleussig', name: 'Schleußig', bezirk: 'West', preis: 3085, milieuschutz: false, nachbarn: ['plagwitz', 'suedvorstadt', 'lindenau'], objekttyp: 'gruenderzeit', publishDate: '2026-03-25' },
-  { slug: 'plagwitz', name: 'Plagwitz', bezirk: 'West', preis: 2743, milieuschutz: true, nachbarn: ['schleussig', 'lindenau', 'kleinzschocher', 'leutzsch'], objekttyp: 'altbau', publishDate: '2026-03-25' },
+  { slug: 'schleussig', name: 'Schleußig', bezirk: 'West', preis: 3085, milieuschutz: false, nachbarn: ['plagwitz', 'suedvorstadt', 'lindenau'], objekttyp: 'gruenderzeit', publishDate: '2026-03-25', bodenrichtwert: 1092 },
+  { slug: 'plagwitz', name: 'Plagwitz', bezirk: 'West', preis: 2743, milieuschutz: true, nachbarn: ['schleussig', 'lindenau', 'kleinzschocher', 'leutzsch'], objekttyp: 'altbau', publishDate: '2026-03-25', bodenrichtwert: 978 },
   { slug: 'kleinzschocher', name: 'Kleinzschocher', bezirk: 'West', preis: 2379, milieuschutz: true, nachbarn: ['plagwitz', 'connewitz', 'grosszschocher', 'knauthain'], objekttyp: 'gruenderzeit', publishDate: '2026-04-28' },
   { slug: 'grosszschocher', name: 'Großzschocher', bezirk: 'West', preis: 2263, milieuschutz: false, nachbarn: ['kleinzschocher', 'knauthain', 'schoenau'], objekttyp: 'mischbebauung', publishDate: '2026-07-06' },
   { slug: 'knauthain', name: 'Knauthain', bezirk: 'West', preis: 2590, milieuschutz: false, nachbarn: ['grosszschocher', 'kleinzschocher'], objekttyp: 'mischbebauung', publishDate: '2026-05-18' },

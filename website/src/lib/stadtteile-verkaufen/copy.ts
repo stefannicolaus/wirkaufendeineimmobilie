@@ -26,6 +26,25 @@ export const MILIEUSCHUTZ_FAQ = [
   },
 ] as const;
 
+export const ALLGEMEIN_FAQ = [
+  {
+    question: (name: string) => `Wie lange dauert der Verkauf einer Immobilie in ${name}?`,
+    answer: `Bei einem direkten Verkauf ohne Makler: 2–6 Wochen von der ersten Bewertung bis zur Unterzeichnung. Der Notartermin folgt innerhalb weiterer 2–4 Wochen. Wir melden uns innerhalb von 48 h nach Ihrer Anfrage mit einer ersten Einschätzung.`,
+  },
+  {
+    question: (name: string) => `Was passiert, wenn meine Immobilie in ${name} Sanierungsbedarf hat?`,
+    answer: `Sanierungsbedarf reduziert den erzielbaren Preis auf dem offenen Markt erheblich — Käufer schrecken zurück oder machen deutliche Abzüge. Wir kaufen im Ist-Zustand und preisen den Aufwand fair ein. Kein Stress mit Handwerkern, keine gescheiterten Finanzierungen.`,
+  },
+  {
+    question: (_name: string) => `Kostet die Immobilienbewertung etwas?`,
+    answer: `Nein. Die erste Einschätzung durch unser Team ist vollständig kostenlos und unverbindlich. Sie geben Ihre Postleitzahl an, wir melden uns innerhalb von 48 Stunden mit einer ersten Einschätzung — ohne Maklervertrag, ohne Verpflichtung.`,
+  },
+  {
+    question: (name: string) => `Wie unterscheidet sich der Bodenrichtwert vom tatsächlichen Verkaufspreis in ${name}?`,
+    answer: `Der Bodenrichtwert beschreibt den Wert des unbebauten Bodens. Der tatsächliche Verkaufspreis einer Bestandsimmobilie liegt fast immer deutlich darüber — weil er Bauzustand, Ausstattung, Lage und aktuelle Nachfrage berücksichtigt. In gefragten Lagen Leipzigs liegt der Marktpreis je nach Objekt zwischen dem 2- und 5-fachen des reinen Bodenwerts.`,
+  },
+] as const;
+
 export const SZENARIEN = [
   {
     icon: '🏚️',
