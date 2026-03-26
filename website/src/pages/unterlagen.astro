@@ -381,64 +381,74 @@ export const prerender = false;
   <div class="wiz-step hidden" id="quiz-summary">
 
     <div class="qs-hero">
-      <div class="qs-hero__check">✓</div>
-      <h1 class="qs-hero__title">Fast geschafft.</h1>
-      <p class="qs-hero__sub">Bevor wir deine Erstbewertung erstellen — überprüfe kurz, ob deine Angaben stimmen.</p>
-    </div>
-
-    <div class="qs-data-section">
-      <div class="qs-data-header">
-        <span>Deine Immobilie auf einen Blick</span>
+      <span class="qs-hero__check">✓</span>
+      <div>
+        <h1 class="qs-hero__title">Fast geschafft.</h1>
+        <p class="qs-hero__sub">Überprüfe kurz deine Angaben — dann erstellen wir deine Erstbewertung.</p>
       </div>
-      <ul class="quiz-summary-list" id="quiz-summary-list"></ul>
     </div>
 
-    <div class="qs-benefits">
-      <div class="qs-benefit">
-        <span class="qs-benefit__icon">📊</span>
-        <div class="qs-benefit__body">
-          <strong>Marktbasierte Preisspanne</strong>
-          <span>Auf Basis echter Verkaufsdaten aus deiner Region — keine Schätzung, keine Maklerwerbung.</span>
+    <div class="qs-layout">
+
+      <div class="qs-col-left">
+        <div class="qs-data-section">
+          <div class="qs-data-header">
+            <span>Deine Immobilie auf einen Blick</span>
+          </div>
+          <ul class="quiz-summary-list" id="quiz-summary-list"></ul>
         </div>
       </div>
-      <div class="qs-benefit">
-        <span class="qs-benefit__icon">📬</span>
-        <div class="qs-benefit__body">
-          <strong>Erstbewertung innerhalb von 24 Stunden</strong>
-          <span>Wir melden uns mit konkreten Zahlen direkt in deinem Postfach.</span>
-        </div>
-      </div>
-      <div class="qs-benefit">
-        <span class="qs-benefit__icon">🔒</span>
-        <div class="qs-benefit__body">
-          <strong>Diskret &amp; sicher</strong>
-          <span>Deine Daten werden nicht weitergegeben. Es warten Käufer mit ernsthaftem Kaufinteresse — schnelle Angebote, keine Provision für dich.</span>
-        </div>
-      </div>
-    </div>
 
-    <div class="qs-objections">
-      <div class="qs-objection">
-        <span class="qs-objection__q">Verpflichtet mich das zu etwas?</span>
-        <span class="qs-objection__a">Nein. Die Bewertung ist kostenlos und unverbindlich — kein Maklervertrag, kein Auftrag.</span>
-      </div>
-      <div class="qs-objection">
-        <span class="qs-objection__q">Bekomme ich jetzt Anrufe?</span>
-        <span class="qs-objection__a">Nur wenn du es möchtest. Deine Erstbewertung kommt per E-Mail — du entscheidest, wie es weitergeht.</span>
-      </div>
-      <div class="qs-objection">
-        <span class="qs-objection__q">Was passiert mit meinen Daten?</span>
-        <span class="qs-objection__a">Sie werden ausschließlich für deine Bewertung genutzt — nicht verkauft, nicht weitergegeben.</span>
-      </div>
-    </div>
+      <div class="qs-col-right">
+        <div class="qs-benefits">
+          <div class="qs-benefit">
+            <span class="qs-benefit__icon">📊</span>
+            <div class="qs-benefit__body">
+              <strong>Marktbasierte Preisspanne</strong>
+              <span>Auf Basis echter Verkaufsdaten aus deiner Region — keine Schätzung, keine Maklerwerbung.</span>
+            </div>
+          </div>
+          <div class="qs-benefit">
+            <span class="qs-benefit__icon">📬</span>
+            <div class="qs-benefit__body">
+              <strong>Erstbewertung innerhalb von 24 Stunden</strong>
+              <span>Wir melden uns mit konkreten Zahlen direkt in deinem Postfach.</span>
+            </div>
+          </div>
+          <div class="qs-benefit">
+            <span class="qs-benefit__icon">🔒</span>
+            <div class="qs-benefit__body">
+              <strong>Diskret &amp; sicher</strong>
+              <span>Deine Daten werden nicht weitergegeben. Echte Käufer, schnelle Angebote, keine Provision.</span>
+            </div>
+          </div>
+        </div>
 
-    <div class="qs-cta-wrap">
-      <button type="button" class="qs-cta-btn" id="quiz-submit-btn">
-        Erstbewertung erstellen →
-      </button>
-      <p class="qs-cta-reassure">Kostenlos · Unverbindlich · Kein Auftrag</p>
-      <p id="quiz-submit-error" class="hidden qs-error">Etwas ist schiefgelaufen — bitte versuchen Sie es erneut.</p>
-    </div>
+        <div class="qs-objections">
+          <div class="qs-objection">
+            <span class="qs-objection__q">Verpflichtet mich das zu etwas?</span>
+            <span class="qs-objection__a">Nein — kostenlos, unverbindlich, kein Maklervertrag.</span>
+          </div>
+          <div class="qs-objection">
+            <span class="qs-objection__q">Bekomme ich jetzt Anrufe?</span>
+            <span class="qs-objection__a">Nur wenn du es möchtest. Die Bewertung kommt per E-Mail.</span>
+          </div>
+          <div class="qs-objection">
+            <span class="qs-objection__q">Was passiert mit meinen Daten?</span>
+            <span class="qs-objection__a">Werden nicht weitergegeben, nur für deine Bewertung genutzt.</span>
+          </div>
+        </div>
+
+        <div class="qs-cta-wrap">
+          <button type="button" class="qs-cta-btn" id="quiz-submit-btn">
+            Erstbewertung erstellen →
+          </button>
+          <p class="qs-cta-reassure">Kostenlos · Unverbindlich · Kein Auftrag</p>
+          <p id="quiz-submit-error" class="hidden qs-error">Etwas ist schiefgelaufen — bitte versuchen Sie es erneut.</p>
+        </div><!-- /qs-cta-wrap -->
+      </div><!-- /qs-col-right -->
+
+    </div><!-- /qs-layout -->
 
     <div id="quiz-success" class="hidden qs-success">
       <div class="qs-success__icon">✓</div>
@@ -1991,39 +2001,51 @@ Vielen Dank und freundliche Grüße,
 
   /* ── Summary Page ── */
 
-  /* Hero */
+  /* Two-column layout */
+  .qs-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    align-items: start;
+  }
+  .qs-col-left { min-width: 0; }
+  .qs-col-right { min-width: 0; }
+
+  /* Hero — compact horizontal bar */
   .qs-hero {
-    text-align: center;
-    padding: var(--space-6) var(--space-4) var(--space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
     background: linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 8%, transparent) 0%, transparent 60%);
-    border-radius: var(--radius-lg);
-    margin-bottom: var(--space-5);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-3);
   }
   .qs-hero__check {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
-    height: 56px;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
     border-radius: 50%;
     background: var(--color-accent);
-    font-size: 1.6rem;
-    margin-bottom: var(--space-3);
-    box-shadow: 0 4px 20px color-mix(in srgb, var(--color-accent) 35%, transparent);
+    font-size: 1rem;
+    color: white;
+    box-shadow: 0 2px 10px color-mix(in srgb, var(--color-accent) 35%, transparent);
   }
   .qs-hero__title {
-    font-size: var(--text-2xl);
+    font-size: var(--text-lg);
     font-weight: var(--weight-bold);
     color: var(--color-text);
-    margin: 0 0 var(--space-2);
+    margin: 0 0 2px;
     line-height: 1.2;
   }
   .qs-hero__sub {
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     color: var(--color-text-muted);
     margin: 0;
-    max-width: 360px;
-    margin-inline: auto;
+    line-height: 1.4;
   }
 
   /* Data section */
@@ -2061,7 +2083,7 @@ Vielen Dank und freundliche Grüße,
     list-style: none;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-2);
+    gap: 6px;
     margin: 0;
     padding: 0;
   }
@@ -2069,7 +2091,7 @@ Vielen Dank und freundliche Grüße,
     display: flex;
     align-items: flex-start;
     gap: var(--space-2);
-    padding: var(--space-3);
+    padding: var(--space-2) var(--space-2);
     border-radius: var(--radius-sm);
     background: var(--color-bg);
     border: 1px solid var(--color-border);
@@ -2124,9 +2146,9 @@ Vielen Dank und freundliche Grüße,
   .qs-benefits {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-    margin-bottom: var(--space-5);
-    padding: var(--space-4);
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+    padding: var(--space-3);
     background: linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 5%, transparent), var(--color-bg-alt));
     border-radius: var(--radius-md);
     border: 1px solid color-mix(in srgb, var(--color-accent) 20%, transparent);
@@ -2134,10 +2156,10 @@ Vielen Dank und freundliche Grüße,
   .qs-benefit {
     display: flex;
     align-items: flex-start;
-    gap: var(--space-3);
+    gap: var(--space-2);
   }
   .qs-benefit__icon {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     flex-shrink: 0;
     margin-top: 1px;
   }
@@ -2146,26 +2168,26 @@ Vielen Dank und freundliche Grüße,
     font-weight: var(--weight-semibold);
     color: var(--color-text);
     font-size: var(--text-sm);
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   }
   .qs-benefit__body span {
     font-size: var(--text-xs);
     color: var(--color-text-muted);
-    line-height: 1.4;
+    line-height: 1.3;
   }
 
   /* Objections */
   .qs-objections {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
-    margin-bottom: var(--space-5);
+    gap: 4px;
+    margin-bottom: var(--space-3);
   }
   .qs-objection {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    padding: var(--space-3) var(--space-4);
+    gap: 1px;
+    padding: var(--space-2) var(--space-3);
     background: var(--color-bg-alt);
     border-radius: var(--radius-sm);
   }
@@ -2177,23 +2199,23 @@ Vielen Dank und freundliche Grüße,
   .qs-objection__a {
     font-size: var(--text-xs);
     color: var(--color-text-muted);
-    line-height: 1.5;
+    line-height: 1.3;
   }
 
   /* CTA */
   .qs-cta-wrap {
     text-align: center;
-    padding: var(--space-2) 0 var(--space-4);
+    padding: var(--space-1) 0 0;
   }
   .qs-cta-btn {
     display: inline-block;
     width: 100%;
-    padding: var(--space-4) var(--space-6);
+    padding: var(--space-3) var(--space-4);
     background: var(--color-accent);
     color: #fff;
     border: none;
     border-radius: var(--radius-md);
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     font-weight: var(--weight-bold);
     font-family: var(--font-family);
     cursor: pointer;
