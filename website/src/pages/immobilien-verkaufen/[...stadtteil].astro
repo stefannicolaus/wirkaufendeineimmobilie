@@ -6,10 +6,14 @@ import { STADTTEILE, SLUG_MAP } from '../../data/stadtteile-verkaufen';
 import { getObjektTypText, getMilieuschutzText, MILIEUSCHUTZ_FAQ, SZENARIEN } from '../../lib/stadtteile-verkaufen/copy';
 
 export function getStaticPaths() {
-  return STADTTEILE.map(st => ({
-    params: { stadtteil: st.slug },
-    props: { st },
-  }));
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return STADTTEILE
+    .filter(st => st.publishDate !== null && new Date(st.publishDate) <= today)
+    .map(st => ({
+      params: { stadtteil: st.slug },
+      props: { st },
+    }));
 }
 
 const { st } = Astro.props;

@@ -1,0 +1,327 @@
+---
+export const prerender = true;
+
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const { title, description, publishDate, updatedDate, keywords, faq } = post.data;
+
+const canonicalUrl = `https://wirkaufendeineimmobilie.de/blog/${post.id}`;
+
+const dateFormatted = new Date(publishDate).toLocaleDateString('de-DE', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+
+const jsonLdArticle = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "datePublished": publishDate,
+  "dateModified": updatedDate ?? publishDate,
+  "author": {
+    "@type": "Organization",
+    "name": "wirkaufendeineimmobilie.de",
+    "url": "https://wirkaufendeineimmobilie.de",
+    "sameAs": [
+      "https://www.gutachterausschuss.leipzig.de",
+      "https://www.boris.sachsen.de"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "wirkaufendeineimmobilie.de",
+    "url": "https://wirkaufendeineimmobilie.de"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalUrl
+  },
+  "keywords": keywords?.join(', ') ?? ''
+});
+
+const jsonLdFaq = faq ? JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+}) : null;
+
+const jsonLdBreadcrumb = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://wirkaufendeineimmobilie.de/" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://wirkaufendeineimmobilie.de/blog/" },
+    { "@type": "ListItem", "position": 3, "name": title }
+  ]
+});
+---
+
+<Layout title={`${title} | wirkaufendeineimmobilie.de`} description={description}>
+  <script type="application/ld+json" set:html={jsonLdArticle} />
+  {jsonLdFaq && <script type="application/ld+json" set:html={jsonLdFaq} />}
+  <script type="application/ld+json" set:html={jsonLdBreadcrumb} />
+
+  <!-- BREADCRUMB -->
+  <nav class="bl-breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <a href="/">Home</a>
+      <span class="bl-bc-sep">&rsaquo;</span>
+      <a href="/blog/">Blog</a>
+      <span aria-hidden="true" class="bl-bc-sep">&rsaquo;</span>
+      <span class="bl-bc-current">{title}</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="bl-hero">
+    <div class="container bl-hero__inner">
+      <time class="bl-date" datetime={publishDate}>{dateFormatted}</time>
+      <h1>{title}</h1>
+      <p class="bl-hero__sub">{description}</p>
+    </div>
+  </header>
+
+  <!-- ARTICLE + SIDEBAR -->
+  <div class="container bl-layout">
+    <article class="bl-article">
+      <div class="bl-content">
+        <Content />
+      </div>
+
+      <!-- FAQ SECTION -->
+      {faq && faq.length > 0 && (
+        <section class="bl-faq">
+          <h2>Häufige Fragen</h2>
+          <div class="bl-faq-list">
+            {faq.map(item => (
+              <details class="bl-faq-item">
+                <summary class="bl-faq-q">{item.q}</summary>
+                <p class="bl-faq-a">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+    </article>
+
+    <!-- STICKY SIDEBAR CTA -->
+    <aside class="bl-sidebar">
+      <div class="bl-cta-card">
+        <h3>Was ist deine Immobilie wert?</h3>
+        <p>Kostenlose Einschätzung — unser Team meldet sich innerhalb von 48 h.</p>
+        <form class="bl-plz-form" id="bl-form-sidebar" data-endpoint="/api/bewertung">
+          <input
+            type="text"
+            name="plz"
+            placeholder="PLZ eingeben..."
+            pattern="[0-9]{5}"
+            maxlength="5"
+            required
+            aria-label="Postleitzahl"
+          />
+          <button type="submit" class="btn btn-primary">Kostenlos bewerten &rarr;</button>
+        </form>
+        <div class="bl-joachim">
+          <img src="/images/joachim-kleinke-portrait.jpg" alt="Joachim Kleinke" width="48" height="48" />
+          <div>
+            <strong>Joachim Kleinke</strong>
+            <span>Immobilienvermittlung Leipzig</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bl-links-card">
+        <h4>Verwandte Themen</h4>
+        <ul class="bl-links-list">
+          <li><a href="/immobilien-verkaufen/plagwitz">Immobilie in Plagwitz verkaufen</a></li>
+          <li><a href="/immobilien-verkaufen/connewitz">Immobilie in Connewitz verkaufen</a></li>
+          <li><a href="/immobilien-verkaufen/schleussig">Immobilie in Schleußig verkaufen</a></li>
+          <li><a href="/#bewertung">Kostenlose Immobilienbewertung Leipzig</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <section class="bl-bottom-cta">
+    <div class="container bl-bottom-cta__inner">
+      <h2>Lass uns dir sagen, was deine Immobilie wirklich wert ist.</h2>
+      <p>Gib deine Postleitzahl ein — wir melden uns für ein kostenloses Gespräch.</p>
+      <form class="bl-plz-form bl-plz-form--dark" id="bl-form-bottom" data-endpoint="/api/bewertung">
+        <input
+          type="text"
+          name="plz"
+          placeholder="Deine Postleitzahl..."
+          pattern="[0-9]{5}"
+          maxlength="5"
+          required
+          aria-label="Postleitzahl"
+        />
+        <button type="submit" class="btn btn-primary">Kostenlose Bewertung anfordern &rarr;</button>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* BREADCRUMB */
+  .bl-breadcrumb { padding-block: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); }
+  .bl-breadcrumb a { color: var(--color-text-muted); }
+  .bl-breadcrumb a:hover { color: var(--color-accent); }
+  .bl-bc-sep { margin-inline: var(--space-2); opacity: 0.5; }
+  .bl-bc-current { color: var(--color-text); font-weight: var(--weight-medium); }
+
+  /* HERO */
+  .bl-hero { padding-block: var(--space-12) var(--space-10); background: var(--color-bg-alt); border-bottom: 1px solid var(--color-border); }
+  .bl-hero__inner { max-width: 760px; }
+  .bl-date { display: block; font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4); }
+  .bl-hero h1 { font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl)); line-height: 1.2; margin-bottom: var(--space-5); }
+  .bl-hero__sub { font-size: var(--text-lg); color: var(--color-text-mid); line-height: 1.6; }
+
+  /* LAYOUT: article + sidebar */
+  .bl-layout { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-12); align-items: start; padding-block: var(--space-12); }
+  @media (max-width: 900px) { .bl-layout { grid-template-columns: 1fr; } }
+
+  /* ARTICLE CONTENT */
+  .bl-content {
+    font-size: var(--text-base);
+    line-height: 1.85;
+    color: var(--color-text-mid);
+  }
+  .bl-content :global(h2) {
+    font-size: var(--text-2xl);
+    color: var(--color-text);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-5);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+  .bl-content :global(h2:first-child) { border-top: none; margin-top: 0; padding-top: 0; }
+  .bl-content :global(p) { margin-bottom: var(--space-5); }
+  .bl-content :global(strong) { color: var(--color-text); font-weight: var(--weight-semibold); }
+  .bl-content :global(a) { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+  .bl-content :global(a:hover) { text-decoration: none; }
+  .bl-content :global(ul), .bl-content :global(ol) { margin-bottom: var(--space-5); padding-left: var(--space-6); }
+  .bl-content :global(li) { margin-bottom: var(--space-2); }
+  .bl-content :global(hr) { border: none; border-top: 1px solid var(--color-border); margin-block: var(--space-8); }
+  .bl-content :global(em) { color: var(--color-text-muted); font-style: italic; }
+
+  /* TABLE */
+  .bl-content :global(table) { width: 100%; border-collapse: collapse; margin-bottom: var(--space-6); font-size: var(--text-sm); }
+  .bl-content :global(th) { font-weight: var(--weight-semibold); color: var(--color-text); text-align: left; padding: var(--space-2) var(--space-3); border-bottom: 2px solid var(--color-border); }
+  .bl-content :global(td) { padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--color-border); color: var(--color-text-mid); }
+  .bl-content :global(tr:last-child td) { border-bottom: none; }
+  .bl-content :global(tr:hover td) { background: var(--color-bg-alt); }
+
+  /* FAQ */
+  .bl-faq { margin-top: var(--space-12); padding-top: var(--space-8); border-top: 2px solid var(--color-border); }
+  .bl-faq h2 { font-size: var(--text-2xl); margin-bottom: var(--space-6); }
+  .bl-faq-list { display: flex; flex-direction: column; gap: var(--space-3); }
+  .bl-faq-item { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); background: var(--color-bg-card); }
+  .bl-faq-q { font-weight: var(--weight-semibold); cursor: pointer; list-style: none; color: var(--color-text); font-size: var(--text-base); line-height: 1.5; }
+  .bl-faq-q::marker, .bl-faq-q::-webkit-details-marker { display: none; }
+  .bl-faq-q::before { content: '+ '; color: var(--color-accent); font-weight: var(--weight-bold); }
+  details[open] .bl-faq-q::before { content: '− '; }
+  .bl-faq-a { margin-top: var(--space-3); font-size: var(--text-sm); color: var(--color-text-mid); line-height: 1.75; }
+
+  /* SIDEBAR */
+  .bl-sidebar { display: flex; flex-direction: column; gap: var(--space-6); position: sticky; top: calc(92px + var(--space-6)); }
+  @media (max-width: 900px) { .bl-sidebar { position: static; } }
+
+  .bl-cta-card {
+    background: var(--color-bg-dark);
+    color: var(--color-text-on-dark);
+    border-radius: var(--radius-xl);
+    padding: var(--space-7);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+  .bl-cta-card h3 { color: var(--color-text-on-dark); font-size: var(--text-xl); }
+  .bl-cta-card > p { color: rgba(255,255,255,0.7); font-size: var(--text-sm); line-height: 1.6; }
+
+  /* PLZ FORM */
+  .bl-plz-form { display: flex; flex-direction: column; gap: var(--space-2); }
+  .bl-plz-form input {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: var(--color-text-on-dark);
+    font-size: var(--text-base);
+    width: 100%;
+  }
+  .bl-plz-form input::placeholder { color: rgba(255,255,255,0.4); }
+  .bl-plz-form input:focus { outline: 2px solid var(--color-accent); outline-offset: 2px; border-color: transparent; }
+  .bl-plz-form .btn { width: 100%; justify-content: center; }
+
+  .bl-joachim { display: flex; gap: var(--space-3); align-items: center; margin-top: var(--space-2); }
+  .bl-joachim img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .bl-joachim div { display: flex; flex-direction: column; gap: 2px; }
+  .bl-joachim strong { color: var(--color-text-on-dark); font-size: var(--text-sm); font-weight: var(--weight-semibold); }
+  .bl-joachim span { color: rgba(255,255,255,0.55); font-size: var(--text-xs); }
+
+  .bl-links-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); }
+  .bl-links-card h4 { margin-bottom: var(--space-4); font-size: var(--text-base); }
+  .bl-links-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-3); }
+  .bl-links-list a { color: var(--color-text-mid); font-size: var(--text-sm); text-decoration: none; display: flex; align-items: center; gap: var(--space-2); }
+  .bl-links-list a::before { content: '→'; color: var(--color-accent); flex-shrink: 0; }
+  .bl-links-list a:hover { color: var(--color-accent); }
+
+  /* BOTTOM CTA */
+  .bl-bottom-cta { background: var(--color-bg-dark); color: var(--color-text-on-dark); padding-block: var(--section-gap); }
+  .bl-bottom-cta__inner { max-width: 600px; text-align: center; }
+  .bl-bottom-cta h2 { color: var(--color-text-on-dark); margin-bottom: var(--space-3); }
+  .bl-bottom-cta > .bl-bottom-cta__inner > p { color: rgba(255,255,255,0.7); margin-bottom: var(--space-8); }
+  .bl-plz-form--dark { flex-direction: row; max-width: 480px; margin-inline: auto; }
+  .bl-plz-form--dark input { border-radius: var(--radius-md) 0 0 var(--radius-md); }
+  .bl-plz-form--dark .btn { border-radius: 0 var(--radius-md) var(--radius-md) 0; white-space: nowrap; }
+  @media (max-width: 500px) { .bl-plz-form--dark { flex-direction: column; } .bl-plz-form--dark input, .bl-plz-form--dark .btn { border-radius: var(--radius-md); } }
+</style>
+
+<script>
+  function setupPlzForm(formId: string) {
+    const form = document.getElementById(formId) as HTMLFormElement;
+    if (!form) return;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button') as HTMLButtonElement;
+      const originalText = btn.textContent ?? '';
+      btn.textContent = 'Wird gesendet...';
+      btn.disabled = true;
+      try {
+        const res = await fetch('/api/bewertung', { method: 'POST', body: new FormData(form) });
+        if (res.ok) {
+          window.location.href = '/danke?typ=verkaeufer';
+        } else {
+          btn.textContent = 'Fehler — erneut versuchen';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    });
+  }
+  setupPlzForm('bl-form-sidebar');
+  setupPlzForm('bl-form-bottom');
+</script>
