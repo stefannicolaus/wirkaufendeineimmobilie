@@ -93,10 +93,15 @@ const jsonLdBreadcrumb = JSON.stringify({
 
   <!-- HERO -->
   <header class="bl-hero">
-    <div class="container bl-hero__inner">
-      <time class="bl-date" datetime={publishDate}>{dateFormatted}</time>
-      <h1>{title}</h1>
-      <p class="bl-hero__sub">{description}</p>
+    <div class="container">
+      <div class="bl-hero__grid">
+        <div class="bl-hero__text">
+          <time class="bl-date" datetime={publishDate}>{dateFormatted}</time>
+          <h1>{title}</h1>
+          <p class="bl-hero__sub">{description}</p>
+        </div>
+        <div class="bl-hero__gap" aria-hidden="true"></div>
+      </div>
     </div>
   </header>
 
@@ -192,10 +197,13 @@ const jsonLdBreadcrumb = JSON.stringify({
 
   /* HERO */
   .bl-hero { padding-block: var(--space-12) var(--space-10); background: var(--color-bg-alt); border-bottom: 1px solid var(--color-border); }
-  .bl-hero__inner { max-width: 760px; }
+  .bl-hero__grid { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-12); }
+  .bl-hero__text { text-align: left; }
+  .bl-hero__gap { display: block; }
+  @media (max-width: 900px) { .bl-hero__grid { grid-template-columns: 1fr; } .bl-hero__gap { display: none; } }
   .bl-date { display: block; font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4); }
-  .bl-hero h1 { font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl)); line-height: 1.2; margin-bottom: var(--space-5); }
-  .bl-hero__sub { font-size: var(--text-lg); color: var(--color-text-mid); line-height: 1.6; }
+  .bl-hero h1 { font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl)); line-height: 1.2; margin-bottom: var(--space-5); text-align: left; }
+  .bl-hero__sub { font-size: var(--text-lg); color: var(--color-text-mid); line-height: 1.6; text-align: left; }
 
   /* LAYOUT: article + sidebar */
   .bl-layout { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-12); align-items: start; padding-block: var(--space-12); }
