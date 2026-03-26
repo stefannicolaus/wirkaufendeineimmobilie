@@ -19,9 +19,9 @@ faq:
     a: "Gerichtsgebühren: ca. 0,5–1 % des Verkehrswerts. Dazu kommen Anwaltskosten beider Parteien — und ein Erlös, der im Schnitt 20–30 % unter dem liegt, was ihr bei einem normalen Verkauf bekommen hättet. Bei einer Wohnung mit 250.000 € Marktwert können das 50.000–75.000 € sein, die ihr gemeinsam verbrennt."
 ---
 
-Du stehst mitten in einer Scheidung. Das gemeinsame Haus oder die gemeinsame Wohnung steht noch auf beiden Namen — und schon die nächste schwierige Entscheidung wartet: Was wird aus der Immobilie?
+Du stehst mitten in einer Scheidung. Das gemeinsame Haus oder die gemeinsame Wohnung läuft noch auf beide Namen — und die nächste schwierige Entscheidung wartet schon am Horizont: Was wird aus der Immobilie?
 
-Keine Panik. Es gibt vier klare Optionen. Welche die richtige ist, hängt von eurer finanziellen Situation, dem Verhältnis zueinander und — nicht zu vergessen — von einem steuerlich wichtigen Datum ab. Dieser Artikel erklärt dir, was du wissen musst, bevor du irgendwas entscheidest.
+Keine Panik. Es gibt vier klare Optionen. Welche die richtige ist, hängt von eurer finanziellen Situation, dem Verhältnis zueinander und — nicht zu vergessen — von einem steuerlich wichtigen Datum ab. Dieser Artikel erklärt dir deine vier Optionen für die gemeinsame Immobilie, wie der Zugewinnausgleich in der Praxis funktioniert — und einen Steuervorteil, den viele in der Scheidung verpassen.
 
 ---
 
