@@ -126,11 +126,91 @@ const jsonLdFaq = JSON.stringify({
     </div>
   </section>
 
-  <!-- S2: MARKTDATEN -->
+  <!-- TRUST BAR -->
+  <div class="iv-trust-bar">
+    <div class="container">
+      <div class="iv-trust-bar__inner">
+        <div class="iv-trust-item">
+          <span class="iv-trust-val">48 h</span>
+          <span class="iv-trust-label">Erste Rückmeldung</span>
+        </div>
+        <div class="iv-trust-sep" aria-hidden="true" />
+        <div class="iv-trust-item">
+          <span class="iv-trust-val">0 €</span>
+          <span class="iv-trust-label">Maklercourtage</span>
+        </div>
+        <div class="iv-trust-sep" aria-hidden="true" />
+        <div class="iv-trust-item">
+          <span class="iv-trust-val">Kein Portal</span>
+          <span class="iv-trust-label">Diskreter Verkauf</span>
+        </div>
+        <div class="iv-trust-sep" aria-hidden="true" />
+        <div class="iv-trust-item">
+          <span class="iv-trust-val">Ist-Zustand</span>
+          <span class="iv-trust-label">Kein Renovieren</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROZESS -->
+  <section class="section iv-prozess-section">
+    <div class="container">
+      <h2>So läuft der Verkauf ab</h2>
+      <div class="iv-prozess-steps">
+        <div class="iv-prozess-step">
+          <div class="iv-prozess-num">1</div>
+          <div class="iv-prozess-body">
+            <h3>Anfrage stellen</h3>
+            <p>Formular ausfüllen oder anrufen. Kostenlos, unverbindlich, 2 Minuten.</p>
+          </div>
+        </div>
+        <div class="iv-prozess-line" aria-hidden="true" />
+        <div class="iv-prozess-step">
+          <div class="iv-prozess-num">2</div>
+          <div class="iv-prozess-body">
+            <h3>Joachim meldet sich</h3>
+            <p>Innerhalb von 48 h — mit einer ersten Einschätzung und einem konkreten Angebot.</p>
+          </div>
+        </div>
+        <div class="iv-prozess-line" aria-hidden="true" />
+        <div class="iv-prozess-step">
+          <div class="iv-prozess-num">3</div>
+          <div class="iv-prozess-body">
+            <h3>Notartermin</h3>
+            <p>Beim Ja: Abwicklung in 2–4 Wochen. Kein Makler, kein Portal, kein Stress.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SITUATIONEN -->
+  <section class="iv-situationen-section">
+    <div class="container">
+      <h2>Wann rufen Eigentümer in {st.name} uns an?</h2>
+      <div class="iv-situationen-grid">
+        <div class="iv-situation-card">
+          <h3>Erbschaft & Erbengemeinschaft</h3>
+          <p>Das Haus gehört mehreren Erben — einer blockiert, alle haften. Wir machen ein transparentes Angebot an alle Parteien gleichzeitig. Kein Feilschen, keine Bevorteilung.</p>
+        </div>
+        <div class="iv-situation-card">
+          <h3>GEG-Sanierungspflicht</h3>
+          <p>Energetische Pflichten fressen die Rendite. Wenn sich Sanieren nicht lohnt, kaufen wir im Ist-Zustand — ohne Auflagen, ohne Vorwürfe.</p>
+        </div>
+        <div class="iv-situation-card">
+          <h3>Schwierige Ausgangslage</h3>
+          <p>Messie-Objekt, Schimmel, Streit unter Eigentümern, Scheidung: Wir besichtigen diskret — ohne Fotos, ohne Portal, ohne Ghosting.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKTDATEN (kompakt) -->
   <section class="iv-market-section">
     <div class="container">
       <div class="iv-market-header">
-        <h2>Aktueller Immobilienmarkt in {st.name}</h2>
+        <h2>Marktdaten {st.name}</h2>
         {st.milieuschutz && <span class="iv-milieu-badge">Milieuschutz · § 172 BauGB</span>}
       </div>
       <div class="iv-stats-bar">
@@ -148,19 +228,12 @@ const jsonLdFaq = JSON.stringify({
           </>
         )}
       </div>
+      <p class="iv-objekt-note">{objektTypText}</p>
       <p class="iv-source">Quelle: Immowelt Preisatlas, März 2026. Offizielle Transaktionsdaten: Gutachterausschuss Leipzig 2024.</p>
     </div>
   </section>
 
-  <!-- S3: OBJEKTTYPEN -->
-  <section class="section iv-objekt-section">
-    <div class="container">
-      <h2>Typische Immobilien in {st.name}</h2>
-      <p class="iv-objekt-text">{objektTypText}</p>
-    </div>
-  </section>
-
-  <!-- S3b: BODENRICHTWERT (conditional) -->
+  <!-- BODENRICHTWERT (conditional) -->
   {st.bodenrichtwert && (
     <section class="iv-brw-section">
       <div class="container">
@@ -186,7 +259,7 @@ const jsonLdFaq = JSON.stringify({
     </section>
   )}
 
-  <!-- S4: MILIEUSCHUTZ (conditional) -->
+  <!-- MILIEUSCHUTZ (conditional) -->
   {st.milieuschutz && milieuschutzText && (
     <section class="iv-milieu-section">
       <div class="container">
@@ -204,26 +277,10 @@ const jsonLdFaq = JSON.stringify({
     </section>
   )}
 
-  <!-- S5: SZENARIEN -->
-  <section class="section iv-szenarien-section">
+  <!-- FAQ (minimal, SEO) -->
+  <section class="iv-faq-section">
     <div class="container">
-      <h2>Warum verkaufen Eigentümer in {st.name}?</h2>
-      <div class="iv-szenarien-grid">
-        {SZENARIEN.map(s => (
-          <div class="iv-szenario-card">
-            <div class="iv-szenario-icon" aria-hidden="true">{s.icon}</div>
-            <h3>{s.titel}</h3>
-            <p>{s.text}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- S5b: ALLGEMEIN FAQ -->
-  <section class="section iv-faq-section bg-alt">
-    <div class="container">
-      <h2>Häufige Fragen zum Immobilienverkauf in {st.name}</h2>
+      <h2>Häufige Fragen</h2>
       <div class="iv-faq-list">
         {[...ALLGEMEIN_FAQ, ...(st.milieuschutz ? MILIEUSCHUTZ_FAQ : [])].map(item => (
           <details class="iv-faq-item">
@@ -324,9 +381,35 @@ const jsonLdFaq = JSON.stringify({
   .iv-stat-secondary__label { font-size: var(--text-sm); color: var(--color-text-muted); }
   .iv-source { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-6); }
 
-  /* OBJEKTTYPEN */
-  .iv-objekt-section { background: var(--color-bg); }
-  .iv-objekt-text { font-size: var(--text-lg); line-height: 1.8; color: var(--color-text-mid); max-width: 720px; }
+  /* TRUST BAR */
+  .iv-trust-bar { background: var(--color-bg-dark); }
+  .iv-trust-bar__inner { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; padding-block: var(--space-6); }
+  .iv-trust-item { display: flex; flex-direction: column; align-items: center; gap: var(--space-1); padding: var(--space-4) var(--space-8); }
+  .iv-trust-val { font-size: var(--text-xl); font-weight: var(--weight-bold); color: var(--color-text-on-dark); }
+  .iv-trust-label { font-size: var(--text-xs); color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; }
+  .iv-trust-sep { width: 1px; height: 40px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+  @media (max-width: 600px) { .iv-trust-sep { display: none; } .iv-trust-item { padding: var(--space-3) var(--space-5); } }
+
+  /* PROZESS */
+  .iv-prozess-section { background: var(--color-bg-alt); }
+  .iv-prozess-steps { display: flex; align-items: flex-start; margin-top: var(--space-8); }
+  .iv-prozess-step { display: flex; gap: var(--space-5); flex: 1; }
+  .iv-prozess-num { width: 40px; height: 40px; border-radius: 50%; background: var(--color-accent); color: white; font-weight: var(--weight-bold); font-size: var(--text-lg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .iv-prozess-body h3 { margin-bottom: var(--space-2); font-size: var(--text-lg); }
+  .iv-prozess-body p { font-size: var(--text-sm); color: var(--color-text-mid); line-height: 1.7; }
+  .iv-prozess-line { flex: 0 0 60px; height: 1px; background: var(--color-border); margin-top: 20px; }
+  @media (max-width: 768px) { .iv-prozess-steps { flex-direction: column; gap: var(--space-6); } .iv-prozess-line { width: 1px; height: 32px; flex: 0 0 32px; margin-top: 0; margin-left: 20px; } }
+
+  /* SITUATIONEN */
+  .iv-situationen-section { background: var(--color-bg); padding-block: var(--section-gap); }
+  .iv-situationen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-top: var(--space-8); }
+  .iv-situation-card { padding: var(--space-7); border-left: 3px solid var(--color-accent); background: var(--color-bg-alt); border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+  .iv-situation-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
+  .iv-situation-card p { font-size: var(--text-sm); line-height: 1.75; color: var(--color-text-mid); }
+  @media (max-width: 900px) { .iv-situationen-grid { grid-template-columns: 1fr; } }
+
+  /* MARKT NOTE */
+  .iv-objekt-note { font-size: var(--text-sm); color: var(--color-text-mid); line-height: 1.7; max-width: 720px; margin-top: var(--space-6); margin-bottom: var(--space-2); }
 
   /* MILIEUSCHUTZ */
   .iv-milieu-section { background: rgba(234,179,8,0.04); border-top: 1px solid rgba(234,179,8,0.2); border-bottom: 1px solid rgba(234,179,8,0.2); padding-block: var(--section-gap); }
@@ -356,14 +439,8 @@ const jsonLdFaq = JSON.stringify({
   /* FAQ ALLGEMEIN */
   .iv-faq-section h2 { margin-bottom: var(--space-6); }
 
-  /* SZENARIEN */
-  .iv-szenarien-section { background: var(--color-bg-alt); }
-  .iv-szenarien-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-top: var(--space-8); }
-  .iv-szenario-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); box-shadow: var(--shadow-sm); }
-  .iv-szenario-icon { font-size: 2rem; }
-  .iv-szenario-card h3 { font-size: var(--text-lg); }
-  .iv-szenario-card p { font-size: var(--text-sm); line-height: 1.7; color: var(--color-text-mid); }
-  @media (max-width: 768px) { .iv-szenarien-grid { grid-template-columns: 1fr; } }
+  /* FAQ SECTION */
+  .iv-faq-section { padding-block: var(--section-gap); }
 
   /* CTA JOACHIM */
   .iv-cta-section { background: var(--color-bg-dark); color: var(--color-text-on-dark); padding-block: var(--section-gap); }
