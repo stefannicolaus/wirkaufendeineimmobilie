@@ -1,0 +1,74 @@
+<h2>Wie viele Schritte soll der Kapitalanleger-Rechner haben?</h2>
+<p class="subtitle">Der bestehende ROI-Rechner hat 4 Schritte. Hier sind 3 Optionen für den neuen B&H-Rechner mit seinen 9 Inputs.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0f1117;padding:16px;font-family:monospace;font-size:12px;">
+      <div style="display:flex;gap:6px;align-items:center;margin-bottom:12px;">
+        <div style="width:24px;height:24px;border-radius:50%;background:#e8b84b;display:flex;align-items:center;justify-content:center;font-size:10px;color:#000;font-weight:700;">1</div>
+        <div style="width:30px;height:2px;background:#333;"></div>
+        <div style="width:24px;height:24px;border-radius:50%;background:#222;border:1px solid #444;display:flex;align-items:center;justify-content:center;font-size:10px;color:#666;">2</div>
+        <div style="width:30px;height:2px;background:#333;"></div>
+        <div style="width:24px;height:24px;border-radius:50%;background:#222;border:1px solid #444;display:flex;align-items:center;justify-content:center;font-size:10px;color:#666;">3</div>
+        <div style="width:30px;height:2px;background:#333;"></div>
+        <div style="width:24px;height:24px;border-radius:50%;background:#222;border:1px solid #444;display:flex;align-items:center;justify-content:center;font-size:10px;color:#666;">4</div>
+      </div>
+      <div style="color:#e8b84b;font-size:11px;margin-bottom:6px;">Schritt 1 — Objekt</div>
+      <div style="color:#aaa;font-size:11px;line-height:1.6;">Kaufpreis · Baujahr · Wohnfläche<br>Kaltmiete · Hausgeld</div>
+      <div style="color:#555;font-size:10px;margin-top:8px;">→ Schritt 2: Finanzierung → 3: Steuer → 4: Ergebnis</div>
+    </div>
+    <div class="card-body">
+      <h3>A — 4 Schritte (wie ROI-Rechner)</h3>
+      <p>Bewährtes Muster beibehalten. Schritt 1 Objekt (5 Inputs), Schritt 2 Finanzierung (3 Inputs), Schritt 3 Steuer + Haltedauer, Schritt 4 Ergebnis + Email Gate.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0f1117;padding:16px;font-family:monospace;font-size:12px;">
+      <div style="display:flex;gap:4px;align-items:center;margin-bottom:12px;">
+        <div style="width:22px;height:22px;border-radius:50%;background:#e8b84b;display:flex;align-items:center;justify-content:center;font-size:9px;color:#000;font-weight:700;">1</div>
+        <div style="width:20px;height:2px;background:#333;"></div>
+        <div style="width:22px;height:22px;border-radius:50%;background:#222;border:1px solid #444;display:flex;align-items:center;justify-content:center;font-size:9px;color:#666;">2</div>
+        <div style="width:20px;height:2px;background:#333;"></div>
+        <div style="width:22px;height:22px;border-radius:50%;background:#222;border:1px solid #444;display:flex;align-items:center;justify-content:center;font-size:9px;color:#666;">3</div>
+        <div style="width:20px;height:2px;background:#333;"></div>
+        <div style="width:22px;height:22px;border-radius:50%;background:#222;border:1px solid #444;display:flex;align-items:center;justify-content:center;font-size:9px;color:#666;">4</div>
+        <div style="width:20px;height:2px;background:#333;"></div>
+        <div style="width:22px;height:22px;border-radius:50%;background:#222;border:1px solid #444;display:flex;align-items:center;justify-content:center;font-size:9px;color:#666;">5</div>
+      </div>
+      <div style="color:#e8b84b;font-size:11px;margin-bottom:6px;">Schritt 1 — Objekt + Miete</div>
+      <div style="color:#aaa;font-size:11px;line-height:1.6;">Kaufpreis · Baujahr · Wohnfläche · Kaltmiete · Hausgeld</div>
+      <div style="color:#555;font-size:10px;margin-top:6px;">2: Finanzierung · 3: Steuer + Haltedauer · 4: Vorschau (kein Gate) · 5: Email + PDF</div>
+    </div>
+    <div class="card-body">
+      <h3>B — 5 Schritte (+ Vorschau-Schritt)</h3>
+      <p>Ergebnis-Vorschau ohne Email Gate zeigen, dann separat Email für PDF-Download. Investor sieht KPIs sofort — konvertiert besser weil er schon "investiert" ist.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0f1117;padding:16px;font-family:monospace;font-size:12px;">
+      <div style="display:flex;gap:12px;">
+        <div style="flex:1;">
+          <div style="color:#e8b84b;font-size:10px;margin-bottom:4px;">OBJEKT</div>
+          <div style="background:#1a1a1a;border:1px solid #333;border-radius:3px;padding:4px 6px;color:#aaa;font-size:10px;margin-bottom:3px;">Kaufpreis</div>
+          <div style="background:#1a1a1a;border:1px solid #333;border-radius:3px;padding:4px 6px;color:#aaa;font-size:10px;margin-bottom:3px;">Baujahr</div>
+          <div style="background:#1a1a1a;border:1px solid #333;border-radius:3px;padding:4px 6px;color:#aaa;font-size:10px;margin-bottom:3px;">Wohnfläche</div>
+          <div style="background:#1a1a1a;border:1px solid #333;border-radius:3px;padding:4px 6px;color:#aaa;font-size:10px;margin-bottom:8px;">Kaltmiete</div>
+          <div style="color:#e8b84b;font-size:10px;margin-bottom:4px;">FINANZIERUNG</div>
+          <div style="background:#1a1a1a;border:1px solid #333;border-radius:3px;padding:4px 6px;color:#aaa;font-size:10px;margin-bottom:3px;">Darlehen</div>
+          <div style="background:#1a1a1a;border:1px solid #333;border-radius:3px;padding:4px 6px;color:#aaa;font-size:10px;">Zinssatz %</div>
+        </div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;">
+          <div style="background:#e8b84b;border-radius:4px;padding:6px 12px;color:#000;font-size:11px;font-weight:700;">Berechnen →</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Single Page Form</h3>
+      <p>Alle Inputs auf einer Seite, sichtbar ab Pageload. "Berechnen"-Button unten. Ergebnis erscheint darunter. Kein wizard-overhead, direkter — aber fühlt sich weniger wie ein Tool an.</p>
+    </div>
+  </div>
+
+</div>

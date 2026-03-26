@@ -4,7 +4,6 @@ import db from '../../lib/db';
 import { checkRateLimit } from '../../lib/rate-limit';
 import { sendTransactionalEmail } from '../../lib/brevo';
 import { calcPreisindikation } from '../../lib/preisindikation/calc';
-import { generatePreisindikationPdf } from '../../lib/preisindikation/pdf';
 
 export const prerender = false;
 
@@ -141,7 +140,7 @@ export const PATCH: APIRoute = async ({ request }) => {
     }
   }
 
-  // Benachrichtigung an Joachim mit allen Daten
+  // Benachrichtigung an Joachim mit allen Daten + Link zum Admin-Draft
   const row = ref
     ? db.prepare(`SELECT * FROM registrations WHERE id=?`).get(ref)
     : db.prepare(`SELECT * FROM registrations WHERE email=? AND typ='bewertung' ORDER BY id DESC LIMIT 1`).get(email);
@@ -177,10 +176,17 @@ export const PATCH: APIRoute = async ({ request }) => {
           })()}
           ${r.energieausweis_base64 ? `<tr><td style="padding:6px;font-weight:600">Energieausweis</td><td style="padding:6px">✓ Hochgeladen</td></tr>` : ''}
         </table>
+        <p style="margin-top:20px">
+          <a href="${SITE_URL}/admin/registrierungen/${r.id}" style="background:#2563eb;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-block">
+            → Ersteinschätzung im Admin prüfen &amp; freigeben
+          </a>
+        </p>
+        <p style="color:#6b7280;font-size:13px;margin-top:8px">Die Preisindikation wird erst nach deiner Freigabe an den Verkäufer gesendet.</p>
       `,
     });
 
-    // Preisindikation berechnen + PDF generieren + an Eigentümer mailen
+    // Preisindikation berechnen + als Draft in DB speichern
+    // PDF geht NICHT automatisch an den Verkäufer — Joachim prüft erst im Admin
     try {
       const piResult = calcPreisindikation({
         plz: String(r.plz ?? ''),
@@ -193,30 +199,13 @@ export const PATCH: APIRoute = async ({ request }) => {
         vermietet: Boolean(r.vermietet),
       });
 
-      const nameParts = String(r.name ?? '').split(' ');
-      const vorname = nameParts[0] ?? '';
-      const nachname = nameParts.slice(1).join(' ') || vorname;
-      const datum = new Date().toLocaleDateString('de-DE');
-
-      await generatePreisindikationPdf({
-        vorname,
-        nachname,
-        email: String(r.email ?? ''),
-        plz: String(r.plz ?? ''),
-        immobilientyp: String(r.immobilientyp ?? 'etw'),
-        wohnflaeche: r.wohnflaeche as number | null,
-        baujahr: r.baujahr as number | null,
-        energieklasse: r.energieklasse as string | null,
-        zustand: r.zustand as string | null,
-        sanierungsstand: r.sanierungsstand as string | null,
-        vermietet: Boolean(r.vermietet),
-        etage: r.etage as string | null,
-        stellplatz: Boolean(r.stellplatz),
-        result: piResult,
-        datum,
-      });
+      // Ergebnis in DB speichern für Admin-Draft
+      db.prepare('UPDATE registrations SET preisindikation_json=? WHERE id=?')
+        .run(JSON.stringify(piResult), ref || (
+          (db.prepare(`SELECT id FROM registrations WHERE email=? AND typ='bewertung' ORDER BY id DESC LIMIT 1`).get(email) as any)?.id
+        ));
     } catch (err) {
-      console.error('[PDF] Fehler bei PDF-Generierung:', err);
+      console.error('[PI] Fehler bei Preisindikation:', err);
     }
   }
 

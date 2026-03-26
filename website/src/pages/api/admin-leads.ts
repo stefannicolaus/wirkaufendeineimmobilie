@@ -7,6 +7,7 @@ import { isValidSession } from '../../lib/admin-auth';
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { lookup as mimeLookup } from 'mime-types';
+import { sendPreisindikationToSeller } from '../../lib/preisindikation/pdf';
 
 export const prerender = false;
 
@@ -121,6 +122,79 @@ export const GET: APIRoute = async ({ request }) => {
   return new Response(JSON.stringify({ rows, total, page }), {
     headers: { 'Content-Type': 'application/json' },
   });
+};
+
+// POST /api/admin-leads — Ersteinschätzung an Verkäufer senden (nach Joachims Freigabe)
+export const POST: APIRoute = async ({ request }) => {
+  if (!isValidSession(request.headers.get('cookie'))) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+  }
+
+  const body = await request.json();
+  const { id, action } = body;
+
+  if (!id) return new Response(JSON.stringify({ error: 'id fehlt' }), { status: 400 });
+
+  if (action === 'save-pi-draft') {
+    // Anschreiben + Preis-Overrides speichern
+    const { pi_anschreiben, pi_preis_min, pi_preis_max } = body;
+    updateRegistration(Number(id), {
+      pi_anschreiben: pi_anschreiben ?? null,
+      pi_preis_min: pi_preis_min ? Number(pi_preis_min) : null,
+      pi_preis_max: pi_preis_max ? Number(pi_preis_max) : null,
+    });
+    return new Response(JSON.stringify({ success: true }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (action === 'send-preisindikation') {
+    const row = getRegistrationById(Number(id));
+    if (!row) return new Response(JSON.stringify({ error: 'Lead nicht gefunden' }), { status: 404 });
+
+    let piResult: Record<string, unknown> | null = null;
+    try {
+      if (row.preisindikation_json) piResult = JSON.parse(String(row.preisindikation_json));
+    } catch {}
+
+    if (!piResult) {
+      return new Response(JSON.stringify({ error: 'Keine Preisindikation vorhanden' }), { status: 400 });
+    }
+
+    const nameParts = String(row.name ?? '').split(' ');
+    const vorname = nameParts[0] ?? '';
+    const nachname = nameParts.slice(1).join(' ') || vorname;
+    const datum = new Date().toLocaleDateString('de-DE');
+
+    await sendPreisindikationToSeller({
+      vorname,
+      nachname,
+      email: String(row.email ?? ''),
+      plz: String(row.plz ?? ''),
+      immobilientyp: String(row.immobilientyp ?? 'etw'),
+      wohnflaeche: row.wohnflaeche as number | null,
+      baujahr: row.baujahr as number | null,
+      energieklasse: row.energieklasse as string | null,
+      zustand: row.zustand as string | null,
+      sanierungsstand: row.sanierungsstand as string | null,
+      vermietet: Boolean(row.vermietet),
+      etage: row.etage as string | null,
+      stellplatz: Boolean(row.stellplatz),
+      result: piResult as any,
+      datum,
+      customAnschreiben: row.pi_anschreiben as string | null,
+      customPreisMin: row.pi_preis_min as number | null,
+      customPreisMax: row.pi_preis_max as number | null,
+    });
+
+    updateRegistration(Number(id), { pi_sent_at: new Date().toISOString() });
+
+    return new Response(JSON.stringify({ success: true }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  return new Response(JSON.stringify({ error: 'Unbekannte Aktion' }), { status: 400 });
 };
 
 // PATCH /api/admin-leads — Status oder Notiz eines Leads aktualisieren

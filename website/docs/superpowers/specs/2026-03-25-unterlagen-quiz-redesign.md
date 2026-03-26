@@ -117,7 +117,7 @@ Diese Kachel schließt die Energieklassen-Kacheln nicht aus (jemand kann trotzde
 - Weiß nicht (Exklusiv-Auswahl)
 
 **Hilfetext:**
-> "Jede Maßnahme kann den Wert Ihrer Immobilie erhöhen. Wählen Sie alles, was zutrifft — grobe Angaben reichen für die Ersteinschätzung."
+> "Was in den letzten 15 Jahren gemacht wurde, hilft unserem Team bei der Einschätzung — grobe Angaben reichen vollkommen."
 
 **Mapping:** JSON-Array in DB-Feld `was_saniert`
 

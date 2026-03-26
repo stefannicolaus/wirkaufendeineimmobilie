@@ -43,6 +43,10 @@ export interface PdfInput {
   stellplatz?: boolean;
   result: PreisindikationResult;
   datum: string;
+  // Optionale Überschreibungen durch Joachim im Admin-Bereich
+  customAnschreiben?: string | null;
+  customPreisMin?: number | null;
+  customPreisMax?: number | null;
 }
 
 function ampelDot(color: string): string {
@@ -55,13 +59,17 @@ function generateHtml(opts: PdfInput): string {
   const typLabel = immobilientyp === 'etw' ? 'Eigentumswohnung' : immobilientyp === 'efh' ? 'Einfamilienhaus' : immobilientyp === 'mfh' ? 'Mehrfamilienhaus' : 'Grundstück';
   const anchor = `Ihre ${wohnflaeche ? wohnflaeche + 'm² ' : ''}${typLabel} in ${plz}`;
 
-  const preisBlock = result.aufAnfrage
+  // Joachim kann Preis im Admin überschreiben
+  const preisMin = opts.customPreisMin ?? result.preisMin;
+  const preisMax = opts.customPreisMax ?? result.preisMax;
+
+  const preisBlock = result.aufAnfrage && !opts.customPreisMin
     ? `<p style="font-size:22px;font-weight:700;color:#1e293b;">Auf persönliche Anfrage</p>
        <p style="color:#64748b;margin-top:8px;">Für Mehrfamilienhäuser und Grundstücke erstellt Joachim Kleinke die Kalkulation individuell.</p>`
     : `<p style="font-size:32px;font-weight:800;color:#1e3a5f;letter-spacing:-1px;">
-         ${formatEur(result.preisMin)} – ${formatEur(result.preisMax)}
+         ${formatEur(preisMin)} – ${formatEur(preisMax)}
        </p>
-       <p style="color:#64748b;margin-top:4px;">ca. ${formatEur(result.qmPreisMin)} – ${formatEur(result.qmPreisMax)} / m²</p>`;
+       <p style="color:#64748b;margin-top:4px;">ca. ${formatEur(Math.round(preisMin / (wohnflaeche || 1)))} – ${formatEur(Math.round(preisMax / (wohnflaeche || 1)))} / m²</p>`;
 
   return `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
 <style>
@@ -182,7 +190,7 @@ function generateHtml(opts: PdfInput): string {
 </body></html>`;
 }
 
-export async function generatePreisindikationPdf(opts: PdfInput): Promise<void> {
+export async function generatePreisindikationPdf(opts: PdfInput): Promise<{ pdfBase64: string; dateiname: string }> {
   const html = generateHtml(opts);
 
   const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
@@ -194,20 +202,29 @@ export async function generatePreisindikationPdf(opts: PdfInput): Promise<void> 
   const pdfBase64 = Buffer.from(pdfBuffer).toString('base64');
   const dateiname = `Preisindikation-${opts.nachname}-${opts.datum.replace(/\./g, '')}.pdf`;
 
+  return { pdfBase64, dateiname };
+}
+
+export async function sendPreisindikationToSeller(opts: PdfInput): Promise<void> {
+  const { pdfBase64, dateiname } = await generatePreisindikationPdf(opts);
+
   const typLabel = opts.immobilientyp === 'etw' ? 'Eigentumswohnung' : opts.immobilientyp === 'efh' ? 'Einfamilienhaus' : 'Immobilie';
 
-  const anschreiben = opts.result.aufAnfrage
+  const anschreiben = opts.customAnschreiben
+    ? `<p>Hallo ${opts.vorname},</p>${opts.customAnschreiben}<p>Viele Grüße,<br>Joachim Kleinke<br>wirkaufendeineimmobilie.de</p>`
+    : opts.result.aufAnfrage && !opts.customPreisMin
     ? `<p>Hallo ${opts.vorname},</p>
-       <p>vielen Dank für Ihre Anfrage. Im Anhang finden Sie Ihre erste Objektübersicht. Joachim Kleinke erstellt die Preisindikation für Ihre Immobilie persönlich und meldet sich innerhalb von 48 Stunden bei Ihnen.</p>`
+       <p>vielen Dank für deine Anfrage. Im Anhang findest du deine erste Objektübersicht. Joachim Kleinke erstellt die Preisindikation für deine Immobilie persönlich und meldet sich innerhalb von 48 Stunden bei dir.</p>
+       <p>Viele Grüße,<br>Joachim Kleinke<br>wirkaufendeineimmobilie.de</p>`
     : `<p>Hallo ${opts.vorname},</p>
        <p>${opts.result.einleitungssatz}</p>
-       <p>Im Anhang finden Sie Ihre persönliche Preisindikation für <strong>${opts.wohnflaeche ? opts.wohnflaeche + 'm² ' : ''}${typLabel} in ${opts.plz}</strong> — erstellt auf Basis der aktuellen Marktdaten des Gutachterausschusses Leipzig.</p>
-       <p>Joachim Kleinke ruft Sie in den nächsten 48 Stunden persönlich zurück.</p>
+       <p>Im Anhang findest du deine persönliche Preisindikation für <strong>${opts.wohnflaeche ? opts.wohnflaeche + 'm² ' : ''}${typLabel} in ${opts.plz}</strong> — erstellt auf Basis der aktuellen Marktdaten des Gutachterausschusses Leipzig.</p>
+       <p>Joachim Kleinke ruft dich in den nächsten 48 Stunden persönlich zurück.</p>
        <p>Viele Grüße,<br>Joachim Kleinke<br>wirkaufendeineimmobilie.de</p>`;
 
   await sendTransactionalEmail({
     to: { email: opts.email, name: opts.vorname },
-    subject: `Ihre persönliche Preisindikation — ${opts.wohnflaeche ? opts.wohnflaeche + 'm² ' : ''}in ${opts.plz}`,
+    subject: `Deine persönliche Preisindikation — ${opts.wohnflaeche ? opts.wohnflaeche + 'm² ' : ''}in ${opts.plz}`,
     htmlContent: anschreiben,
     attachments: [{ content: pdfBase64, name: dateiname }],
   });

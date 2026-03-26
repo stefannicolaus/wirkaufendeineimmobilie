@@ -102,6 +102,13 @@ try { db.exec(`ALTER TABLE leads_kapitalanleger ADD COLUMN pdf_base64 TEXT`); } 
 try { db.exec(`ALTER TABLE registrations ADD COLUMN status TEXT DEFAULT 'neu'`); } catch {}
 try { db.exec(`ALTER TABLE registrations ADD COLUMN notiz TEXT`); } catch {}
 
+// Preisindikation Draft — Joachim prüft + freigibt bevor PDF zum Verkäufer geht
+try { db.exec(`ALTER TABLE registrations ADD COLUMN preisindikation_json TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN pi_anschreiben TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN pi_preis_min INTEGER`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN pi_preis_max INTEGER`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN pi_sent_at DATETIME`); } catch {}
+
 export function insertRegistration(data: Record<string, unknown>) {
   const columns = Object.keys(data);
   const placeholders = columns.map(() => '?').join(', ');
@@ -344,8 +351,15 @@ export function getRegistrationById(id: number) {
   return db.prepare(`SELECT * FROM registrations WHERE id = ?`).get(id) as Record<string, unknown> | undefined;
 }
 
-export function updateRegistration(id: number, fields: { status?: string; notiz?: string }) {
-  const ALLOWED = ['status', 'notiz'];
+export function updateRegistration(id: number, fields: {
+  status?: string; notiz?: string;
+  preisindikation_json?: string;
+  pi_anschreiben?: string | null;
+  pi_preis_min?: number | null;
+  pi_preis_max?: number | null;
+  pi_sent_at?: string;
+}) {
+  const ALLOWED = ['status', 'notiz', 'preisindikation_json', 'pi_anschreiben', 'pi_preis_min', 'pi_preis_max', 'pi_sent_at'];
   const keys = Object.keys(fields).filter(k => ALLOWED.includes(k));
   if (!keys.length) return;
   const sets = keys.map(k => `${k} = ?`).join(', ');

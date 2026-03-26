@@ -19,6 +19,17 @@ const situation = Array.isArray(leadData.situation) ? (leadData.situation as str
 const wasSaniert = row.was_saniert ? (() => { try { return (JSON.parse(String(row.was_saniert)) as string[]).join(', '); } catch { return String(row.was_saniert); } })() : null;
 const hatEnergieausweis = !!row.energieausweis_base64;
 
+// Preisindikation Draft
+let piResult: Record<string, unknown> | null = null;
+try {
+  if (row.preisindikation_json) piResult = JSON.parse(String(row.preisindikation_json));
+} catch {}
+const piSentAt = row.pi_sent_at ? String(row.pi_sent_at).slice(0, 16).replace('T', ' ') : null;
+const piAnschreiben = row.pi_anschreiben ? String(row.pi_anschreiben) : '';
+const piPreisMin = row.pi_preis_min ? Number(row.pi_preis_min) : null;
+const piPreisMax = row.pi_preis_max ? Number(row.pi_preis_max) : null;
+function fmtEur(n: number) { return n.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }); }
+
 const zustandLabels: Record<string, string> = {
   sanierungsbeduerftig: 'Sanierungsbedürftig',
   renovierungsbeduerftig: 'Renovierungsbedürftig',
@@ -104,6 +115,18 @@ if (leadEmail) {
     .delete-confirm input { border: 1px solid #f97316; border-radius: 6px; padding: 0.4rem 0.75rem;
                             font-size: 0.875rem; width: 100%; box-sizing: border-box; margin-bottom: 0.75rem; }
     .delete-confirm .btn-row { display: flex; gap: 0.5rem; }
+    .pi-card { border: 2px solid #2563eb; }
+    .pi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .pi-label { font-size: 0.75rem; color: #6b7280; margin-bottom: 4px; }
+    .pi-value { font-size: 1.25rem; font-weight: 700; color: #0f172a; }
+    .pi-range { font-size: 0.8rem; color: #64748b; }
+    .btn-send { background: #16a34a; font-size: 1rem; padding: 0.75rem 2rem; }
+    .btn-send:hover { background: #15803d; }
+    .btn-send:disabled { background: #9ca3af; cursor: not-allowed; }
+    .pi-sent-badge { background: #f0fdf4; border: 1px solid #bbf7d0; color: #16a34a;
+                     border-radius: 6px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 600; }
+    .pi-input-row { display: flex; gap: 0.75rem; }
+    .pi-input-row > div { flex: 1; }
   </style>
 </head>
 <body>
@@ -253,6 +276,71 @@ if (leadEmail) {
       </div>
     )}
 
+    <!-- ERSTEINSCHÄTZUNG DRAFT -->
+    {piResult && (
+      <div class="card pi-card" id="pi-card">
+        <h2 style="color:#1d4ed8">Ersteinschätzung — Freigabe durch Joachim</h2>
+
+        {/* Berechnete Werte */}
+        <div class="pi-grid">
+          <div>
+            <div class="pi-label">Berechnete Preisspanne</div>
+            {piResult.aufAnfrage
+              ? <div class="pi-value" style="font-size:1rem;color:#6b7280">Auf persönliche Anfrage</div>
+              : <>
+                  <div class="pi-value">{fmtEur(Number(piResult.preisMin))} – {fmtEur(Number(piResult.preisMax))}</div>
+                  <div class="pi-range">{fmtEur(Number(piResult.qmPreisMin))} – {fmtEur(Number(piResult.qmPreisMax))} / m²</div>
+                </>
+            }
+          </div>
+          <div>
+            <div class="pi-label">Berechneter Einleitungssatz</div>
+            <div style="font-size:0.8rem;color:#374151;line-height:1.5">{String(piResult.einleitungssatz ?? '—')}</div>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid #e5e7eb;margin:1rem 0" />
+
+        {/* Joachims Anpassungen */}
+        <div style="display:flex;flex-direction:column;gap:1rem">
+          <div>
+            <label style="display:block;font-size:0.875rem;font-weight:600;color:#374151;margin-bottom:0.25rem">
+              Anschreiben-Text (optional — überschreibt den Standardtext)
+            </label>
+            <textarea id="pi-anschreiben" placeholder="Leer lassen für automatischen Text basierend auf der Berechnung…">{piAnschreiben}</textarea>
+          </div>
+
+          <div class="pi-input-row">
+            <div>
+              <label style="display:block;font-size:0.875rem;font-weight:600;color:#374151;margin-bottom:0.25rem">
+                Preis Minimum € (optional)
+              </label>
+              <input type="number" id="pi-preis-min" style="width:100%;padding:0.5rem;border:1px solid #d1d5db;border-radius:6px;font-size:0.9rem;box-sizing:border-box"
+                placeholder={piResult.preisMin ? String(piResult.preisMin) : '—'}
+                value={piPreisMin ? String(piPreisMin) : ''} />
+            </div>
+            <div>
+              <label style="display:block;font-size:0.875rem;font-weight:600;color:#374151;margin-bottom:0.25rem">
+                Preis Maximum € (optional)
+              </label>
+              <input type="number" id="pi-preis-max" style="width:100%;padding:0.5rem;border:1px solid #d1d5db;border-radius:6px;font-size:0.9rem;box-sizing:border-box"
+                placeholder={piResult.preisMax ? String(piResult.preisMax) : '—'}
+                value={piPreisMax ? String(piPreisMax) : ''} />
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+            <button onclick="savePiDraft()" style="background:#475569">Entwurf speichern</button>
+            {piSentAt
+              ? <span class="pi-sent-badge">✓ Gesendet am {piSentAt}</span>
+              : <button class="btn-send" onclick="sendPi()" id="btn-send-pi">PDF an Verkäufer senden</button>
+            }
+            <span id="pi-msg" style="display:none;font-size:0.875rem"></span>
+          </div>
+        </div>
+      </div>
+    )}
+
     <!-- LÖSCHEN -->
     <div class="card" style="border:1px solid #fecaca">
       <h2 style="color:#dc2626">Eintrag löschen</h2>
@@ -306,6 +394,50 @@ if (leadEmail) {
         window.location.href = '/admin/registrierungen';
       } else {
         alert('Fehler beim Löschen.');
+      }
+    }
+
+    async function savePiDraft() {
+      const res = await fetch('/api/admin-leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: leadId,
+          action: 'save-pi-draft',
+          pi_anschreiben: document.getElementById('pi-anschreiben')?.value || null,
+          pi_preis_min: document.getElementById('pi-preis-min')?.value || null,
+          pi_preis_max: document.getElementById('pi-preis-max')?.value || null,
+        }),
+      });
+      const msg = document.getElementById('pi-msg');
+      if (res.ok) {
+        msg.style.display = 'inline';
+        msg.style.color = '#16a34a';
+        msg.textContent = '✓ Entwurf gespeichert';
+        setTimeout(() => msg.style.display = 'none', 2000);
+      }
+    }
+
+    async function sendPi() {
+      const btn = document.getElementById('btn-send-pi');
+      if (!confirm(`Ersteinschätzung wirklich jetzt an ${leadEmail} senden?\n\nNach dem Senden kann die E-Mail nicht zurückgerufen werden.`)) return;
+      btn.disabled = true;
+      btn.textContent = 'Wird gesendet…';
+      const res = await fetch('/api/admin-leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: leadId, action: 'send-preisindikation' }),
+      });
+      if (res.ok) {
+        const msg = document.getElementById('pi-msg');
+        msg.style.display = 'inline';
+        msg.style.color = '#16a34a';
+        msg.textContent = '✓ PDF wurde gesendet — Seite neu laden';
+        btn.textContent = '✓ Gesendet';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'PDF an Verkäufer senden';
+        alert('Fehler beim Senden. Bitte erneut versuchen.');
       }
     }
 
