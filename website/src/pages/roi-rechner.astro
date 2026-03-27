@@ -494,7 +494,7 @@ import Layout from '../layouts/Layout.astro';
               <button type="submit" class="btn btn-primary email-gate-btn" id="email-gate-btn">
                 Analyse jetzt erhalten →
               </button>
-              <p class="email-gate-disclaimer">Direkt ins Postfach. Einmalig.</p>
+              <p class="email-gate-disclaimer">Kein Spam — nur deine Deal-Analyse.</p>
               <p class="email-gate-error" id="email-gate-error" hidden></p>
             </form>
           </div>
@@ -2267,14 +2267,16 @@ emailForm?.addEventListener('submit', async (e) => {
       if (pending) pending.style.display = 'block';
       window.scrollTo(0, 0);
     } else {
-      emailBtn.textContent = 'Analyse erhalten';
+      emailBtn.textContent = 'Analyse jetzt erhalten →';
       emailBtn.classList.remove('is-loading');
-      // Result still unlocked
+      emailError.textContent = 'Etwas ist schiefgelaufen. Bitte erneut versuchen.';
+      emailError.hidden = false;
     }
   } catch {
-    emailBtn.textContent = 'Analyse erhalten';
+    emailBtn.textContent = 'Analyse jetzt erhalten →';
     emailBtn.classList.remove('is-loading');
-    // Still unlocked — user has their result
+    emailError.textContent = 'Verbindungsfehler. Bitte erneut versuchen.';
+    emailError.hidden = false;
   }
 });
 
