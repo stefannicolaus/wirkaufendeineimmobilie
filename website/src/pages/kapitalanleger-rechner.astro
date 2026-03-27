@@ -501,7 +501,7 @@ import Layout from '../layouts/Layout.astro';
   border-bottom: 1px solid var(--color-border);
   padding-block: var(--space-4);
   position: sticky;
-  top: 0;
+  top: 80px;
   z-index: 50;
 }
 
@@ -898,7 +898,7 @@ import Layout from '../layouts/Layout.astro';
     });
     const progress = document.getElementById('quiz-progress');
     if (progress) {
-      window.scrollTo({ top: progress.offsetTop - 20, behavior: 'smooth' });
+      progress.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
