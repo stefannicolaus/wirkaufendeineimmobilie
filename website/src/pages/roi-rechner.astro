@@ -358,8 +358,8 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <div class="result-grid">
 
-          <!-- Left column: Dashboard + Joachim bubble -->
-          <div class="result-left-col">
+          <!-- Left column: Dashboard (hidden until email unlock) -->
+          <div class="result-left-col" id="result-left-col" hidden>
           <div class="result-dashboard-wrap" id="result-dashboard-wrap">
             <div class="result-blur-overlay" id="result-blur-overlay">
               <div class="result-blur-overlay__inner">
@@ -444,14 +444,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
 
-          <!-- Joachim annotation bubble -->
-          <div class="joachim-bubble">
-            <div class="joachim-bubble__avatar" aria-hidden="true">J</div>
-            <div class="joachim-bubble__body">
-              <p class="joachim-bubble__quote">„Drei Zeilen — und ich weiß sofort ob der Deal läuft oder nicht."</p>
-              <p class="joachim-bubble__name">Joachim K. &middot; Leipzig</p>
-            </div>
-          </div>
+          <!-- Joachim bubble removed -->
           </div><!-- /result-left-col -->
 
           <!-- Right: Email Gate -->
@@ -2288,8 +2281,10 @@ emailForm?.addEventListener('submit', async (e) => {
 function unlockResult() {
   const overlay = document.getElementById('result-blur-overlay');
   const dashboard = document.getElementById('result-dashboard');
+  const leftCol = document.getElementById('result-left-col');
   overlay?.classList.add('is-hidden');
   dashboard?.classList.add('is-revealed');
+  if (leftCol) leftCol.hidden = false;
 }
 
 // ─────────────────────────────────────────
