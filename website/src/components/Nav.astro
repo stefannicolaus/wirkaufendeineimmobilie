@@ -188,6 +188,15 @@
     z-index: 200;
   }
 
+  .nav__dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+  }
+
   .nav__dropdown:hover .nav__dropdown-menu,
   .nav__dropdown-trigger[aria-expanded="true"] + .nav__dropdown-menu {
     display: block;
