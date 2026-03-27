@@ -243,23 +243,60 @@ export async function triggerBrevoDoubleOptIn(opts: {
   templateId: number;
   redirectionUrl: string;
 }): Promise<void> {
-  await fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
+  // Brevo DOI-API erfordert Account-Level-Konfiguration die nicht per API
+  // möglich ist. Stattdessen senden wir eine transaktionale E-Mail mit
+  // dem Bestätigungslink direkt.
+  const confirmUrl = opts.redirectionUrl;
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
     headers: {
       'api-key': BREVO_API_KEY,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      email: opts.email,
-      attributes: {
-        VORNAME: opts.name,
-        TYP: opts.typ,
-      },
-      includeListIds: [opts.listId],
-      templateId: opts.templateId,
-      redirectionUrl: opts.redirectionUrl,
+      sender: { name: 'Joachim Kleinke — wirkaufendeineimmobilie.de', email: 'office@wirkaufendeineimmobilie.de' },
+      to: [{ email: opts.email, name: opts.name }],
+      subject: 'Deine Analyse ist bereit — bitte bestätigen',
+      htmlContent: `<!DOCTYPE html>
+<html lang="de"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f5f5f5;font-family:Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f5;padding:40px 20px;">
+    <tr><td align="center">
+      <table width="560" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:8px;overflow:hidden;max-width:560px;width:100%;">
+        <tr><td style="background:#1a1a1a;padding:32px 40px;text-align:center;">
+          <p style="margin:0;color:#c8a96e;font-size:13px;letter-spacing:2px;text-transform:uppercase;">wirkaufendeineimmobilie.de</p>
+        </td></tr>
+        <tr><td style="padding:40px 40px 32px;">
+          <h1 style="margin:0 0 16px;font-size:24px;color:#1a1a1a;">Fast fertig, ${opts.name}!</h1>
+          <p style="margin:0 0 24px;font-size:16px;color:#555;line-height:1.6;">
+            Deine persönliche Analyse wurde erstellt. Klicke auf den Button um sie zu erhalten:
+          </p>
+          <table cellpadding="0" cellspacing="0" style="margin:0 0 32px;">
+            <tr><td style="background:#c8a96e;border-radius:4px;">
+              <a href="${confirmUrl}" style="display:inline-block;padding:14px 32px;color:#1a1a1a;font-size:15px;font-weight:700;text-decoration:none;">Analyse jetzt erhalten</a>
+            </td></tr>
+          </table>
+          <p style="margin:0;font-size:13px;color:#999;line-height:1.6;">
+            Falls der Button nicht funktioniert:<br>
+            <a href="${confirmUrl}" style="color:#c8a96e;word-break:break-all;">${confirmUrl}</a>
+          </p>
+        </td></tr>
+        <tr><td style="padding:24px 40px;border-top:1px solid #eee;">
+          <p style="margin:0;font-size:12px;color:#aaa;line-height:1.6;">
+            Joachim Kleinke · Kleinke Real Estate · Tangermünder Weg 13, 13583 Berlin<br>
+            <a href="https://wirkaufendeineimmobilie.de/datenschutz" style="color:#aaa;">Datenschutzerklärung</a>
+          </p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body></html>`,
     }),
   });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Brevo email failed: ${err}`);
+  }
 }
 
 function sendBrevoEmail(opts: { to: string; subject: string; text?: string; html?: string }) {
