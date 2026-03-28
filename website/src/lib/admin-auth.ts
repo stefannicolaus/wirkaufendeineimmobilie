@@ -2,10 +2,13 @@ export const COOKIE_NAME = 'wkdi_admin_session';
 const TOKEN_VALUE = 'wkdi-admin-authenticated';
 
 export function validateAdminCredentials(user: string, password: string): boolean {
-  const envUser = process.env.ADMIN_USER;
-  const envPassword = process.env.ADMIN_PASSWORD;
-  if (!envUser || !envPassword) return false;
-  return user === envUser && password === envPassword;
+  const users = [
+    { user: process.env.ADMIN_USER, password: process.env.ADMIN_PASSWORD },
+    { user: process.env.ADMIN_USER_2, password: process.env.ADMIN_PASSWORD_2 },
+  ];
+  return users.some(
+    (u) => u.user && u.password && user === u.user && password === u.password
+  );
 }
 
 export function makeSessionCookie(): string {
