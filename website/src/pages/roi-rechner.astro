@@ -2239,7 +2239,7 @@ emailForm?.addEventListener('submit', async (e) => {
     const body = {
       vorname,
       email,
-      objekt_typ: state.objekt_typ,
+      objekt_typ: state.geg_foerderung ? 'geg' : 'standard',
       stadtteil: state.stadtteil,
       kaufpreis: state.kaufpreis,
       wohnflaeche: state.wohnflaeche,

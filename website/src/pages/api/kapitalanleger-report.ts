@@ -117,23 +117,20 @@ export const POST: APIRoute = async ({ request }) => {
       pdf_base64: pdfBase64,
     });
 
-    // Trigger DOI — Brevo sends confirmation email, user clicks → confirm-report
-    if (BREVO_DOI_TEMPLATE_ID && BREVO_LIST_ID_KAPITALANLEGER) {
-      const redirectionUrl = buildDoiRedirectUrl(SITE_BASE_URL, 'confirm-report', refNr);
-      try {
-        await triggerBrevoDoubleOptIn({
-          email,
-          name: vorname,
-          typ: 'kapitalanleger-rechner',
-          listId: BREVO_LIST_ID_KAPITALANLEGER,
-          templateId: BREVO_DOI_TEMPLATE_ID,
-          redirectionUrl,
-        });
-      } catch (doiErr) {
-        console.error('[kapitalanleger-report] DOI trigger failed:', doiErr);
-        // Fail the whole request — user must retry, otherwise they'll never receive the confirmation email
-        throw doiErr;
-      }
+    // Trigger DOI — sends confirmation email, user clicks → confirm-report
+    const redirectionUrl = buildDoiRedirectUrl(SITE_BASE_URL, 'confirm-report', refNr);
+    try {
+      await triggerBrevoDoubleOptIn({
+        email,
+        name: vorname,
+        typ: 'kapitalanleger-rechner',
+        listId: BREVO_LIST_ID_KAPITALANLEGER,
+        templateId: BREVO_DOI_TEMPLATE_ID,
+        redirectionUrl,
+      });
+    } catch (doiErr) {
+      console.error('[kapitalanleger-report] DOI trigger failed:', doiErr);
+      throw doiErr;
     }
 
     return new Response(
