@@ -307,6 +307,7 @@ import Layout from '../layouts/Layout.astro';
               <span>Ich stimme der <a href="/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a> zu und bin damit einverstanden, dass meine Daten zur Erstellung der Analyse verwendet werden.</span>
             </label>
           </div>
+          <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
           <button type="submit" class="btn btn-primary email-gate-btn" id="email-gate-btn">
             PDF jetzt per E-Mail erhalten
           </button>
@@ -1050,10 +1051,14 @@ import Layout from '../layouts/Layout.astro';
     }
 
     try {
+      // Turnstile token (invisible captcha)
+      const turnstileInput = emailForm?.querySelector('[name="cf-turnstile-response"]') as HTMLInputElement | null;
+      const turnstileToken = turnstileInput?.value || '';
+
       const res = await fetch('/api/kapitalanleger-report', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, vorname, email }),
+        body: JSON.stringify({ ...formData, vorname, email, 'cf-turnstile-response': turnstileToken }),
       });
       const data = await res.json();
       if (!data.success) throw new Error(data.error || 'Fehler beim Verarbeiten');

@@ -8,6 +8,7 @@ import type { KapitalanlegerInput } from '../../lib/kapitalanleger-calc';
 import { generateKapitalanlegerPdfHtml } from '../../lib/kapitalanleger-pdf';
 import { insertKapitalanlegerLead, triggerBrevoDoubleOptIn } from '../../lib/db';
 import { generateRefNr, buildDoiRedirectUrl } from '../../lib/ref';
+import { verifyTurnstile } from '../../lib/turnstile';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const portraitPath = join(__dirname, '../../../../public/images/joachim-kleinke-portrait.jpg');
@@ -25,6 +26,17 @@ const SITE_BASE_URL = process.env.SITE_URL || 'https://wirkaufendeineimmobilie.d
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
+
+    // Turnstile spam check
+    const turnstileToken = body['cf-turnstile-response'] || '';
+    const clientIp = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || undefined;
+    const turnstileOk = await verifyTurnstile(turnstileToken, clientIp);
+    if (!turnstileOk) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Spam-Schutz fehlgeschlagen. Bitte Seite neu laden.' }),
+        { status: 403, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
 
     const {
       vorname, email,

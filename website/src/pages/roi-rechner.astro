@@ -491,6 +491,7 @@ import Layout from '../layouts/Layout.astro';
                 <label class="field-label" for="gate-email">E-Mail</label>
                 <input type="email" id="gate-email" name="email" placeholder="max@beispiel.de" required autocomplete="email" />
               </div>
+              <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
               <button type="submit" class="btn btn-primary email-gate-btn" id="email-gate-btn">
                 Analyse jetzt erhalten →
               </button>
@@ -2236,9 +2237,14 @@ emailForm?.addEventListener('submit', async (e) => {
   unlockResult();
 
   try {
+    // Turnstile token (invisible captcha)
+    const turnstileInput = emailForm.querySelector('[name="cf-turnstile-response"]') as HTMLInputElement | null;
+    const turnstileToken = turnstileInput?.value || '';
+
     const body = {
       vorname,
       email,
+      'cf-turnstile-response': turnstileToken,
       objekt_typ: state.geg_foerderung ? 'geg' : 'standard',
       stadtteil: state.stadtteil,
       kaufpreis: state.kaufpreis,

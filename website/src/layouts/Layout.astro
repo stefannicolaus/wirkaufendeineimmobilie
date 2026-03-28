@@ -82,6 +82,9 @@ const personJsonLd = JSON.stringify({
 
   <slot name="head" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <!-- Cloudflare Turnstile (Spam-Schutz) -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-X33GJRWJB5"></script>
   <script>
