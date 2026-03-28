@@ -44,6 +44,7 @@ import Layout from '../../layouts/Layout.astro';
           <div class="wizard-input-group">
             <input type="text" id="plz-input" inputmode="numeric" placeholder="z.B. 04109" maxlength="5" class="wizard-text-input" />
           </div>
+          <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
           <button type="button" id="submit-btn" class="btn btn-primary" style="margin-top: var(--space-6);">Absenden &rarr;</button>
           <p id="submit-error" class="submit-error" hidden>Bitte PLZ eingeben</p>
         </div>
@@ -104,6 +105,8 @@ import Layout from '../../layouts/Layout.astro';
     formData.append('from_questionnaire', '1');
     Object.entries(answers).forEach(([k, v]) => formData.append(k, v));
     formData.append('plz', plz);
+    const turnstileInput = document.querySelector('.cf-turnstile input[name="cf-turnstile-response"]') as HTMLInputElement;
+    if (turnstileInput?.value) formData.append('cf-turnstile-response', turnstileInput.value);
 
     // email was captured in the email gate on index.astro
     // we retrieve it from sessionStorage if available, otherwise skip

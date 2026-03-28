@@ -3,6 +3,7 @@ import type { APIRoute } from 'astro';
 import { insertRegistration } from '../../lib/db';
 import { checkRateLimit } from '../../lib/rate-limit';
 import { sendTransactionalEmail } from '../../lib/brevo';
+import { verifyTurnstile } from '../../lib/turnstile';
 
 export const prerender = false;
 
@@ -18,6 +19,14 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (data.get('website')) {
     return new Response(JSON.stringify({ success: true }), {
       status: 200, headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  // Turnstile spam check
+  const turnstileOk = await verifyTurnstile(String(data.get('cf-turnstile-response') || ''), ip);
+  if (!turnstileOk) {
+    return new Response(JSON.stringify({ error: 'Spam-Schutz fehlgeschlagen. Bitte Seite neu laden.' }), {
+      status: 403, headers: { 'Content-Type': 'application/json' },
     });
   }
 

@@ -121,6 +121,7 @@ const jsonLdFaq = JSON.stringify({
         <input type="email" name="email" placeholder="E-Mail-Adresse" required aria-label="E-Mail" />
         <input type="tel" name="telefon" placeholder="Telefonnummer (optional)" aria-label="Telefon" />
         <input type="text" name="plz" placeholder="PLZ der Immobilie" pattern="[0-9]{5}" maxlength="5" required aria-label="PLZ" />
+        <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
         <button type="submit" class="btn btn-primary iv-form__btn">Kostenlos bewerten &rarr;</button>
       </form>
     </div>
@@ -305,6 +306,7 @@ const jsonLdFaq = JSON.stringify({
         <input type="email" name="email" placeholder="E-Mail-Adresse" required aria-label="E-Mail" />
         <input type="tel" name="telefon" placeholder="Telefonnummer (optional)" aria-label="Telefon" />
         <input type="text" name="plz" placeholder="PLZ der Immobilie" pattern="[0-9]{5}" maxlength="5" required aria-label="PLZ" />
+        <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
         <button type="submit" class="btn btn-primary iv-form__btn">Kostenlos bewerten &rarr;</button>
       </form>
       <div class="iv-joachim">

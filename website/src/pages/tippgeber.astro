@@ -270,6 +270,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
             <label for="tipp-plz">PLZ Einsatzgebiet *</label>
             <input type="text" id="tipp-plz" name="plz" required placeholder="z.B. 04177" />
           </div>
+          <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
           <button type="submit" class="btn btn-primary tipp-form__submit">Jetzt anmelden &rarr;</button>
           <FormPrivacyHint />
         </form>

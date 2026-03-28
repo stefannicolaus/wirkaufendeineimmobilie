@@ -50,6 +50,7 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
             <input type="email" name="email" placeholder="Deine E-Mail *" required class="ap-gate-input" />
           </div>
           <FormPrivacyHint />
+          <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
           <button type="submit" class="btn btn-primary ap-hero__cta">Checkliste anfordern &rarr;</button>
         </form>
       </div>

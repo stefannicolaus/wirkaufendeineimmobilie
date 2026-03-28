@@ -268,6 +268,7 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
           <div style="position: absolute; left: -9999px;" aria-hidden="true">
             <input type="text" name="website" tabindex="-1" autocomplete="off" />
           </div>
+          <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
           <button type="submit" class="btn btn-primary makler-form__submit">Bewerbung einreichen &rarr;</button>
           <FormPrivacyHint />
         </form>

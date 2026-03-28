@@ -497,6 +497,7 @@ export const prerender = false;
           <label for="k-plz">PLZ der Immobilie *</label>
           <input type="text" id="k-plz" name="plz" required placeholder="04315" autocomplete="postal-code" maxlength="5" />
         </div>
+        <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
         <button type="submit" class="btn btn-primary wiz-btn-next">
           Unterlagen hochladen starten &rarr;
         </button>

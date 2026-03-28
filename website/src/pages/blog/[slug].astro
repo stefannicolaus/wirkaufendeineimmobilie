@@ -143,6 +143,7 @@ const jsonLdBreadcrumb = JSON.stringify({
             required
             aria-label="Postleitzahl"
           />
+          <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
           <button type="submit" class="btn btn-primary">Kostenlos bewerten &rarr;</button>
         </form>
         <div class="bl-joachim">
@@ -181,6 +182,7 @@ const jsonLdBreadcrumb = JSON.stringify({
           required
           aria-label="Postleitzahl"
         />
+        <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
         <button type="submit" class="btn btn-primary">Kostenlose Bewertung anfordern &rarr;</button>
       </form>
     </div>

@@ -114,6 +114,7 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
               <input type="tel" id="wizard-telefon" name="telefon" placeholder="0341 123 456" />
             </div>
           </div>
+          <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
           <button type="button" class="btn btn-primary wizard-submit">Aktionsplan erstellen lassen &rarr;</button>
           <FormPrivacyHint />
         </div>
@@ -515,6 +516,8 @@ import FormPrivacyHint from '../../components/FormPrivacyHint.astro';
     formData.append('typ', 'aktionsplan-erben');
     formData.append('from_questionnaire', '1');
     Object.entries(answers).forEach(([k, v]) => formData.append(k, v));
+    const turnstileInput = document.querySelector('.cf-turnstile input[name="cf-turnstile-response"]') as HTMLInputElement;
+    if (turnstileInput?.value) formData.append('cf-turnstile-response', turnstileInput.value);
 
     const situationEl = document.querySelector('[name="situation"]') as HTMLTextAreaElement;
     const plzEl = document.querySelector('[name="plz"]') as HTMLInputElement;
