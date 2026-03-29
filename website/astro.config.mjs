@@ -8,7 +8,16 @@ export default defineConfig({
   security: { checkOrigin: false },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/danke') && !page.includes('/api/'),
+      filter: (page) =>
+        !page.includes('/danke') &&
+        !page.includes('/api/') &&
+        !page.includes('/admin/') &&
+        !page.includes('/test/') &&
+        !page.includes('/abmelden') &&
+        !page.includes('/feed') &&
+        !page.includes('/interview-tool') &&
+        !page.includes('/unterlagen') &&
+        !page.includes('/start/'),
     }),
   ],
   vite: {
