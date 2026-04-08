@@ -54,6 +54,7 @@ import Layout from '../layouts/Layout.astro';
         <p>Jede Gruppe hat einen klaren Fokus. Tritt bei wo du hingehörst — oder gleich in mehrere.</p>
       </div>
 
+      <!-- TODO vor Go-Live: Joachim WhatsApp-Einladungslinks eintragen — alle 5 href="https://chat.whatsapp.com/XXXXX" ersetzen -->
       <div class="comm-groups">
 
         <!-- Makler -->
@@ -61,7 +62,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="comm-card__img">
             <div class="comm-card__placeholder">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              <span>Zwei Profis beim Händedruck vor einem Leipziger Altbau</span>
+              <span aria-hidden="true">Zwei Profis beim Händedruck vor einem Leipziger Altbau</span>
             </div>
           </div>
           <div class="comm-card__body">
@@ -79,7 +80,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="comm-card__img">
             <div class="comm-card__placeholder">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              <span>Investor mit Laptop vor Mehrfamilienhaus, Zahlen auf dem Screen</span>
+              <span aria-hidden="true">Investor mit Laptop vor Mehrfamilienhaus, Zahlen auf dem Screen</span>
             </div>
           </div>
           <div class="comm-card__body">
@@ -97,7 +98,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="comm-card__img">
             <div class="comm-card__placeholder">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-              <span>Handwerker-Team bei Sanierungsarbeiten in einer Altbau-Wohnung</span>
+              <span aria-hidden="true">Handwerker-Team bei Sanierungsarbeiten in einer Altbau-Wohnung</span>
             </div>
           </div>
           <div class="comm-card__body">
@@ -115,7 +116,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="comm-card__img">
             <div class="comm-card__placeholder">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              <span>Person zeigt auf ein „Zu Verkaufen"-Schild vor einem Haus</span>
+              <span aria-hidden="true">Person zeigt auf ein „Zu Verkaufen"-Schild vor einem Haus</span>
             </div>
           </div>
           <div class="comm-card__body">
@@ -133,7 +134,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="comm-card__img">
             <div class="comm-card__placeholder">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-              <span>Beratungsgespräch am Tisch mit Unterlagen und Taschenrechner</span>
+              <span aria-hidden="true">Beratungsgespräch am Tisch mit Unterlagen und Taschenrechner</span>
             </div>
           </div>
           <div class="comm-card__body">
@@ -250,6 +251,13 @@ import Layout from '../layouts/Layout.astro';
   .comm-card:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
+  }
+
+  /* 5th card spans full row */
+  .comm-card:last-child {
+    grid-column: 1 / -1;
+    max-width: calc(50% - var(--space-3));
+    margin-inline: auto;
   }
 
   /* Card Image Placeholder */
