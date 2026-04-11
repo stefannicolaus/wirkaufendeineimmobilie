@@ -141,31 +141,30 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
   <!-- REGISTRATION SECTION -->
   <section class="section bg-alt comm-reg-section" id="registrierung">
     <div class="container">
-      <div class="comm-reg-split">
 
-        <!-- Left: Why register -->
-        <div class="comm-reg-text">
-          <div class="label">Kostenlose Mitgliedschaft</div>
-          <h2>Einmal registrieren,<br />alle Gruppen nutzen.</h2>
-          <p>Wir prüfen jeden Antrag kurz — damit die Gruppen sauber bleiben. Antwort innerhalb von 24 Stunden.</p>
-          <ul class="comm-reg-checks">
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Nur echte Akteure — kein Spam
-            </li>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Direkte WhatsApp-Links nach Freischaltung
-            </li>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Kostenlos, jederzeit kündbar
-            </li>
-          </ul>
-        </div>
+      <!-- Header above form -->
+      <div class="comm-reg-header">
+        <div class="label">Kostenlose Mitgliedschaft</div>
+        <h2>Einmal registrieren,<br />alle Gruppen nutzen.</h2>
+        <p>Wir prüfen jeden Antrag kurz — damit die Gruppen sauber bleiben. Antwort innerhalb von 24 Stunden.</p>
+        <ul class="comm-reg-checks">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Nur echte Akteure — kein Spam
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Direkte WhatsApp-Links nach Freischaltung
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Kostenlos, jederzeit kündbar
+          </li>
+        </ul>
+      </div>
 
-        <!-- Right: Form -->
-        <div class="comm-reg-form-wrap">
+      <!-- Form card — full width centered -->
+      <div class="comm-reg-form-wrap">
 
           <!-- STEP 1: Role selection -->
           <div id="step-role" class="comm-step">
@@ -258,7 +257,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
               <div style="position:absolute;left:-9999px;" aria-hidden="true">
                 <input type="text" name="website" tabindex="-1" autocomplete="off" />
               </div>
-              <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="light" data-size="compact"></div>
+              <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="light" data-size="compact" data-appearance="interaction-only"></div>
               <FormPrivacyHint />
               <button type="submit" class="btn btn-primary comm-form__submit">Zugang anfragen &rarr;</button>
             </form>
@@ -289,7 +288,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
               <div style="position:absolute;left:-9999px;" aria-hidden="true">
                 <input type="text" name="website" tabindex="-1" autocomplete="off" />
               </div>
-              <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="light" data-size="compact"></div>
+              <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="light" data-size="compact" data-appearance="interaction-only"></div>
               <FormPrivacyHint />
               <button type="submit" class="btn btn-primary comm-form__submit">Bewerbung einreichen &rarr;</button>
             </form>
@@ -339,7 +338,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
                 <label for="tipp-plz">PLZ Einsatzgebiet *</label>
                 <input type="text" id="tipp-plz" name="plz" required placeholder="z.B. 04177" />
               </div>
-              <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="light" data-size="compact"></div>
+              <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="light" data-size="compact" data-appearance="interaction-only"></div>
               <FormPrivacyHint />
               <button type="submit" class="btn btn-primary comm-form__submit">Jetzt anmelden &rarr;</button>
             </form>
@@ -362,7 +361,6 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
           </div><!-- /step-form -->
 
         </div><!-- /comm-reg-form-wrap -->
-      </div><!-- /comm-reg-split -->
     </div>
   </section>
 
@@ -509,23 +507,20 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
     border-top: 1px solid var(--color-border);
   }
 
-  .comm-reg-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-16);
-    align-items: start;
-    max-width: 960px;
-    margin: 0 auto;
+  /* ── Registration header (above form) ────────────────── */
+  .comm-reg-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto var(--space-10);
   }
-
-  .comm-reg-text h2 {
-    font-size: var(--text-2xl);
+  .comm-reg-header h2 {
+    font-size: var(--text-3xl);
     font-weight: var(--weight-extrabold);
     letter-spacing: var(--tracking-tight);
     line-height: var(--leading-tight);
     margin: var(--space-3) 0 var(--space-4);
   }
-  .comm-reg-text p {
+  .comm-reg-header p {
     color: var(--color-text-mid);
     font-size: var(--text-base);
     line-height: var(--leading-normal);
@@ -534,13 +529,14 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
   .comm-reg-checks {
     list-style: none;
     display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-6);
+    justify-content: center;
+    flex-wrap: wrap;
   }
   .comm-reg-checks li {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: var(--space-2);
     font-size: var(--text-sm);
     font-weight: var(--weight-medium);
     color: var(--color-text);
@@ -632,12 +628,14 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
     color: var(--color-text-mid);
   }
 
-  /* ── Form wrap card ───────────────────────────────────── */
+  /* ── Form wrap card — centered full width ────────────── */
   .comm-reg-form-wrap {
     background: var(--color-bg-card);
     border-radius: var(--radius-xl);
-    padding: clamp(24px, 3vw, 40px);
+    padding: clamp(32px, 4vw, 48px);
     box-shadow: 0 4px 8px rgba(15,23,42,0.04), 0 8px 24px rgba(15,23,42,0.1), 0 16px 48px rgba(15,23,42,0.06);
+    max-width: 680px;
+    margin: 0 auto;
   }
 
   /* ── Fix: CSS display overrides hidden attribute ─────── */
@@ -690,10 +688,6 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
     .comm-groups .comm-card:nth-child(5) {
       grid-column: auto;
     }
-    .comm-reg-split {
-      grid-template-columns: 1fr;
-      gap: var(--space-10);
-    }
     .comm-benefits {
       grid-template-columns: 1fr;
       gap: var(--space-6);
@@ -705,6 +699,13 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
   @media (max-width: 600px) {
     .comm-groups {
       grid-template-columns: 1fr;
+    }
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+    .comm-reg-checks {
+      flex-direction: column;
+      align-items: center;
     }
   }
 </style>
