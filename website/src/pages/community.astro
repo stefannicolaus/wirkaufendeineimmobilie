@@ -626,6 +626,14 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
     color: var(--color-text-mid);
   }
 
+  /* ── Form wrap card ───────────────────────────────────── */
+  .comm-reg-form-wrap {
+    background: var(--color-bg-card);
+    border-radius: var(--radius-xl);
+    padding: clamp(24px, 3vw, 40px);
+    box-shadow: 0 4px 8px rgba(15,23,42,0.04), 0 8px 24px rgba(15,23,42,0.1), 0 16px 48px rgba(15,23,42,0.06);
+  }
+
   /* ── Form ─────────────────────────────────────────────── */
   .comm-form {
     display: flex;
