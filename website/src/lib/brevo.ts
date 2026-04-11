@@ -62,3 +62,38 @@ export async function sendTransactionalEmail(opts: {
 
   return await res.json();
 }
+
+export async function sendInternalEmail(opts: {
+  subject: string;
+  htmlContent: string;
+  to?: string;
+}) {
+  const apiKey = process.env.BREVO_API_KEY || import.meta.env.BREVO_API_KEY;
+  if (!apiKey) throw new Error('BREVO_API_KEY not configured');
+
+  const body = {
+    sender: {
+      name: 'WKDI Formular-Benachrichtigung',
+      email: 'office@wirkaufendeineimmobilie.de',
+    },
+    to: [{ email: opts.to ?? 'office@wirkaufendeineimmobilie.de' }],
+    subject: opts.subject,
+    htmlContent: `<div style="font-family:system-ui,sans-serif;max-width:600px;color:#111827;line-height:1.6">${opts.htmlContent}</div>`,
+  };
+
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'api-key': apiKey,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Brevo API error ${res.status}: ${err}`);
+  }
+
+  return await res.json();
+}
