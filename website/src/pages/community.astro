@@ -265,21 +265,25 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
 
             <!-- Makler Form -->
             <form id="form-makler" class="comm-form" hidden>
-              <div class="form-group">
-                <label for="makler-name">Ihr Name *</label>
-                <input type="text" id="makler-name" name="name" required placeholder="Vorname Nachname" autocomplete="name" />
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="makler-name">Ihr Name *</label>
+                  <input type="text" id="makler-name" name="name" required placeholder="Vorname Nachname" autocomplete="name" />
+                </div>
+                <div class="form-group">
+                  <label for="makler-firma">Maklerbüro</label>
+                  <input type="text" id="makler-firma" name="maklerbuero" placeholder="Ihr Unternehmen" autocomplete="organization" />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="makler-firma">Maklerbüro</label>
-                <input type="text" id="makler-firma" name="maklerbuero" placeholder="Ihr Unternehmen" autocomplete="organization" />
-              </div>
-              <div class="form-group">
-                <label for="makler-email">E-Mail *</label>
-                <input type="email" id="makler-email" name="email" required placeholder="name@maklerbuero.de" autocomplete="email" />
-              </div>
-              <div class="form-group">
-                <label for="makler-tel">Telefon *</label>
-                <input type="tel" id="makler-tel" name="telefon" required placeholder="030 123 456" autocomplete="tel" />
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="makler-email">E-Mail *</label>
+                  <input type="email" id="makler-email" name="email" required placeholder="name@maklerbuero.de" autocomplete="email" />
+                </div>
+                <div class="form-group">
+                  <label for="makler-tel">Telefon *</label>
+                  <input type="tel" id="makler-tel" name="telefon" required placeholder="030 123 456" autocomplete="tel" />
+                </div>
               </div>
               <!-- Honeypot -->
               <div style="position:absolute;left:-9999px;" aria-hidden="true">
@@ -306,13 +310,15 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
                   <input type="text" id="tipp-nachname" name="nachname" required placeholder="Mustermann" autocomplete="family-name" />
                 </div>
               </div>
-              <div class="form-group">
-                <label for="tipp-email">E-Mail *</label>
-                <input type="email" id="tipp-email" name="email" required placeholder="deine@email.de" autocomplete="email" />
-              </div>
-              <div class="form-group">
-                <label for="tipp-tel">Telefon *</label>
-                <input type="tel" id="tipp-tel" name="telefon" required placeholder="0341 123 456" autocomplete="tel" />
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="tipp-email">E-Mail *</label>
+                  <input type="email" id="tipp-email" name="email" required placeholder="deine@email.de" autocomplete="email" />
+                </div>
+                <div class="form-group">
+                  <label for="tipp-tel">Telefon *</label>
+                  <input type="tel" id="tipp-tel" name="telefon" required placeholder="0341 123 456" autocomplete="tel" />
+                </div>
               </div>
               <div class="form-group">
                 <label for="tipp-beruf">Ich bin... *</label>
@@ -636,6 +642,13 @@ const TURNSTILE_SITE_KEY = import.meta.env.TURNSTILE_SITE_KEY || '';
 
   /* ── Fix: CSS display overrides hidden attribute ─────── */
   [hidden] { display: none !important; }
+
+  /* ── Form row (2-column grid) ─────────────────────────── */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
 
   /* ── Form ─────────────────────────────────────────────── */
   .comm-form {
