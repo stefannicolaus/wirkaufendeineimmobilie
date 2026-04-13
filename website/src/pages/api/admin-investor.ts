@@ -20,7 +20,7 @@ function authCheck(request: Request): boolean {
 
 function originCheck(request: Request): boolean {
   const origin = request.headers.get('origin') ?? '';
-  return ALLOWED_ORIGINS.some(o => origin === o || origin.startsWith(o));
+  return ALLOWED_ORIGINS.includes(origin);
 }
 
 export const POST: APIRoute = async ({ request }) => {
