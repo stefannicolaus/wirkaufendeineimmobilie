@@ -109,6 +109,13 @@ try { db.exec(`ALTER TABLE registrations ADD COLUMN pi_preis_min INTEGER`); } ca
 try { db.exec(`ALTER TABLE registrations ADD COLUMN pi_preis_max INTEGER`); } catch {}
 try { db.exec(`ALTER TABLE registrations ADD COLUMN pi_sent_at DATETIME`); } catch {}
 
+// Investor-spezifische Felder (idempotent)
+try { db.exec(`ALTER TABLE registrations ADD COLUMN assetklasse TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN kaufpreis_min INTEGER`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN kaufpreis_max INTEGER`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN objektzustand TEXT`); } catch {}
+try { db.exec(`ALTER TABLE registrations ADD COLUMN kaufzeitrahmen TEXT`); } catch {}
+
 export function insertRegistration(data: Record<string, unknown>) {
   const columns = Object.keys(data);
   const placeholders = columns.map(() => '?').join(', ');
@@ -432,6 +439,39 @@ export function getKapitalanlegerLeads(opts: { limit?: number; offset?: number }
             kaufpreis, doi_confirmed, created_at
      FROM leads_kapitalanleger ORDER BY created_at DESC LIMIT ? OFFSET ?`
   ).all(opts.limit ?? 50, opts.offset ?? 0) as Record<string, unknown>[];
+}
+
+export function getInvestorRegistrations(limit = 200) {
+  return db.prepare(
+    `SELECT id, name, email, telefon, status, notiz, investor_typ, erfahrung,
+            assetklasse, kaufpreis_min, kaufpreis_max, objektzustand, kaufzeitrahmen,
+            created_at
+     FROM registrations
+     WHERE typ = 'investor' AND status != 'geloescht'
+     ORDER BY created_at DESC
+     LIMIT ?`
+  ).all(limit) as Record<string, unknown>[];
+}
+
+export function getInvestorStats() {
+  const rows = db.prepare(
+    `SELECT status, COUNT(*) as count FROM registrations
+     WHERE typ = 'investor' AND status != 'geloescht'
+     GROUP BY status`
+  ).all() as { status: string; count: number }[];
+
+  const by: Record<string, number> = {};
+  let gesamt = 0;
+  for (const r of rows) {
+    by[r.status] = r.count;
+    gesamt += r.count;
+  }
+  return {
+    gesamt,
+    neu: by['neu'] ?? 0,
+    qualifiziert: by['qualifiziert'] ?? 0,
+    abgeschlossen: by['abgeschlossen'] ?? 0,
+  };
 }
 
 export default db;
