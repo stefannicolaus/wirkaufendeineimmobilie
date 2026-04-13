@@ -157,6 +157,69 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
               <option value="fliesenleger">Fliesenleger</option>
             </select>
           </div>
+
+          <div class="form-group">
+            <label>Welche Immobilientypen kaufst du? *</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-item">
+                <input type="checkbox" name="assetklasse" value="ETW" />
+                <span>ETW — Eigentumswohnung</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="assetklasse" value="EFH" />
+                <span>EFH — Ein-/Zweifamilienhaus</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="assetklasse" value="MFH" />
+                <span>MFH — Mehrfamilienhaus</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="assetklasse" value="NKA" />
+                <span>Gewerbe / Gemischt</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inv-preis-von">Kaufpreis ab (€)</label>
+              <input type="number" id="inv-preis-von" name="kaufpreis_min" placeholder="z.B. 150000" min="0" step="5000" />
+            </div>
+            <div class="form-group">
+              <label for="inv-preis-bis">Kaufpreis bis (€)</label>
+              <input type="number" id="inv-preis-bis" name="kaufpreis_max" placeholder="z.B. 400000" min="0" step="5000" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Welchen Zustand akzeptierst du?</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-item">
+                <input type="checkbox" name="objektzustand" value="vollsanierung" />
+                <span>Vollsanierung nötig</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="objektzustand" value="teilsanierung" />
+                <span>Teilsanierung</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="objektzustand" value="gepflegt" />
+                <span>Gepflegt / bezugsfertig</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inv-zeitrahmen">Kaufzeitrahmen *</label>
+            <select id="inv-zeitrahmen" name="kaufzeitrahmen" required>
+              <option value="">Bitte wählen...</option>
+              <option value="sofort">Sofort / nächste 4 Wochen</option>
+              <option value="1-3m">1–3 Monate</option>
+              <option value="3-6m">3–6 Monate</option>
+              <option value="6-12m">6–12 Monate</option>
+            </select>
+          </div>
+
           <div class="cf-turnstile" data-sitekey={import.meta.env.TURNSTILE_SITE_KEY || ''} data-theme="dark" data-size="compact"></div>
           <button type="submit" class="btn btn-primary inv-form__submit">Zugang anfragen &rarr;</button>
           <FormPrivacyHint />
@@ -500,9 +563,52 @@ import FormPrivacyHint from '../components/FormPrivacyHint.astro';
     margin-top: var(--space-2);
   }
 
+  /* CHECKBOX GRID */
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    margin-top: var(--space-1);
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: var(--text-sm);
+    color: var(--color-text-mid);
+    transition: border-color 0.15s, background 0.15s;
+    user-select: none;
+  }
+
+  .checkbox-item:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text);
+  }
+
+  .checkbox-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    accent-color: var(--color-accent);
+    cursor: pointer;
+  }
+
+  .checkbox-item:has(input:checked) {
+    border-color: var(--color-accent);
+    background: var(--color-accent-light);
+    color: var(--color-text);
+  }
+
   @media (max-width: 768px) {
     .inv-form-split { grid-template-columns: 1fr; gap: var(--space-8); }
     .form-row { grid-template-columns: 1fr; }
+    .checkbox-grid { grid-template-columns: 1fr; }
   }
 </style>
 

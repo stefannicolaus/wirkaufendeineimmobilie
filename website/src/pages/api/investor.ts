@@ -53,6 +53,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     ...(konkreter_deal ? { konkreter_deal } : {}),
   });
 
+  const assetklasseArr = data.getAll('assetklasse').map(String).filter(Boolean);
+  const objektzustandArr = data.getAll('objektzustand').map(String).filter(Boolean);
+  const kaufpreis_min_raw = data.get('kaufpreis_min');
+  const kaufpreis_max_raw = data.get('kaufpreis_max');
+
   insertRegistration({
     typ: 'investor',
     name,
@@ -63,6 +68,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     gewerk: data.get('gewerk'),
     lead_magnet_data,
     pain_freitext: data.get('pain_freitext') || null,
+    assetklasse: assetklasseArr.length > 0 ? JSON.stringify(assetklasseArr) : null,
+    objektzustand: objektzustandArr.length > 0 ? JSON.stringify(objektzustandArr) : null,
+    kaufpreis_min: kaufpreis_min_raw ? (parseInt(String(kaufpreis_min_raw), 10) || null) : null,
+    kaufpreis_max: kaufpreis_max_raw ? (parseInt(String(kaufpreis_max_raw), 10) || null) : null,
+    kaufzeitrahmen: data.get('kaufzeitrahmen') ? String(data.get('kaufzeitrahmen')) : null,
   });
 
   const anrede = vorname || name || 'Investor';
@@ -109,6 +119,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   <tr><td style="padding:6px 12px 6px 0;color:#6b7280">Telefon</td><td style="padding:6px 0">${data.get('telefon') || '—'}</td></tr>
   <tr><td style="padding:6px 12px 6px 0;color:#6b7280">Investor-Typ</td><td style="padding:6px 0">${data.get('investor_typ') || '—'}</td></tr>
   <tr><td style="padding:6px 12px 6px 0;color:#6b7280">Erfahrung</td><td style="padding:6px 0">${data.get('erfahrung') || '—'}</td></tr>
+  <tr><td style="padding:6px 12px 6px 0;color:#6b7280">Assetklassen</td><td style="padding:6px 0">${assetklasseArr.join(', ') || '—'}</td></tr>
+  <tr><td style="padding:6px 12px 6px 0;color:#6b7280">Kaufpreis</td><td style="padding:6px 0">${kaufpreis_min_raw ? `€ ${Number(kaufpreis_min_raw).toLocaleString('de-DE')}` : '—'} – ${kaufpreis_max_raw ? `€ ${Number(kaufpreis_max_raw).toLocaleString('de-DE')}` : '—'}</td></tr>
+  <tr><td style="padding:6px 12px 6px 0;color:#6b7280">Objektzustand</td><td style="padding:6px 0">${objektzustandArr.join(', ') || '—'}</td></tr>
+  <tr><td style="padding:6px 12px 6px 0;color:#6b7280">Kaufzeitrahmen</td><td style="padding:6px 0">${data.get('kaufzeitrahmen') || '—'}</td></tr>
   <tr><td style="padding:6px 12px 6px 0;color:#6b7280">Quelle</td><td style="padding:6px 0">${source || 'direkt'}</td></tr>
 </table>
 ${isCommunity ? '<p style="margin-top:1rem;padding:12px 16px;background:#fef3c7;border-radius:6px;font-size:14px">→ Bitte prüfen und WhatsApp-Gruppenlink zuschicken.</p>' : ''}`,
