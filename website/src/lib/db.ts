@@ -403,6 +403,8 @@ export function updateRegistration(id: number, fields: {
   pi_preis_max?: number | null;
   pi_sent_at?: string;
 }) {
+  // Note: investor-specific fields (assetklasse, kaufpreis_min/max, objektzustand, kaufzeitrahmen)
+  // are intentionally excluded — written by the registration form, read-only in admin dashboard.
   const ALLOWED = ['status', 'notiz', 'preisindikation_json', 'pi_anschreiben', 'pi_preis_min', 'pi_preis_max', 'pi_sent_at'];
   const keys = Object.keys(fields).filter(k => ALLOWED.includes(k));
   if (!keys.length) return;
