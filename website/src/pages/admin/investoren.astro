@@ -270,7 +270,7 @@ function statusBadge(s: unknown): string {
                     kaufzeitrahmen: String(row.kaufzeitrahmen ?? ''),
                     created_at: String(row.created_at ?? ''),
                   })}
-                  style={`animation-delay:${i * 0.03}s`}
+                  style={`animation-delay:${Math.min(i * 0.03, 0.5)}s`}
                 >
                   <td>{String(row.name ?? '—')}</td>
                   <td style="color:#64748b;font-size:0.82rem">{String(row.investor_typ ?? '—')}</td>
@@ -548,12 +548,16 @@ function statusBadge(s: unknown): string {
 
     // API Calls
     async function apiPost(body) {
-      const res = await fetch('/api/admin-investor', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-      return res.json();
+      try {
+        const res = await fetch('/api/admin-investor', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        return res.json();
+      } catch {
+        return { success: false, error: 'Netzwerkfehler' };
+      }
     }
 
     // Status change
@@ -609,6 +613,8 @@ function statusBadge(s: unknown): string {
       if (result.success) {
         if (activeRow) activeRow.remove();
         closePanel();
+      } else {
+        alert('Löschen fehlgeschlagen: ' + (result.error ?? 'Unbekannter Fehler'));
       }
     });
   </script>
