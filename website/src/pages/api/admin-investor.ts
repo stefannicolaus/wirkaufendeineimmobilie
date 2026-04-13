@@ -4,6 +4,9 @@ import { isValidSession } from '../../lib/admin-auth';
 
 export const prerender = false;
 
+// Auth note: /api/* routes are NOT covered by the admin middleware (which only guards /admin/*).
+// This route handles authentication inline via authCheck() — every handler MUST call it.
+
 const ALLOWED_ORIGINS = [
   'https://wirkaufendeineimmobilie.de',
   'http://localhost:4321',
