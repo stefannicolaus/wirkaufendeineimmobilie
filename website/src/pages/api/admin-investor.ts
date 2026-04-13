@@ -11,7 +11,7 @@ const ALLOWED_ORIGINS = [
 ];
 
 const VALID_STATUS = [
-  'neu', 'kontaktiert', 'qualifiziert', 'aktiv', 'abgeschlossen', 'nicht qualifiziert', 'geloescht',
+  'neu', 'kontaktiert', 'qualifiziert', 'aktiv', 'abgeschlossen', 'nicht qualifiziert',
 ];
 
 function authCheck(request: Request): boolean {
